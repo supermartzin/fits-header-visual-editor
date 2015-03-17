@@ -8,5 +8,14 @@
     <artifactId>FITSHeaderEditor</artifactId>
     <version>0.1-ALPHA</version>
 
-    
+    <dependencies>
+
+        <!-- Google Guice -->
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>4.0-beta5</version>
+        </dependency>
+
+    </dependencies>
 </project>
