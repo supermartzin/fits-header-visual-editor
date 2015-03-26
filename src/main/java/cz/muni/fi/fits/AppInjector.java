@@ -13,16 +13,16 @@ import cz.muni.fi.fits.output.writers.ConsoleOutputWriter;
  * TODO description
  */
 public class AppInjector extends AbstractModule {
-    private final Object inputData;
+    private final Object _inputData;
 
     public AppInjector(Object inputData) {
-        this.inputData = inputData;
+        this._inputData = inputData;
     }
 
     @Override
     protected void configure() {
         bind(OutputService.class).to(ConsoleOutputWriter.class);
         bind(HeaderEditingService.class).to(NomTamHeaderEditor.class);
-        bind(InputService.class).toInstance(new CmdArgumentsInputService((String[]) this.inputData));
+        bind(InputService.class).toInstance(new CmdArgumentsInputService((String[]) _inputData));
     }
 }

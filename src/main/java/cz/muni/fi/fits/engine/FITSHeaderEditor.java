@@ -1,6 +1,7 @@
 package cz.muni.fi.fits.engine;
 
 import cz.muni.fi.fits.engine.core.HeaderEditingService;
+import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.input.InputService;
 import cz.muni.fi.fits.models.InputData;
 import cz.muni.fi.fits.output.OutputService;
@@ -25,6 +26,10 @@ public class FITSHeaderEditor {
     }
 
     public void start() {
-        InputData inputData = inputService.getProcessedInput();
+        try {
+            InputData inputData = inputService.getProcessedInput();
+        } catch (IllegalInputDataException e) {
+            e.printStackTrace();
+        }
     }
 }
