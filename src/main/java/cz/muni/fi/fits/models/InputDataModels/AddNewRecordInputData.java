@@ -17,9 +17,7 @@ public class AddNewRecordInputData extends InputData {
     private final String _value;
     private final String _comment;
 
-    public AddNewRecordInputData(OperationType operationType, Collection<File> files, String keyword, String value, String comment) {
-        this.setOperationType(operationType);
-        this.setFitsFiles(files);
+    public AddNewRecordInputData(String keyword, String value, String comment) {
         this._value = value;
         this._comment = comment;
         this._keyword = keyword.toUpperCase(LocaleHelper.getLocale());

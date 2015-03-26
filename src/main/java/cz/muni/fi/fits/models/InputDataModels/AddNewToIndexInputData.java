@@ -13,8 +13,8 @@ public class AddNewToIndexInputData extends AddNewRecordInputData {
 
     private final int index;
 
-    public AddNewToIndexInputData(OperationType operationType, Collection<File> files, int index, String keyword, String value, String comment) {
-        super(operationType, files, keyword, value, comment);
+    public AddNewToIndexInputData(int index, String keyword, String value, String comment) {
+        super(keyword, value, comment);
         this.index = index;
     }
 

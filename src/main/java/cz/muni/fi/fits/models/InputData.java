@@ -16,7 +16,7 @@ public abstract class InputData {
         return _operationType;
     }
 
-    protected void setOperationType(OperationType operationType) {
+    public void setOperationType(OperationType operationType) {
         this._operationType = operationType;
     }
 
@@ -24,7 +24,7 @@ public abstract class InputData {
         return _fitsFiles;
     }
 
-    protected void setFitsFiles(Collection<File> fitsFiles) {
+    public void setFitsFiles(Collection<File> fitsFiles) {
         this._fitsFiles = fitsFiles;
     }
 }

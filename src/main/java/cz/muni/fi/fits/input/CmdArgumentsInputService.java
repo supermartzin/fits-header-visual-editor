@@ -1,10 +1,16 @@
 package cz.muni.fi.fits.input;
 
+import cz.muni.fi.fits.exceptions.UnknownOperationException;
+import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.models.InputData;
+import cz.muni.fi.fits.models.OperationType;
+import cz.muni.fi.fits.models.inputDataModels.AddNewRecordInputData;
 import cz.muni.fi.fits.utils.LocaleHelper;
 
 import javax.inject.Singleton;
+import java.io.File;
+import java.util.Collection;
 
 /**
  *
@@ -24,15 +30,21 @@ public class CmdArgumentsInputService implements InputService {
         if (_cmdArgs == null)
             throw new IllegalInputDataException("Arguments are null");
         if (_cmdArgs.length == 0)
-            throw new IllegalInputDataException("No arguments provided");
+            throw new WrongNumberOfParametersException(0, "No arguments provided");
         if (_cmdArgs.length < 2)
-            throw new IllegalInputDataException("Insuffiecient number of parameters");
+            throw new WrongNumberOfParametersException(_cmdArgs.length, "Insufficient number of parameters");
 
         String operation = _cmdArgs[0].trim().toUpperCase(LocaleHelper.getLocale());
+
+        // get input FITS files
+        Collection<File> fitsFiles = CmdArgsProcessingHelper.extractFilesData(_cmdArgs[1]);
+
         switch (operation) {
             case "ADD_BY_KW":
-                return CmdArgsProcessingHelper.extractAddNewRecordData(_cmdArgs);
-            case "ADD_BY_IX":
+                AddNewRecordInputData inputData = CmdArgsProcessingHelper.extractAddNewRecordData(_cmdArgs);
+                inputData.setOperationType(OperationType.ADD_NEW_RECORD_TO_END);
+                inputData.setFitsFiles(fitsFiles);
+            case "ADD_TO_IX":
                 break;
             case "REMOVE_BY_KW":
                 break;
@@ -47,7 +59,7 @@ public class CmdArgumentsInputService implements InputService {
             case "CHAIN_EDIT":
                 break;
             default:
-                throw new IllegalInputDataException("Unknown operation: '" + operation + "'");
+                throw new UnknownOperationException(operation, "Unknown operation");
         }
 
         return null;

@@ -1,5 +1,6 @@
 package cz.muni.fi.fits.input;
 
+import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.models.OperationType;
 import cz.muni.fi.fits.models.inputDataModels.AddNewRecordInputData;
@@ -16,15 +17,18 @@ import java.util.HashSet;
  */
 final class CmdArgsProcessingHelper {
 
-    private static Collection<File> extractFilesData(String pathToFile) throws IllegalInputDataException {
+    static Collection<File> extractFilesData(String pathToFile) throws IllegalInputDataException {
+        if (pathToFile == null)
+            throw new IllegalArgumentException("pathToFile is null");
+
         Collection<File> fitsFiles = new HashSet<>();
 
         // check existence of input file
         File inputFile = new File(pathToFile);
+        if (!inputFile.exists())
+            throw new IllegalInputDataException("Input file does not exist");
         if (!inputFile.isFile())
             throw new IllegalInputDataException("Provided path to input file is invalid");
-        if (!inputFile.exists())
-            throw new IllegalInputDataException("Input file does not exists");
 
         // read paths to FITS files
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile)))
@@ -35,7 +39,7 @@ final class CmdArgsProcessingHelper {
                 fitsFiles.add(fitsFile);
             }
         } catch (FileNotFoundException fnfEx) {
-            throw new IllegalInputDataException("Input file does not exists", fnfEx);
+            throw new IllegalInputDataException("Input file does not exist", fnfEx);
         } catch (IOException ioEx) {
             throw new IllegalInputDataException("Error reading input file", ioEx);
         }
@@ -45,10 +49,7 @@ final class CmdArgsProcessingHelper {
 
     static AddNewRecordInputData extractAddNewRecordData(String[] cmdArgs) throws IllegalInputDataException {
         if (cmdArgs.length != 4 && cmdArgs.length != 5)
-            throw new IllegalInputDataException("Wrong number of parameters for operation 'ADD_BY_KW'");
-
-        // get input FITS files
-        Collection<File> fitsFiles = extractFilesData(cmdArgs[1]);
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'ADD_BY_KW'");
 
         // get keyword to add (required)
         String keyword = cmdArgs[2].trim();
@@ -74,12 +75,12 @@ final class CmdArgsProcessingHelper {
                                                         + Constants.MAX_VALUE_COMMENT_LENGTH + " characters");
         }
 
-        return new AddNewRecordInputData(OperationType.ADD_NEW_RECORD_TO_END, fitsFiles, keyword, value, comment);
+        return new AddNewRecordInputData(keyword, value, comment);
     }
 
     static AddNewToIndexInputData extractAddNewToIndexData(String[] cmdArgs) throws IllegalInputDataException {
         if (cmdArgs.length != 5 && cmdArgs.length != 6)
-            throw new IllegalInputDataException("Wrong number of parameters for operation 'ADD_BY_KW'");
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'ADD_BY_KW'");
 
         return null;
     }

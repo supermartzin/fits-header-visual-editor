@@ -26,5 +26,8 @@
         <module name="FITSHeaderEditor" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="FITSHeaderEditor" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
