@@ -1,9 +1,8 @@
-package cz.muni.fi.fits.input;
+package cz.muni.fi.fits.input.processors;
 
+import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.UnknownOperationException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
-import cz.muni.fi.fits.exceptions.IllegalInputDataException;
-import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,7 +17,7 @@ import java.nio.file.Paths;
  *
  * TODO description
  */
-public class CmdArgumentsInputServiceTest {
+public class CmdArgumentsProcessorTest {
 
     private static final Path FILE_PATH = Paths.get("files.in");
 
@@ -37,36 +36,36 @@ public class CmdArgumentsInputServiceTest {
 
     @Test
     public void testGetProcessedInput_NullArguments() throws Exception {
-        InputService inputService = new CmdArgumentsInputService(null);
+        InputProcessor inputProcessor = new CmdArgumentsProcessor(null);
 
         exception.expect(IllegalInputDataException.class);
         exception.expectMessage("Arguments are null");
-        inputService.getProcessedInput();
+        inputProcessor.getProcessedInput();
     }
 
     @Test
     public void testGetProcessedInput_NoArguments() throws Exception {
-        InputService inputService = new CmdArgumentsInputService(new String[]{});
+        InputProcessor inputProcessor = new CmdArgumentsProcessor(new String[]{});
 
         exception.expect(WrongNumberOfParametersException.class);
-        inputService.getProcessedInput();
+        inputProcessor.getProcessedInput();
     }
 
     @Test
     public void testGetProcessedInput_WrongNumberOfArguments() throws Exception {
         String[] args = new String[] { "add_bad" };
-        InputService inputService = new CmdArgumentsInputService(args);
+        InputProcessor inputProcessor = new CmdArgumentsProcessor(args);
 
         exception.expect(WrongNumberOfParametersException.class);
-        inputService.getProcessedInput();
+        inputProcessor.getProcessedInput();
     }
 
     @Test
     public void testGetProcessedInput_BadOperation() throws Exception {
         String[] args = new String[] { "add_bad", "files.in" };
-        InputService inputService = new CmdArgumentsInputService(args);
+        InputProcessor inputProcessor = new CmdArgumentsProcessor(args);
 
         exception.expect(UnknownOperationException.class);
-        inputService.getProcessedInput();
+        inputProcessor.getProcessedInput();
     }
 }

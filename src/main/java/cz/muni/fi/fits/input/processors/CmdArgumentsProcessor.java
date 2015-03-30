@@ -1,11 +1,11 @@
-package cz.muni.fi.fits.input;
+package cz.muni.fi.fits.input.processors;
 
+import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.UnknownOperationException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
-import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.models.InputData;
-import cz.muni.fi.fits.models.OperationType;
-import cz.muni.fi.fits.models.inputDataModels.AddNewRecordInputData;
+import cz.muni.fi.fits.models.inputData.AddNewRecordInputData;
+import cz.muni.fi.fits.models.inputData.AddNewToIndexInputData;
 import cz.muni.fi.fits.utils.LocaleHelper;
 
 import javax.inject.Singleton;
@@ -17,11 +17,11 @@ import java.util.Collection;
  * TODO description
  */
 @Singleton
-public class CmdArgumentsInputService implements InputService {
+public class CmdArgumentsProcessor implements InputProcessor {
 
     private final String[] _cmdArgs;
 
-    public CmdArgumentsInputService(String[] cmdArgs) {
+    public CmdArgumentsProcessor(String[] cmdArgs) {
         this._cmdArgs = cmdArgs;
     }
 
@@ -37,31 +37,39 @@ public class CmdArgumentsInputService implements InputService {
         String operation = _cmdArgs[0].trim().toUpperCase(LocaleHelper.getLocale());
 
         // get input FITS files
-        Collection<File> fitsFiles = CmdArgsProcessingHelper.extractFilesData(_cmdArgs[1]);
+        Collection<File> fitsFiles = CmdArgumentsProcessorHelper.extractFilesData(_cmdArgs[1]);
 
         switch (operation) {
             case "ADD_BY_KW":
-                AddNewRecordInputData inputData = CmdArgsProcessingHelper.extractAddNewRecordData(_cmdArgs);
-                inputData.setOperationType(OperationType.ADD_NEW_RECORD_TO_END);
-                inputData.setFitsFiles(fitsFiles);
+                AddNewRecordInputData addNewRecordInputData = CmdArgumentsProcessorHelper.extractAddNewRecordData(_cmdArgs);
+                addNewRecordInputData.setFitsFiles(fitsFiles);
+                return addNewRecordInputData;
+
             case "ADD_TO_IX":
-                break;
+                AddNewToIndexInputData addNewToIndexInputData = CmdArgumentsProcessorHelper.extractAddNewToIndexData(_cmdArgs);
+                addNewToIndexInputData.setFitsFiles(fitsFiles);
+                return addNewToIndexInputData;
+
             case "REMOVE_BY_KW":
-                break;
+                return null;
+
             case "REMOVE_BY_IX":
-                break;
+                return null;
+
             case "CHANGE_KW":
-                break;
+                return null;
+
             case "CHANGE_VALUE":
-                break;
+                return null;
+
             case "CHAIN_NEW":
-                break;
+                return null;
+
             case "CHAIN_EDIT":
-                break;
+                return null;
+
             default:
                 throw new UnknownOperationException(operation, "Unknown operation");
         }
-
-        return null;
     }
 }

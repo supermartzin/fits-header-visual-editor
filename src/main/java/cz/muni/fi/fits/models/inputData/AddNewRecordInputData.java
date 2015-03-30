@@ -1,11 +1,11 @@
-package cz.muni.fi.fits.models.inputDataModels;
+package cz.muni.fi.fits.models.inputData;
 
 import cz.muni.fi.fits.models.InputData;
 import cz.muni.fi.fits.models.OperationType;
-import cz.muni.fi.fits.utils.LocaleHelper;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.HashSet;
 
 /**
  *
@@ -18,9 +18,14 @@ public class AddNewRecordInputData extends InputData {
     private final String _comment;
 
     public AddNewRecordInputData(String keyword, String value, String comment) {
+        this(keyword, value, comment, new HashSet<>());
+    }
+
+    public AddNewRecordInputData(String keyword, String value, String comment, Collection<File> fitsFiles) {
+        super(OperationType.ADD_NEW_RECORD_TO_END, fitsFiles);
+        this._keyword = keyword;
         this._value = value;
         this._comment = comment;
-        this._keyword = keyword.toUpperCase(LocaleHelper.getLocale());
     }
 
     public String getKeyword() {

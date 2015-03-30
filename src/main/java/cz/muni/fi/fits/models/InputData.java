@@ -9,15 +9,16 @@ import java.util.Collection;
  */
 public abstract class InputData {
 
-    private OperationType _operationType;
+    private final OperationType _operationType;
     private Collection<File> _fitsFiles;
+
+    public InputData(OperationType operationType, Collection<File> fitsFiles) {
+        this._operationType = operationType;
+        this._fitsFiles = fitsFiles;
+    }
 
     public OperationType getOperationType() {
         return _operationType;
-    }
-
-    public void setOperationType(OperationType operationType) {
-        this._operationType = operationType;
     }
 
     public Collection<File> getFitsFiles() {
