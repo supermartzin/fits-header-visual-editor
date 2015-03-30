@@ -1,6 +1,6 @@
 package cz.muni.fi.fits.input.validators;
 
-import cz.muni.fi.fits.models.InputData;
+import cz.muni.fi.fits.models.inputData.InputData;
 
 /**
  *

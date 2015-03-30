@@ -4,7 +4,7 @@ import cz.muni.fi.fits.engine.core.HeaderEditingService;
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.input.processors.InputProcessor;
 import cz.muni.fi.fits.input.validators.InputValidator;
-import cz.muni.fi.fits.models.InputData;
+import cz.muni.fi.fits.models.inputData.InputData;
 import cz.muni.fi.fits.output.OutputService;
 
 import javax.inject.Inject;

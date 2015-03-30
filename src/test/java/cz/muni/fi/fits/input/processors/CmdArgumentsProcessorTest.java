@@ -53,7 +53,7 @@ public class CmdArgumentsProcessorTest {
 
     @Test
     public void testGetProcessedInput_WrongNumberOfArguments() throws Exception {
-        String[] args = new String[] { "add_bad" };
+        String[] args = new String[] { "add" };
         InputProcessor inputProcessor = new CmdArgumentsProcessor(args);
 
         exception.expect(WrongNumberOfParametersException.class);

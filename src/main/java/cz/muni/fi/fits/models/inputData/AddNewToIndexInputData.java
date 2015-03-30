@@ -1,6 +1,5 @@
 package cz.muni.fi.fits.models.inputData;
 
-import cz.muni.fi.fits.models.InputData;
 import cz.muni.fi.fits.models.OperationType;
 
 import java.io.File;
@@ -11,19 +10,19 @@ import java.util.HashSet;
  *
  * TODO description
  */
-public class AddNewToIndexInputData extends InputData {
+public class AddNewToIndexInputData extends AmbigiousInputData {
 
     private final int _index;
     private final String _keyword;
     private final String _value;
     private final String _comment;
 
-    public AddNewToIndexInputData(int index, String keyword, String value, String comment) {
-        this(index, keyword, value, comment, new HashSet<>());
+    public AddNewToIndexInputData(int index, String keyword, String value, String comment, boolean removeOldIfExists) {
+        this(index, keyword, value, comment, removeOldIfExists, new HashSet<>());
     }
 
-    public AddNewToIndexInputData(int index, String keyword, String value, String comment, Collection<File> fitsFiles) {
-        super(OperationType.ADD_NEW_RECORD_TO_INDEX, fitsFiles);
+    public AddNewToIndexInputData(int index, String keyword, String value, String comment, boolean removeOldIfExists, Collection<File> fitsFiles) {
+        super(OperationType.ADD_NEW_RECORD_TO_INDEX, fitsFiles, removeOldIfExists);
         this._index = index;
         this._keyword = keyword;
         this._value = value;
@@ -44,5 +43,9 @@ public class AddNewToIndexInputData extends InputData {
 
     public String getComment() {
         return _comment;
+    }
+
+    public boolean removeOldIfExists() {
+        return _hasSwitch;
     }
 }

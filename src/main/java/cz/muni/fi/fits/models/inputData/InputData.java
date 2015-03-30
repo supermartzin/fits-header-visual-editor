@@ -1,4 +1,6 @@
-package cz.muni.fi.fits.models;
+package cz.muni.fi.fits.models.inputData;
+
+import cz.muni.fi.fits.models.OperationType;
 
 import java.io.File;
 import java.util.Collection;

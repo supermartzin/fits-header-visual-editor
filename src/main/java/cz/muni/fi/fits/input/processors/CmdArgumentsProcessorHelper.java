@@ -1,9 +1,9 @@
 package cz.muni.fi.fits.input.processors;
 
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
+import cz.muni.fi.fits.exceptions.InvalidSwitchParameterException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
-import cz.muni.fi.fits.models.inputData.AddNewRecordInputData;
-import cz.muni.fi.fits.models.inputData.AddNewToIndexInputData;
+import cz.muni.fi.fits.models.inputData.*;
 
 import java.io.*;
 import java.util.Collection;
@@ -46,11 +46,22 @@ final class CmdArgumentsProcessorHelper {
     }
 
     static AddNewRecordInputData extractAddNewRecordData(String[] cmdArgs) throws IllegalInputDataException {
-        if (cmdArgs.length != 4 && cmdArgs.length != 5)
-            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'ADD_BY_KW'");
+        if (cmdArgs.length != 4 && cmdArgs.length != 5 && cmdArgs.length != 6)
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'ADD'");
+
+        // get switch (optional)
+        boolean updateIfExists = false;
+        String switchParam = cmdArgs[1].trim();
+        if (switchParam.startsWith("-")) {
+            if (switchParam.equals("-u"))
+                updateIfExists = true;
+            else
+                throw new InvalidSwitchParameterException("Switch parameter is in invalid format: '" + switchParam + "'. Correct format is '-u'");
+        }
 
         // get keyword of new record (required)
-        String keyword = cmdArgs[2].trim();
+        String keyword = !updateIfExists ? cmdArgs[2].trim() : cmdArgs[3].trim();
+
         // TODO to validator
         /*if (keyword.length() > Constants.MAX_KEYWORD_LENGTH)
             throw new IllegalInputDataException("Keyword parameter '"
@@ -58,7 +69,8 @@ final class CmdArgumentsProcessorHelper {
                                                     + Constants.MAX_KEYWORD_LENGTH + " characters");*/
 
         // get value of new record (required)
-        String value = cmdArgs[3].trim();
+        String value = !updateIfExists ? cmdArgs[3].trim() : cmdArgs[4].trim();
+
         // TODO to validator
         /*if (value.length() > Constants.MAX_VALUE_COMMENT_LENGTH)
             throw new IllegalInputDataException("Value parameter '"
@@ -67,21 +79,72 @@ final class CmdArgumentsProcessorHelper {
 
         // get comment of new record (optional)
         String comment = "";
-        if (cmdArgs.length == 5) {
+        if (!updateIfExists && cmdArgs.length == 5)
             comment = cmdArgs[4].trim();
-            // TODO to validator
+        else if (updateIfExists && cmdArgs.length == 6)
+            comment = cmdArgs[5].trim();
+
+        // TODO to validator
             /*if (comment.length() + value.length() > Constants.MAX_VALUE_COMMENT_LENGTH)
                 throw new IllegalInputDataException("Comment parameter '"
                                                         + comment + "' along with the value exceeds allowed length of "
                                                         + Constants.MAX_VALUE_COMMENT_LENGTH + " characters");*/
-        }
 
-        return new AddNewRecordInputData(keyword, value, comment);
+        return new AddNewRecordInputData(keyword, value, comment, updateIfExists);
     }
 
     static AddNewToIndexInputData extractAddNewToIndexData(String[] cmdArgs) throws IllegalInputDataException {
-        if (cmdArgs.length != 5 && cmdArgs.length != 6)
-            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'ADD_TO_IX'");
+        if (cmdArgs.length != 5 && cmdArgs.length != 6 && cmdArgs.length != 7)
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'ADD_IX'");
+
+        // get switch (optional)
+        boolean removeOldIfExists = false;
+        String switchParam  = cmdArgs[1].trim();
+        if (switchParam.startsWith("-")) {
+            if (switchParam.equals("-rm"))
+                removeOldIfExists = true;
+            else
+                throw new InvalidSwitchParameterException("Switch parameter is in invalid format: '" + switchParam + "'. Correct format is '-rm'");
+        }
+
+        // get index where to add new record (required)
+        int index;
+        String indexString = !removeOldIfExists ? cmdArgs[2].trim() : cmdArgs[3].trim();
+        try {
+            index = Integer.parseInt(indexString);
+        } catch (NumberFormatException nfEx) {
+            throw new IllegalInputDataException("Index is in invalid format: " + indexString, nfEx);
+        }
+
+        // get keyword of new record (required)
+        String keyword = !removeOldIfExists ? cmdArgs[3].trim() : cmdArgs[4].trim();
+
+        // get value of new record (required)
+        String value = !removeOldIfExists ? cmdArgs[4].trim() : cmdArgs[5].trim();
+
+        // get comment of new record (optional)
+        String comment = "";
+        if (!removeOldIfExists && cmdArgs.length == 6)
+            comment = cmdArgs[5].trim();
+        else if (removeOldIfExists & cmdArgs.length == 7)
+            comment = cmdArgs[6].trim();
+
+        return new AddNewToIndexInputData(index, keyword, value, comment, removeOldIfExists);
+    }
+
+    static RemoveByKeywordInputData extractRemoveByKeywordData(String[] cmdArgs) throws WrongNumberOfParametersException {
+        if (cmdArgs.length != 3)
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'REMOVE'");
+
+        // get keyword of record to remove (required)
+        String keyword = cmdArgs[2].trim();
+
+        return new RemoveByKeywordInputData(keyword);
+    }
+
+    static RemoveByIndexInputData extractRemoveByIndexData(String[] cmdArgs) throws IllegalInputDataException {
+        if (cmdArgs.length != 3)
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'REMOVE_IX'");
 
         // get index where to add new record (required)
         int index;
@@ -92,17 +155,37 @@ final class CmdArgumentsProcessorHelper {
             throw new IllegalInputDataException("Index is in invalid format: " + indexString, nfEx);
         }
 
-        // get keyword of new record (required)
-        String keyword = cmdArgs[3].trim();
+        return new RemoveByIndexInputData(index);
+    }
 
-        // get value of new record (required)
-        String value = cmdArgs[4].trim();
+    static ChangeKeywordInputData extractChangeKeywordData(String[] cmdArgs) throws WrongNumberOfParametersException, InvalidSwitchParameterException {
+        if (cmdArgs.length != 4 && cmdArgs.length != 5)
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'CHANGE_KW'");
 
-        // get comment of new record (optional)
-        String comment = "";
-        if (cmdArgs.length == 6)
-            comment = cmdArgs[5].trim();
+        // get switch (optional)
+        boolean removeValueOfNewIfExists = false;
+        String switchParam = cmdArgs[1].trim();
+        if (switchParam.startsWith("-")) {
+            if (switchParam.equals("-rm"))
+                removeValueOfNewIfExists = true;
+            else
+                throw new InvalidSwitchParameterException("Switch parameter is in invalid format: '" + switchParam + "'. Correct format is '-rm'");
+        }
 
-        return new AddNewToIndexInputData(index, keyword, value, comment);
+        // get old keyword (required)
+        String oldKeyword = !removeValueOfNewIfExists ? cmdArgs[2].trim() : cmdArgs[3].trim();
+
+        // get new keyword (required)
+        String newKeyword = !removeValueOfNewIfExists ? cmdArgs[3].trim() : cmdArgs[4].trim();
+
+        return new ChangeKeywordInputData(oldKeyword, newKeyword, removeValueOfNewIfExists);
+    }
+
+    static ChangeValueByKeywordInputData extractChangeValueByKeywordData(String[] cmdArgs) {
+        return new ChangeValueByKeywordInputData(null);
+    }
+
+    static ChainRecordsInputData extractChainRecordsData(String[] cmdArgs) {
+        return new ChainRecordsInputData(null);
     }
 }
