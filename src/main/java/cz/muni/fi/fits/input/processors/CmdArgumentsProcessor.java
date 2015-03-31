@@ -3,7 +3,7 @@ package cz.muni.fi.fits.input.processors;
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.UnknownOperationException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
-import cz.muni.fi.fits.models.inputData.InputData;
+import cz.muni.fi.fits.models.inputData.*;
 
 import javax.inject.Singleton;
 import java.io.File;
@@ -30,44 +30,59 @@ public class CmdArgumentsProcessor implements InputProcessor {
             throw new WrongNumberOfParametersException(0, "No arguments provided");
         if (_cmdArgs.length < 2)
             throw new WrongNumberOfParametersException(_cmdArgs.length, "Insufficient number of parameters");
-        if (_cmdArgs.length == 2 && _cmdArgs[1].startsWith("-"))
-            throw new WrongNumberOfParametersException(_cmdArgs.length, "Insufficient number of parameters");
+
+        int fitsFilesArgIndex;
+        InputData inputData;
 
         String operation = _cmdArgs[0].trim().toUpperCase();
-
-        InputData inputData;
         switch (operation) {
             case "ADD":
                 inputData = CmdArgumentsProcessorHelper.extractAddNewRecordData(_cmdArgs);
+                fitsFilesArgIndex = ((AddNewRecordInputData) inputData).updateIfExists() ? 2 : 1;
                 break;
+
             case "ADD_IX":
                 inputData = CmdArgumentsProcessorHelper.extractAddNewToIndexData(_cmdArgs);
+                fitsFilesArgIndex = ((AddNewToIndexInputData) inputData).removeOldIfExists() ? 2 : 1;
                 break;
+
             case "REMOVE":
                 inputData = CmdArgumentsProcessorHelper.extractRemoveByKeywordData(_cmdArgs);
+                fitsFilesArgIndex = 1;
                 break;
+
             case "REMOVE_IX":
                 inputData = CmdArgumentsProcessorHelper.extractRemoveByIndexData(_cmdArgs);
+                fitsFilesArgIndex = 1;
                 break;
+
             case "CHANGE":
                 inputData = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(_cmdArgs);
+                fitsFilesArgIndex = ((ChangeValueByKeywordInputData) inputData).addNewIfNotExists() ? 2 : 1;
                 break;
+
             case "CHANGE_KW":
                 inputData = CmdArgumentsProcessorHelper.extractChangeKeywordData(_cmdArgs);
+                fitsFilesArgIndex = ((ChangeKeywordInputData) inputData).removeValueOfNewIfExists() ? 2 : 1;
                 break;
+
             case "CHAIN":
                 inputData = CmdArgumentsProcessorHelper.extractChainRecordsData(_cmdArgs);
+                ChainRecordsInputData crid = (ChainRecordsInputData) inputData;
+                if (crid.updateIfExists() && crid.skipIfChainKwNotExists())
+                    fitsFilesArgIndex = 3;
+                else if (!crid.updateIfExists() && !crid.skipIfChainKwNotExists())
+                    fitsFilesArgIndex = 1;
+                else
+                    fitsFilesArgIndex = 2;
                 break;
+
             default:
                 throw new UnknownOperationException(operation, "Unknown operation");
         }
 
         // get input FITS files
-        Collection<File> fitsFiles;
-        if (!_cmdArgs[1].startsWith("-"))
-            fitsFiles = CmdArgumentsProcessorHelper.extractFilesData(_cmdArgs[1]);
-        else
-            fitsFiles = CmdArgumentsProcessorHelper.extractFilesData(_cmdArgs[2]);
+        Collection<File> fitsFiles = CmdArgumentsProcessorHelper.extractFilesData(_cmdArgs[fitsFilesArgIndex]);
         inputData.setFitsFiles(fitsFiles);
 
         return inputData;

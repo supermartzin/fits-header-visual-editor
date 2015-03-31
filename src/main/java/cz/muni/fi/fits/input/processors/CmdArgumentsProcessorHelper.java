@@ -4,10 +4,12 @@ import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.InvalidSwitchParameterException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
 import cz.muni.fi.fits.models.inputData.*;
+import cz.muni.fi.fits.utils.Tuple;
 
 import java.io.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 /**
  *
@@ -231,7 +233,93 @@ final class CmdArgumentsProcessorHelper {
         return new ChangeValueByKeywordInputData(keyword, value, comment,addNewIfNotExists);
     }
 
-    static ChainRecordsInputData extractChainRecordsData(String[] cmdArgs) {
+    static ChainRecordsInputData extractChainRecordsData(String[] cmdArgs) throws IllegalInputDataException {
+        // get switches (optional)
+        boolean updateIfExists = false;
+        boolean skipIfChainKwNotExists = false;
+        String firstSwitchParam = cmdArgs[1].trim();
+        // some parameter on first place
+        if (firstSwitchParam.startsWith("-")) {
+            switch (firstSwitchParam) {
+                case "-u":
+                    updateIfExists = true;
+                    break;
+                case "-s":
+                    skipIfChainKwNotExists = true;
+                    break;
+                default:
+                    throw new InvalidSwitchParameterException("First switch parameter is in invalid format: '" + firstSwitchParam + "'. Correct format is '-u' or '-s");
+            }
 
+            if (cmdArgs.length < 3)
+                throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'CHAIN'");
+
+            String secondSwitchParam = cmdArgs[2].trim();
+            // some parameter on second place
+            if (secondSwitchParam.startsWith("-")) {
+                // if first param is '-u' second must be '-s'
+                if (updateIfExists) {
+                    if (secondSwitchParam.equals("-s"))
+                        skipIfChainKwNotExists = true;
+                    else
+                        throw new InvalidSwitchParameterException("Second switch parameter is in invalid format: '" + secondSwitchParam + "'. Correct format is '-s");
+                    // if first param is '-s' second must be '-u'
+                } else {
+                    if (secondSwitchParam.equals("-u"))
+                        updateIfExists = true;
+                    else
+                        throw new InvalidSwitchParameterException("Second switch parameter is in invalid format: '" + secondSwitchParam + "'. Correct format is '-u");
+                }
+            }
+        }
+
+        int keywordIndex = updateIfExists && skipIfChainKwNotExists
+                ? 4
+                : !updateIfExists && !skipIfChainKwNotExists ? 2 : 3;
+
+        if (cmdArgs.length < keywordIndex + 1)
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'CHAIN'");
+
+        // set keyword of chained record (required)
+        String keyword = cmdArgs[keywordIndex].trim();
+
+        int startIndex = keywordIndex + 1;
+
+        if (cmdArgs.length < startIndex + 1)
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'CHAIN'");
+
+        // set parameters to chain (required) and comment (optional)
+        LinkedList<Tuple> chainValues = new LinkedList<>();
+        String comment = "";
+        for (int i = startIndex; i < cmdArgs.length; i++) {
+            String argument = cmdArgs[i].trim();
+
+            // constant
+            if (argument.startsWith("-c=")) {
+                argument = argument.substring(3);
+                chainValues.add(new Tuple<>("constant", argument));
+                continue;
+            }
+
+            // keyword
+            if (argument.startsWith("-k=")) {
+                argument = argument.substring(3);
+                chainValues.add(new Tuple<>("keyword", argument.toUpperCase()));
+                continue;
+            }
+
+            // comment (optional)
+            if (i == cmdArgs.length - 1) {
+                comment = argument;
+                continue;
+            }
+
+            throw new IllegalInputDataException("Invalid parameter to chain: '" + argument + "'");
+        }
+
+        if (chainValues.isEmpty())
+            throw new IllegalInputDataException("Parameters does not contain any keyword or constant to chain");
+
+        return new ChainRecordsInputData(keyword, chainValues, comment, updateIfExists, skipIfChainKwNotExists);
     }
 }
