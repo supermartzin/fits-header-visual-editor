@@ -20,7 +20,7 @@ public class RemoveByKeywordInputData extends InputData {
 
     public RemoveByKeywordInputData(String keyword, Collection<File> fitsFiles) {
         super(OperationType.REMOVE_RECORD_BY_KEYWORD, fitsFiles);
-        this._keyword = keyword;
+        this._keyword = keyword.toUpperCase();
     }
 
     public String getKeyword() {

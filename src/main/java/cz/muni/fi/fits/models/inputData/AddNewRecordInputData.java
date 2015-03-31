@@ -10,7 +10,7 @@ import java.util.HashSet;
  *
  * TODO description
  */
-public class AddNewRecordInputData extends AmbigiousInputData {
+public class AddNewRecordInputData extends OneSwitchInputData {
 
     private final String _keyword;
     private final String _value;
@@ -22,7 +22,7 @@ public class AddNewRecordInputData extends AmbigiousInputData {
 
     public AddNewRecordInputData(String keyword, String value, String comment, boolean updateIfExists, Collection<File> fitsFiles) {
         super(OperationType.ADD_NEW_RECORD_TO_END, fitsFiles, updateIfExists);
-        this._keyword = keyword;
+        this._keyword = keyword.toUpperCase();
         this._value = value;
         this._comment = comment;
     }

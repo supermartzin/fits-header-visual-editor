@@ -4,7 +4,6 @@ import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.UnknownOperationException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
 import cz.muni.fi.fits.models.inputData.InputData;
-import cz.muni.fi.fits.utils.LocaleHelper;
 
 import javax.inject.Singleton;
 import java.io.File;
@@ -34,7 +33,7 @@ public class CmdArgumentsProcessor implements InputProcessor {
         if (_cmdArgs.length == 2 && _cmdArgs[1].startsWith("-"))
             throw new WrongNumberOfParametersException(_cmdArgs.length, "Insufficient number of parameters");
 
-        String operation = _cmdArgs[0].trim().toUpperCase(LocaleHelper.getLocale());
+        String operation = _cmdArgs[0].trim().toUpperCase();
 
         InputData inputData;
         switch (operation) {

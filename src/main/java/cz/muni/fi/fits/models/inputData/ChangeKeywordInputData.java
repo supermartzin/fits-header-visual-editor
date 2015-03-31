@@ -10,7 +10,7 @@ import java.util.HashSet;
  *
  * TODO description
  */
-public class ChangeKeywordInputData extends AmbigiousInputData {
+public class ChangeKeywordInputData extends OneSwitchInputData {
 
     private final String _oldKeyword;
     private final String _newKeyword;
@@ -21,8 +21,8 @@ public class ChangeKeywordInputData extends AmbigiousInputData {
 
     public ChangeKeywordInputData(String oldKeyword, String newKeyword, boolean removeValueOfNewIfExists, Collection<File> fitsFiles) {
         super(OperationType.CHANGE_KEYWORD, fitsFiles, removeValueOfNewIfExists);
-        this._oldKeyword = oldKeyword;
-        this._newKeyword = newKeyword;
+        this._oldKeyword = oldKeyword.toUpperCase();
+        this._newKeyword = newKeyword.toUpperCase();
     }
 
     public String getOldKeyword() {

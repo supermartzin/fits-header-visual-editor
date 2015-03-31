@@ -46,9 +46,6 @@ final class CmdArgumentsProcessorHelper {
     }
 
     static AddNewRecordInputData extractAddNewRecordData(String[] cmdArgs) throws IllegalInputDataException {
-        if (cmdArgs.length != 4 && cmdArgs.length != 5 && cmdArgs.length != 6)
-            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'ADD'");
-
         // get switch (optional)
         boolean updateIfExists = false;
         String switchParam = cmdArgs[1].trim();
@@ -57,6 +54,14 @@ final class CmdArgumentsProcessorHelper {
                 updateIfExists = true;
             else
                 throw new InvalidSwitchParameterException("Switch parameter is in invalid format: '" + switchParam + "'. Correct format is '-u'");
+        }
+
+        if (!updateIfExists) {
+            if (cmdArgs.length < 4 || cmdArgs.length > 5)
+                throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'ADD'");
+        } else {
+            if (cmdArgs.length < 5 || cmdArgs.length > 6)
+                throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'ADD'");
         }
 
         // get keyword of new record (required)
@@ -94,9 +99,6 @@ final class CmdArgumentsProcessorHelper {
     }
 
     static AddNewToIndexInputData extractAddNewToIndexData(String[] cmdArgs) throws IllegalInputDataException {
-        if (cmdArgs.length != 5 && cmdArgs.length != 6 && cmdArgs.length != 7)
-            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'ADD_IX'");
-
         // get switch (optional)
         boolean removeOldIfExists = false;
         String switchParam  = cmdArgs[1].trim();
@@ -105,6 +107,14 @@ final class CmdArgumentsProcessorHelper {
                 removeOldIfExists = true;
             else
                 throw new InvalidSwitchParameterException("Switch parameter is in invalid format: '" + switchParam + "'. Correct format is '-rm'");
+        }
+
+        if (!removeOldIfExists) {
+            if (cmdArgs.length < 5 || cmdArgs.length > 6)
+                throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'ADD_IX'");
+        } else {
+            if (cmdArgs.length < 6 || cmdArgs.length > 7)
+                throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'ADD_IX'");
         }
 
         // get index where to add new record (required)
@@ -159,9 +169,6 @@ final class CmdArgumentsProcessorHelper {
     }
 
     static ChangeKeywordInputData extractChangeKeywordData(String[] cmdArgs) throws WrongNumberOfParametersException, InvalidSwitchParameterException {
-        if (cmdArgs.length != 4 && cmdArgs.length != 5)
-            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'CHANGE_KW'");
-
         // get switch (optional)
         boolean removeValueOfNewIfExists = false;
         String switchParam = cmdArgs[1].trim();
@@ -170,6 +177,14 @@ final class CmdArgumentsProcessorHelper {
                 removeValueOfNewIfExists = true;
             else
                 throw new InvalidSwitchParameterException("Switch parameter is in invalid format: '" + switchParam + "'. Correct format is '-rm'");
+        }
+
+        if (!removeValueOfNewIfExists) {
+            if (cmdArgs.length != 4)
+                throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'CHANGE_KW'");
+        } else {
+            if (cmdArgs.length != 5)
+                throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'CHANGE_KW'");
         }
 
         // get old keyword (required)
@@ -181,11 +196,42 @@ final class CmdArgumentsProcessorHelper {
         return new ChangeKeywordInputData(oldKeyword, newKeyword, removeValueOfNewIfExists);
     }
 
-    static ChangeValueByKeywordInputData extractChangeValueByKeywordData(String[] cmdArgs) {
-        return new ChangeValueByKeywordInputData(null);
+    static ChangeValueByKeywordInputData extractChangeValueByKeywordData(String[] cmdArgs) throws WrongNumberOfParametersException, InvalidSwitchParameterException {
+        // get switch (optional)
+        boolean addNewIfNotExists = false;
+        String switchParam = cmdArgs[1].trim();
+        if (switchParam.startsWith("-")) {
+            if (switchParam.equals("-a"))
+                addNewIfNotExists = true;
+            else
+                throw new InvalidSwitchParameterException("Switch parameter is in invalid format: '" + switchParam + "'. Correct format is '-a'");
+        }
+
+        if (!addNewIfNotExists) {
+            if (cmdArgs.length < 4 || cmdArgs.length > 5)
+                throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'CHANGE'");
+        } else {
+            if (cmdArgs.length < 5 || cmdArgs.length > 6)
+                throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'CHANGE'");
+        }
+
+        // get keyword of changing record (required)
+        String keyword = !addNewIfNotExists ? cmdArgs[2].trim() : cmdArgs[3].trim();
+
+        // get value of changing record (required)
+        String value = !addNewIfNotExists ? cmdArgs[3].trim() : cmdArgs[4].trim();
+
+        // get comment of changing record (optional)
+        String comment = "";
+        if (!addNewIfNotExists && cmdArgs.length == 5)
+            comment = cmdArgs[4].trim();
+        else if (addNewIfNotExists && cmdArgs.length == 6)
+            comment = cmdArgs[5].trim();
+
+        return new ChangeValueByKeywordInputData(keyword, value, comment,addNewIfNotExists);
     }
 
     static ChainRecordsInputData extractChainRecordsData(String[] cmdArgs) {
-        return new ChainRecordsInputData(null);
+
     }
 }

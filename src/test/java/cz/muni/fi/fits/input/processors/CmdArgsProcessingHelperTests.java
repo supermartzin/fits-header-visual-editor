@@ -3,10 +3,7 @@ package cz.muni.fi.fits.input.processors;
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.InvalidSwitchParameterException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
-import cz.muni.fi.fits.models.inputData.AddNewRecordInputData;
-import cz.muni.fi.fits.models.inputData.AddNewToIndexInputData;
-import cz.muni.fi.fits.models.inputData.RemoveByIndexInputData;
-import cz.muni.fi.fits.models.inputData.RemoveByKeywordInputData;
+import cz.muni.fi.fits.models.inputData.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -197,5 +195,58 @@ public class CmdArgsProcessingHelperTests {
         RemoveByIndexInputData rbiid = CmdArgumentsProcessorHelper.extractRemoveByIndexData(args);
 
         assertEquals(69, rbiid.getIndex());
+    }
+
+    @Test
+    public void testExtractChangeKeywordData_WrongNumberOfParameters() throws Exception {
+        String[] args = new String[] { "change_kw", FILE_PATH.toString(), "KEYWORD" };
+
+        exception.expect(WrongNumberOfParametersException.class);
+        CmdArgumentsProcessorHelper.extractChangeKeywordData(args);
+    }
+
+    @Test
+    public void testExtractChangeKeywordData_WrongSwtichParameter() throws Exception {
+        String[] args = new String[] { "change_kw", "-remove", FILE_PATH.toString(), "OLD_KEYWORD", "NEW_KEYWORD" };
+
+        exception.expect(InvalidSwitchParameterException.class);
+        CmdArgumentsProcessorHelper.extractChangeKeywordData(args);
+    }
+
+    @Test
+    public void testExtractChangeKeywordData_CorrectParameters() throws Exception {
+        String[] args = new String[] { "change_kw", "-rm", FILE_PATH.toString(), "OLD_KEYWORD", "NEW_KEYWORD" };
+
+        ChangeKeywordInputData ckid = CmdArgumentsProcessorHelper.extractChangeKeywordData(args);
+        assertEquals("OLD_KEYWORD".toUpperCase(), ckid.getOldKeyword());
+        assertEquals("NEW_KEYWORD".toUpperCase(), ckid.getNewKeyword());
+        assertTrue(ckid.removeValueOfNewIfExists());
+    }
+
+    @Test
+    public void testExtractChangeValueByKeywordData_WrongNumberOfParameters() throws Exception {
+        String[] args = new String[] { "change", FILE_PATH.toString(), "KEYWORD", "VALUE", "COMMENT", "REDUNDANT_ARG" };
+
+        exception.expect(WrongNumberOfParametersException.class);
+        CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args);
+    }
+
+    @Test
+    public void testExtractChangeValueByKeywordData_WrongSwtichParameter() throws Exception {
+        String[] args = new String[] { "change", "-add", FILE_PATH.toString(), "KEYWORD", "VALUE" };
+
+        exception.expect(InvalidSwitchParameterException.class);
+        CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args);
+    }
+
+    @Test
+    public void testExtractChangeValueByKeywordData_CorrectParameters() throws Exception {
+        String[] args = new String[] { "change", FILE_PATH.toString(), "KEYWORD", "VALUE", "COMMENT" };
+
+        ChangeValueByKeywordInputData cvbkid = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args);
+        assertEquals("KEYWORD".toUpperCase(), cvbkid.getKeyword());
+        assertFalse(cvbkid.addNewIfNotExists());
+        assertEquals("VALUE", cvbkid.getValue());
+        assertEquals("COMMENT", cvbkid.getComment());
     }
 }

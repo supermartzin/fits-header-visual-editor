@@ -10,7 +10,7 @@ import java.util.HashSet;
  *
  * TODO description
  */
-public class AddNewToIndexInputData extends AmbigiousInputData {
+public class AddNewToIndexInputData extends OneSwitchInputData {
 
     private final int _index;
     private final String _keyword;
@@ -24,7 +24,7 @@ public class AddNewToIndexInputData extends AmbigiousInputData {
     public AddNewToIndexInputData(int index, String keyword, String value, String comment, boolean removeOldIfExists, Collection<File> fitsFiles) {
         super(OperationType.ADD_NEW_RECORD_TO_INDEX, fitsFiles, removeOldIfExists);
         this._index = index;
-        this._keyword = keyword;
+        this._keyword = keyword.toUpperCase();
         this._value = value;
         this._comment = comment;
     }
