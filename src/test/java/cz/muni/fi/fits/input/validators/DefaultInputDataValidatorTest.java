@@ -1,8 +1,10 @@
 package cz.muni.fi.fits.input.validators;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import cz.muni.fi.fits.exceptions.ValidationException;
 import cz.muni.fi.fits.models.inputData.*;
+import cz.muni.fi.fits.utils.Tuple;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -11,8 +13,7 @@ import org.junit.rules.ExpectedException;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
-
-import static org.junit.Assert.fail;
+import java.util.LinkedList;
 
 /**
  * TODO description
@@ -364,7 +365,77 @@ public class DefaultInputDataValidatorTest {
 
     // validate 'ChainRecordsInputData'
     @Test
-    public void testValidate_ChainRecordsInputData_() throws Exception {
-        fail();
+    public void testValidate_ChainRecordsInputData_NoFitsFiles() throws Exception {
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant 1"), new Tuple<>("keyword", "KEYWORD")));
+        ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, "COMMENT", false, false, new HashSet<>());
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("No FITS files provided");
+        validator.validate(crid);
+    }
+
+    @Test
+    public void testValidate_ChainRecordsInputData_EmptyKeyword() throws Exception {
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant 1"), new Tuple<>("keyword", "KEYWORD")));
+        ChainRecordsInputData crid = new ChainRecordsInputData("", chainValues, "COMMENT", false, false, fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be empty");
+        validator.validate(crid);
+    }
+
+    @Test
+    public void testValidate_ChainRecordsInputData_KeywordWithWhitespaces() throws Exception {
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant 1"), new Tuple<>("keyword", "KEYWORD")));
+        ChainRecordsInputData crid = new ChainRecordsInputData("KEY WORD", chainValues, "COMMENT", false, false, fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot contain whitespace");
+        validator.validate(crid);
+    }
+
+    @Test
+    public void testValidate_ChainRecordsInputData_TooLongKeyword() throws Exception {
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant 1"), new Tuple<>("keyword", "KEYWORD")));
+        ChainRecordsInputData crid = new ChainRecordsInputData("TOO_LONG_KEYWORD", chainValues, "COMMENT", false, false, fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("has exceeded maximum allowed length");
+        validator.validate(crid);
+    }
+
+    @Test
+    public void testValidate_ChainRecordsInputData_EmptyChainValues() throws Exception {
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", ""), new Tuple<>("keyword", "")));
+        ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, "COMMENT", false, false, fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be empty");
+        validator.validate(crid);
+    }
+
+    @Test
+    public void testValidate_ChainRecordsInputData_TooLongConstants() throws Exception {
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>("constant", "too long constant 1 - too long constant 1"),
+                new Tuple<>("constant", "too long constant 2 - too long constant 2")));
+        ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, "COMMENT", false, false, fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("have exceeded maximum allowed length");
+        validator.validate(crid);
+    }
+
+    @Test
+    public void testValidate_ChainRecordsInputData_TooLongConstantsComment() throws Exception {
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>("constant", "constant 1"),
+                new Tuple<>("keyword", "KEYWORD"),
+                new Tuple<>("constant", "constant 2")));
+        ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, "TOO LONG COMMENT - TOO LONG COMENT - TOO LONG COMMENT", false, false, fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("have exceeded maximum allowed length");
+        validator.validate(crid);
     }
 }

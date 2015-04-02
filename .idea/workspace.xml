@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9623f6ed-926d-4492-852f-237dc36614a1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidatorTest.java" />
-      <change type="DELETED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\src\main\java\cz\muni\fi\fits\input\validators\DefaultInputValidator.java" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\src\test\java\cz\muni\fi\fits\input\ExtractAddNewRecordDataTest.java" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\src\test\java\cz\muni\fi\fits\input\ExtractAddNewToIndexDataTest.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/AppInjector.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/AppInjector.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidatorTest.java" afterPath="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidatorTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/FITSHeaderEditor.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/FITSHeaderEditor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/InputDataValidator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/InputDataValidator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\src\main\java\cz\muni\fi\fits\input\validators\DefaultInputValidatorHelper.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java" />
-      <change type="MOVED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\src\main\java\cz\muni\fi\fits\input\validators\InputValidator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/InputDataValidator.java" />
     </list>
     <ignored path="FITSHeaderEditor.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,8 +34,8 @@
             <file leaf-file-name="CmdArgumentsProcessorHelper.java" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.20131579">
-                    <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+                  <state vertical-scroll-proportion="0.6236842">
+                    <caret line="290" column="41" selection-start-line="290" selection-start-column="41" selection-end-line="290" selection-end-column="41" />
                     <folding>
                       <element signature="docComment;class#CmdArgumentsProcessorHelper#0" expanded="false" />
                       <element signature="method#extractFilesData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
@@ -48,7 +45,6 @@
                       <element signature="method#extractRemoveByIndexData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
                       <element signature="method#extractChangeKeywordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
                       <element signature="method#extractChangeValueByKeywordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
-                      <element signature="method#extractChainRecordsData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
                     </folding>
                   </state>
                 </provider>
@@ -69,19 +65,31 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/FITSHeaderEditor.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="43" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
+              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DefaultInputDataValidatorTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ApplicationInitializer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/ApplicationInitializer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DefaultInputDataValidatorTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidatorTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.20207255">
-              <caret line="233" column="40" selection-start-line="233" selection-start-column="40" selection-end-line="233" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="429" column="94" selection-start-line="429" selection-start-column="94" selection-end-line="429" selection-end-column="94" />
               <folding>
                 <element signature="docComment;class#DefaultInputDataValidatorTest#0" expanded="false" />
+                <element signature="method#beforeClass#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+                <element signature="method#testValidate_AddNewRecordInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
                 <element signature="method#testValidate_AddNewRecordInputData_EmptyKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
                 <element signature="method#testValidate_AddNewRecordInputData_KeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
                 <element signature="method#testValidate_AddNewRecordInputData_TooLongKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
@@ -95,6 +103,7 @@
                 <element signature="method#testValidate_AddNewToIndexInputData_TooLongKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
                 <element signature="method#testValidate_AddNewToIndexInputData_EmptyValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
                 <element signature="method#testValidate_AddNewToIndexInputData_TooLongValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+                <element signature="method#testValidate_AddNewToIndexInputData_TooLongValueComment#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
                 <element signature="method#testValidate_RemoveByKeywordInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
                 <element signature="method#testValidate_RemoveByKeywordInputData_EmptyKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
                 <element signature="method#testValidate_RemoveByKeywordInputData_KeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
@@ -115,24 +124,33 @@
                 <element signature="method#testValidate_ChangeValueByKeywordInputData_EmptyValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
                 <element signature="method#testValidate_ChangeValueByKeywordInputData_TooLongValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
                 <element signature="method#testValidate_ChangeValueByKeywordInputData_TooLongValueComment#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
-                <element signature="method#testValidate_ChainRecordsInputData_#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+                <element signature="method#testValidate_ChainRecordsInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+                <element signature="method#testValidate_ChainRecordsInputData_EmptyKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+                <element signature="method#testValidate_ChainRecordsInputData_KeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+                <element signature="method#testValidate_ChainRecordsInputData_TooLongKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+                <element signature="method#testValidate_ChainRecordsInputData_EmptyChainValues#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+                <element signature="method#testValidate_ChainRecordsInputData_TooLongConstants#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+                <element signature="method#testValidate_ChainRecordsInputData_TooLongConstantsComment#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DefaultInputDataValidator.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DefaultInputDataValidator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.81865287">
+              <caret line="247" column="5" selection-start-line="247" selection-start-column="5" selection-end-line="247" selection-end-column="5" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="docComment;class#DefaultInputDataValidator#0" expanded="false" />
                 <element signature="method#validate#0;class#DefaultInputDataValidator#0" expanded="false" />
+                <element signature="method#validate#1;class#DefaultInputDataValidator#0" expanded="false" />
                 <element signature="method#validate#2;class#DefaultInputDataValidator#0" expanded="false" />
                 <element signature="method#validate#3;class#DefaultInputDataValidator#0" expanded="false" />
                 <element signature="method#validate#4;class#DefaultInputDataValidator#0" expanded="false" />
+                <element signature="method#validate#5;class#DefaultInputDataValidator#0" expanded="false" />
+                <element signature="method#validate#6;class#DefaultInputDataValidator#0" expanded="false" />
+                <element signature="method#validateCommonInputData#0;class#DefaultInputDataValidator#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -160,8 +178,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/WrongNumberOfParametersException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/UnknownOperationException.java" />
         <option value="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/CmdArgsProcessingHelperTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/ExtractAddToIndexDataTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/InvalidIndexException.java" />
@@ -205,12 +221,14 @@
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/InputValidatorFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/InputValidator.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputValidator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/InputDataValidator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/FITSHeaderEditor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java" />
         <option value="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/ExtractAddNewRecordDataTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/ApplicationInitializer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/FITSHeaderEditor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/InputDataValidator.java" />
         <option value="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidatorTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java" />
       </list>
     </option>
   </component>
@@ -346,6 +364,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -693,7 +712,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -1064,11 +1082,12 @@
       <workItem from="1427804583965" duration="4351000" />
       <workItem from="1427818742551" duration="11747000" />
       <workItem from="1427879050828" duration="22353000" />
+      <workItem from="1427965819933" duration="5199000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="130351000" />
+    <option name="totallyTimeSpent" value="135550000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1080,7 +1099,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1091,12 +1110,13 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3430736" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3430736" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23240939" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32467532" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1110,7 +1130,6 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48924732" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1135,6 +1154,85 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/FITSHeaderEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="43" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidatorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#beforeClass#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewRecordInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewRecordInputData_EmptyKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewRecordInputData_KeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewRecordInputData_TooLongKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewRecordInputData_EmptyValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewRecordInputData_TooLongValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewRecordInputData_TooLongValueComment#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewToIndexInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewToIndexInputData_InvalidIndex#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewToIndexInputData_EmptyKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewToIndexInputData_KeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewToIndexInputData_TooLongKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewToIndexInputData_EmptyValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewToIndexInputData_TooLongValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewToIndexInputData_TooLongValueComment#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_RemoveByKeywordInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_RemoveByKeywordInputData_EmptyKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_RemoveByKeywordInputData_KeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_RemoveByKeywordInputData_TooLongKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_RemoveByIndexInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_RemoveByIndexInputData_InvalidIndex#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeKeywordInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeKeywordInputData_EmptyOldKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeKeywordInputData_OldKeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeKeywordInputData_TooLongOldKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeKeywordInputData_EmptyNewKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeKeywordInputData_NewKeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeKeywordInputData_TooLongNewKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeValueByKeywordInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeValueByKeywordInputData_EmptyKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeValueByKeywordInputData_KeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeValueByKeywordInputData_TooLongKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeValueByKeywordInputData_EmptyValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeValueByKeywordInputData_TooLongValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChangeValueByKeywordInputData_TooLongValueComment#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_EmptyKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_KeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_TooLongKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_EmptyChainValues#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_TooLongConstants#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_TooLongConstantsComment#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#0;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#1;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#2;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#3;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#4;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#5;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#6;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validateCommonInputData#0;class#DefaultInputDataValidator#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/core/HeaderEditingService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1203,13 +1301,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24665178">
           <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="57" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -1380,14 +1471,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/ApplicationInitializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24665178">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChainRecordsInputData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1402,15 +1485,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6261161">
           <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#CmdArgumentsProcessorTest#0" expanded="false" />
-            <element signature="method#tearDown#0;class#CmdArgumentsProcessorTest#0" expanded="false" />
-            <element signature="method#testGetProcessedInput_NullArguments#0;class#CmdArgumentsProcessorTest#0" expanded="false" />
-            <element signature="method#testGetProcessedInput_NoArguments#0;class#CmdArgumentsProcessorTest#0" expanded="false" />
-            <element signature="method#testGetProcessedInput_WrongNumberOfArguments#0;class#CmdArgumentsProcessorTest#0" expanded="false" />
-            <element signature="method#testGetProcessedInput_BadOperation#0;class#CmdArgumentsProcessorTest#0" expanded="false" />
-            <element signature="method#testGetProcessedInput_ValidData#0;class#CmdArgumentsProcessorTest#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1449,16 +1523,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/InputDataValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.83389074">
-          <caret line="47" column="6" selection-start-line="47" selection-start-column="6" selection-end-line="47" selection-end-column="6" />
-          <folding>
-            <element signature="docComment;class#InputDataValidator#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/ValidationException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1516165">
@@ -1471,39 +1535,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0578947">
           <caret line="286" column="81" selection-start-line="286" selection-start-column="81" selection-end-line="286" selection-end-column="81" />
-          <folding>
-            <element signature="docComment;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#setUp#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#tearDown#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractFilesData_NullFilePath#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractFilesData_FilePathDoesNotExists#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractFilesData_FilePathIsDirectory#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractFilesData_FileIsEmpty#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractFilesData_CorrectFile#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractAddNewRecordData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractAddNewRecordData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractAddNewRecordData_WrongSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractAddNewToIndexData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractAddNewToIndexData_InvalidIndex#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractAddNewToIndexData_WrongSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractAddNewToIndexData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractRemoveByKeywordData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractRemoveByKeywordData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractRemoveByIndexData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractRemoveByIndexData_InvalidIndex#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractRemoveByIndexData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractChangeKeywordData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractChangeKeywordData_WrongSwtichParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractChangeKeywordData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractChangeValueByKeywordData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractChangeValueByKeywordData_WrongSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractChangeValueByKeywordData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractChainRecordsData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractChainRecordsData_WrongFirstSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractChainRecordsData_WrongSecondSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractChainRecordsData_EmptyChainParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-            <element signature="method#testExtractChainRecordsData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1545,61 +1576,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/FITSHeaderEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="43" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20131579">
-          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#CmdArgumentsProcessorHelper#0" expanded="false" />
-            <element signature="method#extractFilesData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
-            <element signature="method#extractAddNewRecordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
-            <element signature="method#extractAddNewToIndexData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
-            <element signature="method#extractRemoveByKeywordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
-            <element signature="method#extractRemoveByIndexData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
-            <element signature="method#extractChangeKeywordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
-            <element signature="method#extractChangeValueByKeywordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
-            <element signature="method#extractChainRecordsData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/rules/RunRules.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4296029">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/FITSHeaderEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15178572">
+          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/InputDataValidator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+          <caret line="53" column="4" selection-start-line="53" selection-start-column="4" selection-end-line="53" selection-end-column="4" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#DefaultInputDataValidator#0" expanded="false" />
-            <element signature="method#validate#0;class#DefaultInputDataValidator#0" expanded="false" />
-            <element signature="method#validate#2;class#DefaultInputDataValidator#0" expanded="false" />
-            <element signature="method#validate#3;class#DefaultInputDataValidator#0" expanded="false" />
-            <element signature="method#validate#4;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="docComment;class#InputDataValidator#0" expanded="false" />
+            <element signature="docComment;method#validate#0;class#InputDataValidator#0" expanded="false" />
+            <element signature="docComment;method#validate#1;class#InputDataValidator#0" expanded="false" />
+            <element signature="docComment;method#validate#2;class#InputDataValidator#0" expanded="false" />
+            <element signature="docComment;method#validate#3;class#InputDataValidator#0" expanded="false" />
+            <element signature="docComment;method#validate#4;class#InputDataValidator#0" expanded="false" />
+            <element signature="docComment;method#validate#5;class#InputDataValidator#0" expanded="false" />
+            <element signature="docComment;method#validate#6;class#InputDataValidator#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/ApplicationInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidatorTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20207255">
-          <caret line="233" column="40" selection-start-line="233" selection-start-column="40" selection-end-line="233" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="429" column="94" selection-start-line="429" selection-start-column="94" selection-end-line="429" selection-end-column="94" />
           <folding>
             <element signature="docComment;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#beforeClass#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewRecordInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
             <element signature="method#testValidate_AddNewRecordInputData_EmptyKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
             <element signature="method#testValidate_AddNewRecordInputData_KeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
             <element signature="method#testValidate_AddNewRecordInputData_TooLongKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
@@ -1613,6 +1645,7 @@
             <element signature="method#testValidate_AddNewToIndexInputData_TooLongKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
             <element signature="method#testValidate_AddNewToIndexInputData_EmptyValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
             <element signature="method#testValidate_AddNewToIndexInputData_TooLongValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_AddNewToIndexInputData_TooLongValueComment#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
             <element signature="method#testValidate_RemoveByKeywordInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
             <element signature="method#testValidate_RemoveByKeywordInputData_EmptyKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
             <element signature="method#testValidate_RemoveByKeywordInputData_KeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
@@ -1633,7 +1666,48 @@
             <element signature="method#testValidate_ChangeValueByKeywordInputData_EmptyValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
             <element signature="method#testValidate_ChangeValueByKeywordInputData_TooLongValue#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
             <element signature="method#testValidate_ChangeValueByKeywordInputData_TooLongValueComment#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
-            <element signature="method#testValidate_ChainRecordsInputData_#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_NoFitsFiles#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_EmptyKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_KeywordWithWhitespaces#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_TooLongKeyword#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_EmptyChainValues#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_TooLongConstants#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+            <element signature="method#testValidate_ChainRecordsInputData_TooLongConstantsComment#0;class#DefaultInputDataValidatorTest#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.81865287">
+          <caret line="247" column="5" selection-start-line="247" selection-start-column="5" selection-end-line="247" selection-end-column="5" />
+          <folding>
+            <element signature="docComment;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#0;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#1;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#2;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#3;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#4;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#5;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validate#6;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validateCommonInputData#0;class#DefaultInputDataValidator#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6236842">
+          <caret line="290" column="41" selection-start-line="290" selection-start-column="41" selection-end-line="290" selection-end-column="41" />
+          <folding>
+            <element signature="docComment;class#CmdArgumentsProcessorHelper#0" expanded="false" />
+            <element signature="method#extractFilesData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
+            <element signature="method#extractAddNewRecordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
+            <element signature="method#extractAddNewToIndexData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
+            <element signature="method#extractRemoveByKeywordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
+            <element signature="method#extractRemoveByIndexData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
+            <element signature="method#extractChangeKeywordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
+            <element signature="method#extractChangeValueByKeywordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
           </folding>
         </state>
       </provider>

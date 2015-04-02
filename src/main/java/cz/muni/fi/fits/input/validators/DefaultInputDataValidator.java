@@ -3,6 +3,7 @@ package cz.muni.fi.fits.input.validators;
 import cz.muni.fi.fits.exceptions.ValidationException;
 import cz.muni.fi.fits.models.inputData.*;
 import cz.muni.fi.fits.utils.Constants;
+import cz.muni.fi.fits.utils.Tuple;
 
 /**
  *
@@ -35,8 +36,8 @@ public class DefaultInputDataValidator implements InputDataValidator {
             throw new ValidationException("Value cannot be empty");
 
         // check for allowed value length
-        if (addNewRecordInputData.getValue().length() > Constants.MAX_VALUE_COMMENT_LENGTH)
-            throw new ValidationException("Value has exceeded maximum allowed length of " + Constants.MAX_VALUE_COMMENT_LENGTH + " characters");
+        if (addNewRecordInputData.getValue().length() > Constants.MAX_VALUE_LENGTH)
+            throw new ValidationException("Value has exceeded maximum allowed length of " + Constants.MAX_VALUE_LENGTH + " characters");
 
         // if contains comment check for allowed value/comment length
         if (!addNewRecordInputData.getComment().isEmpty()) {
@@ -75,8 +76,8 @@ public class DefaultInputDataValidator implements InputDataValidator {
             throw new ValidationException("Value cannot be empty");
 
         // check for allowed value length
-        if (addNewToIndexInputData.getValue().length() > Constants.MAX_VALUE_COMMENT_LENGTH)
-            throw new ValidationException("Value has exceeded maximum allowed length of " + Constants.MAX_VALUE_COMMENT_LENGTH + " characters");
+        if (addNewToIndexInputData.getValue().length() > Constants.MAX_VALUE_LENGTH)
+            throw new ValidationException("Value has exceeded maximum allowed length of " + Constants.MAX_VALUE_LENGTH + " characters");
 
         // if contains comment check for allowed value/comment length
         if (!addNewToIndexInputData.getComment().isEmpty()) {
@@ -154,12 +155,90 @@ public class DefaultInputDataValidator implements InputDataValidator {
     }
 
     @Override
-    public void validate(ChangeValueByKeywordInputData changeValueByKeywordInputData) {
+    public void validate(ChangeValueByKeywordInputData changeValueByKeywordInputData) throws ValidationException {
+        if (changeValueByKeywordInputData == null)
+            throw new IllegalArgumentException("changeValueByKeywordInputData is null");
 
+        // fits files collection cannot be empty
+        validateCommonInputData(changeValueByKeywordInputData);
+
+        // keyword cannot be empty
+        if (changeValueByKeywordInputData.getKeyword().isEmpty())
+            throw new ValidationException("Keyword cannot be empty");
+
+        // keyword cannot contain whitespaces
+        if (changeValueByKeywordInputData.getKeyword().contains(" "))
+            throw new ValidationException("Keyword cannot contain whitespace characters");
+
+        // check for allowed keyword length
+        if (changeValueByKeywordInputData.getKeyword().length() > Constants.MAX_KEYWORD_LENGTH)
+            throw new ValidationException("Keyword has exceeded maximum allowed length of " + Constants.MAX_KEYWORD_LENGTH + " characters");
+
+        // value cannot be empty
+        if (changeValueByKeywordInputData.getValue().isEmpty())
+            throw new ValidationException("Value cannot be empty");
+
+        // check for allowed value length
+        if (changeValueByKeywordInputData.getValue().length() > Constants.MAX_VALUE_LENGTH)
+            throw new ValidationException("Value has exceeded maximum allowed length of " + Constants.MAX_VALUE_LENGTH + " characters");
+
+        // if contains comment check for allowed value/comment length
+        if (!changeValueByKeywordInputData.getComment().isEmpty()) {
+            if (changeValueByKeywordInputData.getComment().length() + changeValueByKeywordInputData.getValue().length()
+                                > Constants.MAX_VALUE_COMMENT_LENGTH)
+                throw new ValidationException("Comment along with value have exceeded maximum allowed length of " + Constants.MAX_VALUE_COMMENT_LENGTH + " characters");
+        }
     }
 
     @Override
-    public void validate(ChainRecordsInputData chainRecordsInputData) {
+    public void validate(ChainRecordsInputData chainRecordsInputData) throws ValidationException {
+        if (chainRecordsInputData == null)
+            throw new IllegalArgumentException("chainRecordsInputData is null");
+
+        // fits files collection cannot be empty
+        validateCommonInputData(chainRecordsInputData);
+
+        // keyword cannot be empty
+        if (chainRecordsInputData.getKeyword().isEmpty())
+            throw new ValidationException("Keyword cannot be empty");
+
+        // keyword cannot contain whitespaces
+        if (chainRecordsInputData.getKeyword().contains(" "))
+            throw new ValidationException("Keyword cannot contain whitespace characters");
+
+        // check for allowed keyword length
+        if (chainRecordsInputData.getKeyword().length() > Constants.MAX_KEYWORD_LENGTH)
+            throw new ValidationException("Keyword has exceeded maximum allowed length of " + Constants.MAX_KEYWORD_LENGTH + " characters");
+
+        int constantsLength = 0;
+        int keywordsLength = 0;
+        for (Tuple tuple : chainRecordsInputData.getChainValues()) {
+            if (tuple.getFirst().equals("constant")) {
+                String constant = (String) tuple.getSecond();
+                constantsLength += constant.length();
+            }
+            if (tuple.getFirst().equals("keyword")) {
+                String keyword = (String) tuple.getSecond();
+                keywordsLength += keyword.length();
+            }
+        }
+
+        // chainValues cannot be empty
+        if (chainRecordsInputData.getChainValues().isEmpty()
+                || constantsLength + keywordsLength == 0)
+            throw new ValidationException("Chain values cannot be empty");
+
+
+        // check if constants in chainValues do not exceeds allowed length
+        if (constantsLength > Constants.MAX_VALUE_LENGTH)
+            throw new ValidationException("Constants in value of chained record have exceeded maximum allowed length of " + Constants.MAX_VALUE_LENGTH + " characters");
+
+        // if contains comment check for allowed value/comment length
+        if (!chainRecordsInputData.getComment().isEmpty()) {
+            if (chainRecordsInputData.getComment().length() + constantsLength
+                                > Constants.MAX_VALUE_COMMENT_LENGTH)
+                throw new ValidationException("Comment along with constants have exceeded maximum allowed length of " + Constants.MAX_VALUE_COMMENT_LENGTH + " characters");
+        }
 
     }
 

@@ -12,42 +12,49 @@ public interface InputDataValidator {
     /**
      *
      * @param addNewRecordInputData
+     * @throws ValidationException
      */
     void validate(AddNewRecordInputData addNewRecordInputData) throws ValidationException;
 
     /**
      *
      * @param addNewToIndexInputData
+     * @throws ValidationException
      */
     void validate(AddNewToIndexInputData addNewToIndexInputData) throws ValidationException;
 
     /**
      *
      * @param removeByKeywordInputData
+     * @throws ValidationException
      */
     void validate(RemoveByKeywordInputData removeByKeywordInputData) throws ValidationException;
 
     /**
      *
      * @param removeByIndexInputData
+     * @throws ValidationException
      */
     void validate(RemoveByIndexInputData removeByIndexInputData) throws ValidationException;
 
     /**
      *
      * @param changeKeywordInputData
+     * @throws ValidationException
      */
     void validate(ChangeKeywordInputData changeKeywordInputData) throws ValidationException;
 
     /**
      *
      * @param changeValueByKeywordInputData
+     * @throws ValidationException
      */
-    void validate(ChangeValueByKeywordInputData changeValueByKeywordInputData);
+    void validate(ChangeValueByKeywordInputData changeValueByKeywordInputData) throws ValidationException;
 
     /**
      *
      * @param chainRecordsInputData
+     * @throws ValidationException
      */
-    void validate(ChainRecordsInputData chainRecordsInputData);
+    void validate(ChainRecordsInputData chainRecordsInputData) throws ValidationException;
 }

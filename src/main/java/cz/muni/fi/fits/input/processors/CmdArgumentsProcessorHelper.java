@@ -278,15 +278,17 @@ final class CmdArgumentsProcessorHelper {
 
             // constant
             if (argument.startsWith("-c=")) {
-                argument = argument.substring(3);
-                chainValues.add(new Tuple<>("constant", argument));
+                argument = argument.substring(3).trim();
+                if (!argument.isEmpty())
+                    chainValues.add(new Tuple<>("constant", argument));
                 continue;
             }
 
             // keyword
             if (argument.startsWith("-k=")) {
-                argument = argument.substring(3);
-                chainValues.add(new Tuple<>("keyword", argument.toUpperCase()));
+                argument = argument.substring(3).trim();
+                if (!argument.isEmpty())
+                    chainValues.add(new Tuple<>("keyword", argument.toUpperCase()));
                 continue;
             }
 
