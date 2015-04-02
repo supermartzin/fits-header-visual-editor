@@ -78,7 +78,7 @@ public class CmdArgumentsProcessor implements InputProcessor {
                 break;
 
             default:
-                throw new UnknownOperationException(operation, "Unknown operation");
+                throw new UnknownOperationException(operation, "Unknown operation '" + operation + "'");
         }
 
         // get input FITS files

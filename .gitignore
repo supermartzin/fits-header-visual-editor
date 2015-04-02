@@ -1,1 +1,4 @@
 target/
+fits/
+.idea/
+files.in

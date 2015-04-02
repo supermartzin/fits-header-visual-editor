@@ -9,5 +9,10 @@ import cz.muni.fi.fits.models.inputData.InputData;
  */
 public interface InputProcessor {
 
+    /**
+     *
+     * @return
+     * @throws IllegalInputDataException
+     */
     InputData getProcessedInput() throws IllegalInputDataException;
 }

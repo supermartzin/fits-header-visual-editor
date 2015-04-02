@@ -10,6 +10,13 @@
 
     <dependencies>
 
+        <!-- nom.tam.fits FITS library-->
+        <dependency>
+            <groupId>gov.nasa.gsfc.heasarc</groupId>
+            <artifactId>nom-tam-fits</artifactId>
+            <version>1.12.0</version>
+        </dependency>
+
         <!-- Google Guice -->
         <dependency>
             <groupId>com.google.inject</groupId>

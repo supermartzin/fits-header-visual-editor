@@ -2,7 +2,6 @@ package cz.muni.fi.fits;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import cz.muni.fi.fits.engine.FITSHeaderEditor;
 
 /**
  *
