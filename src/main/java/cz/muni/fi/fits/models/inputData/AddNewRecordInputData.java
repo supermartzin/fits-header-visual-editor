@@ -10,7 +10,7 @@ import java.util.HashSet;
  *
  * TODO description
  */
-public class AddNewRecordInputData extends OneSwitchInputData {
+public class AddNewRecordInputData extends SwitchInputData {
 
     private final String _keyword;
     private final String _value;
@@ -21,10 +21,11 @@ public class AddNewRecordInputData extends OneSwitchInputData {
     }
 
     public AddNewRecordInputData(String keyword, String value, String comment, boolean updateIfExists, Collection<File> fitsFiles) {
-        super(OperationType.ADD_NEW_RECORD_TO_END, fitsFiles, updateIfExists);
+        super(OperationType.ADD_NEW_RECORD_TO_END, fitsFiles);
         this._keyword = keyword.toUpperCase();
         this._value = value;
         this._comment = comment;
+        this._switches.put("updateIfExists", updateIfExists);
     }
 
     public String getKeyword() {
@@ -40,6 +41,6 @@ public class AddNewRecordInputData extends OneSwitchInputData {
     }
 
     public boolean updateIfExists() {
-        return _hasSwitch;
+        return _switches.get("updateIfExists");
     }
 }

@@ -10,7 +10,7 @@ import java.util.HashSet;
  *
  * TODO description
  */
-public class AddNewToIndexInputData extends OneSwitchInputData {
+public class AddNewToIndexInputData extends SwitchInputData {
 
     private final int _index;
     private final String _keyword;
@@ -22,11 +22,12 @@ public class AddNewToIndexInputData extends OneSwitchInputData {
     }
 
     public AddNewToIndexInputData(int index, String keyword, String value, String comment, boolean removeOldIfExists, Collection<File> fitsFiles) {
-        super(OperationType.ADD_NEW_RECORD_TO_INDEX, fitsFiles, removeOldIfExists);
+        super(OperationType.ADD_NEW_RECORD_TO_INDEX, fitsFiles);
         this._index = index;
         this._keyword = keyword.toUpperCase();
         this._value = value;
         this._comment = comment;
+        this._switches.put("removeOldIfExists", removeOldIfExists);
     }
 
     public int getIndex() {
@@ -46,6 +47,6 @@ public class AddNewToIndexInputData extends OneSwitchInputData {
     }
 
     public boolean removeOldIfExists() {
-        return _hasSwitch;
+        return _switches.get("removeOldIfExists");
     }
 }

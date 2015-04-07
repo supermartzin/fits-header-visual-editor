@@ -12,7 +12,7 @@ import java.util.LinkedList;
  *
  * TODO description
  */
-public class ChainRecordsInputData extends TwoSwitchesInputData {
+public class ChainRecordsInputData extends SwitchInputData {
 
     private final String _keyword;
     private final LinkedList<Tuple> _chainValues;
@@ -23,10 +23,12 @@ public class ChainRecordsInputData extends TwoSwitchesInputData {
     }
 
     public ChainRecordsInputData(String keyword, LinkedList<Tuple> chainValues, String comment, boolean updateIfExists, boolean skipIfChainKwNotExists, Collection<File> fitsFiles) {
-        super(OperationType.CHAIN_RECORDS, fitsFiles, updateIfExists, skipIfChainKwNotExists);
+        super(OperationType.CHAIN_RECORDS, fitsFiles);
         this._keyword = keyword;
         this._chainValues = chainValues;
         this._comment = comment;
+        this._switches.put("updateIfExists", updateIfExists);
+        this._switches.put("skipIfChainKwNotExists", skipIfChainKwNotExists);
     }
 
     public String getKeyword() {
@@ -42,10 +44,10 @@ public class ChainRecordsInputData extends TwoSwitchesInputData {
     }
 
     public boolean updateIfExists() {
-        return _hasFirstSwitch;
+        return _switches.get("updateIfExists");
     }
 
     public boolean skipIfChainKwNotExists() {
-        return _hasSecondSwitch;
+        return _switches.get("skipIfChainKwNotExists");
     }
 }

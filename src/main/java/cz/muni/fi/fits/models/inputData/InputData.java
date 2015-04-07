@@ -4,6 +4,7 @@ import cz.muni.fi.fits.models.OperationType;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.HashSet;
 
 /**
  *
@@ -13,6 +14,10 @@ public abstract class InputData {
 
     private final OperationType _operationType;
     private Collection<File> _fitsFiles;
+
+    public InputData(OperationType operationType) {
+        this(operationType, new HashSet<>());
+    }
 
     public InputData(OperationType operationType, Collection<File> fitsFiles) {
         this._operationType = operationType;

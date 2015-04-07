@@ -10,7 +10,7 @@ import java.util.HashSet;
  *
  * TODO description
  */
-public class ChangeKeywordInputData extends OneSwitchInputData {
+public class ChangeKeywordInputData extends SwitchInputData {
 
     private final String _oldKeyword;
     private final String _newKeyword;
@@ -20,9 +20,10 @@ public class ChangeKeywordInputData extends OneSwitchInputData {
     }
 
     public ChangeKeywordInputData(String oldKeyword, String newKeyword, boolean removeValueOfNewIfExists, Collection<File> fitsFiles) {
-        super(OperationType.CHANGE_KEYWORD, fitsFiles, removeValueOfNewIfExists);
+        super(OperationType.CHANGE_KEYWORD, fitsFiles);
         this._oldKeyword = oldKeyword.toUpperCase();
         this._newKeyword = newKeyword.toUpperCase();
+        this._switches.put("removeValueOfNewIfExists", removeValueOfNewIfExists);
     }
 
     public String getOldKeyword() {
@@ -34,6 +35,6 @@ public class ChangeKeywordInputData extends OneSwitchInputData {
     }
 
     public boolean removeValueOfNewIfExists() {
-        return _hasSwitch;
+        return _switches.get("removeValueOfNewIfExists");
     }
 }

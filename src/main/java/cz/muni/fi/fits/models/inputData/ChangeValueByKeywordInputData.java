@@ -10,7 +10,7 @@ import java.util.HashSet;
  *
  * TODO description
  */
-public class ChangeValueByKeywordInputData extends OneSwitchInputData {
+public class ChangeValueByKeywordInputData extends SwitchInputData {
 
     private final String _keyword;
     private final String _value;
@@ -21,10 +21,11 @@ public class ChangeValueByKeywordInputData extends OneSwitchInputData {
     }
 
     public ChangeValueByKeywordInputData(String keyword, String value, String comment, boolean addNewIfNotExists, Collection<File> fitsFiles) {
-        super(OperationType.CHANGE_KEYWORD, fitsFiles, addNewIfNotExists);
+        super(OperationType.CHANGE_KEYWORD, fitsFiles);
         this._keyword = keyword;
         this._value = value;
         this._comment = comment;
+        this._switches.put("addNewIfNotExists", addNewIfNotExists);
     }
 
     public String getKeyword() {
@@ -40,6 +41,6 @@ public class ChangeValueByKeywordInputData extends OneSwitchInputData {
     }
 
     public boolean addNewIfNotExists() {
-        return _hasSwitch;
+        return _switches.get("addNewIfNotExists");
     }
 }
