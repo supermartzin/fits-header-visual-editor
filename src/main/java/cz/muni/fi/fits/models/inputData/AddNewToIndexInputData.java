@@ -24,7 +24,7 @@ public class AddNewToIndexInputData extends SwitchInputData {
     public AddNewToIndexInputData(int index, String keyword, Object value, String comment, boolean removeOldIfExists, Collection<File> fitsFiles) {
         super(OperationType.ADD_NEW_RECORD_TO_INDEX, fitsFiles);
         this._index = index;
-        this._keyword = keyword.toUpperCase();
+        this._keyword = keyword != null ? keyword.toUpperCase() : null;
         this._value = value;
         this._comment = comment;
         this._switches.put("removeOldIfExists", removeOldIfExists);

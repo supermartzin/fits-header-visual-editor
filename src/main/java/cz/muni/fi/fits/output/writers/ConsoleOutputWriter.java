@@ -32,7 +32,7 @@ public class ConsoleOutputWriter implements OutputWriter {
 
         System.err.println("[" + LocalDateTime.now().toString() + "]" +
                 " [" + exceptionType + "]" +
-                " >> " + (errorMessage != null ? errorMessage + " / " : "")
+                " >> " + (errorMessage != null ? errorMessage + " | " : "")
                 + exception.getMessage());
 
         return true;

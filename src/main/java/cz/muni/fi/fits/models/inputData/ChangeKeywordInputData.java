@@ -21,8 +21,8 @@ public class ChangeKeywordInputData extends SwitchInputData {
 
     public ChangeKeywordInputData(String oldKeyword, String newKeyword, boolean removeValueOfNewIfExists, Collection<File> fitsFiles) {
         super(OperationType.CHANGE_KEYWORD, fitsFiles);
-        this._oldKeyword = oldKeyword.toUpperCase();
-        this._newKeyword = newKeyword.toUpperCase();
+        this._oldKeyword = oldKeyword != null ? oldKeyword.toUpperCase() : null;
+        this._newKeyword = newKeyword != null ? newKeyword.toUpperCase() : null;
         this._switches.put("removeValueOfNewIfExists", removeValueOfNewIfExists);
     }
 

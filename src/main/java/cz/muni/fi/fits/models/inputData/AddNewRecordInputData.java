@@ -22,7 +22,7 @@ public class AddNewRecordInputData extends SwitchInputData {
 
     public AddNewRecordInputData(String keyword, Object value, String comment, boolean updateIfExists, Collection<File> fitsFiles) {
         super(OperationType.ADD_NEW_RECORD_TO_END, fitsFiles);
-        this._keyword = keyword.toUpperCase();
+        this._keyword = keyword != null ? keyword.toUpperCase() : null;
         this._value = value;
         this._comment = comment;
         this._switches.put("updateIfExists", updateIfExists);

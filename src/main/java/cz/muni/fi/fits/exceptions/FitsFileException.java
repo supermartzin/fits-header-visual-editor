@@ -6,29 +6,19 @@ package cz.muni.fi.fits.exceptions;
  */
 public class FitsFileException extends EditingEngineException {
 
-    private final String _fileName;
-
-    public FitsFileException(String fileName) {
+    public FitsFileException() {
         super();
-        this._fileName = fileName;
     }
 
-    public FitsFileException(String fileName, String message) {
+    public FitsFileException(String message) {
         super(message);
-        this._fileName = fileName;
     }
 
-    public FitsFileException(String fileName, String message, Throwable cause) {
+    public FitsFileException(String message, Throwable cause) {
         super(message, cause);
-        this._fileName = fileName;
     }
 
-    public FitsFileException(String fileName, Throwable cause) {
+    public FitsFileException(Throwable cause) {
         super(cause);
-        this._fileName = fileName;
-    }
-
-    public String getFileName() {
-        return _fileName;
     }
 }

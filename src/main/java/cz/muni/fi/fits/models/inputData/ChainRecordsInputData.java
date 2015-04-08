@@ -24,7 +24,7 @@ public class ChainRecordsInputData extends SwitchInputData {
 
     public ChainRecordsInputData(String keyword, LinkedList<Tuple> chainValues, String comment, boolean updateIfExists, boolean skipIfChainKwNotExists, Collection<File> fitsFiles) {
         super(OperationType.CHAIN_RECORDS, fitsFiles);
-        this._keyword = keyword;
+        this._keyword = keyword != null ? keyword.toUpperCase() : null;
         this._chainValues = chainValues;
         this._comment = comment;
         this._switches.put("updateIfExists", updateIfExists);

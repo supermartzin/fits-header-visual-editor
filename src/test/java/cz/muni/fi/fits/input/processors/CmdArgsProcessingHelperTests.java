@@ -31,8 +31,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class CmdArgsProcessingHelperTests {
 
-    private static final Path FILE_PATH = Paths.get("files.in");
-    private static final Path DIR_PATH = Paths.get("files_dir.in");
+    private static final Path FILE_PATH = Paths.get("test-files.in");
+    private static final Path DIR_PATH = Paths.get("test-files_dir.in");
 
     private TypeConverter _converter;
 

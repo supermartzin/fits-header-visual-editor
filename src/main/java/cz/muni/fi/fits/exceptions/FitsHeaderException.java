@@ -4,20 +4,20 @@ package cz.muni.fi.fits.exceptions;
  *
  * TODO description
  */
-public class FitsHeaderException extends FitsFileException {
-    public FitsHeaderException(String fileName) {
-        super(fileName);
+public class FitsHeaderException extends EditingEngineException {
+    public FitsHeaderException() {
+        super();
     }
 
-    public FitsHeaderException(String fileName, String message) {
-        super(fileName, message);
+    public FitsHeaderException(String message) {
+        super(message);
     }
 
-    public FitsHeaderException(String fileName, String message, Throwable cause) {
-        super(fileName, message, cause);
+    public FitsHeaderException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public FitsHeaderException(String fileName, Throwable cause) {
-        super(fileName, cause);
+    public FitsHeaderException(Throwable cause) {
+        super(cause);
     }
 }
