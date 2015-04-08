@@ -55,6 +55,7 @@ public class FITSHeaderEditor {
                                     anrid.getComment(),
                                     anrid.updateIfExists(),
                                     fitsFile);
+                            _outputWriter.writeInfo(fitsFile.getName() + " - record successfully added to header");
                         } catch (FitsFileException ffEx) {
                             _outputWriter.writeException(ffEx.getFileName(), ffEx);
                         } catch (EditingEngineException eeEx) {

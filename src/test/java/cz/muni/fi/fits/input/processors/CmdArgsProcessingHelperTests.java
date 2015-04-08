@@ -111,6 +111,7 @@ public class CmdArgsProcessingHelperTests {
         AddNewRecordInputData anrid = CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
 
         assertEquals("KEYWORD".toUpperCase(), anrid.getKeyword());
+        assertTrue(anrid.getValue() instanceof String);
         assertEquals("VALUE", anrid.getValue());
         assertEquals("COMMENT", anrid.getComment());
         assertTrue(anrid.updateIfExists());

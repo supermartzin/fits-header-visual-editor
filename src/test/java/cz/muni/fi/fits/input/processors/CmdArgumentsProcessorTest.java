@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class CmdArgumentsProcessorTest {
 
-    private static final Path FILE_PATH = Paths.get("files.in");
+    private static final Path FILE_PATH = Paths.get("test-files.in");
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
