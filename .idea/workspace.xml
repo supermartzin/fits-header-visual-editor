@@ -2,26 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9623f6ed-926d-4492-852f-237dc36614a1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/EditingEngineException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/FITSHeaderEditor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/FitsFileException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/FitsHeaderException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/HeaderEditingEngine.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__gov_nasa_gsfc_heasarc_nom_tam_fits_1_12_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_compress_1_9.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/NomTamFitsEditingEngine.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/output/writers/OutputWriter.java" />
-      <change type="DELETED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\src\main\java\cz\muni\fi\fits\engine\FITSHeaderEditor.java" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\src\main\java\cz\muni\fi\fits\engine\core\HeaderEditingService.java" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\src\main\java\cz\muni\fi\fits\engine\core\NomTamHeaderEditor.java" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\src\main\java\cz\muni\fi\fits\output\OutputService.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/converters/TypeConverter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/converters/ValueTypeConverter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/converters/ValueTypeConverterTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AddNewRecordInputData.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AddNewRecordInputData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AddNewToIndexInputData.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AddNewToIndexInputData.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/AppInjector.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/AppInjector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/ApplicationInitializer.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/ApplicationInitializer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChangeValueByKeywordInputData.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChangeValueByKeywordInputData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/processors/CmdArgsProcessingHelperTests.java" afterPath="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/processors/CmdArgsProcessingHelperTests.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/output/writers/ConsoleOutputWriter.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/output/writers/ConsoleOutputWriter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FITSHeaderEditor.iml" afterPath="$PROJECT_DIR$/FITSHeaderEditor.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/output/writers/FileOutputWriter.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/output/writers/FileOutputWriter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/InputProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/InputProcessor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/FITSHeaderEditor.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/FITSHeaderEditor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/HeaderEditingEngine.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/HeaderEditingEngine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/NomTamFitsEditingEngine.java" afterPath="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/NomTamFitsEditingEngine.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -46,11 +43,11 @@
       <content type="file-editors">
         <state>
           <leaf>
-            <file leaf-file-name="CmdArgumentsProcessorHelper.java" pinned="false" current-in-tab="true">
+            <file leaf-file-name="CmdArgumentsProcessorHelper.java" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.67763156">
-                    <caret line="290" column="41" selection-start-line="290" selection-start-column="41" selection-end-line="290" selection-end-column="41" />
+                  <state vertical-scroll-proportion="0.0">
+                    <caret line="215" column="189" selection-start-line="215" selection-start-column="189" selection-end-line="215" selection-end-column="189" />
                     <folding>
                       <element signature="docComment;class#CmdArgumentsProcessorHelper#0" expanded="false" />
                       <element signature="method#extractFilesData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
@@ -60,6 +57,27 @@
                       <element signature="method#extractRemoveByIndexData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
                       <element signature="method#extractChangeKeywordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
                       <element signature="method#extractChangeValueByKeywordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
+                      <element signature="method#extractChainRecordsData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="ValueTypeConverter.java" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/converters/ValueTypeConverter.java">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state vertical-scroll-proportion="0.15657894">
+                    <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+                    <folding>
+                      <element signature="docComment;class#ValueTypeConverter#0" expanded="false" />
+                      <element signature="method#tryParseInt#0;class#ValueTypeConverter#0" expanded="false" />
+                      <element signature="method#parseInt#0;class#ValueTypeConverter#0" expanded="false" />
+                      <element signature="method#tryParseLong#0;class#ValueTypeConverter#0" expanded="false" />
+                      <element signature="method#parseLong#0;class#ValueTypeConverter#0" expanded="false" />
+                      <element signature="method#tryParseDouble#0;class#ValueTypeConverter#0" expanded="false" />
+                      <element signature="method#parseDouble#0;class#ValueTypeConverter#0" expanded="false" />
+                      <element signature="method#tryParseBoolean#0;class#ValueTypeConverter#0" expanded="false" />
+                      <element signature="method#parseBoolean#0;class#ValueTypeConverter#0" expanded="false" />
                     </folding>
                   </state>
                 </provider>
@@ -75,63 +93,163 @@
     <favorites_list name="FITSHeaderEditor" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="FITSHeaderEditor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/FITSHeaderEditor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ApplicationInitializer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/ApplicationInitializer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NomTamFitsEditingEngine.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/NomTamFitsEditingEngine.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6136364">
-              <caret line="50" column="37" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HeaderEditingEngine.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/HeaderEditingEngine.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-              <folding>
-                <element signature="docComment;class#HeaderEditingEngine#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="vertical" split-proportion="0.38961038">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="FITSHeaderEditor.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/FITSHeaderEditor.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="36" column="25" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Constants.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="11" column="65" selection-start-line="11" selection-start-column="65" selection-end-line="11" selection-end-column="65" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="CmdArgumentsProcessor.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessor.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="67" column="108" selection-start-line="67" selection-start-column="108" selection-end-line="67" selection-end-column="108" />
+                  <folding>
+                    <element signature="docComment;class#CmdArgumentsProcessor#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ValueTypeConverterTest.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/converters/ValueTypeConverterTest.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="CmdArgsProcessingHelperTests.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/processors/CmdArgsProcessingHelperTests.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="248" column="89" selection-start-line="248" selection-start-column="89" selection-end-line="248" selection-end-column="89" />
+                  <folding>
+                    <element signature="docComment;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#setUp#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#tearDown#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractFilesData_NullFilePath#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractFilesData_FilePathDoesNotExists#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractFilesData_FilePathIsDirectory#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractFilesData_FileIsEmpty#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractFilesData_CorrectFile#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractAddNewRecordData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractAddNewRecordData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractAddNewRecordData_WrongSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractAddNewToIndexData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractAddNewToIndexData_InvalidIndex#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractAddNewToIndexData_WrongSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractAddNewToIndexData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractRemoveByKeywordData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractRemoveByKeywordData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractRemoveByIndexData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractRemoveByIndexData_InvalidIndex#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractRemoveByIndexData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractChangeKeywordData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractChangeKeywordData_WrongSwtichParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractChangeKeywordData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractChangeValueByKeywordData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractChangeValueByKeywordData_WrongSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractChangeValueByKeywordData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractChainRecordsData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractChainRecordsData_WrongFirstSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractChainRecordsData_WrongSecondSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractChainRecordsData_EmptyChainParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                    <element signature="method#testExtractChainRecordsData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="DefaultInputDataValidator.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.7256098">
+                  <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+                  <folding>
+                    <element signature="docComment;class#DefaultInputDataValidator#0" expanded="false" />
+                    <element signature="method#validateCommonInputData#0;class#DefaultInputDataValidator#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="DefaultInputDataValidator.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="99" column="82" selection-start-line="99" selection-start-column="82" selection-end-line="99" selection-end-column="82" />
+                  <folding>
+                    <element signature="docComment;class#DefaultInputDataValidator#0" expanded="false" />
+                    <element signature="method#validate#0;class#DefaultInputDataValidator#0" expanded="false" />
+                    <element signature="method#validateCommonInputData#0;class#DefaultInputDataValidator#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="TypeConverter.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/converters/TypeConverter.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.29699248">
+                  <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+                  <folding>
+                    <element signature="docComment;class#TypeConverter#0" expanded="false" />
+                    <element signature="docComment;method#tryParseInt#0;class#TypeConverter#0" expanded="false" />
+                    <element signature="docComment;method#parseInt#0;class#TypeConverter#0" expanded="false" />
+                    <element signature="docComment;method#tryParseLong#0;class#TypeConverter#0" expanded="false" />
+                    <element signature="docComment;method#parseLong#0;class#TypeConverter#0" expanded="false" />
+                    <element signature="docComment;method#tryParseDouble#0;class#TypeConverter#0" expanded="false" />
+                    <element signature="docComment;method#parseDouble#0;class#TypeConverter#0" expanded="false" />
+                    <element signature="docComment;method#tryParseBoolean#0;class#TypeConverter#0" expanded="false" />
+                    <element signature="docComment;method#parseBoolean#0;class#TypeConverter#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="JUnit4 Test Class" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Martin Vrábel &lt;supermartzin@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -142,23 +260,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/ValidationException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputValidatorHelper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/OperationType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/InvalidSwitchParameterException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/RemoveByIndexInputData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AmbigiousInputData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChangeValueByKeywordInputData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AddNewRecordInputData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AddNewToIndexInputData.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/RemoveByKeywordInputData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChangeKeywordInputData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/SwitchInputData.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/OneSwitchInputData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/TwoSwitchesInputData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChainRecordsInputData.java" />
         <option value="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/processors/CmdArgsProcessingHelperTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Tuple.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputValidator1.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/InputValidatorFactory.java" />
@@ -166,17 +270,10 @@
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputValidator.java" />
         <option value="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/ExtractAddNewRecordDataTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/ApplicationInitializer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/InputDataValidator.java" />
         <option value="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidatorTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/output/OutputService.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/output/writers/OutputService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/AppInjector.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/InputProcessor.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/FITSHeaderEditor.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/core/NomTamHeaderEditor.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/core/HeaderEditingService.java" />
@@ -185,14 +282,35 @@
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/core/NomTamFitsEditingEngine.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/FitsException.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/EditingEngineException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/HeaderEditingEngine.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/output/writers/OutputWriter.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/output/writers/FileOutputWriter.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/output/writers/ConsoleOutputWriter.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/FitsFileException.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/FitsHeaderException.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/FITSHeaderEditor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/TwoSwitchesInputData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/SwitchesInputData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/InputData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/SwitchInputData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChainRecordsInputData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChangeKeywordInputData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AddNewRecordInputData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AddNewToIndexInputData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChangeValueByKeywordInputData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/InputProcessor.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/AppInjector.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/converters/DefaultTypeConverter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/HeaderEditingEngine.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/NomTamFitsEditingEngine.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java" />
+        <option value="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/converters/ValueTypeConverterTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/processors/CmdArgsProcessingHelperTests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/converters/TypeConverter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/converters/ValueTypeConverter.java" />
       </list>
     </option>
   </component>
@@ -330,6 +448,7 @@
     <panes>
       <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -367,6 +486,70 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="input" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FITSHeaderEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FITSHeaderEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="input" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="processors" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FITSHeaderEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FITSHeaderEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="input" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="converters" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -411,6 +594,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="fits" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FITSHeaderEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FITSHeaderEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fits" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -602,7 +815,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="exceptions" />
+              <option name="myItemId" value="input" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="converters" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -638,7 +855,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -694,11 +910,12 @@
       <recent name="cz.muni.fi.fits.input.processors" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="cz.muni.fi.fits.input.converters" />
       <recent name="cz.muni.fi.fits.input.validators" />
       <recent name="cz.muni.fi.fits.input" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ApplicationInitializer">
+  <component name="RunManager" selected="JUnit.All in FITSHeaderEditor">
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
       <deployment />
       <server-settings />
@@ -945,7 +1162,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="cz.muni.fi.fits.ApplicationInitializer" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="add -u files.in keyword &quot;random value just for testing purpose&quot; &quot;random comment&quot;" />
+      <option name="PROGRAM_PARAMETERS" value="add files.in key1word &quot;random value just for testing purpose&quot; &quot;random comment&quot;" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -1033,11 +1250,18 @@
       <workItem from="1427965819933" duration="9182000" />
       <workItem from="1427976151537" duration="6135000" />
       <workItem from="1427987226708" duration="7190000" />
+      <workItem from="1428059652548" duration="7728000" />
+      <workItem from="1428171991264" duration="1306000" />
+      <workItem from="1428314088778" duration="3733000" />
+      <workItem from="1428396751613" duration="20161000" />
+      <workItem from="1428441493902" duration="1073000" />
+      <workItem from="1428487082634" duration="2597000" />
+      <workItem from="1428495548240" duration="5524000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="152858000" />
+    <option name="totallyTimeSpent" value="194980000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1049,33 +1273,33 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32864866" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32756758" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32683983" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3430736" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23240939" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21695095" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32467532" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3982684" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39718616" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48924732" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1093,6 +1317,12 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Type converting classes - TypeConverter interface and its implementation ValueTypeConverter" />
+    <option name="LAST_COMMIT_MESSAGE" value="Type converting classes - TypeConverter interface and its implementation ValueTypeConverter" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -1104,18 +1334,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/NomTamFitsEditingEngine.java</url>
-          <line>20</line>
+          <line>22</line>
           <properties />
-          <option name="timeStamp" value="27" />
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/NomTamFitsEditingEngine.java</url>
-          <line>47</line>
+          <line>36</line>
           <properties />
-          <option name="timeStamp" value="28" />
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="29" />
+      <option name="time" value="44" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1124,88 +1354,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/ApplicationInitializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/lang/Thread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33206832">
-          <caret line="753" column="0" selection-start-line="753" selection-start-column="0" selection-end-line="753" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/IllegalInputDataException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07589286">
-          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/LocaleHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24665178">
-          <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FITSHeaderEditor.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/WrongNumberOfParametersException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2845982">
-          <caret line="29" column="81" selection-start-line="29" selection-start-column="81" selection-end-line="29" selection-end-column="81" />
-          <folding>
-            <element signature="docComment;class#WrongNumberOfParametersException#0" expanded="false" />
-            <element signature="method#WrongNumberOfParametersException#1;class#WrongNumberOfParametersException#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/UnknownOperationException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2845982">
-          <caret line="29" column="72" selection-start-line="29" selection-start-column="72" selection-end-line="29" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/rules/ExpectedException.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35279188">
-          <caret line="98" column="20" selection-start-line="98" selection-start-column="20" selection-end-line="98" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5456853">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/InvalidIndexException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58816963">
-          <caret line="31" column="28" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/exceptions/InvalidSwitchParameterException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.11383928">
@@ -1230,98 +1378,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/RemoveByIndexInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20870535">
-          <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-          <folding>
-            <element signature="docComment;class#RemoveByIndexInputData#0" expanded="false" />
-            <element signature="method#RemoveByIndexInputData#1;class#RemoveByIndexInputData#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChangeValueByKeywordInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20870535">
-          <caret line="18" column="114" selection-start-line="18" selection-start-column="114" selection-end-line="18" selection-end-column="114" />
-          <folding>
-            <element signature="docComment;class#ChangeValueByKeywordInputData#0" expanded="false" />
-            <element signature="method#ChangeValueByKeywordInputData#0;class#ChangeValueByKeywordInputData#0" expanded="false" />
-            <element signature="method#ChangeValueByKeywordInputData#1;class#ChangeValueByKeywordInputData#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AddNewToIndexInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5173913">
-          <caret line="23" column="146" selection-start-line="23" selection-start-column="146" selection-end-line="23" selection-end-column="146" />
-          <folding>
-            <element signature="docComment;class#AddNewToIndexInputData#0" expanded="false" />
-            <element signature="method#AddNewToIndexInputData#0;class#AddNewToIndexInputData#0" expanded="false" />
-            <element signature="method#AddNewToIndexInputData#1;class#AddNewToIndexInputData#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/RemoveByKeywordInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59130436">
-          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChangeKeywordInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7782609">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#ChangeKeywordInputData#0" expanded="false" />
-            <element signature="method#ChangeKeywordInputData#0;class#ChangeKeywordInputData#0" expanded="false" />
-            <element signature="method#ChangeKeywordInputData#1;class#ChangeKeywordInputData#0" expanded="false" />
-            <element signature="e#1055#1056#0" expanded="false" />
-            <element signature="e#1088#1089#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/InputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#InputData#0" expanded="false" />
-            <element signature="method#InputData#0;class#InputData#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/OneSwitchInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/TwoSwitchesInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33240223">
-          <caret line="14" column="45" selection-start-line="14" selection-start-column="45" selection-end-line="14" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChainRecordsInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
-          <folding>
-            <element signature="docComment;class#ChainRecordsInputData#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6261161">
@@ -1340,7 +1396,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="2865" column="0" selection-start-line="2865" selection-start-column="0" selection-end-line="2865" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1348,11 +1403,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3794643">
           <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
-          <folding>
-            <element signature="docComment;class#Tuple#0" expanded="false" />
-            <element signature="method#Tuple#0;class#Tuple#0" expanded="false" />
-            <element signature="method#equals#0;class#Tuple#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1360,26 +1410,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1516165">
           <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/processors/CmdArgsProcessingHelperTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0578947">
-          <caret line="286" column="81" selection-start-line="286" selection-start-column="81" selection-end-line="286" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AddNewRecordInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20870535">
-          <caret line="18" column="103" selection-start-line="18" selection-start-column="103" selection-end-line="18" selection-end-column="103" />
-          <folding>
-            <element signature="docComment;class#AddNewRecordInputData#0" expanded="false" />
-            <element signature="method#AddNewRecordInputData#0;class#AddNewRecordInputData#0" expanded="false" />
-            <element signature="method#AddNewRecordInputData#1;class#AddNewRecordInputData#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1387,13 +1417,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4296029">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15178572">
-          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
         </state>
       </provider>
     </entry>
@@ -1408,7 +1431,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="804" column="0" selection-start-line="804" selection-start-column="0" selection-end-line="804" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1419,70 +1441,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/AppInjector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44041452">
-          <caret line="25" column="55" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15178572">
-          <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
-          <folding>
-            <element signature="docComment;class#DefaultInputDataValidator#0" expanded="false" />
-            <element signature="method#validate#0;class#DefaultInputDataValidator#0" expanded="false" />
-            <element signature="method#validate#1;class#DefaultInputDataValidator#0" expanded="false" />
-            <element signature="method#validate#2;class#DefaultInputDataValidator#0" expanded="false" />
-            <element signature="method#validate#3;class#DefaultInputDataValidator#0" expanded="false" />
-            <element signature="method#validate#4;class#DefaultInputDataValidator#0" expanded="false" />
-            <element signature="method#validate#5;class#DefaultInputDataValidator#0" expanded="false" />
-            <element signature="method#validate#6;class#DefaultInputDataValidator#0" expanded="false" />
-            <element signature="method#validateCommonInputData#0;class#DefaultInputDataValidator#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3549107">
-          <caret line="37" column="28" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30357143">
-          <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/InputProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20870535">
-          <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/InputDataValidator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.47433037">
           <caret line="53" column="4" selection-start-line="53" selection-start-column="4" selection-end-line="53" selection-end-column="4" />
-          <folding>
-            <element signature="docComment;class#InputDataValidator#0" expanded="false" />
-            <element signature="docComment;method#validate#0;class#InputDataValidator#0" expanded="false" />
-            <element signature="docComment;method#validate#1;class#InputDataValidator#0" expanded="false" />
-            <element signature="docComment;method#validate#2;class#InputDataValidator#0" expanded="false" />
-            <element signature="docComment;method#validate#3;class#InputDataValidator#0" expanded="false" />
-            <element signature="docComment;method#validate#4;class#InputDataValidator#0" expanded="false" />
-            <element signature="docComment;method#validate#5;class#InputDataValidator#0" expanded="false" />
-            <element signature="docComment;method#validate#6;class#InputDataValidator#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1490,11 +1452,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="47" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
-          <folding>
-            <element signature="docComment;class#FileOutputWriter#0" expanded="false" />
-            <element signature="e#811#812#0" expanded="true" />
-            <element signature="e#865#866#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1502,10 +1459,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6640625">
           <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding>
-            <element signature="e#466#467#0" expanded="true" />
-            <element signature="e#520#521#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1513,7 +1466,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.43638393">
           <caret line="23" column="6" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1521,13 +1473,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2845982">
           <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
-          <folding>
-            <element signature="docComment;class#FitsFileException#0" expanded="false" />
-            <element signature="method#FitsFileException#0;class#FitsFileException#0" expanded="false" />
-            <element signature="method#FitsFileException#1;class#FitsFileException#0" expanded="false" />
-            <element signature="method#FitsFileException#2;class#FitsFileException#0" expanded="false" />
-            <element signature="method#FitsFileException#3;class#FitsFileException#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1535,17 +1480,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.265625">
           <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-          <folding>
-            <element signature="docComment;class#FitsHeaderException#0" expanded="false" />
-            <element signature="e#177#178#0" expanded="true" />
-            <element signature="e#208#209#0" expanded="true" />
-            <element signature="e#275#276#0" expanded="true" />
-            <element signature="e#315#316#0" expanded="true" />
-            <element signature="e#399#400#0" expanded="true" />
-            <element signature="e#446#447#0" expanded="true" />
-            <element signature="e#514#515#0" expanded="true" />
-            <element signature="e#552#553#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1553,34 +1487,190 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.05691964">
           <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fits/FOCx38i0101t_c0f.fits">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.8085107">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/gov/nasa/gsfc/heasarc/nom-tam-fits/1.12.0/nom-tam-fits-1.12.0.jar!/nom/tam/fits/HeaderCommentsMap.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2952243">
+          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/gov/nasa/gsfc/heasarc/nom-tam-fits/1.12.0/nom-tam-fits-1.12.0.jar!/nom/tam/fits/HeaderCard.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.5027322">
+          <caret line="349" column="28" selection-start-line="349" selection-start-column="28" selection-end-line="349" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3327032">
+          <caret line="753" column="0" selection-start-line="753" selection-start-column="0" selection-end-line="753" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/util/Vector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="476" column="0" selection-start-line="476" selection-start-column="0" selection-end-line="476" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/gov/nasa/gsfc/heasarc/nom-tam-fits/1.12.0/nom-tam-fits-1.12.0.jar!/nom/tam/fits/FitsUtil.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34920636">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/gov/nasa/gsfc/heasarc/nom-tam-fits/1.12.0/nom-tam-fits-1.12.0.jar!/nom/tam/fits/Header.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46825397">
+          <caret line="854" column="0" selection-start-line="854" selection-start-column="0" selection-end-line="854" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/gov/nasa/gsfc/heasarc/nom-tam-fits/1.12.0/nom-tam-fits-1.12.0.jar!/nom/tam/fits/BasicHDU.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/gov/nasa/gsfc/heasarc/nom-tam-fits/1.12.0/nom-tam-fits-1.12.0.jar!/nom/tam/fits/Fits.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="345" column="0" selection-start-line="345" selection-start-column="0" selection-end-line="345" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/InputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AddNewRecordInputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36049107">
+          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/AddNewToIndexInputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07589286">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChainRecordsInputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43638393">
+          <caret line="50" column="55" selection-start-line="50" selection-start-column="55" selection-end-line="50" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChangeKeywordInputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18973215">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/ChangeValueByKeywordInputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32254463">
+          <caret line="34" column="17" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/RemoveByIndexInputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/RemoveByKeywordInputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30357143">
+          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/models/inputData/SwitchInputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32254463">
+          <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/InputProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15178572">
+          <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/ApplicationInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2845982">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53125">
+          <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/AppInjector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3794643">
+          <caret line="30" column="63" selection-start-line="30" selection-start-column="63" selection-end-line="30" selection-end-column="63" />
           <folding>
-            <element signature="docComment;class#EditingEngineException#0" expanded="false" />
+            <element signature="e#806#807#0" expanded="false" />
+            <element signature="e#849#850#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/NomTamFitsEditingEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18415178">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/HeaderEditingEngine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-          <folding>
-            <element signature="docComment;class#HeaderEditingEngine#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/FITSHeaderEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.11383928">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessorHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.67763156">
-          <caret line="290" column="41" selection-start-line="290" selection-start-column="41" selection-end-line="290" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="215" column="189" selection-start-line="215" selection-start-column="189" selection-end-line="215" selection-end-column="189" />
           <folding>
             <element signature="docComment;class#CmdArgumentsProcessorHelper#0" expanded="false" />
             <element signature="method#extractFilesData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
@@ -1590,24 +1680,128 @@
             <element signature="method#extractRemoveByIndexData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
             <element signature="method#extractChangeKeywordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
             <element signature="method#extractChangeValueByKeywordData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
+            <element signature="method#extractChainRecordsData#0;class#CmdArgumentsProcessorHelper#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/ApplicationInitializer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/FITSHeaderEditor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <caret line="36" column="25" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/engine/NomTamFitsEditingEngine.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/converters/ValueTypeConverterTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6136364">
-          <caret line="50" column="37" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/cz/muni/fi/fits/input/processors/CmdArgsProcessingHelperTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="248" column="89" selection-start-line="248" selection-start-column="89" selection-end-line="248" selection-end-column="89" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#setUp#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#tearDown#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractFilesData_NullFilePath#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractFilesData_FilePathDoesNotExists#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractFilesData_FilePathIsDirectory#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractFilesData_FileIsEmpty#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractFilesData_CorrectFile#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractAddNewRecordData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractAddNewRecordData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractAddNewRecordData_WrongSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractAddNewToIndexData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractAddNewToIndexData_InvalidIndex#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractAddNewToIndexData_WrongSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractAddNewToIndexData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractRemoveByKeywordData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractRemoveByKeywordData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractRemoveByIndexData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractRemoveByIndexData_InvalidIndex#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractRemoveByIndexData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractChangeKeywordData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractChangeKeywordData_WrongSwtichParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractChangeKeywordData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractChangeValueByKeywordData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractChangeValueByKeywordData_WrongSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractChangeValueByKeywordData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractChainRecordsData_WrongNumberOfParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractChainRecordsData_WrongFirstSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractChainRecordsData_WrongSecondSwitchParameter#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractChainRecordsData_EmptyChainParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+            <element signature="method#testExtractChainRecordsData_CorrectParameters#0;class#CmdArgsProcessingHelperTests#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/processors/CmdArgumentsProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="67" column="108" selection-start-line="67" selection-start-column="108" selection-end-line="67" selection-end-column="108" />
+          <folding>
+            <element signature="docComment;class#CmdArgumentsProcessor#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="65" selection-start-line="11" selection-start-column="65" selection-end-line="11" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/converters/ValueTypeConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15657894">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding>
+            <element signature="docComment;class#ValueTypeConverter#0" expanded="false" />
+            <element signature="method#tryParseInt#0;class#ValueTypeConverter#0" expanded="false" />
+            <element signature="method#parseInt#0;class#ValueTypeConverter#0" expanded="false" />
+            <element signature="method#tryParseLong#0;class#ValueTypeConverter#0" expanded="false" />
+            <element signature="method#parseLong#0;class#ValueTypeConverter#0" expanded="false" />
+            <element signature="method#tryParseDouble#0;class#ValueTypeConverter#0" expanded="false" />
+            <element signature="method#parseDouble#0;class#ValueTypeConverter#0" expanded="false" />
+            <element signature="method#tryParseBoolean#0;class#ValueTypeConverter#0" expanded="false" />
+            <element signature="method#parseBoolean#0;class#ValueTypeConverter#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/converters/TypeConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29699248">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;class#TypeConverter#0" expanded="false" />
+            <element signature="docComment;method#tryParseInt#0;class#TypeConverter#0" expanded="false" />
+            <element signature="docComment;method#parseInt#0;class#TypeConverter#0" expanded="false" />
+            <element signature="docComment;method#tryParseLong#0;class#TypeConverter#0" expanded="false" />
+            <element signature="docComment;method#parseLong#0;class#TypeConverter#0" expanded="false" />
+            <element signature="docComment;method#tryParseDouble#0;class#TypeConverter#0" expanded="false" />
+            <element signature="docComment;method#parseDouble#0;class#TypeConverter#0" expanded="false" />
+            <element signature="docComment;method#tryParseBoolean#0;class#TypeConverter#0" expanded="false" />
+            <element signature="docComment;method#parseBoolean#0;class#TypeConverter#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/muni/fi/fits/input/validators/DefaultInputDataValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7256098">
+          <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+          <folding>
+            <element signature="docComment;class#DefaultInputDataValidator#0" expanded="false" />
+            <element signature="method#validateCommonInputData#0;class#DefaultInputDataValidator#0" expanded="false" />
           </folding>
         </state>
       </provider>

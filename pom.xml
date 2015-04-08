@@ -8,6 +8,10 @@
     <artifactId>FITSHeaderEditor</artifactId>
     <version>0.1-ALPHA</version>
 
+    <properties>
+        <guice.version>4.0-beta5</guice.version>
+    </properties>
+
     <dependencies>
 
         <!-- nom.tam.fits FITS library-->
@@ -21,7 +25,7 @@
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>4.0-beta5</version>
+            <version>${guice.version}</version>
         </dependency>
 
         <!-- Testing framework -->

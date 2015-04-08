@@ -1,4 +1,4 @@
 target/
-fits/
+/fits
 .idea/
 files.in
