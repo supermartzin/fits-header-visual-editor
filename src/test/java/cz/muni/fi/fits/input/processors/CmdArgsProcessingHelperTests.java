@@ -3,6 +3,8 @@ package cz.muni.fi.fits.input.processors;
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.InvalidSwitchParameterException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
+import cz.muni.fi.fits.input.converters.TypeConverter;
+import cz.muni.fi.fits.input.converters.ValueTypeConverter;
 import cz.muni.fi.fits.models.inputData.*;
 import org.junit.After;
 import org.junit.Before;
@@ -32,17 +34,21 @@ public class CmdArgsProcessingHelperTests {
     private static final Path FILE_PATH = Paths.get("files.in");
     private static final Path DIR_PATH = Paths.get("files_dir.in");
 
+    private TypeConverter _converter;
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setUp() throws Exception {
         Files.createFile(FILE_PATH);
+        _converter = new ValueTypeConverter();
     }
 
     @After
     public void tearDown() throws Exception {
         Files.deleteIfExists(FILE_PATH);
+        _converter = null;
     }
 
     @Test
@@ -95,14 +101,14 @@ public class CmdArgsProcessingHelperTests {
         String[] args = new String[] { "add", FILE_PATH.toString() };
 
         exception.expect(WrongNumberOfParametersException.class);
-        CmdArgumentsProcessorHelper.extractAddNewRecordData(args);
+        CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
     }
 
     @Test
     public void testExtractAddNewRecordData_CorrectParameters() throws Exception {
         String[] args = new String[] { "add", "-u", FILE_PATH.toString(), "KEYWORD", "VALUE", "COMMENT" };
 
-        AddNewRecordInputData anrid = CmdArgumentsProcessorHelper.extractAddNewRecordData(args);
+        AddNewRecordInputData anrid = CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
 
         assertEquals("KEYWORD".toUpperCase(), anrid.getKeyword());
         assertEquals("VALUE", anrid.getValue());
@@ -115,7 +121,7 @@ public class CmdArgsProcessingHelperTests {
         String[] args = new String[] { "add", "-update", FILE_PATH.toString(), "KEYWORD", "VALUE" };
 
         exception.expect(InvalidSwitchParameterException.class);
-        CmdArgumentsProcessorHelper.extractAddNewRecordData(args);
+        CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
     }
 
     @Test
@@ -123,7 +129,7 @@ public class CmdArgsProcessingHelperTests {
         String[] args = new String[] { "add_ix", FILE_PATH.toString() };
 
         exception.expect(WrongNumberOfParametersException.class);
-        CmdArgumentsProcessorHelper.extractAddNewToIndexData(args);
+        CmdArgumentsProcessorHelper.extractAddNewToIndexData(args, _converter);
     }
 
     @Test
@@ -131,7 +137,7 @@ public class CmdArgsProcessingHelperTests {
         String[] args = new String[] { "add_ix", FILE_PATH.toString(), "one","KEYWORD", "VALUE" };
 
         exception.expect(IllegalInputDataException.class);
-        CmdArgumentsProcessorHelper.extractAddNewToIndexData(args);
+        CmdArgumentsProcessorHelper.extractAddNewToIndexData(args, _converter);
     }
 
     @Test
@@ -139,14 +145,14 @@ public class CmdArgsProcessingHelperTests {
         String[] args = new String[] { "add_ix", "-remove", FILE_PATH.toString(), "KEYWORD", "VALUE" };
 
         exception.expect(InvalidSwitchParameterException.class);
-        CmdArgumentsProcessorHelper.extractAddNewToIndexData(args);
+        CmdArgumentsProcessorHelper.extractAddNewToIndexData(args, _converter);
     }
 
     @Test
     public void testExtractAddNewToIndexData_CorrectParameters() throws Exception {
         String[] args = new String[] { "add_ix", "-rm", FILE_PATH.toString(), "25", "KEYWORD", "VALUE", "COMMENT" };
 
-        AddNewToIndexInputData antiid = CmdArgumentsProcessorHelper.extractAddNewToIndexData(args);
+        AddNewToIndexInputData antiid = CmdArgumentsProcessorHelper.extractAddNewToIndexData(args, _converter);
 
         assertEquals(25, antiid.getIndex());
         assertEquals("KEYWORD".toUpperCase(), antiid.getKeyword());
@@ -228,7 +234,7 @@ public class CmdArgsProcessingHelperTests {
         String[] args = new String[] { "change", FILE_PATH.toString(), "KEYWORD", "VALUE", "COMMENT", "REDUNDANT_ARG" };
 
         exception.expect(WrongNumberOfParametersException.class);
-        CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args);
+        CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args, _converter);
     }
 
     @Test
@@ -236,14 +242,14 @@ public class CmdArgsProcessingHelperTests {
         String[] args = new String[] { "change", "-add", FILE_PATH.toString(), "KEYWORD", "VALUE" };
 
         exception.expect(InvalidSwitchParameterException.class);
-        CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args);
+        CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args, _converter);
     }
 
     @Test
     public void testExtractChangeValueByKeywordData_CorrectParameters() throws Exception {
         String[] args = new String[] { "change", FILE_PATH.toString(), "KEYWORD", "VALUE", "COMMENT" };
 
-        ChangeValueByKeywordInputData cvbkid = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args);
+        ChangeValueByKeywordInputData cvbkid = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args, _converter);
         assertEquals("KEYWORD".toUpperCase(), cvbkid.getKeyword());
         assertFalse(cvbkid.addNewIfNotExists());
         assertEquals("VALUE", cvbkid.getValue());

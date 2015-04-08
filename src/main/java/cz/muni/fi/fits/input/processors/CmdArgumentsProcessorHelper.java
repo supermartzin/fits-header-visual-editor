@@ -3,6 +3,7 @@ package cz.muni.fi.fits.input.processors;
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.InvalidSwitchParameterException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
+import cz.muni.fi.fits.input.converters.TypeConverter;
 import cz.muni.fi.fits.models.inputData.*;
 import cz.muni.fi.fits.utils.Tuple;
 
@@ -47,7 +48,7 @@ final class CmdArgumentsProcessorHelper {
         return fitsFiles;
     }
 
-    static AddNewRecordInputData extractAddNewRecordData(String[] cmdArgs) throws IllegalInputDataException {
+    static AddNewRecordInputData extractAddNewRecordData(String[] cmdArgs, TypeConverter converter) throws IllegalInputDataException {
         // get switch (optional)
         boolean updateIfExists = false;
         String switchParam = cmdArgs[1].trim();
@@ -70,7 +71,23 @@ final class CmdArgumentsProcessorHelper {
         String keyword = !updateIfExists ? cmdArgs[2].trim() : cmdArgs[3].trim();
 
         // get value of new record (required)
-        String value = !updateIfExists ? cmdArgs[3].trim() : cmdArgs[4].trim();
+        String strValue = !updateIfExists ? cmdArgs[3].trim() : cmdArgs[4].trim();
+        Object value;
+        // integer
+        if (converter.tryParseInt(strValue))
+            value = converter.parseInt(strValue);
+        // long
+        else if (converter.tryParseLong(strValue))
+            value = converter.parseLong(strValue);
+        // double
+        else if (converter.tryParseDouble(strValue))
+            value = converter.parseDouble(strValue);
+        // boolean
+        else if (converter.tryParseBoolean(strValue))
+            value = converter.parseBoolean(strValue);
+        // String
+        else
+            value = strValue;
 
         // get comment of new record (optional)
         String comment = "";
@@ -82,7 +99,7 @@ final class CmdArgumentsProcessorHelper {
         return new AddNewRecordInputData(keyword, value, comment, updateIfExists);
     }
 
-    static AddNewToIndexInputData extractAddNewToIndexData(String[] cmdArgs) throws IllegalInputDataException {
+    static AddNewToIndexInputData extractAddNewToIndexData(String[] cmdArgs, TypeConverter converter) throws IllegalInputDataException {
         // get switch (optional)
         boolean removeOldIfExists = false;
         String switchParam  = cmdArgs[1].trim();
@@ -114,7 +131,23 @@ final class CmdArgumentsProcessorHelper {
         String keyword = !removeOldIfExists ? cmdArgs[3].trim() : cmdArgs[4].trim();
 
         // get value of new record (required)
-        String value = !removeOldIfExists ? cmdArgs[4].trim() : cmdArgs[5].trim();
+        String strValue = !removeOldIfExists ? cmdArgs[4].trim() : cmdArgs[5].trim();
+        Object value;
+        // integer
+        if (converter.tryParseInt(strValue))
+            value = converter.parseInt(strValue);
+        // long
+        else if (converter.tryParseLong(strValue))
+            value = converter.parseLong(strValue);
+        // double
+        else if (converter.tryParseDouble(strValue))
+            value = converter.parseDouble(strValue);
+        // boolean
+        else if (converter.tryParseBoolean(strValue))
+            value = converter.parseBoolean(strValue);
+        // String
+        else
+            value = strValue;
 
         // get comment of new record (optional)
         String comment = "";
@@ -180,7 +213,7 @@ final class CmdArgumentsProcessorHelper {
         return new ChangeKeywordInputData(oldKeyword, newKeyword, removeValueOfNewIfExists);
     }
 
-    static ChangeValueByKeywordInputData extractChangeValueByKeywordData(String[] cmdArgs) throws WrongNumberOfParametersException, InvalidSwitchParameterException {
+    static ChangeValueByKeywordInputData extractChangeValueByKeywordData(String[] cmdArgs, TypeConverter converter) throws WrongNumberOfParametersException, InvalidSwitchParameterException {
         // get switch (optional)
         boolean addNewIfNotExists = false;
         String switchParam = cmdArgs[1].trim();
@@ -203,7 +236,23 @@ final class CmdArgumentsProcessorHelper {
         String keyword = !addNewIfNotExists ? cmdArgs[2].trim() : cmdArgs[3].trim();
 
         // get value of changing record (required)
-        String value = !addNewIfNotExists ? cmdArgs[3].trim() : cmdArgs[4].trim();
+        String strValue = !addNewIfNotExists ? cmdArgs[3].trim() : cmdArgs[4].trim();
+        Object value;
+        // integer
+        if (converter.tryParseInt(strValue))
+            value = converter.parseInt(strValue);
+        // long
+        else if (converter.tryParseLong(strValue))
+            value = converter.parseLong(strValue);
+        // double
+        else if (converter.tryParseDouble(strValue))
+            value = converter.parseDouble(strValue);
+        // boolean
+        else if (converter.tryParseBoolean(strValue))
+            value = converter.parseBoolean(strValue);
+        // String
+        else
+            value = strValue;
 
         // get comment of changing record (optional)
         String comment = "";

@@ -13,14 +13,14 @@ import java.util.HashSet;
 public class AddNewRecordInputData extends SwitchInputData {
 
     private final String _keyword;
-    private final String _value;
+    private final Object _value;
     private final String _comment;
 
-    public AddNewRecordInputData(String keyword, String value, String comment, boolean updateIfExists) {
+    public AddNewRecordInputData(String keyword, Object value, String comment, boolean updateIfExists) {
         this(keyword, value, comment, updateIfExists, new HashSet<>());
     }
 
-    public AddNewRecordInputData(String keyword, String value, String comment, boolean updateIfExists, Collection<File> fitsFiles) {
+    public AddNewRecordInputData(String keyword, Object value, String comment, boolean updateIfExists, Collection<File> fitsFiles) {
         super(OperationType.ADD_NEW_RECORD_TO_END, fitsFiles);
         this._keyword = keyword.toUpperCase();
         this._value = value;
@@ -32,7 +32,7 @@ public class AddNewRecordInputData extends SwitchInputData {
         return _keyword;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return _value;
     }
 

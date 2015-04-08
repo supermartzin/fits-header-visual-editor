@@ -10,5 +10,5 @@ import java.io.File;
  */
 public interface HeaderEditingEngine {
 
-    void addNewRecord(String keyword, String value, String comment, boolean updateIfExists, File fitsFile) throws EditingEngineException;
+    void addNewRecord(String keyword, Object value, String comment, boolean updateIfExists, File fitsFile) throws EditingEngineException;
 }

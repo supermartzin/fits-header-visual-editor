@@ -13,14 +13,14 @@ import java.util.HashSet;
 public class ChangeValueByKeywordInputData extends SwitchInputData {
 
     private final String _keyword;
-    private final String _value;
+    private final Object _value;
     private final String _comment;
 
-    public ChangeValueByKeywordInputData(String keyword, String value, String comment, boolean addNewIfNotExists) {
+    public ChangeValueByKeywordInputData(String keyword, Object value, String comment, boolean addNewIfNotExists) {
         this(keyword, value, comment, addNewIfNotExists, new HashSet<>());
     }
 
-    public ChangeValueByKeywordInputData(String keyword, String value, String comment, boolean addNewIfNotExists, Collection<File> fitsFiles) {
+    public ChangeValueByKeywordInputData(String keyword, Object value, String comment, boolean addNewIfNotExists, Collection<File> fitsFiles) {
         super(OperationType.CHANGE_KEYWORD, fitsFiles);
         this._keyword = keyword;
         this._value = value;
@@ -32,7 +32,7 @@ public class ChangeValueByKeywordInputData extends SwitchInputData {
         return _keyword;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return _value;
     }
 

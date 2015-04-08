@@ -14,14 +14,14 @@ public class AddNewToIndexInputData extends SwitchInputData {
 
     private final int _index;
     private final String _keyword;
-    private final String _value;
+    private final Object _value;
     private final String _comment;
 
-    public AddNewToIndexInputData(int index, String keyword, String value, String comment, boolean removeOldIfExists) {
+    public AddNewToIndexInputData(int index, String keyword, Object value, String comment, boolean removeOldIfExists) {
         this(index, keyword, value, comment, removeOldIfExists, new HashSet<>());
     }
 
-    public AddNewToIndexInputData(int index, String keyword, String value, String comment, boolean removeOldIfExists, Collection<File> fitsFiles) {
+    public AddNewToIndexInputData(int index, String keyword, Object value, String comment, boolean removeOldIfExists, Collection<File> fitsFiles) {
         super(OperationType.ADD_NEW_RECORD_TO_INDEX, fitsFiles);
         this._index = index;
         this._keyword = keyword.toUpperCase();
@@ -38,7 +38,7 @@ public class AddNewToIndexInputData extends SwitchInputData {
         return _keyword;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return _value;
     }
 

@@ -3,6 +3,8 @@ package cz.muni.fi.fits;
 import com.google.inject.AbstractModule;
 import cz.muni.fi.fits.engine.HeaderEditingEngine;
 import cz.muni.fi.fits.engine.NomTamFitsEditingEngine;
+import cz.muni.fi.fits.input.converters.ValueTypeConverter;
+import cz.muni.fi.fits.input.converters.TypeConverter;
 import cz.muni.fi.fits.input.processors.CmdArgumentsProcessor;
 import cz.muni.fi.fits.input.processors.InputProcessor;
 import cz.muni.fi.fits.input.validators.DefaultInputDataValidator;
@@ -26,6 +28,7 @@ public class AppInjector extends AbstractModule {
         bind(OutputWriter.class).to(ConsoleOutputWriter.class);
         bind(HeaderEditingEngine.class).to(NomTamFitsEditingEngine.class);
         bind(InputDataValidator.class).to(DefaultInputDataValidator.class);
+        bind(TypeConverter.class).to(ValueTypeConverter.class);
         bind(InputProcessor.class).toInstance(new CmdArgumentsProcessor((String[]) _inputData));
     }
 }

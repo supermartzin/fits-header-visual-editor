@@ -3,8 +3,10 @@ package cz.muni.fi.fits.input.processors;
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.UnknownOperationException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
+import cz.muni.fi.fits.input.converters.TypeConverter;
 import cz.muni.fi.fits.models.inputData.*;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.File;
 import java.util.Collection;
@@ -16,7 +18,13 @@ import java.util.Collection;
 @Singleton
 public class CmdArgumentsProcessor implements InputProcessor {
 
+    private TypeConverter _converter;
     private final String[] _cmdArgs;
+
+    @Inject
+    public void setTypeConverter(TypeConverter typeConverter) {
+        _converter = typeConverter;
+    }
 
     public CmdArgumentsProcessor(String[] cmdArgs) {
         this._cmdArgs = cmdArgs;
@@ -37,12 +45,12 @@ public class CmdArgumentsProcessor implements InputProcessor {
         String operation = _cmdArgs[0].trim().toUpperCase();
         switch (operation) {
             case "ADD":
-                inputData = CmdArgumentsProcessorHelper.extractAddNewRecordData(_cmdArgs);
+                inputData = CmdArgumentsProcessorHelper.extractAddNewRecordData(_cmdArgs, _converter);
                 fitsFilesArgIndex = ((AddNewRecordInputData) inputData).updateIfExists() ? 2 : 1;
                 break;
 
             case "ADD_IX":
-                inputData = CmdArgumentsProcessorHelper.extractAddNewToIndexData(_cmdArgs);
+                inputData = CmdArgumentsProcessorHelper.extractAddNewToIndexData(_cmdArgs, _converter);
                 fitsFilesArgIndex = ((AddNewToIndexInputData) inputData).removeOldIfExists() ? 2 : 1;
                 break;
 
@@ -57,7 +65,7 @@ public class CmdArgumentsProcessor implements InputProcessor {
                 break;
 
             case "CHANGE":
-                inputData = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(_cmdArgs);
+                inputData = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(_cmdArgs, _converter);
                 fitsFilesArgIndex = ((ChangeValueByKeywordInputData) inputData).addNewIfNotExists() ? 2 : 1;
                 break;
 
