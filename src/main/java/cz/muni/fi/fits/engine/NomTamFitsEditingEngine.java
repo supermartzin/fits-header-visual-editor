@@ -8,12 +8,16 @@ import nom.tam.util.Cursor;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
  * TODO description
  */
 public class NomTamFitsEditingEngine implements HeaderEditingEngine {
+
+    private static final List<String> MANDATORY_KEYWORDS = Arrays.asList("NAXIS", "SIMPLE", "BITPIX", "EXTEND");
 
     @Override
     public void addNewRecord(String keyword, Object value, String comment, boolean updateIfExists, File fitsFile) throws EditingEngineException {
@@ -131,6 +135,13 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                 // iterate to specified index
                 for (int i = 1; i < index; i++) {
                     iterator.next();
+                }
+
+                // check for mandatory keywords at this index
+                String indexKey = ((HeaderCard)iterator.next()).getKey();
+                for (String mandatoryKeyword : MANDATORY_KEYWORDS) {
+                    if (indexKey.contains(mandatoryKeyword))
+                        throw new FitsHeaderException("Record cannot be inserted to index " + index + " because of mandatory keyword '" + indexKey + "'");
                 }
             } else {
                 // iterate to the end of header

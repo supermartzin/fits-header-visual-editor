@@ -22,7 +22,7 @@ public class ConsoleOutputWriter implements OutputWriter {
     @Override
     public boolean writeInfo(File file, String infoMessage) {
         System.out.println("[" + LocalDateTime.now().toString() + "]" +
-                " >> [" + file.getName() + "]:" + infoMessage);
+                " >> [" + file.getName() + "]: " + infoMessage);
 
         return true;
     }
