@@ -55,12 +55,8 @@ public class DefaultInputDataValidator implements InputDataValidator {
                 throw new ValidationException("String value has exceeded maximum allowed length of " + Constants.MAX_STRING_VALUE_LENGTH + " characters");
         }
 
-        // comment cannot be null
-        if (addNewRecordInputData.getComment() == null)
-            throw new ValidationException("Comment cannot be null");
-
         // if contains comment check for allowed comment length
-        if (!addNewRecordInputData.getComment().isEmpty()) {
+        if (addNewRecordInputData.getComment() != null && !addNewRecordInputData.getComment().isEmpty()) {
             if (addNewRecordInputData.getComment().length() > Constants.MAX_COMMENT_LENGTH)
                 throw new ValidationException("Comment value has exceeded maximum allowed length of " + Constants.MAX_COMMENT_LENGTH + " characters");
             if (isValueString) {
@@ -85,8 +81,8 @@ public class DefaultInputDataValidator implements InputDataValidator {
         // fits files collection cannot be empty
         validateCommonInputData(addNewToIndexInputData);
 
-        // index must be non-negative number
-        if (addNewToIndexInputData.getIndex() < 0)
+        // index must be positive number
+        if (addNewToIndexInputData.getIndex() <= 0)
             throw new ValidationException("Index must be number bigger than 0");
 
         // keyword cannot be null
@@ -123,12 +119,8 @@ public class DefaultInputDataValidator implements InputDataValidator {
                 throw new ValidationException("String value has exceeded maximum allowed length of " + Constants.MAX_STRING_VALUE_LENGTH + " characters");
         }
 
-        // comment cannot be null
-        if (addNewToIndexInputData.getComment() == null)
-            throw new ValidationException("Comment cannot be null");
-
         // if contains comment check for allowed comment length
-        if (!addNewToIndexInputData.getComment().isEmpty()) {
+        if (addNewToIndexInputData.getComment() != null && !addNewToIndexInputData.getComment().isEmpty()) {
             if (addNewToIndexInputData.getComment().length() > Constants.MAX_COMMENT_LENGTH)
                 throw new ValidationException("Comment value has exceeded maximum allowed length of " + Constants.MAX_COMMENT_LENGTH + " characters");
             if (isValueString) {
@@ -176,8 +168,8 @@ public class DefaultInputDataValidator implements InputDataValidator {
         // fits files collection cannot be empty
         validateCommonInputData(removeByIndexInputData);
 
-        // index must be non-negative number
-        if (removeByIndexInputData.getIndex() < 0)
+        // index must be positive number
+        if (removeByIndexInputData.getIndex() <= 0)
             throw new ValidationException("Index must be number bigger than 0");
     }
 
@@ -266,12 +258,8 @@ public class DefaultInputDataValidator implements InputDataValidator {
                 throw new ValidationException("String value has exceeded maximum allowed length of " + Constants.MAX_STRING_VALUE_LENGTH + " characters");
         }
 
-        // comment cannot be null
-        if (changeValueByKeywordInputData.getComment() == null)
-            throw new ValidationException("Comment cannot be null");
-
         // if contains comment check for allowed comment length
-        if (!changeValueByKeywordInputData.getComment().isEmpty()) {
+        if (changeValueByKeywordInputData.getComment() != null && !changeValueByKeywordInputData.getComment().isEmpty()) {
             if (changeValueByKeywordInputData.getComment().length() > Constants.MAX_COMMENT_LENGTH)
                 throw new ValidationException("Comment value has exceeded maximum allowed length of " + Constants.MAX_COMMENT_LENGTH + " characters");
             if (isValueString) {
@@ -337,12 +325,8 @@ public class DefaultInputDataValidator implements InputDataValidator {
         if (constantsLength > Constants.MAX_STRING_VALUE_LENGTH)
             throw new ValidationException("Constants in value of chained record have exceeded maximum allowed length of " + Constants.MAX_STRING_VALUE_LENGTH + " characters");
 
-        // comment cannot be null
-        if (chainRecordsInputData.getComment() == null)
-            throw new ValidationException("Comment cannot be null");
-
         // if contains comment check for allowed value/comment length
-        if (!chainRecordsInputData.getComment().isEmpty()) {
+        if (chainRecordsInputData.getComment() != null && !chainRecordsInputData.getComment().isEmpty()) {
             if (chainRecordsInputData.getComment().length() > Constants.MAX_COMMENT_LENGTH)
                 throw new ValidationException("Comment value has exceeded maximum allowed length of " + Constants.MAX_COMMENT_LENGTH + " characters");
             if (chainRecordsInputData.getComment().length() + constantsLength

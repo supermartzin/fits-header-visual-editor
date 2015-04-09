@@ -2,7 +2,6 @@ package cz.muni.fi.fits;
 
 import cz.muni.fi.fits.engine.HeaderEditingEngine;
 import cz.muni.fi.fits.exceptions.EditingEngineException;
-import cz.muni.fi.fits.exceptions.FitsFileException;
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.ValidationException;
 import cz.muni.fi.fits.input.processors.InputProcessor;
@@ -47,7 +46,7 @@ public class FITSHeaderEditor {
                     _outputWriter.writeInfo("Provided parameters are in correct format");
 
                     // insert into FITS files
-                    for (File fitsFile : inputData.getFitsFiles()) {
+                    for (File fitsFile : anrid.getFitsFiles()) {
                         try {
                             _headerEditingEngine.addNewRecord(
                                     anrid.getKeyword(),
@@ -55,11 +54,9 @@ public class FITSHeaderEditor {
                                     anrid.getComment(),
                                     anrid.updateIfExists(),
                                     fitsFile);
-                            _outputWriter.writeInfo(fitsFile.getName() + " - record successfully added to header");
-                        } catch (FitsFileException ffEx) {
-                            _outputWriter.writeException(ffEx.getFileName(), ffEx);
+                            _outputWriter.writeInfo(fitsFile, "Record successfully added to header");
                         } catch (EditingEngineException eeEx) {
-                            _outputWriter.writeException(eeEx);
+                            _outputWriter.writeException(fitsFile, eeEx);
                         }
                     }
                     break;
@@ -69,6 +66,22 @@ public class FITSHeaderEditor {
                     // validate input data
                     _inputDataValidator.validate(antiid);
                     _outputWriter.writeInfo("Provided parameters are in correct format");
+
+                    // insert into FITS files
+                    for (File fitsFile : antiid.getFitsFiles()) {
+                        try {
+                            _headerEditingEngine.addNewRecordToIndex(
+                                    antiid.getIndex(),
+                                    antiid.getKeyword(),
+                                    antiid.getValue(),
+                                    antiid.getComment(),
+                                    antiid.removeOldIfExists(),
+                                    fitsFile);
+                            _outputWriter.writeInfo(fitsFile, "Record successfully added to header");
+                        } catch (EditingEngineException eeEx) {
+                            _outputWriter.writeException(fitsFile, eeEx);
+                        }
+                    }
                     break;
 
                 case REMOVE_RECORD_BY_KEYWORD:

@@ -116,15 +116,6 @@ public class DefaultInputDataValidatorTest {
     }
 
     @Test
-    public void testValidate_AddNewRecordInputData_NullComment() throws Exception {
-        AddNewRecordInputData anrid = new AddNewRecordInputData("KEYWORD", "2.36", null, false, fitsFiles);
-
-        exception.expect(ValidationException.class);
-        exception.expectMessage("cannot be null");
-        validator.validate(anrid);
-    }
-
-    @Test
     public void testValidate_AddNewRecordInputData_TooLongComment() throws Exception {
         AddNewRecordInputData anrid = new AddNewRecordInputData("KEYWORD", "VALUE", "COMMENT TO LONG - COMMENT TO LONG - COMMENT TO LONG - COMMENT TOO", false, fitsFiles);
 
@@ -163,7 +154,7 @@ public class DefaultInputDataValidatorTest {
 
     @Test
     public void testValidate_AddNewToIndexInputData_InvalidIndex() throws Exception {
-        AddNewToIndexInputData antiid = new AddNewToIndexInputData(-2, "KEYWORD", "VALUE", "COMMENT", false, fitsFiles);
+        AddNewToIndexInputData antiid = new AddNewToIndexInputData(0, "KEYWORD", "VALUE", "COMMENT", false, fitsFiles);
 
         exception.expect(ValidationException.class);
         exception.expectMessage("must be number bigger than 0");
@@ -231,15 +222,6 @@ public class DefaultInputDataValidatorTest {
 
         exception.expect(ValidationException.class);
         exception.expectMessage("has exceeded maximum allowed length");
-        validator.validate(antiid);
-    }
-
-    @Test
-    public void testValidate_AddNewToIndexInputData_NullComment() throws Exception {
-        AddNewToIndexInputData antiid = new AddNewToIndexInputData(2, "KEYWORD", "VALUE", null, false, fitsFiles);
-
-        exception.expect(ValidationException.class);
-        exception.expectMessage("cannot be null");
         validator.validate(antiid);
     }
 
@@ -337,7 +319,7 @@ public class DefaultInputDataValidatorTest {
 
     @Test
     public void testValidate_RemoveByIndexInputData_InvalidIndex() throws Exception {
-        RemoveByIndexInputData rbiid = new RemoveByIndexInputData(-2, fitsFiles);
+        RemoveByIndexInputData rbiid = new RemoveByIndexInputData(0, fitsFiles);
 
         exception.expect(ValidationException.class);
         exception.expectMessage("must be number bigger than 0");
@@ -519,15 +501,6 @@ public class DefaultInputDataValidatorTest {
     }
 
     @Test
-    public void testValidate_ChangeValueByKeywordInputData_NullComment() throws Exception {
-        ChangeValueByKeywordInputData cvbkid = new ChangeValueByKeywordInputData("KEYWORD", "VALUE", null, false, fitsFiles);
-
-        exception.expect(ValidationException.class);
-        exception.expectMessage("cannot be null");
-        validator.validate(cvbkid);
-    }
-
-    @Test
     public void testValidate_ChangeValueByKeywordInputData_TooLongComment() throws Exception {
         ChangeValueByKeywordInputData cvbkid = new ChangeValueByKeywordInputData("KEYWORD", "VALUE", "COMMENT TO LONG - COMMENT TO LONG - COMMENT TO LONG - COMMENT TOO", false, fitsFiles);
 
@@ -633,16 +606,6 @@ public class DefaultInputDataValidatorTest {
 
         exception.expect(ValidationException.class);
         exception.expectMessage("have exceeded maximum allowed length");
-        validator.validate(crid);
-    }
-
-    @Test
-    public void testValidate_ChainRecordsInputData_NullComment() throws Exception {
-        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant"), new Tuple<>("keyword", "KEYWORD")));
-        ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, null, false, false, fitsFiles);
-
-        exception.expect(ValidationException.class);
-        exception.expectMessage("cannot be null");
         validator.validate(crid);
     }
 

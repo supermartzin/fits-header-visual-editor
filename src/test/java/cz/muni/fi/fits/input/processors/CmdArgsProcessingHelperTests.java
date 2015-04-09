@@ -21,9 +21,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -51,6 +49,7 @@ public class CmdArgsProcessingHelperTests {
         _converter = null;
     }
 
+    // test for extraction of files data
     @Test
     public void testExtractFilesData_NullFilePath() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -96,6 +95,8 @@ public class CmdArgsProcessingHelperTests {
         assertTrue(fitsFiles.size() == 3);
     }
 
+
+    // test for extraction of AddNewRecordData
     @Test
     public void testExtractAddNewRecordData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "add", FILE_PATH.toString() };
@@ -105,16 +106,27 @@ public class CmdArgsProcessingHelperTests {
     }
 
     @Test
-    public void testExtractAddNewRecordData_CorrectParameters() throws Exception {
+    public void testExtractAddNewRecordData_CorrectParameters1() throws Exception {
         String[] args = new String[] { "add", "-u", FILE_PATH.toString(), "KEYWORD", "VALUE", "COMMENT" };
 
         AddNewRecordInputData anrid = CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
 
         assertEquals("KEYWORD".toUpperCase(), anrid.getKeyword());
-        assertTrue(anrid.getValue() instanceof String);
         assertEquals("VALUE", anrid.getValue());
         assertEquals("COMMENT", anrid.getComment());
         assertTrue(anrid.updateIfExists());
+    }
+
+    @Test
+    public void testExtractAddNewRecordData_CorrectParameters2() throws Exception {
+        String[] args = new String[] { "add", FILE_PATH.toString(), "KEYWORD", "true" };
+
+        AddNewRecordInputData anrid = CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
+
+        assertEquals("KEYWORD".toUpperCase(), anrid.getKeyword());
+        assertTrue((Boolean) anrid.getValue());
+        assertNull(anrid.getComment());
+        assertFalse(anrid.updateIfExists());
     }
 
     @Test
@@ -125,6 +137,8 @@ public class CmdArgsProcessingHelperTests {
         CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
     }
 
+
+    // test for extraction of AddNewToIndexData
     @Test
     public void testExtractAddNewToIndexData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "add_ix", FILE_PATH.toString() };
@@ -150,7 +164,7 @@ public class CmdArgsProcessingHelperTests {
     }
 
     @Test
-    public void testExtractAddNewToIndexData_CorrectParameters() throws Exception {
+    public void testExtractAddNewToIndexData_CorrectParameters1() throws Exception {
         String[] args = new String[] { "add_ix", "-rm", FILE_PATH.toString(), "25", "KEYWORD", "VALUE", "COMMENT" };
 
         AddNewToIndexInputData antiid = CmdArgumentsProcessorHelper.extractAddNewToIndexData(args, _converter);
@@ -162,6 +176,21 @@ public class CmdArgsProcessingHelperTests {
         assertTrue(antiid.removeOldIfExists());
     }
 
+    @Test
+    public void testExtractAddNewToIndexData_CorrectParameters2() throws Exception {
+        String[] args = new String[] { "add_ix", FILE_PATH.toString(), "25", "KEYWORD", "123456789745" };
+
+        AddNewToIndexInputData antiid = CmdArgumentsProcessorHelper.extractAddNewToIndexData(args, _converter);
+
+        assertEquals(25, antiid.getIndex());
+        assertEquals("KEYWORD".toUpperCase(), antiid.getKeyword());
+        assertEquals(123456789745L, antiid.getValue());
+        assertNull(antiid.getComment());
+        assertFalse(antiid.removeOldIfExists());
+    }
+
+
+    // test for extraction of RemoveByKeywordData
     @Test
     public void testExtractRemoveByKeywordData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "remove", FILE_PATH.toString(), "KEYWORD", "ARG1", "ARG2" };
@@ -179,6 +208,8 @@ public class CmdArgsProcessingHelperTests {
         assertEquals("KEYWORD".toUpperCase(), rbkid.getKeyword());
     }
 
+
+    // test for extraction of RemoveByIndexData
     @Test
     public void testExtractRemoveByIndexData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "remove_ix", FILE_PATH.toString() };
@@ -204,6 +235,8 @@ public class CmdArgsProcessingHelperTests {
         assertEquals(69, rbiid.getIndex());
     }
 
+
+    // test for extraction of ChangeKeywordData
     @Test
     public void testExtractChangeKeywordData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "change_kw", FILE_PATH.toString(), "KEYWORD" };
@@ -222,14 +255,16 @@ public class CmdArgsProcessingHelperTests {
 
     @Test
     public void testExtractChangeKeywordData_CorrectParameters() throws Exception {
-        String[] args = new String[] { "change_kw", "-rm", FILE_PATH.toString(), "OLD_KEYWORD", "NEW_KEYWORD" };
+        String[] args = new String[] { "change_kw", "-rm", FILE_PATH.toString(), "OLD_KEYWORD", "5963" };
 
         ChangeKeywordInputData ckid = CmdArgumentsProcessorHelper.extractChangeKeywordData(args);
         assertEquals("OLD_KEYWORD".toUpperCase(), ckid.getOldKeyword());
-        assertEquals("NEW_KEYWORD".toUpperCase(), ckid.getNewKeyword());
+        assertEquals("5963".toUpperCase(), ckid.getNewKeyword());
         assertTrue(ckid.removeValueOfNewIfExists());
     }
 
+
+    // test for extraction of ChangeValueByKeywordData
     @Test
     public void testExtractChangeValueByKeywordData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "change", FILE_PATH.toString(), "KEYWORD", "VALUE", "COMMENT", "REDUNDANT_ARG" };
@@ -247,7 +282,7 @@ public class CmdArgsProcessingHelperTests {
     }
 
     @Test
-    public void testExtractChangeValueByKeywordData_CorrectParameters() throws Exception {
+    public void testExtractChangeValueByKeywordData_CorrectParameters1() throws Exception {
         String[] args = new String[] { "change", FILE_PATH.toString(), "KEYWORD", "VALUE", "COMMENT" };
 
         ChangeValueByKeywordInputData cvbkid = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args, _converter);
@@ -257,6 +292,19 @@ public class CmdArgsProcessingHelperTests {
         assertEquals("COMMENT", cvbkid.getComment());
     }
 
+    @Test
+    public void testExtractChangeValueByKeywordData_CorrectParameters2() throws Exception {
+        String[] args = new String[] { "change", "-a", FILE_PATH.toString(), "KEYWORD", "456." };
+
+        ChangeValueByKeywordInputData cvbkid = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args, _converter);
+        assertEquals("KEYWORD".toUpperCase(), cvbkid.getKeyword());
+        assertTrue(cvbkid.addNewIfNotExists());
+        assertEquals(456.0, cvbkid.getValue());
+        assertNull("COMMENT", cvbkid.getComment());
+    }
+
+
+    // test for extraction of ChainRecordsData
     @Test
     public void testExtractChainRecordsData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "chain", "-u", FILE_PATH.toString() };
@@ -291,7 +339,7 @@ public class CmdArgsProcessingHelperTests {
     }
 
     @Test
-    public void testExtractChainRecordsData_CorrectParameters() throws Exception {
+    public void testExtractChainRecordsData_CorrectParameters1() throws Exception {
         String[] args = new String[] { "chain", "-s", FILE_PATH.toString(), "KEYWORD", "-c=CONSTANT 1", "-k=KEYWORD 1", "-k=KEYWORD 2", "-c=CONSTANT 2", "COMMENT" };
 
         ChainRecordsInputData crid = CmdArgumentsProcessorHelper.extractChainRecordsData(args);
@@ -301,5 +349,18 @@ public class CmdArgsProcessingHelperTests {
         assertEquals("KEYWORD", crid.getKeyword());
         assertEquals("COMMENT", crid.getComment());
         assertEquals(4, crid.getChainValues().size());
+    }
+
+    @Test
+    public void testExtractChainRecordsData_CorrectParameters2() throws Exception {
+        String[] args = new String[] { "chain", "-u", FILE_PATH.toString(), "KEYWORD", "-c=CONSTANT 1", "-k=KEYWORD 1", "-c=CONSTANT 2" };
+
+        ChainRecordsInputData crid = CmdArgumentsProcessorHelper.extractChainRecordsData(args);
+
+        assertFalse(crid.skipIfChainKwNotExists());
+        assertTrue(crid.updateIfExists());
+        assertEquals("KEYWORD", crid.getKeyword());
+        assertNull(crid.getComment());
+        assertEquals(3, crid.getChainValues().size());
     }
 }

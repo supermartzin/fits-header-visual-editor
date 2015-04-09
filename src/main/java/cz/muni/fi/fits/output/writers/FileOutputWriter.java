@@ -11,15 +11,38 @@ import java.time.LocalDateTime;
 @Singleton
 public class FileOutputWriter implements OutputWriter {
 
-    private static final File OUTPUT_FILE = new File("output.info");
+    private final File _outputFile;
+
+    public FileOutputWriter(String filePath) {
+        _outputFile = new File(filePath);
+    }
+
+    public FileOutputWriter(File outputFile) {
+        _outputFile = outputFile;
+    }
 
     @Override
     public boolean writeInfo(String infoMessage) {
         try {
-            OUTPUT_FILE.createNewFile();
+            _outputFile.createNewFile();
 
-            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(OUTPUT_FILE, true)))) {
-                writer.println("[" + LocalDateTime.now().toString() + "] INFO: " + infoMessage);
+            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(_outputFile, true)))) {
+                writer.println("[" + LocalDateTime.now().toString() + "] INFO >> " + infoMessage);
+                return true;
+            }
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean writeInfo(File file, String infoMessage) {
+        try {
+            _outputFile.createNewFile();
+
+            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(_outputFile, true)))) {
+                writer.println("[" + LocalDateTime.now().toString() + "]" +
+                        " INFO >> [" + file.getName() + "]:" + infoMessage);
                 return true;
             }
         } catch (IOException e) {
@@ -29,7 +52,22 @@ public class FileOutputWriter implements OutputWriter {
 
     @Override
     public boolean writeException(Throwable exception) {
-        return writeException(null, exception);
+        String exceptionType = exception.getClass().getTypeName();
+        int lastIndex = exceptionType.lastIndexOf('.');
+        if (lastIndex > -1)
+            exceptionType = exceptionType.substring(lastIndex + 1);
+
+        try {
+            _outputFile.createNewFile();
+
+            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(_outputFile, true)))) {
+                writer.println("[" + LocalDateTime.now().toString() + "]" +
+                        " ERROR >> [" + exceptionType + "]: " + exception.getMessage());
+                return true;
+            }
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     @Override
@@ -40,10 +78,34 @@ public class FileOutputWriter implements OutputWriter {
             exceptionType = exceptionType.substring(lastIndex + 1);
 
         try {
-            OUTPUT_FILE.createNewFile();
+            _outputFile.createNewFile();
 
-            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(OUTPUT_FILE, true)))) {
-                writer.println("[" + LocalDateTime.now().toString() + "] ERROR > [" + exceptionType + "]: " + exception.getMessage());
+            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(_outputFile, true)))) {
+                writer.println("[" + LocalDateTime.now().toString() + "]" +
+                        " ERROR >> [" + exceptionType + "]: " + errorMessage);
+                return true;
+            }
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean writeException(File file, Throwable exception) {
+        String exceptionType = exception.getClass().getTypeName();
+        int lastIndex = exceptionType.lastIndexOf('.');
+        if (lastIndex > -1)
+            exceptionType = exceptionType.substring(lastIndex + 1);
+
+        try {
+            _outputFile.createNewFile();
+
+            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(_outputFile, true)))) {
+                writer.println("[" + LocalDateTime.now().toString() + "]" +
+                        " ERROR >>" +
+                        " [" + file.getName() + "] -" +
+                        " [" + exceptionType + "]: " +
+                        exception.getMessage());
                 return true;
             }
         } catch (IOException e) {

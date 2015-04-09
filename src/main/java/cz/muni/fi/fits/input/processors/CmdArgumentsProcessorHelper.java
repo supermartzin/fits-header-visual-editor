@@ -90,7 +90,7 @@ final class CmdArgumentsProcessorHelper {
             value = strValue;
 
         // get comment of new record (optional)
-        String comment = "";
+        String comment = null;
         if (!updateIfExists && cmdArgs.length == 5)
             comment = cmdArgs[4].trim();
         else if (updateIfExists && cmdArgs.length == 6)
@@ -150,7 +150,7 @@ final class CmdArgumentsProcessorHelper {
             value = strValue;
 
         // get comment of new record (optional)
-        String comment = "";
+        String comment = null;
         if (!removeOldIfExists && cmdArgs.length == 6)
             comment = cmdArgs[5].trim();
         else if (removeOldIfExists & cmdArgs.length == 7)
@@ -255,7 +255,7 @@ final class CmdArgumentsProcessorHelper {
             value = strValue;
 
         // get comment of changing record (optional)
-        String comment = "";
+        String comment = null;
         if (!addNewIfNotExists && cmdArgs.length == 5)
             comment = cmdArgs[4].trim();
         else if (addNewIfNotExists && cmdArgs.length == 6)
@@ -321,7 +321,7 @@ final class CmdArgumentsProcessorHelper {
             throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'CHAIN'");
 
         LinkedList<Tuple> chainValues = new LinkedList<>();
-        String comment = "";
+        String comment = null;
         for (int i = startIndex; i < cmdArgs.length; i++) {
             String argument = cmdArgs[i].trim();
 
