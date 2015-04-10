@@ -108,6 +108,19 @@ public class FITSHeaderEditor {
                     // validate input data
                     _inputDataValidator.validate(rbiid);
                     _outputWriter.writeInfo("Provided parameters are in correct format");
+
+                    // remove record from specified index
+                    for (File fitsFile : rbiid.getFitsFiles()) {
+                        try {
+                            _headerEditingEngine.removeRecordFromIndex(
+                                    rbiid.getIndex(),
+                                    fitsFile);
+                            _outputWriter.writeInfo(fitsFile, "Record successfully removed from index " + rbiid.getIndex());
+                        } catch (EditingEngineException eeEx) {
+                            _outputWriter.writeException(fitsFile, eeEx);
+                        }
+
+                    }
                     break;
 
                 case CHANGE_KEYWORD:
