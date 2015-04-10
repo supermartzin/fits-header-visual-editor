@@ -89,6 +89,18 @@ public class FITSHeaderEditor {
                     // validate input data
                     _inputDataValidator.validate(rbkid);
                     _outputWriter.writeInfo("Provided parameters are in correct format");
+
+                    // remove record from FITS files
+                    for (File fitsFile : rbkid.getFitsFiles()) {
+                        try {
+                            _headerEditingEngine.removeRecordByKeyword(
+                                    rbkid.getKeyword(),
+                                    fitsFile);
+                            _outputWriter.writeInfo(fitsFile, "Record successfully removed from header");
+                        } catch (EditingEngineException eeEx) {
+                            _outputWriter.writeException(fitsFile, eeEx);
+                        }
+                    }
                     break;
 
                 case REMOVE_RECORD_BY_INDEX:
