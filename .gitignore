@@ -1,5 +1,6 @@
 target/
 /fits
 .idea/
+.idea
 files.in
 FITSHeaderEditor.iml
