@@ -61,11 +61,11 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                     throw new FitsHeaderException("Header already contains '" + keyword + "' keyword");
                 }
             } else {
-                // iterate to the end of header
-                Cursor iterator = header.iterator();
-                while (iterator.hasNext()) {
-                    iterator.next();
-                }
+                Cursor<String, HeaderCard> iterator = header.iterator();
+
+                // move cursor to the end of header
+                iterator.end();
+
                 // insert new card
                 iterator.add(keyword, card);
             }
@@ -129,25 +129,21 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             // check if index is in range of header size
             boolean inRange = index <= header.getNumberOfCards();
 
-            Cursor iterator = header.iterator();
+            Cursor<String, HeaderCard> iterator = header.iterator();
 
             if (inRange) {
                 // iterate to specified index
-                for (int i = 1; i < index; i++) {
-                    iterator.next();
-                }
+                iterator.next(index - 1);
 
                 // check for mandatory keywords at this index
-                String indexKey = ((HeaderCard)iterator.next()).getKey();
+                String indexKey = iterator.next().getKey();
                 for (String mandatoryKeyword : MANDATORY_KEYWORDS) {
                     if (indexKey.contains(mandatoryKeyword))
                         throw new FitsHeaderException("Record cannot be inserted to index " + index + " because of mandatory keyword '" + indexKey + "'");
                 }
             } else {
                 // iterate to the end of header
-                while (iterator.hasNext()) {
-                    iterator.next();
-                }
+                iterator.end();
             }
 
             // insert new card

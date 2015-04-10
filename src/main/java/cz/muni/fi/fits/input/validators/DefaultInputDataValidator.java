@@ -1,5 +1,6 @@
 package cz.muni.fi.fits.input.validators;
 
+import com.google.common.base.CharMatcher;
 import cz.muni.fi.fits.exceptions.ValidationException;
 import cz.muni.fi.fits.models.inputData.*;
 import cz.muni.fi.fits.utils.Constants;
@@ -53,10 +54,17 @@ public class DefaultInputDataValidator implements InputDataValidator {
             // check for String value allowed length
             if (strValue.length() > Constants.MAX_STRING_VALUE_LENGTH)
                 throw new ValidationException("String value has exceeded maximum allowed length of " + Constants.MAX_STRING_VALUE_LENGTH + " characters");
+            // check for invalid characters
+            if (!CharMatcher.ASCII.matchesAllOf(strValue))
+                throw new ValidationException("String value contains invalid non-ASCII characters");
         }
 
         // if contains comment check for allowed comment length
         if (addNewRecordInputData.getComment() != null && !addNewRecordInputData.getComment().isEmpty()) {
+            // check for invalid characters
+            if (!CharMatcher.ASCII.matchesAllOf(addNewRecordInputData.getComment()))
+                throw new ValidationException("Comment contains invalid non-ASCII characters");
+            // check for comment allowed length
             if (addNewRecordInputData.getComment().length() > Constants.MAX_COMMENT_LENGTH)
                 throw new ValidationException("Comment value has exceeded maximum allowed length of " + Constants.MAX_COMMENT_LENGTH + " characters");
             if (isValueString) {
@@ -117,10 +125,17 @@ public class DefaultInputDataValidator implements InputDataValidator {
             // check for String value allowed length
             if (strValue.length() > Constants.MAX_STRING_VALUE_LENGTH)
                 throw new ValidationException("String value has exceeded maximum allowed length of " + Constants.MAX_STRING_VALUE_LENGTH + " characters");
+            // check for invalid characters
+            if (!CharMatcher.ASCII.matchesAllOf(strValue))
+                throw new ValidationException("Comment contains invalid non-ASCII characters");
         }
 
         // if contains comment check for allowed comment length
         if (addNewToIndexInputData.getComment() != null && !addNewToIndexInputData.getComment().isEmpty()) {
+            // check for invalid characters
+            if (!CharMatcher.ASCII.matchesAllOf(addNewToIndexInputData.getComment()))
+                throw new ValidationException("Comment contains invalid non-ASCII characters");
+            // check for comment allowed length
             if (addNewToIndexInputData.getComment().length() > Constants.MAX_COMMENT_LENGTH)
                 throw new ValidationException("Comment value has exceeded maximum allowed length of " + Constants.MAX_COMMENT_LENGTH + " characters");
             if (isValueString) {
@@ -256,10 +271,17 @@ public class DefaultInputDataValidator implements InputDataValidator {
             // check for String value allowed length
             if (strValue.length() > Constants.MAX_STRING_VALUE_LENGTH)
                 throw new ValidationException("String value has exceeded maximum allowed length of " + Constants.MAX_STRING_VALUE_LENGTH + " characters");
+            // check for invalid characters
+            if (!CharMatcher.ASCII.matchesAllOf(strValue))
+                throw new ValidationException("String value contains invalid non-ASCII characters");
         }
 
         // if contains comment check for allowed comment length
         if (changeValueByKeywordInputData.getComment() != null && !changeValueByKeywordInputData.getComment().isEmpty()) {
+            // check for invalid characters
+            if (!CharMatcher.ASCII.matchesAllOf(changeValueByKeywordInputData.getComment()))
+                throw new ValidationException("Comment contains invalid non-ASCII characters");
+            // check for comment allowed length
             if (changeValueByKeywordInputData.getComment().length() > Constants.MAX_COMMENT_LENGTH)
                 throw new ValidationException("Comment value has exceeded maximum allowed length of " + Constants.MAX_COMMENT_LENGTH + " characters");
             if (isValueString) {
@@ -307,10 +329,32 @@ public class DefaultInputDataValidator implements InputDataValidator {
         for (Tuple tuple : chainRecordsInputData.getChainValues()) {
             if (tuple.getFirst().equals("constant")) {
                 String constant = (String) tuple.getSecond();
+
+                // constant cannot be null
+                if (constant == null)
+                    throw new ValidationException("Constant in chain values cannot be null");
+                // check for invalid characters
+                if (!CharMatcher.ASCII.matchesAllOf(constant))
+                    throw new ValidationException("Constant '" + constant + "' in chain values  contains invalid non-ASCII characters");
+
                 constantsLength += constant.length();
             }
             if (tuple.getFirst().equals("keyword")) {
                 String keyword = (String) tuple.getSecond();
+
+                // keyword cannot be null
+                if (keyword == null)
+                    throw new ValidationException("Keyword in chain values cannot be null");
+                // keyword cannot be empty
+                if (keyword.isEmpty())
+                    throw new ValidationException("Keyword in chain values cannot be empty");
+                // check for keyword's allowed characters
+                if (!keyword.matches(Constants.KEYWORD_REGEX))
+                    throw new ValidationException("Keyword '" + keyword + "' in chain values contains invalid characters");
+                // check for allowed keyword length
+                if (keyword.length() > Constants.MAX_KEYWORD_LENGTH)
+                    throw new ValidationException("Keyword '" + keyword + "' in chain values has exceeded maximum allowed length of " + Constants.MAX_KEYWORD_LENGTH + " characters");
+
                 keywordsLength += keyword.length();
             }
         }
@@ -327,8 +371,13 @@ public class DefaultInputDataValidator implements InputDataValidator {
 
         // if contains comment check for allowed value/comment length
         if (chainRecordsInputData.getComment() != null && !chainRecordsInputData.getComment().isEmpty()) {
+            // check for invalid characters
+            if (!CharMatcher.ASCII.matchesAllOf(chainRecordsInputData.getComment()))
+                throw new ValidationException("Comment contains invalid non-ASCII characters");
+            // check for comment allowed length
             if (chainRecordsInputData.getComment().length() > Constants.MAX_COMMENT_LENGTH)
                 throw new ValidationException("Comment value has exceeded maximum allowed length of " + Constants.MAX_COMMENT_LENGTH + " characters");
+            // check for allowed constants & comment length
             if (chainRecordsInputData.getComment().length() + constantsLength
                                 > Constants.MAX_STRING_VALUE_COMMENT_LENGTH)
                 throw new ValidationException("Comment is too long for constants in value");

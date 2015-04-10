@@ -2,3 +2,4 @@ target/
 /fits
 .idea/
 files.in
+FITSHeaderEditor.iml
