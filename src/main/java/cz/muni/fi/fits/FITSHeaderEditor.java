@@ -149,6 +149,21 @@ public class FITSHeaderEditor {
                     // validate input data
                     _inputDataValidator.validate(cvbkid);
                     _outputWriter.writeInfo("Provided parameters are in correct format");
+
+                    // change value of specified record in FITS files
+                    for (File fitsFile : cvbkid.getFitsFiles()) {
+                        try {
+                            _headerEditingEngine.changeValueOfRecord(
+                                    cvbkid.getKeyword(),
+                                    cvbkid.getValue(),
+                                    cvbkid.getComment(),
+                                    cvbkid.addNewIfNotExists(),
+                                    fitsFile);
+                            _outputWriter.writeInfo(fitsFile, "Value of keyword '" + cvbkid.getKeyword() + "' successfully changed");
+                        } catch (EditingEngineException eeEx) {
+                            _outputWriter.writeException(fitsFile, eeEx);
+                        }
+                    }
                     break;
 
                 case CHAIN_RECORDS:

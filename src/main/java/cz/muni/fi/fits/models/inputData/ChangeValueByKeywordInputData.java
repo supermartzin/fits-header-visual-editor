@@ -21,7 +21,7 @@ public class ChangeValueByKeywordInputData extends SwitchInputData {
     }
 
     public ChangeValueByKeywordInputData(String keyword, Object value, String comment, boolean addNewIfNotExists, Collection<File> fitsFiles) {
-        super(OperationType.CHANGE_KEYWORD, fitsFiles);
+        super(OperationType.CHANGE_VALUE_BY_KEYWORD, fitsFiles);
         this._keyword = keyword != null ? keyword.toUpperCase() : null;
         this._value = value;
         this._comment = comment;
