@@ -109,7 +109,7 @@ public class FITSHeaderEditor {
                     _inputDataValidator.validate(rbiid);
                     _outputWriter.writeInfo("Provided parameters are in correct format");
 
-                    // remove record from specified index
+                    // remove record from specified index in FITS files
                     for (File fitsFile : rbiid.getFitsFiles()) {
                         try {
                             _headerEditingEngine.removeRecordFromIndex(
@@ -128,6 +128,20 @@ public class FITSHeaderEditor {
                     // validate input data
                     _inputDataValidator.validate(ckid);
                     _outputWriter.writeInfo("Provided parameters are in correct format");
+
+                    // change keyword for specific record in FITS files
+                    for (File fitsFile : ckid.getFitsFiles()) {
+                        try {
+                            _headerEditingEngine.changeKeywordOfRecord(
+                                    ckid.getOldKeyword(),
+                                    ckid.getNewKeyword(),
+                                    ckid.removeValueOfNewIfExists(),
+                                    fitsFile);
+                            _outputWriter.writeInfo(fitsFile, "Keyword '" + ckid.getOldKeyword() + "' successfully changed to '" + ckid.getNewKeyword() + "'");
+                        } catch (EditingEngineException eeEx) {
+                            _outputWriter.writeException(fitsFile, eeEx);
+                        }
+                    }
                     break;
 
                 case CHANGE_VALUE_BY_KEYWORD:

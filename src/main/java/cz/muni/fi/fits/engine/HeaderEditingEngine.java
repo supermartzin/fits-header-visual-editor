@@ -17,4 +17,6 @@ public interface HeaderEditingEngine {
     void removeRecordByKeyword(String keyword, File fitsFile) throws EditingEngineException;
 
     void removeRecordFromIndex(int index, File fitsFile) throws EditingEngineException;
+
+    void changeKeywordOfRecord(String oldKeyword, String newKeyword, boolean removeValueOfNewIfExists, File fitsFile) throws EditingEngineException;
 }

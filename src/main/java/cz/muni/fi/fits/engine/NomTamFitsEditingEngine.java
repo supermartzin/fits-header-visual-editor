@@ -8,6 +8,8 @@ import nom.tam.util.Cursor;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,15 +40,19 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             // create new HeaderCard based on value type
             HeaderCard card;
             if (value instanceof Integer) {
-                card = new HeaderCard(keyword, (Integer)value, comment);
+                card = new HeaderCard(keyword, (Integer) value, comment);
             } else if (value instanceof Long) {
-                card = new HeaderCard(keyword, (Long)value, comment);
+                card = new HeaderCard(keyword, (Long) value, comment);
             } else if (value instanceof Double) {
-                card = new HeaderCard(keyword, (Double)value, comment);
+                card = new HeaderCard(keyword, (Double) value, comment);
             } else if (value instanceof Boolean) {
-                card = new HeaderCard(keyword, (Boolean)value, comment);
+                card = new HeaderCard(keyword, (Boolean) value, comment);
             } else if (value instanceof String) {
-                card = new HeaderCard(keyword, (String)value, comment);
+                card = new HeaderCard(keyword, (String) value, comment);
+            } else if (value instanceof BigInteger) {
+                card = new HeaderCard(keyword, (BigInteger) value, comment);
+            } else if (value instanceof BigDecimal) {
+                card = new HeaderCard(keyword,(BigDecimal) value, comment);
             } else {
                 throw new EditingEngineException("Unknown type for value object");
             }
@@ -56,6 +62,12 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
             if (keywordExists) {
                 if (updateIfExists) {
+                    // check for mandatory keyword
+                    for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
+                        if (keyword.matches(mandatoryKwRegex))
+                            throw new FitsHeaderException("Keyword '" + keyword + "' already exists in header and is mandatory hence it cannot be changed");
+                    }
+                    // update existing card
                     header.updateLine(keyword, card);
                 } else {
                     throw new FitsHeaderException("Header already contains '" + keyword + "' keyword");
@@ -119,6 +131,10 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                 card = new HeaderCard(keyword, (Boolean) value, comment);
             } else if (value instanceof String) {
                 card = new HeaderCard(keyword, (String) value, comment);
+            } else if (value instanceof BigInteger) {
+                card = new HeaderCard(keyword, (BigInteger) value, comment);
+            } else if (value instanceof BigDecimal) {
+                card = new HeaderCard(keyword, (BigDecimal) value, comment);
             } else {
                 throw new EditingEngineException("Unknown type for value object");
             }
@@ -229,6 +245,90 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
             // remove record on the index
             iterator.remove();
+
+            // write changes back to file
+            BufferedFile bf = new BufferedFile(fitsFile, "rw");
+            fits.write(bf);
+        } catch (FitsException | IOException ex) {
+            throw new EditingEngineException("Error in editing engine: " + ex.getMessage(), ex);
+        }
+    }
+
+    @Override
+    public void changeKeywordOfRecord(String oldKeyword, String newKeyword, boolean removeValueOfNewIfExists, File fitsFile) throws EditingEngineException {
+        if (oldKeyword == null)
+            throw new IllegalArgumentException("oldKeyword is null");
+        if (newKeyword == null)
+            throw new IllegalArgumentException("newKeyword is null");
+        if (fitsFile == null)
+            throw new IllegalArgumentException("fitsFile is null");
+
+        try {
+            Fits fits = new Fits(fitsFile);
+
+            // get header of first HDU unit
+            BasicHDU hdu = fits.getHDU(0);
+            Header header = hdu.getHeader();
+
+            // check if old keyword exists
+            boolean oldExists = header.containsKey(oldKeyword);
+
+            if (!oldExists)
+                throw new FitsHeaderException("Keyword '" + oldKeyword + "' is not present in header");
+
+            // check if new keyword already exists
+            boolean newExists = header.containsKey(newKeyword);
+
+            if (newExists) {
+                if (removeValueOfNewIfExists) {
+                    // check for mandatory keyword
+                    for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
+                        if (newKeyword.matches(mandatoryKwRegex))
+                            throw new FitsHeaderException("Keyword '" + newKeyword + "' already exists in header and is mandatory hence it cannot be removed");
+                    }
+                    // remove already existing record
+                    header.removeCard(newKeyword);
+                } else {
+                    throw new FitsHeaderException("New keyword '" + newKeyword + "' already exists in header");
+                }
+            }
+
+            // check for mandatory keyword
+            for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
+                if (oldKeyword.matches(mandatoryKwRegex))
+                    throw new FitsHeaderException("Keyword '" + oldKeyword + "' is mandatory hence it cannot be changed");
+            }
+
+            // get old header card and create updated one based on type of value
+            HeaderCard newCard;
+            HeaderCard oldCard = header.findCard(oldKeyword);
+            if (oldCard.valueType() == String.class) {
+                String value = header.getStringValue(oldKeyword);
+                newCard = new HeaderCard(newKeyword, value, oldCard.getComment());
+            } else if (oldCard.valueType() == Double.class) {
+                Double value = header.getDoubleValue(oldKeyword);
+                newCard = new HeaderCard(newKeyword, value, oldCard.getComment());
+            } else if (oldCard.valueType() == Boolean.class) {
+                boolean value = header.getBooleanValue(oldKeyword);
+                newCard = new HeaderCard(newKeyword, value, oldCard.getComment());
+            } else if (oldCard.valueType() == Integer.class) {
+                int value = header.getIntValue(oldKeyword);
+                newCard = new HeaderCard(newKeyword, value, oldCard.getComment());
+            } else if (oldCard.valueType() == Long.class) {
+                long value = header.getLongValue(oldKeyword);
+                newCard = new HeaderCard(newKeyword, value, oldCard.getComment());
+            } else if (oldCard.valueType() == BigInteger.class) {
+                BigInteger value = header.getBigIntegerValue(oldKeyword);
+                newCard = new HeaderCard(newKeyword, value, oldCard.getComment());
+            } else if (oldCard.valueType() == BigDecimal.class) {
+                BigDecimal value = header.getBigDecimalValue(oldKeyword);
+                newCard = new HeaderCard(newKeyword, value, oldCard.getComment());
+            } else {
+                newCard = new HeaderCard(newKeyword, oldCard.getValue(), oldCard.getComment());
+            }
+
+            // update old card with new one
+            header.updateLine(oldKeyword, newCard);
 
             // write changes back to file
             BufferedFile bf = new BufferedFile(fitsFile, "rw");
