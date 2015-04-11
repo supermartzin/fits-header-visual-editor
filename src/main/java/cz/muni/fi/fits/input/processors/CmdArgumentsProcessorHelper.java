@@ -79,9 +79,15 @@ final class CmdArgumentsProcessorHelper {
         // long
         else if (converter.tryParseLong(strValue))
             value = converter.parseLong(strValue);
+        // BigInteger
+        else if (converter.tryParseBigInteger(strValue))
+            value = converter.parseBigInteger(strValue);
         // double
         else if (converter.tryParseDouble(strValue))
             value = converter.parseDouble(strValue);
+        // BigDecimal
+        else if (converter.tryParseBigDecimal(strValue))
+            value = converter.parseBigDecimal(strValue);
         // boolean
         else if (converter.tryParseBoolean(strValue))
             value = converter.parseBoolean(strValue);
@@ -139,9 +145,15 @@ final class CmdArgumentsProcessorHelper {
         // long
         else if (converter.tryParseLong(strValue))
             value = converter.parseLong(strValue);
+        // BigInteger
+        else if (converter.tryParseBigInteger(strValue))
+            value = converter.parseBigInteger(strValue);
         // double
         else if (converter.tryParseDouble(strValue))
             value = converter.parseDouble(strValue);
+        // BigDecimal
+        else if (converter.tryParseBigDecimal(strValue))
+            value = converter.parseBigDecimal(strValue);
         // boolean
         else if (converter.tryParseBoolean(strValue))
             value = converter.parseBoolean(strValue);
@@ -244,9 +256,15 @@ final class CmdArgumentsProcessorHelper {
         // long
         else if (converter.tryParseLong(strValue))
             value = converter.parseLong(strValue);
+        // BigInteger
+        else if (converter.tryParseBigInteger(strValue))
+            value = converter.parseBigInteger(strValue);
         // double
         else if (converter.tryParseDouble(strValue))
             value = converter.parseDouble(strValue);
+        // BigDecimal
+        else if (converter.tryParseBigDecimal(strValue))
+            value = converter.parseBigDecimal(strValue);
         // boolean
         else if (converter.tryParseBoolean(strValue))
             value = converter.parseBoolean(strValue);

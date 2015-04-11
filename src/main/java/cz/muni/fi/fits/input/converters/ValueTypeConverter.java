@@ -1,5 +1,8 @@
 package cz.muni.fi.fits.input.converters;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 /**
  *
  * TODO description
@@ -93,5 +96,47 @@ public class ValueTypeConverter implements TypeConverter {
             return false;
 
         throw new IllegalArgumentException("string does not contain valid boolean value");
+    }
+
+    @Override
+    public boolean tryParseBigInteger(String value) {
+        if (value == null)
+            throw new IllegalArgumentException("value is null");
+
+        try {
+            new BigInteger(value);
+            return true;
+        } catch (NumberFormatException nfEx) {
+            return false;
+        }
+    }
+
+    @Override
+    public BigInteger parseBigInteger(String value) {
+        if (value == null)
+            throw new IllegalArgumentException("value is null");
+
+        return new BigInteger(value);
+    }
+
+    @Override
+    public boolean tryParseBigDecimal(String value) {
+        if (value == null)
+            throw new IllegalArgumentException("value is null");
+
+        try {
+            new BigDecimal(value);
+            return true;
+        } catch (NumberFormatException nfEx) {
+            return false;
+        }
+    }
+
+    @Override
+    public BigDecimal parseBigDecimal(String value) {
+        if (value == null)
+            throw new IllegalArgumentException("value is null");
+
+        return new BigDecimal(value);
     }
 }

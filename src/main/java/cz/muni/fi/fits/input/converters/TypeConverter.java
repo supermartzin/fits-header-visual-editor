@@ -1,5 +1,8 @@
 package cz.muni.fi.fits.input.converters;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 /**
  *
  * TODO description
@@ -61,4 +64,32 @@ public interface TypeConverter {
      * @return
      */
     boolean parseBoolean(String value);
+
+    /**
+     *
+     * @param value
+     * @return
+     */
+    boolean tryParseBigInteger(String value);
+
+    /**
+     *
+     * @param value
+     * @return
+     */
+    BigInteger parseBigInteger(String value);
+
+    /**
+     *
+     * @param value
+     * @return
+     */
+    boolean tryParseBigDecimal(String value);
+
+    /**
+     *
+     * @param value
+     * @return
+     */
+    BigDecimal parseBigDecimal(String value);
 }
