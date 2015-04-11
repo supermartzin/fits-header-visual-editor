@@ -2,6 +2,8 @@ package cz.muni.fi.fits.engine;
 
 import cz.muni.fi.fits.exceptions.EditingEngineException;
 import cz.muni.fi.fits.exceptions.FitsHeaderException;
+import cz.muni.fi.fits.utils.Constants;
+import cz.muni.fi.fits.utils.Tuple;
 import nom.tam.fits.*;
 import nom.tam.util.BufferedFile;
 import nom.tam.util.Cursor;
@@ -11,6 +13,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -274,7 +277,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             boolean oldExists = header.containsKey(oldKeyword);
 
             if (!oldExists)
-                throw new FitsHeaderException("Keyword '" + oldKeyword + "' is not present in header");
+                throw new FitsHeaderException("Header does not contain '" + oldKeyword + "' keyword");
 
             // check if new keyword does already exist
             boolean newExists = header.containsKey(newKeyword);
@@ -284,12 +287,12 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                     // check for mandatory keyword
                     for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
                         if (newKeyword.matches(mandatoryKwRegex))
-                            throw new FitsHeaderException("Keyword '" + newKeyword + "' already exists in header and is mandatory hence it cannot be removed");
+                            throw new FitsHeaderException("Header already contains '" + newKeyword + "' keyword but it is mandatory hence it cannot be removed");
                     }
                     // remove already existing header card
                     header.removeCard(newKeyword);
                 } else {
-                    throw new FitsHeaderException("New keyword '" + newKeyword + "' already exists in header");
+                    throw new FitsHeaderException("Header already contains '" + newKeyword + "' keyword");
                 }
             }
 
@@ -388,7 +391,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                 header.updateLine(keyword, card);
             } else {
                 if (!addNewIfNotExists) {
-                    throw new FitsHeaderException("Keyword '" + keyword + "' does not exist in the header");
+                    throw new FitsHeaderException("Header does not contain '" + keyword + "' keyword");
                 } else {
                     Cursor<String, HeaderCard> iterator = header.iterator();
 
@@ -398,6 +401,90 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                     // insert new header card
                     iterator.add(keyword, card);
                 }
+            }
+
+            // write changes back to file
+            BufferedFile bf = new BufferedFile(fitsFile, "rw");
+            fits.write(bf);
+        } catch (FitsException | IOException ex) {
+            throw new EditingEngineException("Error in editing engine: " + ex.getMessage(), ex);
+        }
+    }
+
+    @Override
+    public void chainMultipleRecords(String keyword, LinkedList<Tuple> chainParameters, String comment, boolean updateIfExists, boolean skipIfChainKwNotExists, File fitsFile) throws EditingEngineException {
+        if (keyword == null)
+            throw new IllegalArgumentException("keyword is null");
+        if (chainParameters == null)
+            throw new IllegalArgumentException("chainParamaters are null");
+        if (fitsFile == null)
+            throw new IllegalArgumentException("fitsFile is null");
+
+        try {
+            Fits fits = new Fits(fitsFile);
+
+            // get header of first HDU unit
+            BasicHDU hdu = fits.getHDU(0);
+            Header header = hdu.getHeader();
+
+            // iterate over parameters and create new value
+            String value = "";
+            for (Tuple chainParameter : chainParameters) {
+                switch ((String) chainParameter.getFirst()) {
+                    case "constant":
+                        value += (String) chainParameter.getSecond();
+                        break;
+                    case "keyword":
+                        String key = (String) chainParameter.getSecond();
+                        // check if header contains key
+                        boolean keyExists = header.containsKey(key);
+
+                        if (!keyExists) {
+                            if (skipIfChainKwNotExists)
+                                break;
+                            else
+                                throw new FitsHeaderException("Header does not contain '" + key + "' keyword");
+                        } else {
+                            // add to value
+                            value += header.findCard(key).getValue();
+                        }
+                        break;
+                }
+            }
+
+            // check for validity of value
+            if (value.isEmpty())
+                throw new EditingEngineException("Value of chained records cannot empty");
+            if (value.length() > Constants.MAX_STRING_VALUE_LENGTH)
+                throw new EditingEngineException("Value of chained records is too long");
+            if (comment != null
+                    && value.length() + comment.length() > Constants.MAX_STRING_VALUE_COMMENT_LENGTH)
+                throw new EditingEngineException("Value along with comment are too long. Try to shorten the comment");
+
+            // check if keyword does already exist
+            boolean keywordExists = header.containsKey(keyword);
+
+            if (keywordExists) {
+                if (!updateIfExists) {
+                    throw new FitsHeaderException("Header already contains '" + keyword + "' keyword");
+                } else {
+                    // check for mandatory keyword
+                    for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
+                        if (keyword.matches(mandatoryKwRegex))
+                            throw new FitsHeaderException("Header already contains '" + keyword + "' keyword but it is mandatory hence it cannot be changed");
+                    }
+
+                    // update header card with new chained value
+                    header.updateLine(keyword, new HeaderCard(keyword, value, comment));
+                }
+            } else {
+                Cursor<String, HeaderCard> iterator = header.iterator();
+
+                // move cursor to the end of header
+                iterator.end();
+
+                // insert new header card
+                iterator.add(keyword, new HeaderCard(keyword, value, comment));
             }
 
             // write changes back to file

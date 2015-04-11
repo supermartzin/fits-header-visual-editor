@@ -332,6 +332,9 @@ final class CmdArgumentsProcessorHelper {
 
         String keyword = cmdArgs[keywordIndex].trim();
 
+        if (keyword.startsWith("-c=") || keyword.startsWith("-k="))
+            throw new IllegalInputDataException("Keyword is not specified");
+
         // set parameters to chain (required) and comment (optional)
         int startIndex = keywordIndex + 1;
         // check for correct number of parameters
@@ -341,11 +344,11 @@ final class CmdArgumentsProcessorHelper {
         LinkedList<Tuple> chainValues = new LinkedList<>();
         String comment = null;
         for (int i = startIndex; i < cmdArgs.length; i++) {
-            String argument = cmdArgs[i].trim();
+            String argument = cmdArgs[i];
 
             // constant
             if (argument.startsWith("-c=")) {
-                argument = argument.substring(3).trim();
+                argument = argument.substring(3);
                 if (!argument.isEmpty())
                     chainValues.add(new Tuple<>("constant", argument));
                 continue;

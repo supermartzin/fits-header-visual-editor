@@ -1,8 +1,10 @@
 package cz.muni.fi.fits.engine;
 
 import cz.muni.fi.fits.exceptions.EditingEngineException;
+import cz.muni.fi.fits.utils.Tuple;
 
 import java.io.File;
+import java.util.LinkedList;
 
 /**
  *
@@ -21,4 +23,6 @@ public interface HeaderEditingEngine {
     void changeKeywordOfRecord(String oldKeyword, String newKeyword, boolean removeValueOfNewIfExists, File fitsFile) throws EditingEngineException;
 
     void changeValueOfRecord(String keyword, Object newValue, String newComment, boolean addNewIfNotExists, File fitsFile) throws EditingEngineException;
+
+    void chainMultipleRecords(String keyword, LinkedList<Tuple> chainParameters, String comment, boolean updateIfExists, boolean skipIfChainKwNotExists, File fitsFile) throws EditingEngineException;
 }

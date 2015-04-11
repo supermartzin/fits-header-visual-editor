@@ -339,6 +339,15 @@ public class CmdArgsProcessingHelperTests {
     }
 
     @Test
+    public void testExtractChainRecordsData_DoesNotContainKeyword() throws Exception {
+        String[] args = new String[] { "chain", "-s", FILE_PATH.toString(), "-c=CONSTANT 1", "COMMENT" };
+
+        exception.expect(IllegalInputDataException.class);
+        exception.expectMessage("Keyword is not specified");
+        CmdArgumentsProcessorHelper.extractChainRecordsData(args);
+    }
+
+    @Test
     public void testExtractChainRecordsData_CorrectParameters1() throws Exception {
         String[] args = new String[] { "chain", "-s", FILE_PATH.toString(), "KEYWORD", "-c=CONSTANT 1", "-k=KEYWORD 1", "-k=KEYWORD 2", "-c=CONSTANT 2", "COMMENT" };
 

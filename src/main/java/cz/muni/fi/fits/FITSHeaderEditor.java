@@ -24,7 +24,10 @@ public class FITSHeaderEditor {
     private final OutputWriter _outputWriter;
 
     @Inject
-    public FITSHeaderEditor(HeaderEditingEngine headerEditingEngine, InputProcessor inputProcessor, InputDataValidator inputDataValidator, OutputWriter outputWriter) {
+    public FITSHeaderEditor(HeaderEditingEngine headerEditingEngine,
+                            InputProcessor inputProcessor,
+                            InputDataValidator inputDataValidator,
+                            OutputWriter outputWriter) {
         this._headerEditingEngine = headerEditingEngine;
         this._inputProcessor = inputProcessor;
         this._inputDataValidator = inputDataValidator;
@@ -171,6 +174,22 @@ public class FITSHeaderEditor {
                     // validate input data
                     _inputDataValidator.validate(crid);
                     _outputWriter.writeInfo("Provided parameters are in correct format");
+
+                    // chain multiple records to new record in FITS files
+                    for (File fitsFile : crid.getFitsFiles()) {
+                        try {
+                            _headerEditingEngine.chainMultipleRecords(
+                                    crid.getKeyword(),
+                                    crid.getChainValues(),
+                                    crid.getComment(),
+                                    crid.updateIfExists(),
+                                    crid.skipIfChainKwNotExists(),
+                                    fitsFile);
+                            _outputWriter.writeInfo(fitsFile, "Records successfully chained info keyword '" + crid.getKeyword() + "'");
+                        } catch (EditingEngineException eeEx) {
+                            _outputWriter.writeException(fitsFile, eeEx);
+                        }
+                    }
                     break;
             }
         } catch (IllegalInputDataException | ValidationException iidEx) {
