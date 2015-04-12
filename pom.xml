@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cz.muni.fi.fits</groupId>
-    <artifactId>FITS-BatchHeaderEditor</artifactId>
+    <artifactId>FITS-HeaderEditor</artifactId>
     <version>0.8-SNAPSHOT</version>
 
-    <name>FITS Batch Header Editor Tool</name>
+    <name>FITS Header Editor Tool</name>
     <packaging>jar</packaging>
 
     <properties>

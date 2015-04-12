@@ -176,15 +176,15 @@ public class DefaultInputDataValidator implements InputDataValidator {
     }
 
     @Override
-    public void validate(RemoveByIndexInputData removeByIndexInputData) throws ValidationException {
-        if (removeByIndexInputData == null)
-            throw new IllegalArgumentException("removeByIndexInputData is null");
+    public void validate(RemoveFromIndexInputData removeFromIndexInputData) throws ValidationException {
+        if (removeFromIndexInputData == null)
+            throw new IllegalArgumentException("removeFromIndexInputData is null");
 
         // fits files collection cannot be empty
-        validateCommonInputData(removeByIndexInputData);
+        validateCommonInputData(removeFromIndexInputData);
 
         // index must be positive number
-        if (removeByIndexInputData.getIndex() <= 0)
+        if (removeFromIndexInputData.getIndex() <= 0)
             throw new ValidationException("Index must be number bigger than 0");
     }
 

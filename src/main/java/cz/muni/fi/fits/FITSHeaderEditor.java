@@ -109,16 +109,16 @@ public class FITSHeaderEditor {
                     }
                     break;
 
-                case REMOVE_RECORD_BY_INDEX:
-                    RemoveByIndexInputData rbiid = (RemoveByIndexInputData)inputData;
+                case REMOVE_RECORD_FROM_INDEX:
+                    RemoveFromIndexInputData rfiid = (RemoveFromIndexInputData)inputData;
                     // validate input data
-                    _inputDataValidator.validate(rbiid);
+                    _inputDataValidator.validate(rfiid);
                     _outputWriter.writeInfo("Provided parameters are in correct format");
 
                     // remove record from specified index in FITS files
-                    for (File fitsFile : rbiid.getFitsFiles()) {
+                    for (File fitsFile : rfiid.getFitsFiles()) {
                         Result result = _headerEditingEngine.removeRecordFromIndex(
-                                rbiid.getIndex(),
+                                rfiid.getIndex(),
                                 fitsFile);
 
                         // write result

@@ -181,7 +181,7 @@ final class CmdArgumentsProcessorHelper {
         return new RemoveByKeywordInputData(keyword);
     }
 
-    static RemoveByIndexInputData extractRemoveByIndexData(String[] cmdArgs) throws IllegalInputDataException {
+    static RemoveFromIndexInputData extractRemoveFromIndexData(String[] cmdArgs) throws IllegalInputDataException {
         if (cmdArgs.length != 3)
             throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'REMOVE_IX'");
 
@@ -194,7 +194,7 @@ final class CmdArgumentsProcessorHelper {
             throw new IllegalInputDataException("Index is in invalid format: " + indexString, nfEx);
         }
 
-        return new RemoveByIndexInputData(index);
+        return new RemoveFromIndexInputData(index);
     }
 
     static ChangeKeywordInputData extractChangeKeywordData(String[] cmdArgs) throws WrongNumberOfParametersException, InvalidSwitchParameterException {

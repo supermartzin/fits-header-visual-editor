@@ -215,7 +215,7 @@ public class CmdArgsProcessingHelperTest {
         String[] args = new String[] { "remove_ix", FILE_PATH.toString() };
 
         exception.expect(WrongNumberOfParametersException.class);
-        CmdArgumentsProcessorHelper.extractRemoveByIndexData(args);
+        CmdArgumentsProcessorHelper.extractRemoveFromIndexData(args);
     }
 
     @Test
@@ -223,16 +223,16 @@ public class CmdArgsProcessingHelperTest {
         String[] args = new String[] { "remove_ix", FILE_PATH.toString(), "index" };
 
         exception.expect(IllegalInputDataException.class);
-        CmdArgumentsProcessorHelper.extractRemoveByIndexData(args);
+        CmdArgumentsProcessorHelper.extractRemoveFromIndexData(args);
     }
 
     @Test
     public void testExtractRemoveByIndexData_CorrectParameters() throws Exception {
         String[] args = new String[] { "remove_ix", FILE_PATH.toString(), "69" };
 
-        RemoveByIndexInputData rbiid = CmdArgumentsProcessorHelper.extractRemoveByIndexData(args);
+        RemoveFromIndexInputData rfiid = CmdArgumentsProcessorHelper.extractRemoveFromIndexData(args);
 
-        assertEquals(69, rbiid.getIndex());
+        assertEquals(69, rfiid.getIndex());
     }
 
 

@@ -60,7 +60,7 @@ public class CmdArgumentsProcessor implements InputProcessor {
                 break;
 
             case "REMOVE_IX":
-                inputData = CmdArgumentsProcessorHelper.extractRemoveByIndexData(_cmdArgs);
+                inputData = CmdArgumentsProcessorHelper.extractRemoveFromIndexData(_cmdArgs);
                 fitsFilesArgIndex = 1;
                 break;
 

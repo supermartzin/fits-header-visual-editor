@@ -403,6 +403,12 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             // check if keyword does already exist
             boolean keywordExists = header.containsKey(keyword);
 
+            // if comment is null use the original one
+            if (newComment == null) {
+                HeaderCard existingCard = header.findCard(keyword);
+                newComment = existingCard.getComment();
+            }
+
             // create new header card based on value type
             HeaderCard card;
             if (newValue instanceof Integer) {

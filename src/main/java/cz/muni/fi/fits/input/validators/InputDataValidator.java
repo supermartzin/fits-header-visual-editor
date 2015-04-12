@@ -32,10 +32,10 @@ public interface InputDataValidator {
 
     /**
      *
-     * @param removeByIndexInputData
+     * @param removeFromIndexInputData
      * @throws ValidationException
      */
-    void validate(RemoveByIndexInputData removeByIndexInputData) throws ValidationException;
+    void validate(RemoveFromIndexInputData removeFromIndexInputData) throws ValidationException;
 
     /**
      *

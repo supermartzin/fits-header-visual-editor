@@ -338,28 +338,28 @@ public class DefaultInputDataValidatorTest {
     // validate 'RemoveByIndexInputData'
     @Test
     public void testValidate_RemoveByIndexInputData_Null() throws Exception {
-        RemoveByIndexInputData rbiid = null;
+        RemoveFromIndexInputData rfiid = null;
 
         exception.expect(IllegalArgumentException.class);
-        _validator.validate(rbiid);
+        _validator.validate(rfiid);
     }
 
     @Test
     public void testValidate_RemoveByIndexInputData_NoFitsFiles() throws Exception {
-        RemoveByIndexInputData rbiid = new RemoveByIndexInputData(2, new HashSet<>());
+        RemoveFromIndexInputData rfiid = new RemoveFromIndexInputData(2, new HashSet<>());
 
         exception.expect(ValidationException.class);
         exception.expectMessage("No FITS files provided");
-        _validator.validate(rbiid);
+        _validator.validate(rfiid);
     }
 
     @Test
     public void testValidate_RemoveByIndexInputData_InvalidIndex() throws Exception {
-        RemoveByIndexInputData rbiid = new RemoveByIndexInputData(0, _fitsFiles);
+        RemoveFromIndexInputData rfiid = new RemoveFromIndexInputData(0, _fitsFiles);
 
         exception.expect(ValidationException.class);
         exception.expectMessage("must be number bigger than 0");
-        _validator.validate(rbiid);
+        _validator.validate(rfiid);
     }
 
 
