@@ -39,13 +39,13 @@ public class CmdArgsProcessingHelperTest {
 
     @Before
     public void setUp() throws Exception {
-        //Files.createFile(FILE_PATH);
+        Files.createFile(FILE_PATH);
         _converter = new ValueTypeConverter();
     }
 
     @After
     public void tearDown() throws Exception {
-        //Files.deleteIfExists(FILE_PATH);
+        Files.deleteIfExists(FILE_PATH);
         _converter = null;
     }
 

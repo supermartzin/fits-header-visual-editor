@@ -68,4 +68,22 @@ public class ConsoleOutputWriter implements OutputWriter {
 
         return true;
     }
+
+    @Override
+    public boolean writeError(String errorMessage) {
+        System.err.println("[" + LocalDateTime.now().toString() + "]" +
+                " >>" + errorMessage);
+
+        return true;
+    }
+
+    @Override
+    public boolean writeError(File file, String errorMessage) {
+        System.err.println("[" + LocalDateTime.now().toString() + "]" +
+                " >>" +
+                " [" + file.getName() + "]: " +
+                errorMessage);
+
+        return true;
+    }
 }

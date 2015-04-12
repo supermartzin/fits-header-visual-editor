@@ -1,11 +1,11 @@
 package cz.muni.fi.fits;
 
 import cz.muni.fi.fits.engine.HeaderEditingEngine;
-import cz.muni.fi.fits.exceptions.EditingEngineException;
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.ValidationException;
 import cz.muni.fi.fits.input.processors.InputProcessor;
 import cz.muni.fi.fits.input.validators.InputDataValidator;
+import cz.muni.fi.fits.models.Result;
 import cz.muni.fi.fits.models.inputData.*;
 import cz.muni.fi.fits.output.writers.OutputWriter;
 
@@ -50,17 +50,18 @@ public class FITSHeaderEditor {
 
                     // insert into FITS files
                     for (File fitsFile : anrid.getFitsFiles()) {
-                        try {
-                            _headerEditingEngine.addNewRecord(
-                                    anrid.getKeyword(),
-                                    anrid.getValue(),
-                                    anrid.getComment(),
-                                    anrid.updateIfExists(),
-                                    fitsFile);
-                            _outputWriter.writeInfo(fitsFile, "Record successfully added to header");
-                        } catch (EditingEngineException eeEx) {
-                            _outputWriter.writeException(fitsFile, eeEx);
-                        }
+                        Result result = _headerEditingEngine.addNewRecord(
+                                anrid.getKeyword(),
+                                anrid.getValue(),
+                                anrid.getComment(),
+                                anrid.updateIfExists(),
+                                fitsFile);
+
+                        // write result
+                        if (result.isSuccess())
+                            _outputWriter.writeInfo(fitsFile, result.getMessage());
+                        else
+                            _outputWriter.writeError(fitsFile, result.getMessage());
                     }
                     break;
 
@@ -72,18 +73,19 @@ public class FITSHeaderEditor {
 
                     // insert into FITS files
                     for (File fitsFile : antiid.getFitsFiles()) {
-                        try {
-                            _headerEditingEngine.addNewRecordToIndex(
-                                    antiid.getIndex(),
-                                    antiid.getKeyword(),
-                                    antiid.getValue(),
-                                    antiid.getComment(),
-                                    antiid.removeOldIfExists(),
-                                    fitsFile);
-                            _outputWriter.writeInfo(fitsFile, "Record successfully added to header");
-                        } catch (EditingEngineException eeEx) {
-                            _outputWriter.writeException(fitsFile, eeEx);
-                        }
+                        Result result = _headerEditingEngine.addNewRecordToIndex(
+                                antiid.getIndex(),
+                                antiid.getKeyword(),
+                                antiid.getValue(),
+                                antiid.getComment(),
+                                antiid.removeOldIfExists(),
+                                fitsFile);
+
+                        // write result
+                        if (result.isSuccess())
+                            _outputWriter.writeInfo(fitsFile, result.getMessage());
+                        else
+                            _outputWriter.writeError(fitsFile, result.getMessage());
                     }
                     break;
 
@@ -95,14 +97,15 @@ public class FITSHeaderEditor {
 
                     // remove record from FITS files
                     for (File fitsFile : rbkid.getFitsFiles()) {
-                        try {
-                            _headerEditingEngine.removeRecordByKeyword(
-                                    rbkid.getKeyword(),
-                                    fitsFile);
-                            _outputWriter.writeInfo(fitsFile, "Record successfully removed from header");
-                        } catch (EditingEngineException eeEx) {
-                            _outputWriter.writeException(fitsFile, eeEx);
-                        }
+                        Result result = _headerEditingEngine.removeRecordByKeyword(
+                                rbkid.getKeyword(),
+                                fitsFile);
+
+                        // write result
+                        if (result.isSuccess())
+                            _outputWriter.writeInfo(fitsFile, result.getMessage());
+                        else
+                            _outputWriter.writeError(fitsFile, result.getMessage());
                     }
                     break;
 
@@ -114,36 +117,37 @@ public class FITSHeaderEditor {
 
                     // remove record from specified index in FITS files
                     for (File fitsFile : rbiid.getFitsFiles()) {
-                        try {
-                            _headerEditingEngine.removeRecordFromIndex(
-                                    rbiid.getIndex(),
-                                    fitsFile);
-                            _outputWriter.writeInfo(fitsFile, "Record successfully removed from index " + rbiid.getIndex());
-                        } catch (EditingEngineException eeEx) {
-                            _outputWriter.writeException(fitsFile, eeEx);
-                        }
+                        Result result = _headerEditingEngine.removeRecordFromIndex(
+                                rbiid.getIndex(),
+                                fitsFile);
 
+                        // write result
+                        if (result.isSuccess())
+                            _outputWriter.writeInfo(fitsFile, result.getMessage());
+                        else
+                            _outputWriter.writeError(fitsFile, result.getMessage());
                     }
                     break;
 
                 case CHANGE_KEYWORD:
-                    ChangeKeywordInputData ckid = (ChangeKeywordInputData)inputData;
+                    ChangeKeywordInputData ckid = (ChangeKeywordInputData) inputData;
                     // validate input data
                     _inputDataValidator.validate(ckid);
                     _outputWriter.writeInfo("Provided parameters are in correct format");
 
                     // change keyword for specific record in FITS files
                     for (File fitsFile : ckid.getFitsFiles()) {
-                        try {
-                            _headerEditingEngine.changeKeywordOfRecord(
-                                    ckid.getOldKeyword(),
-                                    ckid.getNewKeyword(),
-                                    ckid.removeValueOfNewIfExists(),
-                                    fitsFile);
-                            _outputWriter.writeInfo(fitsFile, "Keyword '" + ckid.getOldKeyword() + "' successfully changed to '" + ckid.getNewKeyword() + "'");
-                        } catch (EditingEngineException eeEx) {
-                            _outputWriter.writeException(fitsFile, eeEx);
-                        }
+                        Result result = _headerEditingEngine.changeKeywordOfRecord(
+                                ckid.getOldKeyword(),
+                                ckid.getNewKeyword(),
+                                ckid.removeValueOfNewIfExists(),
+                                fitsFile);
+
+                        // write result
+                        if (result.isSuccess())
+                            _outputWriter.writeInfo(fitsFile, result.getMessage());
+                        else
+                            _outputWriter.writeError(fitsFile, result.getMessage());
                     }
                     break;
 
@@ -155,17 +159,18 @@ public class FITSHeaderEditor {
 
                     // change value of specified record in FITS files
                     for (File fitsFile : cvbkid.getFitsFiles()) {
-                        try {
-                            _headerEditingEngine.changeValueOfRecord(
-                                    cvbkid.getKeyword(),
-                                    cvbkid.getValue(),
-                                    cvbkid.getComment(),
-                                    cvbkid.addNewIfNotExists(),
-                                    fitsFile);
-                            _outputWriter.writeInfo(fitsFile, "Value of keyword '" + cvbkid.getKeyword() + "' successfully changed");
-                        } catch (EditingEngineException eeEx) {
-                            _outputWriter.writeException(fitsFile, eeEx);
-                        }
+                        Result result = _headerEditingEngine.changeValueOfRecord(
+                                cvbkid.getKeyword(),
+                                cvbkid.getValue(),
+                                cvbkid.getComment(),
+                                cvbkid.addNewIfNotExists(),
+                                fitsFile);
+
+                        // write result
+                        if (result.isSuccess())
+                            _outputWriter.writeInfo(fitsFile, result.getMessage());
+                        else
+                            _outputWriter.writeError(fitsFile, result.getMessage());
                     }
                     break;
 
@@ -177,18 +182,19 @@ public class FITSHeaderEditor {
 
                     // chain multiple records to new record in FITS files
                     for (File fitsFile : crid.getFitsFiles()) {
-                        try {
-                            _headerEditingEngine.chainMultipleRecords(
-                                    crid.getKeyword(),
-                                    crid.getChainValues(),
-                                    crid.getComment(),
-                                    crid.updateIfExists(),
-                                    crid.skipIfChainKwNotExists(),
-                                    fitsFile);
-                            _outputWriter.writeInfo(fitsFile, "Records successfully chained info keyword '" + crid.getKeyword() + "'");
-                        } catch (EditingEngineException eeEx) {
-                            _outputWriter.writeException(fitsFile, eeEx);
-                        }
+                        Result result = _headerEditingEngine.chainMultipleRecords(
+                                crid.getKeyword(),
+                                crid.getChainValues(),
+                                crid.getComment(),
+                                crid.updateIfExists(),
+                                crid.skipIfChainKwNotExists(),
+                                fitsFile);
+
+                        // write result
+                        if (result.isSuccess())
+                            _outputWriter.writeInfo(fitsFile, result.getMessage());
+                        else
+                            _outputWriter.writeError(fitsFile, result.getMessage());
                     }
                     break;
             }

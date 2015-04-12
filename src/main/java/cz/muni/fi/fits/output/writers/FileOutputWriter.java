@@ -112,4 +112,36 @@ public class FileOutputWriter implements OutputWriter {
             return false;
         }
     }
+
+    @Override
+    public boolean writeError(String errorMessage) {
+        try {
+            _outputFile.createNewFile();
+
+            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(_outputFile, true)))) {
+                writer.println("[" + LocalDateTime.now().toString() + "]" +
+                        " ERROR >>" + errorMessage);
+                return true;
+            }
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean writeError(File file, String errorMessage) {
+        try {
+            _outputFile.createNewFile();
+
+            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(_outputFile, true)))) {
+                writer.println("[" + LocalDateTime.now().toString() + "]" +
+                        " ERROR >>" +
+                        " [" + file.getName() + "]: " +
+                        errorMessage);
+                return true;
+            }
+        } catch (IOException e) {
+            return false;
+        }
+    }
 }

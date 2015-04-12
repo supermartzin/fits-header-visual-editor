@@ -45,4 +45,19 @@ public interface OutputWriter {
      * @return
      */
     boolean writeException(File file, Throwable exception);
+
+    /**
+     *
+     * @param errorMessage
+     * @return
+     */
+    boolean writeError(String errorMessage);
+
+    /**
+     *
+     * @param file
+     * @param errorMessage
+     * @return
+     */
+    boolean writeError(File file, String errorMessage);
 }

@@ -1,6 +1,6 @@
 package cz.muni.fi.fits.engine;
 
-import cz.muni.fi.fits.exceptions.EditingEngineException;
+import cz.muni.fi.fits.models.Result;
 import cz.muni.fi.fits.utils.Tuple;
 
 import java.io.File;
@@ -12,17 +12,75 @@ import java.util.LinkedList;
  */
 public interface HeaderEditingEngine {
 
-    void addNewRecord(String keyword, Object value, String comment, boolean updateIfExists, File fitsFile) throws EditingEngineException;
+    /**
+     *
+     * @param keyword
+     * @param value
+     * @param comment
+     * @param updateIfExists
+     * @param fitsFile
+     * @return
+     */
+    Result addNewRecord(String keyword, Object value, String comment, boolean updateIfExists, File fitsFile);
 
-    void addNewRecordToIndex(int index, String keyword, Object value, String comment, boolean removeOldIfExists, File fitsFile) throws EditingEngineException;
+    /**
+     *
+     * @param index
+     * @param keyword
+     * @param value
+     * @param comment
+     * @param removeOldIfExists
+     * @param fitsFile
+     * @return
+     */
+    Result addNewRecordToIndex(int index, String keyword, Object value, String comment, boolean removeOldIfExists, File fitsFile);
 
-    void removeRecordByKeyword(String keyword, File fitsFile) throws EditingEngineException;
+    /**
+     *
+     * @param keyword
+     * @param fitsFile
+     * @return
+     */
+    Result removeRecordByKeyword(String keyword, File fitsFile);
 
-    void removeRecordFromIndex(int index, File fitsFile) throws EditingEngineException;
+    /**
+     *
+     * @param index
+     * @param fitsFile
+     * @return
+     */
+    Result removeRecordFromIndex(int index, File fitsFile);
 
-    void changeKeywordOfRecord(String oldKeyword, String newKeyword, boolean removeValueOfNewIfExists, File fitsFile) throws EditingEngineException;
+    /**
+     *
+     * @param oldKeyword
+     * @param newKeyword
+     * @param removeValueOfNewIfExists
+     * @param fitsFile
+     * @return
+     */
+    Result changeKeywordOfRecord(String oldKeyword, String newKeyword, boolean removeValueOfNewIfExists, File fitsFile);
 
-    void changeValueOfRecord(String keyword, Object newValue, String newComment, boolean addNewIfNotExists, File fitsFile) throws EditingEngineException;
+    /**
+     *
+     * @param keyword
+     * @param newValue
+     * @param newComment
+     * @param addNewIfNotExists
+     * @param fitsFile
+     * @return
+     */
+    Result changeValueOfRecord(String keyword, Object newValue, String newComment, boolean addNewIfNotExists, File fitsFile);
 
-    void chainMultipleRecords(String keyword, LinkedList<Tuple> chainParameters, String comment, boolean updateIfExists, boolean skipIfChainKwNotExists, File fitsFile) throws EditingEngineException;
+    /**
+     *
+     * @param keyword
+     * @param chainParameters
+     * @param comment
+     * @param updateIfExists
+     * @param skipIfChainKwNotExists
+     * @param fitsFile
+     * @return
+     */
+    Result chainMultipleRecords(String keyword, LinkedList<Tuple> chainParameters, String comment, boolean updateIfExists, boolean skipIfChainKwNotExists, File fitsFile);
 }
