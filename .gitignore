@@ -4,3 +4,4 @@ target/
 .idea
 files.in
 FITSHeaderEditor.iml
+FITS-BatchHeaderEditor.iml

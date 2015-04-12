@@ -25,9 +25,9 @@ import static org.junit.Assert.*;
 
 /**
  *
- * TOTO description
+ * TODO description
  */
-public class CmdArgsProcessingHelperTests {
+public class CmdArgsProcessingHelperTest {
 
     private static final Path FILE_PATH = Paths.get("test-files.in");
     private static final Path DIR_PATH = Paths.get("test-files_dir.in");
@@ -39,13 +39,13 @@ public class CmdArgsProcessingHelperTests {
 
     @Before
     public void setUp() throws Exception {
-        Files.createFile(FILE_PATH);
+        //Files.createFile(FILE_PATH);
         _converter = new ValueTypeConverter();
     }
 
     @After
     public void tearDown() throws Exception {
-        Files.deleteIfExists(FILE_PATH);
+        //Files.deleteIfExists(FILE_PATH);
         _converter = null;
     }
 
