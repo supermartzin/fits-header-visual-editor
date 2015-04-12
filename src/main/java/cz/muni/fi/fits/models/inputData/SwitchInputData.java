@@ -9,8 +9,11 @@ import java.util.HashSet;
 import java.util.Map;
 
 /**
+ * Abstract class representing input data with one or more switches,
+ * extends {@link InputData} model class
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public abstract class SwitchInputData extends InputData {
 

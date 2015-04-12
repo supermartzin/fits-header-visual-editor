@@ -4,8 +4,10 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 /**
+ * Main initializing class of FITS Header Editor Tool
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class ApplicationInitializer {
 

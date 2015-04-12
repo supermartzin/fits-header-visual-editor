@@ -3,13 +3,22 @@ package cz.muni.fi.fits.utils;
 import com.google.common.base.Objects;
 
 /**
- * TODO description
+ * Class defining simple object pair
+ *
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class Tuple<Type1, Type2> {
 
     private final Type1 _first;
     private final Type2 _second;
 
+    /**
+     * Creates new Tuple object with specified types
+     *
+     * @param first     object on first place of tuple
+     * @param second    object on second place of tuple
+     */
     public Tuple(Type1 first, Type2 second) {
         this._first = first;
         this._second = second;

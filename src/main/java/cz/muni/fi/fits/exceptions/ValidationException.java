@@ -1,8 +1,10 @@
 package cz.muni.fi.fits.exceptions;
 
 /**
+ * Exception class used when input data are not in valid form
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class ValidationException extends Exception {
 

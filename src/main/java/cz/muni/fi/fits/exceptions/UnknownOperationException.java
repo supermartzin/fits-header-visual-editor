@@ -1,8 +1,12 @@
 package cz.muni.fi.fits.exceptions;
 
 /**
+ * Exception class used for case when operation
+ * cannot be recognized from input data,
+ * extends {@link IllegalInputDataException} class
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class UnknownOperationException extends IllegalInputDataException {
 

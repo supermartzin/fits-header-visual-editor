@@ -1,8 +1,10 @@
 package cz.muni.fi.fits.utils;
 
 /**
+ * Static class contaning useful constants related to FITS files
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public final class Constants {
 

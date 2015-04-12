@@ -7,8 +7,10 @@ import java.util.Collection;
 import java.util.HashSet;
 
 /**
+ * Abstract class representing input data got from input datasource
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public abstract class InputData {
 

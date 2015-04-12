@@ -13,8 +13,10 @@ import cz.muni.fi.fits.output.writers.ConsoleOutputWriter;
 import cz.muni.fi.fits.output.writers.OutputWriter;
 
 /**
+ * Class to inject all defined dependencies with Google Guice
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class AppInjector extends AbstractModule {
     private final Object _inputData;

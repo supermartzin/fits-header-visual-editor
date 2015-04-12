@@ -1,8 +1,12 @@
 package cz.muni.fi.fits.exceptions;
 
 /**
+ * Exception class used for cases when there was
+ * wrong number of parameters entered in input data,
+ * extends {@link IllegalInputDataException} class
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class WrongNumberOfParametersException extends IllegalInputDataException {
 

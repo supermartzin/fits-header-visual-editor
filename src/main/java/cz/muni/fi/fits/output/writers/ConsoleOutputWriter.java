@@ -6,27 +6,50 @@ import java.io.File;
 import java.time.LocalDateTime;
 
 /**
+ * Writer class that writes to standard output and standard
+ * error output, implements {@link OutputWriter} interface
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 @Singleton
 public class ConsoleOutputWriter implements OutputWriter {
 
+    /**
+     * Writes specified <code>infoMessage</code> to standard output
+     *
+     * @param infoMessage   info message to be written to output
+     * @return              {@inheritDoc}
+     */
     @Override
     public boolean writeInfo(String infoMessage) {
-        System.out.println("[" + LocalDateTime.now().toString() + "] >> " + infoMessage);
+        System.out.println("[" + LocalDateTime.now().toString() + "] INFO >> " + infoMessage);
 
         return true;
     }
 
+    /**
+     * Writes specified <code>infoMessage</code> related to specified <code>file</code>
+     * to standard output
+     *
+     * @param file          file to which specific info message relates
+     * @param infoMessage   message to be written to output
+     * @return              {@inheritDoc}
+     */
     @Override
     public boolean writeInfo(File file, String infoMessage) {
         System.out.println("[" + LocalDateTime.now().toString() + "]" +
-                " >> [" + file.getName() + "]: " + infoMessage);
+                " INFO >> [" + file.getName() + "]: " + infoMessage);
 
         return true;
     }
 
+    /**
+     * Writes specified <code>exception</code> to standard error output
+     *
+     * @param exception exception to be written to output
+     * @return          {@inheritDoc}
+     */
     @Override
     public boolean writeException(Throwable exception) {
         String exceptionType = exception.getClass().getTypeName();
@@ -35,11 +58,19 @@ public class ConsoleOutputWriter implements OutputWriter {
             exceptionType = exceptionType.substring(lastIndex + 1);
 
         System.err.println("[" + LocalDateTime.now().toString() + "]" +
-                " >> [" + exceptionType + "]: " + exception.getMessage());
+                " EX >> [" + exceptionType + "]: " + exception.getMessage());
 
         return true;
     }
 
+    /**
+     * Writes specified <code>exception</code> along with <code>errorMessage</code>
+     * to standard error output
+     *
+     * @param errorMessage  error message to be written to output
+     * @param exception     exception to be written to output
+     * @return              {@inheritDoc}
+     */
     @Override
     public boolean writeException(String errorMessage, Throwable exception) {
         String exceptionType = exception.getClass().getTypeName();
@@ -48,11 +79,19 @@ public class ConsoleOutputWriter implements OutputWriter {
             exceptionType = exceptionType.substring(lastIndex + 1);
 
         System.err.println("[" + LocalDateTime.now().toString() + "]" +
-                " >> [" + exceptionType + "]: " + errorMessage);
+                " EX >> [" + exceptionType + "]: " + errorMessage);
 
         return true;
     }
 
+    /**
+     * Writes specified <code>exception</code> related to specified <code>file</code>
+     * to standard error output
+     *
+     * @param file      file to which specific exception relates
+     * @param exception exception to be written to output
+     * @return          {@inheritDoc}
+     */
     @Override
     public boolean writeException(File file, Throwable exception) {
         String exceptionType = exception.getClass().getTypeName();
@@ -61,7 +100,7 @@ public class ConsoleOutputWriter implements OutputWriter {
             exceptionType = exceptionType.substring(lastIndex + 1);
 
         System.err.println("[" + LocalDateTime.now().toString() + "]" +
-                " >>" +
+                " EX >>" +
                 " [" + file.getName() + "] -" +
                 " [" + exceptionType + "]: " +
                 exception.getMessage());
@@ -69,18 +108,32 @@ public class ConsoleOutputWriter implements OutputWriter {
         return true;
     }
 
+    /**
+     * Writes specified <code>errorMessage</code> to standard error output
+     *
+     * @param errorMessage  error message to be written to output
+     * @return              {@inheritDoc}
+     */
     @Override
     public boolean writeError(String errorMessage) {
         System.err.println("[" + LocalDateTime.now().toString() + "]" +
-                " >>" + errorMessage);
+                " ERROR >>" + errorMessage);
 
         return true;
     }
 
+    /**
+     * Writes specified <code>errorMessage</code> related to specified <code>file</code>
+     * to standard error output
+     *
+     * @param file          file to which specific error message relates
+     * @param errorMessage  error message to be written to output
+     * @return              {@inheritDoc}
+     */
     @Override
     public boolean writeError(File file, String errorMessage) {
         System.err.println("[" + LocalDateTime.now().toString() + "]" +
-                " >>" +
+                " ERROR >>" +
                 " [" + file.getName() + "]: " +
                 errorMessage);
 

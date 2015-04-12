@@ -1,8 +1,10 @@
 package cz.muni.fi.fits.models;
 
 /**
+ * Enumeration of main editing operations
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public enum OperationType {
     ADD_NEW_RECORD_TO_END,
