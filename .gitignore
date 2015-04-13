@@ -1,7 +1,6 @@
-target/
-/fits
+engine/target/
+engine/fits
 .idea/
 .idea
-files.in
-FITSHeaderEditor.iml
-FITS-BatchHeaderEditor.iml
+engine/files.in
+engine/FITS-HeaderEditor.iml

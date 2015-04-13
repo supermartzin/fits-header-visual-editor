@@ -12,10 +12,13 @@ import com.google.inject.Injector;
 public class ApplicationInitializer {
 
     public static void main(String[] args) {
+        // inject all necessary dependencies
         Injector injector = Guice.createInjector(new AppInjector(args));
 
+        // get instance of executive class
         FITSHeaderEditor editor = injector.getInstance(FITSHeaderEditor.class);
 
+        // start FITS header edit operation
         editor.start();
     }
 }
