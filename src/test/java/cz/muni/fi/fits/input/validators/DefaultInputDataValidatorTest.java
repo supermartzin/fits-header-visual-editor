@@ -16,7 +16,10 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 /**
- * TODO description
+ * Tests for {@link DefaultInputDataValidator} class
+ *
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class DefaultInputDataValidatorTest {
 

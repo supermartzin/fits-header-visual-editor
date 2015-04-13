@@ -12,8 +12,11 @@ import java.io.File;
 import java.util.Collection;
 
 /**
+ * Processing class implementing {@link InputProcessor} interface
+ * that takes input data from commandline arguments
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 @Singleton
 public class CmdArgumentsProcessor implements InputProcessor {
@@ -21,15 +24,33 @@ public class CmdArgumentsProcessor implements InputProcessor {
     private TypeConverter _converter;
     private final String[] _cmdArgs;
 
+    /**
+     * Setter for implementation of {@link TypeConverter} interface
+     * that is used to convert values of input data
+     *
+     * @param typeConverter converter object to use
+     */
     @Inject
     public void setTypeConverter(TypeConverter typeConverter) {
         _converter = typeConverter;
     }
 
+    /**
+     * Creates new {@link CmdArgumentsProcessor} class with
+     * commandline arguments as input data
+     *
+     * @param cmdArgs   command line arguments ontaining input data
+     */
     public CmdArgumentsProcessor(String[] cmdArgs) {
         this._cmdArgs = cmdArgs;
     }
 
+    /**
+     * Process input data from commandline arguments as {@link InputData} object
+     *
+     * @return                              {@link InputData} object with processed input data
+     * @throws IllegalInputDataException    {@inheritDoc}
+     */
     @Override
     public InputData getProcessedInput() throws IllegalInputDataException {
         if (_cmdArgs == null)

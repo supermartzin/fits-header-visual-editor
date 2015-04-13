@@ -4,10 +4,20 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
+ * Converter class for converting different values of input data,
+ * implments {@link TypeConverter} interface
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class ValueTypeConverter implements TypeConverter {
+
+    /**
+     * Tries to parse an <code>Integer</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse an <code>Integer</code>
+     * @return      {@inheritDoc}
+     */
     @Override
     public boolean tryParseInt(String value) {
         if (value == null)
@@ -21,6 +31,12 @@ public class ValueTypeConverter implements TypeConverter {
         }
     }
 
+    /**
+     * Parses an <code>Integer</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse an <code>Integer</code>
+     * @return      {@inheritDoc}
+     */
     @Override
     public int parseInt(String value) {
         if (value == null)
@@ -29,6 +45,12 @@ public class ValueTypeConverter implements TypeConverter {
         return Integer.parseInt(value);
     }
 
+    /**
+     * Tries to parse a <code>Long</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse a <code>Long</code>
+     * @return      {@inheritDoc}
+     */
     @Override
     public boolean tryParseLong(String value) {
         if (value == null)
@@ -42,6 +64,12 @@ public class ValueTypeConverter implements TypeConverter {
         }
     }
 
+    /**
+     * Parses a <code>Long</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse a <code>Long</code>
+     * @return      {@inheritDoc}
+     */
     @Override
     public long parseLong(String value) {
         if (value == null)
@@ -50,6 +78,12 @@ public class ValueTypeConverter implements TypeConverter {
         return Long.parseLong(value);
     }
 
+    /**
+     * Tries to parse a <code>Double</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse a <code>Double</code>
+     * @return      {@inheritDoc}
+     */
     @Override
     public boolean tryParseDouble(String value) {
         if (value == null)
@@ -63,6 +97,12 @@ public class ValueTypeConverter implements TypeConverter {
         }
     }
 
+    /**
+     * Parses a <code>Double</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse a <code>Double</code>
+     * @return      {@inheritDoc}
+     */
     @Override
     public double parseDouble(String value) {
         if (value == null)
@@ -71,6 +111,12 @@ public class ValueTypeConverter implements TypeConverter {
         return Double.parseDouble(value);
     }
 
+    /**
+     * Tries to parse a <code>Boolean</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse a <code>Boolean</code>
+     * @return      {@inheritDoc}
+     */
     @Override
     public boolean tryParseBoolean(String value) {
         if (value == null)
@@ -83,6 +129,12 @@ public class ValueTypeConverter implements TypeConverter {
                 || value.equals("F");
     }
 
+    /**
+     * Parses a <code>Boolean</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse a <code>Boolean</code>
+     * @return      {@inheritDoc}
+     */
     @Override
     public boolean parseBoolean(String value) {
         if (value == null)
@@ -98,6 +150,12 @@ public class ValueTypeConverter implements TypeConverter {
         throw new IllegalArgumentException("string does not contain valid boolean value");
     }
 
+    /**
+     * Tries to parse a <code>BigInteger</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse a <code>BigInteger</code>
+     * @return      {@inheritDoc}
+     */
     @Override
     public boolean tryParseBigInteger(String value) {
         if (value == null)
@@ -111,6 +169,12 @@ public class ValueTypeConverter implements TypeConverter {
         }
     }
 
+    /**
+     * Parses a <code>BigInteger</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse a <code>BigInteger</code>
+     * @return      {@inheritDoc}
+     */
     @Override
     public BigInteger parseBigInteger(String value) {
         if (value == null)
@@ -119,6 +183,12 @@ public class ValueTypeConverter implements TypeConverter {
         return new BigInteger(value);
     }
 
+    /**
+     * Tries to parse a <code>BigDecimal</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse a <code>BigDecimal</code>
+     * @return      {@inheritDoc}
+     */
     @Override
     public boolean tryParseBigDecimal(String value) {
         if (value == null)
@@ -132,6 +202,12 @@ public class ValueTypeConverter implements TypeConverter {
         }
     }
 
+    /**
+     * Parses a <code>BigDecimal</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse a <code>BigDecimal</code>
+     * @return      {@inheritDoc}
+     */
     @Override
     public BigDecimal parseBigDecimal(String value) {
         if (value == null)

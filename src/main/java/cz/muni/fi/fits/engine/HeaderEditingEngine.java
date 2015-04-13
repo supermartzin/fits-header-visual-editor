@@ -7,80 +7,101 @@ import java.io.File;
 import java.util.LinkedList;
 
 /**
+ * Interface defining methods of editing engine that can be performed
+ * over FITS files
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public interface HeaderEditingEngine {
 
     /**
+     * Adds new record to FITS header with specified arguments
      *
-     * @param keyword
-     * @param value
-     * @param comment
-     * @param updateIfExists
-     * @param fitsFile
-     * @return
+     * @param keyword           keyword of new record to add
+     * @param value             value of new record to add
+     * @param comment           comment of new record to add, insert
+     *                          <code>null</code> when no comment to add to record
+     * @param updateIfExists    value indicating whether to update a record
+     *                          if one with the same keyword already exists
+     * @param fitsFile          FITS file to which add new record
+     * @return                  {@link Result} object with results of this operation
      */
     Result addNewRecord(String keyword, Object value, String comment, boolean updateIfExists, File fitsFile);
 
     /**
+     * Adds new record to FITS header with specified arguments to specific index
      *
-     * @param index
-     * @param keyword
-     * @param value
-     * @param comment
-     * @param removeOldIfExists
-     * @param fitsFile
-     * @return
+     * @param index             index where to add new record
+     * @param keyword           keyword of new record to add
+     * @param value             value of new keyword to add
+     * @param comment           comment of new record to add, insert
+     *                          <code>null</code> when no comment to add to record
+     * @param removeOldIfExists value indicating whether to remove old record
+     *                          with the same keyword if it already exists
+     * @param fitsFile          FITS file to which add new record
+     * @return                  {@link Result} object with results of this operation
      */
     Result addNewRecordToIndex(int index, String keyword, Object value, String comment, boolean removeOldIfExists, File fitsFile);
 
     /**
+     * Removes record from FITS header with specified keyword
      *
-     * @param keyword
-     * @param fitsFile
-     * @return
+     * @param keyword   keyword of a record to remove
+     * @param fitsFile  FITS file from which to remove a record
+     * @return          {@link Result} object with results of this operation
      */
     Result removeRecordByKeyword(String keyword, File fitsFile);
 
     /**
+     * Removes record from FITS header from specified index
      *
-     * @param index
-     * @param fitsFile
-     * @return
+     * @param index     index from which to remove a record
+     * @param fitsFile  FITS file from which to remove a record
+     * @return          {@link Result} object with results of this operation
      */
     Result removeRecordFromIndex(int index, File fitsFile);
 
     /**
+     * Changes keyword of specified existing record in FITS header to new one
      *
-     * @param oldKeyword
-     * @param newKeyword
-     * @param removeValueOfNewIfExists
-     * @param fitsFile
-     * @return
+     * @param oldKeyword                keyword defining existing record in which to change keyword
+     * @param newKeyword                new keyword to set in record
+     * @param removeValueOfNewIfExists  value indicating whether to remove record with new keyword
+     *                                  if it already exists in header
+     * @param fitsFile                  FITS file in which to change a record
+     * @return                          {@link Result} object with results of this operation
      */
     Result changeKeywordOfRecord(String oldKeyword, String newKeyword, boolean removeValueOfNewIfExists, File fitsFile);
 
     /**
+     * Change value of specified existing record in FIT header to new one
      *
-     * @param keyword
-     * @param newValue
-     * @param newComment
-     * @param addNewIfNotExists
-     * @param fitsFile
-     * @return
+     * @param keyword           keyword defining existing record in which to change value
+     * @param newValue          new value to be set in record
+     * @param newComment        new comment to set in record, insert <code>null</code>
+     *                          if want to use the original comment
+     * @param addNewIfNotExists value indicating whether add new record if
+     *                          record with specified keyword does not exist
+     * @param fitsFile          FITS file in which to change a record
+     * @return                  {@link Result} object with results of this operation
      */
     Result changeValueOfRecord(String keyword, Object newValue, String newComment, boolean addNewIfNotExists, File fitsFile);
 
     /**
+     * Chain multiple records into new single record in FITS header by specified arguments
      *
-     * @param keyword
-     * @param chainParameters
-     * @param comment
-     * @param updateIfExists
-     * @param skipIfChainKwNotExists
-     * @param fitsFile
-     * @return
+     * @param keyword                   keyword of new chained record
+     * @param chainParameters           list of parameters containing constants and keywords
+     *                                  which to chain
+     * @param comment                   comment to set in record, insert <code>null</code>
+     *                                  if no comment to add
+     * @param updateIfExists            value indicating whether to update value of record
+     *                                  with specified keyword if it already exists
+     * @param skipIfChainKwNotExists    value indcating whether to skip keyword in chain parameters
+     *                                  if no such record exists in header
+     * @param fitsFile                  FITS file in which to chain records
+     * @return                          {@link Result} object with results of this operation
      */
     Result chainMultipleRecords(String keyword, LinkedList<Tuple> chainParameters, String comment, boolean updateIfExists, boolean skipIfChainKwNotExists, File fitsFile);
 }

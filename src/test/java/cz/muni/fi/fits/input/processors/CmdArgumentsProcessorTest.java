@@ -21,8 +21,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
+ * Tests for {@link CmdArgumentsProcessor} class
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class CmdArgumentsProcessorTest {
 

@@ -16,13 +16,30 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Editing engine class implementing {@link HeaderEditingEngine} interface
+ * that uses external library <b>nom.tam.fits</b>, available as open source
+ * on GitHub:
+ * @see <a href="http://nom-tam-fits.github.io/nom-tam-fits/">Project pages</a>
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
     private static final List<String> MANDATORY_KEYWORDS_REGEX = Arrays.asList("^NAXIS[0-9]{0,3}$", "^SIMPLE$", "^BITPIX$", "^EXTEND$", "^XTENSION$");
 
+    /**
+     * Adds new record to FITS header with specified arguments
+     *
+     * @param keyword           keyword of new record to add
+     * @param value             value of new record to add
+     * @param comment           comment of new record to add, insert
+     *                          <code>null</code> when no comment to add to record
+     * @param updateIfExists    value indicating whether to update a record
+     *                          if one with the same keyword already exists
+     * @param fitsFile          FITS file to which add new record
+     * @return                  {@inheritDoc}
+     */
     @Override
     public Result addNewRecord(String keyword, Object value, String comment, boolean updateIfExists, File fitsFile) {
         if (keyword == null)
@@ -102,6 +119,19 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
         }
     }
 
+    /**
+     * Adds new record to FITS header with specified arguments to specific index
+     *
+     * @param index             index where to add new record
+     * @param keyword           keyword of new record to add
+     * @param value             value of new keyword to add
+     * @param comment           comment of new record to add, insert
+     *                          <code>null</code> when no comment to add to record
+     * @param removeOldIfExists value indicating whether to remove old record
+     *                          with the same keyword if it already exists
+     * @param fitsFile          FITS file to which add new record
+     * @return                  {@inheritDoc}
+     */
     @Override
     public Result addNewRecordToIndex(int index, String keyword, Object value, String comment, boolean removeOldIfExists, File fitsFile) {
         if (index < 0)
@@ -201,6 +231,13 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
         }
     }
 
+    /**
+     * Removes record from FITS header with specified keyword
+     *
+     * @param keyword   keyword of a record to remove
+     * @param fitsFile  FITS file from which to remove a record
+     * @return          {@inheritDoc}
+     */
     @Override
     public Result removeRecordByKeyword(String keyword, File fitsFile) {
         if (keyword == null)
@@ -241,6 +278,13 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
         }
     }
 
+    /**
+     * Removes record from FITS header from specified index
+     *
+     * @param index     index from which to remove a record
+     * @param fitsFile  FITS file from which to remove a record
+     * @return          {@inheritDoc}
+     */
     @Override
     public Result removeRecordFromIndex(int index, File fitsFile) {
         if (index < 0)
@@ -288,6 +332,16 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
         }
     }
 
+    /**
+     * Changes keyword of specified existing record in FITS header to new one
+     *
+     * @param oldKeyword                keyword defining existing record in which to change keyword
+     * @param newKeyword                new keyword to set in record
+     * @param removeValueOfNewIfExists  value indicating whether to remove record with new keyword
+     *                                  if it already exists in header
+     * @param fitsFile                  FITS file in which to change a record
+     * @return                          {@inheritDoc}
+     */
     @Override
     public Result changeKeywordOfRecord(String oldKeyword, String newKeyword, boolean removeValueOfNewIfExists, File fitsFile) {
         if (oldKeyword == null)
@@ -382,6 +436,18 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
         }
     }
 
+    /**
+     * Change value of specified existing record in FIT header to new one
+     *
+     * @param keyword           keyword defining existing record in which to change value
+     * @param newValue          new value to be set in record
+     * @param newComment        new comment to set in record, insert <code>null</code>
+     *                          if want to use the original comment
+     * @param addNewIfNotExists value indicating whether add new record if
+     *                          record with specified keyword does not exist
+     * @param fitsFile          FITS file in which to change a record
+     * @return                  {@inheritDoc}
+     */
     @Override
     public Result changeValueOfRecord(String keyword, Object newValue, String newComment, boolean addNewIfNotExists, File fitsFile) {
         if (keyword == null)
@@ -468,6 +534,21 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
         }
     }
 
+    /**
+     * Chain multiple records into new single record in FITS header by specified arguments
+     *
+     * @param keyword                   keyword of new chained record
+     * @param chainParameters           list of parameters containing constants and keywords
+     *                                  which to chain
+     * @param comment                   comment to set in record, insert <code>null</code>
+     *                                  if no comment to add
+     * @param updateIfExists            value indicating whether to update value of record
+     *                                  with specified keyword if it already exists
+     * @param skipIfChainKwNotExists    value indcating whether to skip keyword in chain parameters
+     *                                  if no such record exists in header
+     * @param fitsFile                  FITS file in which to chain records
+     * @return                          {@inheritDoc}
+     */
     @Override
     public Result chainMultipleRecords(String keyword, LinkedList<Tuple> chainParameters, String comment, boolean updateIfExists, boolean skipIfChainKwNotExists, File fitsFile) {
         if (keyword == null)

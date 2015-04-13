@@ -13,8 +13,10 @@ import javax.inject.Inject;
 import java.io.File;
 
 /**
+ * Core editing class used as a central point of FITS Header Editor Tool
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class FITSHeaderEditor {
 
@@ -23,6 +25,14 @@ public class FITSHeaderEditor {
     private final InputDataValidator _inputDataValidator;
     private final OutputWriter _outputWriter;
 
+    /**
+     * Creates new {@link FITSHeaderEditor} object with specified external dependencies
+     *
+     * @param headerEditingEngine   object with core editing engine
+     * @param inputProcessor        process input data
+     * @param inputDataValidator    validates input data
+     * @param outputWriter          writer object that takes care of writing to output
+     */
     @Inject
     public FITSHeaderEditor(HeaderEditingEngine headerEditingEngine,
                             InputProcessor inputProcessor,
@@ -36,6 +46,9 @@ public class FITSHeaderEditor {
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> _outputWriter.writeException(e));
     }
 
+    /**
+     * Method starts editing with constructor-provided input data and dependencies
+     */
     public void start() {
         try {
             // process input parameters

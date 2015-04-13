@@ -24,8 +24,10 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
+ * Tests for {@link CmdArgumentsProcessorHelper} class
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class CmdArgsProcessingHelperTest {
 

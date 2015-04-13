@@ -10,8 +10,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
+ * Tests for {@link ValueTypeConverter} class
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class ValueTypeConverterTest {
 

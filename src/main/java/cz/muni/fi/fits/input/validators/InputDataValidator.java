@@ -4,57 +4,67 @@ import cz.muni.fi.fits.exceptions.ValidationException;
 import cz.muni.fi.fits.models.inputData.*;
 
 /**
+ * Interface for validating input data
+ * if they are in correct form
  *
- * TODO dscription
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public interface InputDataValidator {
 
     /**
+     * Validates input data for operation <b>Add new record</b>
      *
-     * @param addNewRecordInputData
-     * @throws ValidationException
+     * @param addNewRecordInputData input data to validate
+     * @throws ValidationException  when input data are in invalid form
      */
     void validate(AddNewRecordInputData addNewRecordInputData) throws ValidationException;
 
     /**
+     * Validates input data for operation <b>Add new record to specific index</b>
      *
-     * @param addNewToIndexInputData
-     * @throws ValidationException
+     * @param addNewToIndexInputData    input data to validate
+     * @throws ValidationException      when input data are in invalid form
      */
     void validate(AddNewToIndexInputData addNewToIndexInputData) throws ValidationException;
 
     /**
+     * Validates input data for operation <b>Remove record by keyword</b>
      *
-     * @param removeByKeywordInputData
-     * @throws ValidationException
+     * @param removeByKeywordInputData  input data to validate
+     * @throws ValidationException      when input data are in invalid form
      */
     void validate(RemoveByKeywordInputData removeByKeywordInputData) throws ValidationException;
 
     /**
+     * Validates input data for operation <b>Remove record from specific index</b>
      *
-     * @param removeFromIndexInputData
-     * @throws ValidationException
+     * @param removeFromIndexInputData  input data to validate
+     * @throws ValidationException      when input data are in invalid form
      */
     void validate(RemoveFromIndexInputData removeFromIndexInputData) throws ValidationException;
 
     /**
+     * Validates input data for operation <b>Change keyword of record</b>
      *
-     * @param changeKeywordInputData
-     * @throws ValidationException
+     * @param changeKeywordInputData    input data to validate
+     * @throws ValidationException      when input data are in invalid form
      */
     void validate(ChangeKeywordInputData changeKeywordInputData) throws ValidationException;
 
     /**
+     * Validates input data for operation <b>Change value of record</b>
      *
-     * @param changeValueByKeywordInputData
-     * @throws ValidationException
+     * @param changeValueByKeywordInputData input data to validate
+     * @throws ValidationException          when input data are in invalid form
      */
     void validate(ChangeValueByKeywordInputData changeValueByKeywordInputData) throws ValidationException;
 
     /**
+     * Validates input data for operation <b>Chain multiple records</b>
      *
-     * @param chainRecordsInputData
-     * @throws ValidationException
+     * @param chainRecordsInputData input data to validate
+     * @throws ValidationException  when input data are in invalid form
      */
     void validate(ChainRecordsInputData chainRecordsInputData) throws ValidationException;
 }

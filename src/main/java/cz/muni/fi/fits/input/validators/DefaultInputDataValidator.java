@@ -7,11 +7,20 @@ import cz.muni.fi.fits.utils.Constants;
 import cz.muni.fi.fits.utils.Tuple;
 
 /**
+ * Default implementation of {@link InputDataValidator} interface
+ * for validation of input data
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 public class DefaultInputDataValidator implements InputDataValidator {
 
+    /**
+     * Validates input data for operation <b>Add new record</b>
+     *
+     * @param addNewRecordInputData input data to validate
+     * @throws ValidationException  {@inheritDoc}
+     */
     @Override
     public void validate(AddNewRecordInputData addNewRecordInputData) throws ValidationException {
         if (addNewRecordInputData == null)
@@ -79,6 +88,12 @@ public class DefaultInputDataValidator implements InputDataValidator {
         }
     }
 
+    /**
+     * Validates input data for operation <b>Add new record to specific index</b>
+     *
+     * @param addNewToIndexInputData    input data to validate
+     * @throws ValidationException      {@inheritDoc}
+     */
     @Override
     public void validate(AddNewToIndexInputData addNewToIndexInputData) throws ValidationException {
         if (addNewToIndexInputData == null)
@@ -150,6 +165,12 @@ public class DefaultInputDataValidator implements InputDataValidator {
         }
     }
 
+    /**
+     * Validates input data for operation <b>Remove record by keyword</b>
+     *
+     * @param removeByKeywordInputData  input data to validate
+     * @throws ValidationException      {@inheritDoc}
+     */
     @Override
     public void validate(RemoveByKeywordInputData removeByKeywordInputData) throws ValidationException {
         if (removeByKeywordInputData == null)
@@ -175,6 +196,12 @@ public class DefaultInputDataValidator implements InputDataValidator {
             throw new ValidationException("Keyword has exceeded maximum allowed length of " + Constants.MAX_KEYWORD_LENGTH + " characters");
     }
 
+    /**
+     * Validates input data for operation <b>Remove record from specific index</b>
+     *
+     * @param removeFromIndexInputData  input data to validate
+     * @throws ValidationException      {@inheritDoc}
+     */
     @Override
     public void validate(RemoveFromIndexInputData removeFromIndexInputData) throws ValidationException {
         if (removeFromIndexInputData == null)
@@ -188,6 +215,12 @@ public class DefaultInputDataValidator implements InputDataValidator {
             throw new ValidationException("Index must be number bigger than 0");
     }
 
+    /**
+     * Validates input data for operation <b>Change keyword of record</b>
+     *
+     * @param changeKeywordInputData    input data to validate
+     * @throws ValidationException      {@inheritDoc}
+     */
     @Override
     public void validate(ChangeKeywordInputData changeKeywordInputData) throws ValidationException {
         if (changeKeywordInputData == null)
@@ -229,6 +262,12 @@ public class DefaultInputDataValidator implements InputDataValidator {
             throw new ValidationException("New keyword has exceeded maximum allowed length of " + Constants.MAX_KEYWORD_LENGTH + " characters");
     }
 
+    /**
+     * Validates input data for operation <b>Change value of record</b>
+     *
+     * @param changeValueByKeywordInputData input data to validate
+     * @throws ValidationException          {@inheritDoc}
+     */
     @Override
     public void validate(ChangeValueByKeywordInputData changeValueByKeywordInputData) throws ValidationException {
         if (changeValueByKeywordInputData == null)
@@ -296,6 +335,12 @@ public class DefaultInputDataValidator implements InputDataValidator {
         }
     }
 
+    /**
+     * Validates input data for operation <b>Chain multiple records</b>
+     *
+     * @param chainRecordsInputData input data to validate
+     * @throws ValidationException  {@inheritDoc}
+     */
     @Override
     public void validate(ChainRecordsInputData chainRecordsInputData) throws ValidationException {
         if (chainRecordsInputData == null)
@@ -385,6 +430,12 @@ public class DefaultInputDataValidator implements InputDataValidator {
 
     }
 
+    /**
+     * Validates correctness of input FITS files in input data
+     *
+     * @param inputData             input data to validate
+     * @throws ValidationException  when FITS files of input data are in invalid form
+     */
     private void validateCommonInputData(InputData inputData) throws ValidationException {
         if (inputData.getFitsFiles().isEmpty())
             throw new ValidationException("No FITS files provided for operation");

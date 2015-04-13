@@ -9,15 +9,26 @@ import cz.muni.fi.fits.utils.Tuple;
 
 import java.io.*;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 
 /**
+ * Internal class used as helper for {@link CmdArgumentsProcessor} class
+ * that helps to extract input data to specific operation
  *
- * TODO description
+ * @author Martin Vrábel
+ * @version 1.0
  */
 final class CmdArgumentsProcessorHelper {
 
+    /**
+     * Extracts paths to FITS files to process and returnd them as collection of {@link File} objects
+     *
+     * @param pathToFile                    path to input file in which FITS files paths are specified
+     * @return                              unmodifiable collection of {@link File} objects reprsenting FITS files
+     * @throws IllegalInputDataException    when input file is in invalid form
+     */
     static Collection<File> extractFilesData(String pathToFile) throws IllegalInputDataException {
         if (pathToFile == null)
             throw new IllegalArgumentException("pathToFile is null");
@@ -45,9 +56,17 @@ final class CmdArgumentsProcessorHelper {
             throw new IllegalInputDataException("Error reading input file", ioEx);
         }
 
-        return fitsFiles;
+        return Collections.unmodifiableCollection(fitsFiles);
     }
 
+    /**
+     * Extracts input data for operation <b>Add new record</b>
+     *
+     * @param cmdArgs                       commandline arguments containing specific input data
+     * @param converter                     {@link TypeConverter} object used to convert type of value in new record
+     * @return                              {@link AddNewRecordInputData} object with input data
+     * @throws IllegalInputDataException    when input data are in invalid form
+     */
     static AddNewRecordInputData extractAddNewRecordData(String[] cmdArgs, TypeConverter converter) throws IllegalInputDataException {
         // get switch (optional)
         boolean updateIfExists = false;
@@ -105,6 +124,14 @@ final class CmdArgumentsProcessorHelper {
         return new AddNewRecordInputData(keyword, value, comment, updateIfExists);
     }
 
+    /**
+     * Extracts input data for operation <b>Add new record to specific index</b>
+     *
+     * @param cmdArgs                       commandline arguments containing specific input data
+     * @param converter                     {@link TypeConverter} object used to convert type of value in new record
+     * @return                              {@link AddNewToIndexInputData} object with input data
+     * @throws IllegalInputDataException    when input data are in invalid form
+     */
     static AddNewToIndexInputData extractAddNewToIndexData(String[] cmdArgs, TypeConverter converter) throws IllegalInputDataException {
         // get switch (optional)
         boolean removeOldIfExists = false;
@@ -171,6 +198,13 @@ final class CmdArgumentsProcessorHelper {
         return new AddNewToIndexInputData(index, keyword, value, comment, removeOldIfExists);
     }
 
+    /**
+     * Extracts input data for operation <b>Remove record by keyword</b>
+     *
+     * @param cmdArgs                           commandline arguments containing specific input data
+     * @return                                  {@link RemoveByKeywordInputData} object with input data
+     * @throws WrongNumberOfParametersException when input data are in invalid form
+     */
     static RemoveByKeywordInputData extractRemoveByKeywordData(String[] cmdArgs) throws WrongNumberOfParametersException {
         if (cmdArgs.length != 3)
             throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'REMOVE'");
@@ -181,6 +215,13 @@ final class CmdArgumentsProcessorHelper {
         return new RemoveByKeywordInputData(keyword);
     }
 
+    /**
+     * Extracts input data for operation <b>Remove record from specific index</b>
+     *
+     * @param cmdArgs                       commandline arguments containing specific input data
+     * @return                              {@link RemoveFromIndexInputData} object with input data
+     * @throws IllegalInputDataException    when input data are in invalid form
+     */
     static RemoveFromIndexInputData extractRemoveFromIndexData(String[] cmdArgs) throws IllegalInputDataException {
         if (cmdArgs.length != 3)
             throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'REMOVE_IX'");
@@ -197,6 +238,14 @@ final class CmdArgumentsProcessorHelper {
         return new RemoveFromIndexInputData(index);
     }
 
+    /**
+     * Extracts input data for operation <b>Change keyword of record</b>
+     *
+     * @param cmdArgs                           commandline arguments containing specific input data
+     * @return                                  {@link ChangeKeywordInputData} object with input data
+     * @throws WrongNumberOfParametersException when number of provided arguments is not sufficient
+     * @throws InvalidSwitchParameterException  when switch argument is in invalid form
+     */
     static ChangeKeywordInputData extractChangeKeywordData(String[] cmdArgs) throws WrongNumberOfParametersException, InvalidSwitchParameterException {
         // get switch (optional)
         boolean removeValueOfNewIfExists = false;
@@ -225,6 +274,15 @@ final class CmdArgumentsProcessorHelper {
         return new ChangeKeywordInputData(oldKeyword, newKeyword, removeValueOfNewIfExists);
     }
 
+    /**
+     * Extracts input data for operation <b>Change keyword of record</b>
+     *
+     * @param cmdArgs                           commandline arguments containing specific input data
+     * @param converter                         {@link TypeConverter} object used to convert type of new value in record to change
+     * @return                                  {@link ChangeValueByKeywordInputData} object with input data
+     * @throws WrongNumberOfParametersException when number of provided arguments is not sufficient
+     * @throws InvalidSwitchParameterException  when switch argument is in invalid form
+     */
     static ChangeValueByKeywordInputData extractChangeValueByKeywordData(String[] cmdArgs, TypeConverter converter) throws WrongNumberOfParametersException, InvalidSwitchParameterException {
         // get switch (optional)
         boolean addNewIfNotExists = false;
@@ -282,6 +340,13 @@ final class CmdArgumentsProcessorHelper {
         return new ChangeValueByKeywordInputData(keyword, value, comment,addNewIfNotExists);
     }
 
+    /**
+     * Extracts input data for operation <b>Chain multiple records</b>
+     *
+     * @param cmdArgs                       commandline arguments containing specific input data
+     * @return                              {@link ChainRecordsInputData} object with input data
+     * @throws IllegalInputDataException    when input data are in invalid form
+     */
     static ChainRecordsInputData extractChainRecordsData(String[] cmdArgs) throws IllegalInputDataException {
         // get switches (optional)
         boolean updateIfExists = false;
