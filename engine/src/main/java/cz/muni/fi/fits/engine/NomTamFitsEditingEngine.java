@@ -22,7 +22,7 @@ import java.util.List;
  * @see <a href="http://nom-tam-fits.github.io/nom-tam-fits/">Project pages</a>
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.0.1
  */
 public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
@@ -111,9 +111,9 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
             // return success
             if (updated)
-                return new Result(true, "Record successfully added to header as update of existing record");
+                return new Result(true, "Record '" + keyword + "' successfully added to header as update of existing record");
             else
-                return new Result(true, "Record successfully added to header");
+                return new Result(true, "Record '" + keyword + "' successfully added to header");
         } catch (FitsException | IOException ex) {
             return new Result(false, "Error in editing engine: " + ex.getMessage());
         }
@@ -200,7 +200,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                 String indexKey = iterator.next().getKey();
                 for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
                     if (indexKey.matches(mandatoryKwRegex))
-                        return new Result(false, "Record cannot be inserted to index " + index + " because of mandatory keyword '" + indexKey + "'");
+                        return new Result(false, "Record '" + keyword + "' cannot be inserted to index " + index + " because of mandatory keyword '" + indexKey + "'");
                 }
 
                 iterator.prev();
@@ -219,13 +219,13 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
             // return success
             if (!oldRemoved && !insertedToEnd)
-                return new Result(true, "Record successfully added to header to index " + index);
+                return new Result(true, "Record '" + keyword + "' successfully added to header to index " + index);
             else if (oldRemoved && !insertedToEnd)
-                return new Result(true, "Record successfully added to header to index " + index + " removing the old one");
+                return new Result(true, "Record '" + keyword + "' successfully added to header to index " + index + " removing the old one");
             else if (!oldRemoved)
-                return new Result(true, "Record successfully added to the end of header (index was out of range)");
+                return new Result(true, "Record '" + keyword + "' successfully added to the end of header (index was out of range)");
             else
-                return new Result(true, "Record successfully added to the end of header (index was out of range) removing the old one");
+                return new Result(true, "Record '" + keyword + "'  successfully added to the end of header (index was out of range) removing the old one");
         } catch (FitsException | IOException ex) {
             return new Result(false, "Error in editing engine: " + ex.getMessage());
         }
@@ -272,7 +272,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             fits.write(bf);
 
             // return success
-            return new Result(true, "Record successfully removed from header");
+            return new Result(true, "Record '" + keyword + "' successfully removed from header");
         } catch (FitsException | IOException ex) {
             return new Result(false, "Error in editing engine: " + ex.getMessage());
         }
@@ -312,6 +312,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             else
                 iterator = header.iterator();
 
+            // check for mandatory keyword
             String indexKey = iterator.next().getKey();
             for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
                 if (indexKey.matches(mandatoryKwRegex))
@@ -326,7 +327,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             fits.write(bf);
 
             // return success
-            return new Result(true, "Record successfully removed from index " + index);
+            return new Result(true, "Successfully removed from index " + index + " record '" + indexKey + "'");
         } catch (FitsException | IOException ex) {
             return new Result(false, "Error in editing engine: " + ex.getMessage());
         }
@@ -639,11 +640,11 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             if (!updated && !skippedKeyword)
                 return new Result(true, "Records successfully chained into keyword '" + keyword + "'");
             else if (updated && !skippedKeyword)
-                return new Result(true, "Records successfully chained and updated info keyword '" + keyword + "'");
+                return new Result(true, "Records successfully chained and updated into keyword '" + keyword + "'");
             else if (!updated)
                 return new Result(true, "Records chained into keyword '" + keyword + "' with some non-existing keywords skipped");
             else
-                return new Result(true, "Records chained and updated info keyword '" + keyword + "' with some non-existing keywords skipped");
+                return new Result(true, "Records chained and updated into keyword '" + keyword + "' with some non-existing keywords skipped");
         } catch (FitsException | IOException ex) {
             return new Result(false, "Error in editing engine: " + ex.getMessage());
         }

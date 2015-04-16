@@ -9,14 +9,14 @@ import cz.muni.fi.fits.input.processors.CmdArgumentsProcessor;
 import cz.muni.fi.fits.input.processors.InputProcessor;
 import cz.muni.fi.fits.input.validators.DefaultInputDataValidator;
 import cz.muni.fi.fits.input.validators.InputDataValidator;
-import cz.muni.fi.fits.output.writers.ConsoleOutputWriter;
+import cz.muni.fi.fits.output.writers.FileConsoleOutputWriter;
 import cz.muni.fi.fits.output.writers.OutputWriter;
 
 /**
  * Class to inject all defined dependencies with Google Guice
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.0.1
  */
 public class AppInjector extends AbstractModule {
     private final Object _inputData;
@@ -27,7 +27,7 @@ public class AppInjector extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(OutputWriter.class).to(ConsoleOutputWriter.class);
+        bind(OutputWriter.class).toInstance(new FileConsoleOutputWriter("output.txt"));
         bind(HeaderEditingEngine.class).to(NomTamFitsEditingEngine.class);
         bind(InputDataValidator.class).to(DefaultInputDataValidator.class);
         bind(TypeConverter.class).to(ValueTypeConverter.class);

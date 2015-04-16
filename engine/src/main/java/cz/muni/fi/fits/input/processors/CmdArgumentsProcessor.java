@@ -9,6 +9,7 @@ import cz.muni.fi.fits.models.inputData.*;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Collection;
  * that takes input data from commandline arguments
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1
  */
 @Singleton
 public class CmdArgumentsProcessor implements InputProcessor {
@@ -115,5 +116,16 @@ public class CmdArgumentsProcessor implements InputProcessor {
         inputData.setFitsFiles(fitsFiles);
 
         return inputData;
+    }
+
+
+    /**
+     * Gets commandline parameters entered to input console as stringified array of that parameters
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public String getInputParameters() {
+        return Arrays.toString(_cmdArgs);
     }
 }

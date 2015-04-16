@@ -18,7 +18,7 @@ import java.util.LinkedList;
  * that helps to extract input data to specific operation
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.0.1
  */
 final class CmdArgumentsProcessorHelper {
 
@@ -38,9 +38,9 @@ final class CmdArgumentsProcessorHelper {
         // check existence of input file
         File inputFile = new File(pathToFile);
         if (!inputFile.exists())
-            throw new IllegalInputDataException("Input file does not exist");
+            throw new IllegalInputDataException("Input file '" + pathToFile + "' does not exist");
         if (!inputFile.isFile())
-            throw new IllegalInputDataException("Provided path is not a file");
+            throw new IllegalInputDataException("Provided path '" + pathToFile + "' is not a file");
 
         // read paths to FITS files
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile)))
@@ -51,9 +51,9 @@ final class CmdArgumentsProcessorHelper {
                 fitsFiles.add(fitsFile);
             }
         } catch (FileNotFoundException fnfEx) {
-            throw new IllegalInputDataException("Input file does not exist", fnfEx);
+            throw new IllegalInputDataException("Input file '" + pathToFile + "' does not exist", fnfEx);
         } catch (IOException ioEx) {
-            throw new IllegalInputDataException("Error reading input file", ioEx);
+            throw new IllegalInputDataException("Error reading input file '" + pathToFile + "'", ioEx);
         }
 
         return Collections.unmodifiableCollection(fitsFiles);
@@ -70,7 +70,7 @@ final class CmdArgumentsProcessorHelper {
     static AddNewRecordInputData extractAddNewRecordData(String[] cmdArgs, TypeConverter converter) throws IllegalInputDataException {
         // get switch (optional)
         boolean updateIfExists = false;
-        String switchParam = cmdArgs[1].trim();
+        String switchParam = cmdArgs[1].toLowerCase().trim();
         if (switchParam.startsWith("-")) {
             if (switchParam.equals("-u"))
                 updateIfExists = true;
@@ -135,7 +135,7 @@ final class CmdArgumentsProcessorHelper {
     static AddNewToIndexInputData extractAddNewToIndexData(String[] cmdArgs, TypeConverter converter) throws IllegalInputDataException {
         // get switch (optional)
         boolean removeOldIfExists = false;
-        String switchParam  = cmdArgs[1].trim();
+        String switchParam  = cmdArgs[1].toLowerCase().trim();
         if (switchParam.startsWith("-")) {
             if (switchParam.equals("-rm"))
                 removeOldIfExists = true;
@@ -249,7 +249,7 @@ final class CmdArgumentsProcessorHelper {
     static ChangeKeywordInputData extractChangeKeywordData(String[] cmdArgs) throws WrongNumberOfParametersException, InvalidSwitchParameterException {
         // get switch (optional)
         boolean removeValueOfNewIfExists = false;
-        String switchParam = cmdArgs[1].trim();
+        String switchParam = cmdArgs[1].toLowerCase().trim();
         if (switchParam.startsWith("-")) {
             if (switchParam.equals("-rm"))
                 removeValueOfNewIfExists = true;
@@ -286,7 +286,7 @@ final class CmdArgumentsProcessorHelper {
     static ChangeValueByKeywordInputData extractChangeValueByKeywordData(String[] cmdArgs, TypeConverter converter) throws WrongNumberOfParametersException, InvalidSwitchParameterException {
         // get switch (optional)
         boolean addNewIfNotExists = false;
-        String switchParam = cmdArgs[1].trim();
+        String switchParam = cmdArgs[1].toLowerCase().trim();
         if (switchParam.startsWith("-")) {
             if (switchParam.equals("-a"))
                 addNewIfNotExists = true;
@@ -351,7 +351,7 @@ final class CmdArgumentsProcessorHelper {
         // get switches (optional)
         boolean updateIfExists = false;
         boolean skipIfChainKwNotExists = false;
-        String firstSwitchParam = cmdArgs[1].trim();
+        String firstSwitchParam = cmdArgs[1].toLowerCase().trim();
         // some parameter on first place
         if (firstSwitchParam.startsWith("-")) {
             switch (firstSwitchParam) {
@@ -368,7 +368,7 @@ final class CmdArgumentsProcessorHelper {
             if (cmdArgs.length < 3)
                 throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'CHAIN'");
 
-            String secondSwitchParam = cmdArgs[2].trim();
+            String secondSwitchParam = cmdArgs[2].toLowerCase().trim();
             // some parameter on second place
             if (secondSwitchParam.startsWith("-")) {
                 // if first param is '-u' second must be '-s'
@@ -412,7 +412,7 @@ final class CmdArgumentsProcessorHelper {
             String argument = cmdArgs[i];
 
             // constant
-            if (argument.startsWith("-c=")) {
+            if (argument.startsWith("-c=") || argument.startsWith("-C=")) {
                 argument = argument.substring(3);
                 if (!argument.isEmpty())
                     chainValues.add(new Tuple<>("constant", argument));
@@ -420,7 +420,7 @@ final class CmdArgumentsProcessorHelper {
             }
 
             // keyword
-            if (argument.startsWith("-k=")) {
+            if (argument.startsWith("-k=") || argument.startsWith("-K=")) {
                 argument = argument.substring(3).trim();
                 if (!argument.isEmpty())
                     chainValues.add(new Tuple<>("keyword", argument.toUpperCase()));

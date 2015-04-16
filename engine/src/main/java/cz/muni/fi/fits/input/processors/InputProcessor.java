@@ -7,7 +7,7 @@ import cz.muni.fi.fits.models.inputData.InputData;
  * Interface fo processing input data for editing engine
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1
  */
 public interface InputProcessor {
 
@@ -18,4 +18,11 @@ public interface InputProcessor {
      * @throws IllegalInputDataException    when input data are in invalid form
      */
     InputData getProcessedInput() throws IllegalInputDataException;
+
+    /**
+     * Gets parameters entered on input as stringified array of that parameters
+     *
+     * @return {@link String} value containing list of input parameters
+     */
+    String getInputParameters();
 }

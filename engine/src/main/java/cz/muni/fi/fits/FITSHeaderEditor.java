@@ -51,6 +51,8 @@ public class FITSHeaderEditor {
      */
     public void start() {
         try {
+            _outputWriter.writeInfo("Entered parameters: " + _inputProcessor.getInputParameters());
+
             // process input parameters
             InputData inputData = _inputProcessor.getProcessedInput();
 
@@ -59,6 +61,7 @@ public class FITSHeaderEditor {
                     AddNewRecordInputData anrid = (AddNewRecordInputData)inputData;
                     // validate input data
                     _inputDataValidator.validate(anrid);
+
                     _outputWriter.writeInfo("Provided parameters are in correct format");
 
                     // insert into FITS files

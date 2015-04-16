@@ -6,11 +6,14 @@ import java.io.File;
 import java.time.LocalDateTime;
 
 /**
- * Writer class that writes to standard output and standard
- * error output, implements {@link OutputWriter} interface
+ * Writer class that writes output
+ * <ul>
+ *     <li>to system console</li>
+ * </ul>
+ * implements {@link OutputWriter} interface
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.0.1
  */
 @Singleton
 public class ConsoleOutputWriter implements OutputWriter {
@@ -58,7 +61,7 @@ public class ConsoleOutputWriter implements OutputWriter {
             exceptionType = exceptionType.substring(lastIndex + 1);
 
         System.err.println("[" + LocalDateTime.now().toString() + "]" +
-                " EX >> [" + exceptionType + "]: " + exception.getMessage());
+                " EXCEPTION >> [" + exceptionType + "]: " + exception.getMessage());
 
         return true;
     }
@@ -79,7 +82,7 @@ public class ConsoleOutputWriter implements OutputWriter {
             exceptionType = exceptionType.substring(lastIndex + 1);
 
         System.err.println("[" + LocalDateTime.now().toString() + "]" +
-                " EX >> [" + exceptionType + "]: " + errorMessage);
+                " EXCEPTION >> [" + exceptionType + "]: " + errorMessage);
 
         return true;
     }
@@ -100,7 +103,7 @@ public class ConsoleOutputWriter implements OutputWriter {
             exceptionType = exceptionType.substring(lastIndex + 1);
 
         System.err.println("[" + LocalDateTime.now().toString() + "]" +
-                " EX >>" +
+                " EXCEPTION >>" +
                 " [" + file.getName() + "] -" +
                 " [" + exceptionType + "]: " +
                 exception.getMessage());
