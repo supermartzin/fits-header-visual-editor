@@ -4,13 +4,13 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * Converter class for converting different values of input data,
+ * Default converter class for converting different object types,
  * implments {@link TypeConverter} interface
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1
  */
-public class ValueTypeConverter implements TypeConverter {
+public class DefaultTypeConverter implements TypeConverter {
 
     /**
      * Tries to parse an <code>Integer</code> value from given <code>String</code> value

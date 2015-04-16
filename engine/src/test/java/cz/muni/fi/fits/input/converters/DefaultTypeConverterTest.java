@@ -10,21 +10,21 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Tests for {@link ValueTypeConverter} class
+ * Tests for {@link DefaultTypeConverter} class
  *
  * @author Martin Vrábel
  * @version 1.0
  */
-public class ValueTypeConverterTest {
+public class DefaultTypeConverterTest {
 
-    private ValueTypeConverter _converter;
+    private DefaultTypeConverter _converter;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setUp() throws Exception {
-        _converter = new ValueTypeConverter();
+        _converter = new DefaultTypeConverter();
     }
 
     @After
