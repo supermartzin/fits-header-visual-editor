@@ -6,7 +6,6 @@ import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
 import cz.muni.fi.fits.input.converters.TypeConverter;
 import cz.muni.fi.fits.models.inputData.*;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.File;
 import java.util.Arrays;
@@ -17,33 +16,25 @@ import java.util.Collection;
  * that takes input data from commandline arguments
  *
  * @author Martin Vrábel
- * @version 1.1
+ * @version 1.2
  */
 @Singleton
 public class CmdArgumentsProcessor implements InputProcessor {
 
-    private TypeConverter _converter;
+    private final TypeConverter _converter;
     private final String[] _cmdArgs;
-
-    /**
-     * Setter for implementation of {@link TypeConverter} interface
-     * that is used to convert values of input data
-     *
-     * @param typeConverter converter object to use
-     */
-    @Inject
-    public void setTypeConverter(TypeConverter typeConverter) {
-        _converter = typeConverter;
-    }
 
     /**
      * Creates new {@link CmdArgumentsProcessor} class with
      * commandline arguments as input data
      *
-     * @param cmdArgs   command line arguments ontaining input data
+     * @param cmdArgs       command line arguments ontaining input data
+     * @param typeConverter object of class implementing {@link TypeConverter} interface
+     *                      that is used to convert values of input data
      */
-    public CmdArgumentsProcessor(String[] cmdArgs) {
+    public CmdArgumentsProcessor(String[] cmdArgs, TypeConverter typeConverter) {
         this._cmdArgs = cmdArgs;
+        this._converter = typeConverter;
     }
 
     /**
@@ -105,6 +96,11 @@ public class CmdArgumentsProcessor implements InputProcessor {
                     fitsFilesArgIndex = 1;
                 else
                     fitsFilesArgIndex = 2;
+                break;
+
+            case "SHIFT_TIME":
+                inputData = CmdArgumentsProcessorHelper.extractShiftTimeData(_cmdArgs, _converter);
+                fitsFilesArgIndex = 1;
                 break;
 
             default:

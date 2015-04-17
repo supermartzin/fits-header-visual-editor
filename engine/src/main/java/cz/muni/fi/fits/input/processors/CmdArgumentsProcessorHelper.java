@@ -18,7 +18,7 @@ import java.util.LinkedList;
  * that helps to extract input data to specific operation
  *
  * @author Martin Vrábel
- * @version 1.0.1
+ * @version 1.1.1
  */
 final class CmdArgumentsProcessorHelper {
 
@@ -415,7 +415,7 @@ final class CmdArgumentsProcessorHelper {
             if (argument.startsWith("-c=") || argument.startsWith("-C=")) {
                 argument = argument.substring(3);
                 if (!argument.isEmpty())
-                    chainValues.add(new Tuple<>("constant", argument));
+                    chainValues.add(new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, argument));
                 continue;
             }
 
@@ -423,7 +423,7 @@ final class CmdArgumentsProcessorHelper {
             if (argument.startsWith("-k=") || argument.startsWith("-K=")) {
                 argument = argument.substring(3).trim();
                 if (!argument.isEmpty())
-                    chainValues.add(new Tuple<>("keyword", argument.toUpperCase()));
+                    chainValues.add(new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, argument.toUpperCase()));
                 continue;
             }
 
@@ -440,5 +440,98 @@ final class CmdArgumentsProcessorHelper {
             throw new IllegalInputDataException("Parameters does not contain any keyword or constant to chain");
 
         return new ChainRecordsInputData(keyword, chainValues, comment, updateIfExists, skipIfChainKwNotExists);
+    }
+
+    /**
+     * Extracts input data for operation <b>Shift time of time record</b>
+     *
+     * @param cmdArgs                       commandline arguments containing specific input data
+     * @param converter                     {@link TypeConverter} object used to convert {@link String} time value to {@link Integer} value
+     * @return                              {@link ShiftTimeInputData} object with input data
+     * @throws IllegalInputDataException    when input data are in invalid form
+     */
+    static ShiftTimeInputData extractShiftTimeData(String[] cmdArgs, TypeConverter converter) throws IllegalInputDataException {
+        if (cmdArgs.length < 4 || cmdArgs.length > 10)
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'SHIFT_TIME'");
+
+        // get keyword (required)
+        String keyword = cmdArgs[2].trim();
+        if (keyword.toLowerCase().startsWith("-y=")
+                || keyword.toLowerCase().startsWith("-m=")
+                || keyword.toLowerCase().startsWith("-d=")
+                || keyword.toLowerCase().startsWith("-h=")
+                || keyword.toLowerCase().startsWith("-min=")
+                || keyword.toLowerCase().startsWith("-s=")
+                || keyword.toLowerCase().startsWith("-ms="))
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Keyword is not specified");
+
+        // load time shifts
+        int yearShift = 0;
+        int monthShift = 0;
+        int dayShift = 0;
+        int hourShift = 0;
+        int minuteShift = 0;
+        int secondShift = 0;
+        int milisecondShift = 0;
+        for (int i = 3; i < cmdArgs.length; i++) {
+            String argument = cmdArgs[i].trim();
+
+            // parse the number from argument
+            if (argument.toLowerCase().startsWith("-y=")) {
+                argument = argument.substring(3).trim();
+                if (converter.tryParseInt(argument)) {
+                    yearShift = converter.parseInt(argument);
+                } else {
+                    throw new IllegalInputDataException("Years time shift argument is in invalid number format");
+                }
+            } else if (argument.toLowerCase().startsWith("-m=")) {
+                argument = argument.substring(3).trim();
+                if (converter.tryParseInt(argument)) {
+                    monthShift = converter.parseInt(argument);
+                } else {
+                    throw new IllegalInputDataException("Months time shift argument is in invalid number format");
+                }
+            } else if (argument.toLowerCase().startsWith("-d=")) {
+                argument = argument.substring(3).trim();
+                if (converter.tryParseInt(argument)) {
+                    dayShift = converter.parseInt(argument);
+                } else {
+                    throw new IllegalInputDataException("Days time shift argument is in invalid number format");
+                }
+            } else if (argument.toLowerCase().startsWith("-h=")) {
+                argument = argument.substring(3).trim();
+                if (converter.tryParseInt(argument)) {
+                    hourShift = converter.parseInt(argument);
+                } else {
+                    throw new IllegalInputDataException("Hours time shift argument is in invalid number format");
+                }
+            } else if (argument.toLowerCase().startsWith("-min=")) {
+                argument = argument.substring(5).trim();
+                if (converter.tryParseInt(argument)) {
+                    minuteShift = converter.parseInt(argument);
+                } else {
+                    throw new IllegalInputDataException("Minutes time shift argument is in invalid number format");
+                }
+            } else if (argument.toLowerCase().startsWith("-s=")) {
+                argument = argument.substring(3).trim();
+                if (converter.tryParseInt(argument)) {
+                    secondShift = converter.parseInt(argument);
+                } else {
+                    throw new IllegalInputDataException("Seconds time shift argument is in invalid number format");
+                }
+            } else if (argument.toLowerCase().startsWith("-ms=")) {
+                argument = argument.substring(4).trim();
+                if (converter.tryParseInt(argument)) {
+                    milisecondShift = converter.parseInt(argument);
+                } else {
+                    throw new IllegalInputDataException("Miliseconds time shift argument is in invalid number format");
+                }
+            } else {
+                throw new IllegalInputDataException("Parameter '" + argument + "' is in invalid format. Must start with one of: " +
+                        "'-y=', '-m=', '-d=', '-h=', '-min=', '-s=', '-ms='");
+            }
+        }
+
+        return new ShiftTimeInputData(keyword, yearShift, monthShift, dayShift, hourShift, minuteShift, secondShift, milisecondShift);
     }
 }

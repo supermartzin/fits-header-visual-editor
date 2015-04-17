@@ -11,6 +11,10 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +26,7 @@ import java.util.List;
  * @see <a href="http://nom-tam-fits.github.io/nom-tam-fits/">Project pages</a>
  *
  * @author Martin Vrábel
- * @version 1.0.1
+ * @version 1.1.1
  */
 public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
@@ -86,14 +90,14 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                     // check for mandatory keyword
                     for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
                         if (keyword.matches(mandatoryKwRegex))
-                            return new Result(false, "Keyword '" + keyword + "' already exists in header and is mandatory hence it cannot be changed");
+                            return new Result(false, "Record with keyword '" + keyword + "' already exists in header and is mandatory hence it cannot be changed");
                     }
                     // update existing header card
                     header.updateLine(keyword, card);
 
                     updated = true;
                 } else {
-                    return new Result(false, "Header already contains '" + keyword + "' keyword");
+                    return new Result(false, "Header already contains record with '" + keyword + "' keyword");
                 }
             } else {
                 Cursor<String, HeaderCard> iterator = header.iterator();
@@ -162,7 +166,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                     // remove old header cards
                     header.removeCard(keyword);
                 } else {
-                    return new Result(false, "Header already contains '" + keyword + "' keyword");
+                    return new Result(false, "Header already contains record with '" + keyword + "' keyword");
                 }
             }
 
@@ -252,16 +256,16 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             BasicHDU hdu = fits.getHDU(0);
             Header header = hdu.getHeader();
 
-            /// check if keyword does already exist
+            // check if keyword does already exist
             boolean keywordExists = header.containsKey(keyword);
 
             if (!keywordExists)
-                return new Result(false, "Header does not contain keyword '" + keyword + "'");
+                return new Result(false, "Header does not contain record with keyword '" + keyword + "'");
 
             // check for mandatory keyword
             for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
                 if (keyword.matches(mandatoryKwRegex))
-                    return new Result(false, "Keyword '" + keyword + "' is mandatory hence it cannot be removed");
+                    return new Result(false, "Record with keyword '" + keyword + "' is mandatory hence it cannot be removed");
             }
 
             // remove card with specified keyword
@@ -316,7 +320,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             String indexKey = iterator.next().getKey();
             for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
                 if (indexKey.matches(mandatoryKwRegex))
-                    return new Result(false, "Keyword '" + indexKey + "' on index " + index + " is mandatory hence it cannot be removed");
+                    return new Result(false, "Record with keyword '" + indexKey + "' on index " + index + " is mandatory hence it cannot be removed");
             }
 
             // remove record on the index
@@ -365,7 +369,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             boolean oldExists = header.containsKey(oldKeyword);
 
             if (!oldExists)
-                return new Result(false, "Header does not contain '" + oldKeyword + "' keyword");
+                return new Result(false, "Header does not contain record with '" + oldKeyword + "' keyword");
 
             // check if new keyword does already exist
             boolean newExists = header.containsKey(newKeyword);
@@ -375,21 +379,21 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                     // check for mandatory keyword
                     for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
                         if (newKeyword.matches(mandatoryKwRegex))
-                            return new Result(false, "Header already contains '" + newKeyword + "' keyword but it is mandatory hence it cannot be removed");
+                            return new Result(false, "Header already contains record with '" + newKeyword + "' keyword but it is mandatory hence it cannot be removed");
                     }
                     valueOfNewRemoved = true;
 
                     // remove already existing header card
                     header.removeCard(newKeyword);
                 } else {
-                    return new Result(false, "Header already contains '" + newKeyword + "' keyword");
+                    return new Result(false, "Header already contains record with '" + newKeyword + "' keyword");
                 }
             }
 
             // check for mandatory keyword
             for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
                 if (oldKeyword.matches(mandatoryKwRegex))
-                    return new Result(false, "Keyword '" + oldKeyword + "' is mandatory hence it cannot be changed");
+                    return new Result(false, "Record with keyword '" + oldKeyword + "' is mandatory hence it cannot be changed");
             }
 
             // get old header card and create updated one based on type of value
@@ -500,14 +504,14 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                 // check for mandatory keyword
                 for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
                     if (keyword.matches(mandatoryKwRegex))
-                        return new Result(false, "Keyword '" + keyword + "' is mandatory hence it cannot be changed");
+                        return new Result(false, "Record with keyword '" + keyword + "' is mandatory hence it cannot be changed");
                 }
 
                 // update existing header card
                 header.updateLine(keyword, card);
             } else {
                 if (!addNewIfNotExists) {
-                    return new Result(false, "Header does not contain '" + keyword + "' keyword");
+                    return new Result(false, "Header does not contain record with '" + keyword + "' keyword");
                 } else {
                     newAdded = true;
 
@@ -527,9 +531,9 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
             // return success
             if (!newAdded)
-                return new Result(true, "Value of keyword '" + keyword + "' successfully changed");
+                return new Result(true, "Value of record '" + keyword + "' successfully changed");
             else
-                return new Result(true, "Value of keyword '" + keyword + "' successfully added as new record");
+                return new Result(true, "Value of record '" + keyword + "' successfully added as new record");
         } catch (FitsException | IOException ex) {
             return new Result(false, "Error in editing engine: " + ex.getMessage());
         }
@@ -555,7 +559,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
         if (keyword == null)
             throw new IllegalArgumentException("keyword is null");
         if (chainParameters == null)
-            throw new IllegalArgumentException("chainParamaters are null");
+            throw new IllegalArgumentException("chainParamaters is null");
         if (fitsFile == null)
             throw new IllegalArgumentException("fitsFile is null");
 
@@ -586,7 +590,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                                 skippedKeyword = true;
                                 break;
                             } else
-                                return new Result(false, "Header does not contain '" + key + "' keyword");
+                                return new Result(false, "Header does not contain record with '" + key + "' keyword");
                         } else {
                             // add to value
                             value += header.findCard(key).getValue();
@@ -609,12 +613,12 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
             if (keywordExists) {
                 if (!updateIfExists) {
-                    return new Result(false, "Header already contains '" + keyword + "' keyword");
+                    return new Result(false, "Header already contains record with '" + keyword + "' keyword");
                 } else {
                     // check for mandatory keyword
                     for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
                         if (keyword.matches(mandatoryKwRegex))
-                            return new Result(false, "Header already contains '" + keyword + "' keyword but it is mandatory hence it cannot be changed");
+                            return new Result(false, "Header already contains record with '" + keyword + "' keyword but it is mandatory hence it cannot be changed");
                     }
 
                     updated = true;
@@ -638,13 +642,97 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
             // return success
             if (!updated && !skippedKeyword)
-                return new Result(true, "Records successfully chained into keyword '" + keyword + "'");
+                return new Result(true, "Records successfully chained into record '" + keyword + "'");
             else if (updated && !skippedKeyword)
-                return new Result(true, "Records successfully chained and updated into keyword '" + keyword + "'");
+                return new Result(true, "Records successfully chained and updated into record '" + keyword + "'");
             else if (!updated)
-                return new Result(true, "Records chained into keyword '" + keyword + "' with some non-existing keywords skipped");
+                return new Result(true, "Records chained into record '" + keyword + "' with some non-existing keywords records skipped");
             else
-                return new Result(true, "Records chained and updated into keyword '" + keyword + "' with some non-existing keywords skipped");
+                return new Result(true, "Records chained and updated into record '" + keyword + "' with some non-existing keywords records skipped");
+        } catch (FitsException | IOException ex) {
+            return new Result(false, "Error in editing engine: " + ex.getMessage());
+        }
+    }
+
+    /**
+     * Shifts time of time record with <code>keyword</code> by amount of time specified by arguments
+     *
+     * @param keyword           keyword of time record in which to shift time
+     * @param yearShift         time shift for years
+     * @param monthShift        time shift for months
+     * @param dayShift          time shift for days
+     * @param hourShift         time shift for hours
+     * @param minuteShift       time shift for minutes
+     * @param secondShift       time shift for seconds
+     * @param nanosecondShift   time shift for nanoseconds
+     * @param fitsFile          FITS file in which to chain records
+     * @return                  {@inheritDoc}
+     */
+    @Override
+    public Result shiftTimeOfTimeRecord(String keyword, int yearShift, int monthShift, int dayShift, int hourShift, int minuteShift, int secondShift, int nanosecondShift, File fitsFile) {
+        if (keyword == null)
+            throw new IllegalArgumentException("keyword is null");
+        if (fitsFile == null)
+            throw new IllegalArgumentException("fitsFiles is null");
+
+        try {
+            Fits fits = new Fits(fitsFile);
+
+            // get header of first HDU unit
+            BasicHDU hdu = fits.getHDU(0);
+            Header header = hdu.getHeader();
+
+            // check if keyword does already exist
+            boolean keywordExists = header.containsKey(keyword);
+
+            if (!keywordExists)
+                return new Result(false, "Header does not contain record with keyword '" + keyword + "'");
+
+            // get header card with keyword
+            HeaderCard oldCard = header.findCard(keyword);
+
+            // try to parse datetime from value
+            LocalDateTime parsedDateTime;
+            try {
+                parsedDateTime = LocalDateTime.parse(oldCard.getValue());
+            } catch (DateTimeParseException dtpEx) {
+                return new Result(false, "Record with keyword '" + keyword + "' does not contain parsable datetime value");
+            }
+
+            // check for mandatory keyword
+            for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
+                if (keyword.matches(mandatoryKwRegex))
+                    return new Result(false, "Header contains record with '" + keyword + "' keyword but it is mandatory hence it cannot be changed");
+            }
+
+            // shift datetime according to arguments
+            LocalDateTime newDateTime;
+            try {
+                newDateTime = parsedDateTime
+                        .plus(yearShift, ChronoUnit.YEARS)
+                        .plus(monthShift, ChronoUnit.MONTHS)
+                        .plus(dayShift, ChronoUnit.DAYS)
+                        .plus(hourShift, ChronoUnit.HOURS)
+                        .plus(minuteShift, ChronoUnit.MINUTES)
+                        .plus(secondShift, ChronoUnit.SECONDS)
+                        .plus(nanosecondShift, ChronoUnit.NANOS);
+            } catch (DateTimeException | ArithmeticException ex) {
+                return new Result(false, "Error shifting time for record '" + keyword + "': " + ex.getMessage());
+            }
+
+            // create updated header card
+            HeaderCard newCard = new HeaderCard(keyword, newDateTime.toString(), oldCard.getComment());
+
+            // update record in header
+            header.updateLine(keyword, newCard);
+
+            // write changes back to file
+            BufferedFile bf = new BufferedFile(fitsFile, "rw");
+            fits.write(bf);
+
+            // return success
+            return new Result(true, "DateTime of record '" + keyword + "' successfully changed from '" + parsedDateTime.toString() + "'" +
+                    " to '" + newDateTime.toString() + "'");
         } catch (FitsException | IOException ex) {
             return new Result(false, "Error in editing engine: " + ex.getMessage());
         }

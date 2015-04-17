@@ -12,7 +12,7 @@ import java.util.LinkedList;
  * Class encapsulating input data for operation <b>Chain multiple records</b>
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1
  */
 public class ChainRecordsInputData extends SwitchInputData {
 
@@ -86,5 +86,13 @@ public class ChainRecordsInputData extends SwitchInputData {
      */
     public boolean skipIfChainKwNotExists() {
         return _switches.get("skipIfChainKwNotExists");
+    }
+
+    /**
+     * Enumeration of types of chain values
+     */
+    public enum ChainValueType {
+        CONSTANT,
+        KEYWORD
     }
 }

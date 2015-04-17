@@ -67,4 +67,12 @@ public interface InputDataValidator {
      * @throws ValidationException  when input data are in invalid form
      */
     void validate(ChainRecordsInputData chainRecordsInputData) throws ValidationException;
+
+    /**
+     * Validates input data for operation <b>Shift time of time record</b>
+     *
+     * @param shiftTimeInputData    input data to validate
+     * @throws ValidationException  when input data are in invalid form
+     */
+    void validate(ShiftTimeInputData shiftTimeInputData) throws ValidationException;
 }

@@ -30,7 +30,7 @@ public interface HeaderEditingEngine {
     Result addNewRecord(String keyword, Object value, String comment, boolean updateIfExists, File fitsFile);
 
     /**
-     * Adds new record to FITS header with specified arguments to specific index
+     * Adds new record to FITS header with specified arguments to specific <code>index</code>
      *
      * @param index             index where to add new record
      * @param keyword           keyword of new record to add
@@ -45,7 +45,7 @@ public interface HeaderEditingEngine {
     Result addNewRecordToIndex(int index, String keyword, Object value, String comment, boolean removeOldIfExists, File fitsFile);
 
     /**
-     * Removes record from FITS header with specified keyword
+     * Removes record from FITS header with specified <code>keyword</code>
      *
      * @param keyword   keyword of a record to remove
      * @param fitsFile  FITS file from which to remove a record
@@ -54,7 +54,7 @@ public interface HeaderEditingEngine {
     Result removeRecordByKeyword(String keyword, File fitsFile);
 
     /**
-     * Removes record from FITS header from specified index
+     * Removes record from FITS header from specified <code>index</code>
      *
      * @param index     index from which to remove a record
      * @param fitsFile  FITS file from which to remove a record
@@ -75,7 +75,7 @@ public interface HeaderEditingEngine {
     Result changeKeywordOfRecord(String oldKeyword, String newKeyword, boolean removeValueOfNewIfExists, File fitsFile);
 
     /**
-     * Change value of specified existing record in FIT header to new one
+     * Change value of specified existing record in FITS header to new one
      *
      * @param keyword           keyword defining existing record in which to change value
      * @param newValue          new value to be set in record
@@ -104,4 +104,20 @@ public interface HeaderEditingEngine {
      * @return                          {@link Result} object with results of this operation
      */
     Result chainMultipleRecords(String keyword, LinkedList<Tuple> chainParameters, String comment, boolean updateIfExists, boolean skipIfChainKwNotExists, File fitsFile);
+
+    /**
+     * Shifts time of time record with <code>keyword</code> by amount of time specified by arguments
+     *
+     * @param keyword           keyword of time record in which to shift time
+     * @param yearShift         time shift for years
+     * @param monthShift        time shift for months
+     * @param dayShift          time shift for days
+     * @param hourShift         time shift for hours
+     * @param minuteShift       time shift for minutes
+     * @param secondShift       time shift for seconds
+     * @param nanosecondShift   time shift for nanoseconds
+     * @param fitsFile          FITS file in which to chain records
+     * @return                  {@link Result} object with results of this operation
+     */
+    Result shiftTimeOfTimeRecord(String keyword, int yearShift, int monthShift, int dayShift, int hourShift, int minuteShift, int secondShift, int nanosecondShift, File fitsFile);
 }

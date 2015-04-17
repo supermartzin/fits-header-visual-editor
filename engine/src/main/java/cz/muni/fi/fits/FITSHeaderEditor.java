@@ -213,6 +213,33 @@ public class FITSHeaderEditor {
                             _outputWriter.writeError(fitsFile, result.getMessage());
                     }
                     break;
+
+                case SHIFT_TIME:
+                    ShiftTimeInputData stid = (ShiftTimeInputData)inputData;
+                    // validate input data
+                    _inputDataValidator.validate(stid);
+                    _outputWriter.writeInfo("Provided parameters are in correct format");
+
+                    // shift time of time record in FITS files
+                    for (File fitsFile : stid.getFitsFiles()) {
+                        Result result = _headerEditingEngine.shiftTimeOfTimeRecord(
+                                stid.getKeyword(),
+                                stid.getYearShift(),
+                                stid.getMonthShift(),
+                                stid.getDayShift(),
+                                stid.getHourShift(),
+                                stid.getMinuteShift(),
+                                stid.getSecondShift(),
+                                stid.getNanosecondShift(),
+                                fitsFile);
+
+                        // write result
+                        if (result.isSuccess())
+                            _outputWriter.writeInfo(fitsFile, result.getMessage());
+                        else
+                            _outputWriter.writeError(fitsFile, result.getMessage());
+                    }
+                    break;
             }
         } catch (IllegalInputDataException | ValidationException iidEx) {
             _outputWriter.writeException(iidEx);

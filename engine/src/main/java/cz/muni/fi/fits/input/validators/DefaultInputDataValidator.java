@@ -11,7 +11,7 @@ import cz.muni.fi.fits.utils.Tuple;
  * for validation of input data
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1.1
  */
 public class DefaultInputDataValidator implements InputDataValidator {
 
@@ -372,7 +372,7 @@ public class DefaultInputDataValidator implements InputDataValidator {
         int constantsLength = 0;
         int keywordsLength = 0;
         for (Tuple tuple : chainRecordsInputData.getChainValues()) {
-            if (tuple.getFirst().equals("constant")) {
+            if (tuple.getFirst() == ChainRecordsInputData.ChainValueType.CONSTANT) {
                 String constant = (String) tuple.getSecond();
 
                 // constant cannot be null
@@ -383,8 +383,7 @@ public class DefaultInputDataValidator implements InputDataValidator {
                     throw new ValidationException("Constant '" + constant + "' in chain values  contains invalid non-ASCII characters");
 
                 constantsLength += constant.length();
-            }
-            if (tuple.getFirst().equals("keyword")) {
+            } else if (tuple.getFirst() == ChainRecordsInputData.ChainValueType.KEYWORD) {
                 String keyword = (String) tuple.getSecond();
 
                 // keyword cannot be null
@@ -401,6 +400,8 @@ public class DefaultInputDataValidator implements InputDataValidator {
                     throw new ValidationException("Keyword '" + keyword + "' in chain values has exceeded maximum allowed length of " + Constants.MAX_KEYWORD_LENGTH + " characters");
 
                 keywordsLength += keyword.length();
+            } else {
+                throw new ValidationException("Chain values contains unknown value");
             }
         }
 
@@ -427,7 +428,48 @@ public class DefaultInputDataValidator implements InputDataValidator {
                                 > Constants.MAX_STRING_VALUE_COMMENT_LENGTH)
                 throw new ValidationException("Comment is too long for constants in value");
         }
+    }
 
+    /**
+     * Validates input data for operation <b>Shift time of time record</b>
+     *
+     * @param shiftTimeInputData    input data to validate
+     * @throws ValidationException  {@inheritDoc}
+     */
+    @Override
+    public void validate(ShiftTimeInputData shiftTimeInputData) throws ValidationException {
+        if (shiftTimeInputData == null)
+            throw new IllegalArgumentException("shiftTimeInputData is null");
+
+        // fits files collection cannot be empty
+        validateCommonInputData(shiftTimeInputData);
+
+        // keyword cannot be null
+        if (shiftTimeInputData.getKeyword() == null)
+            throw new ValidationException("Keyword cannot be null");
+
+        // keyword cannot be empty
+        if (shiftTimeInputData.getKeyword().isEmpty())
+            throw new ValidationException("Keyword cannot be empty");
+
+        // check for keyword's allowed characters
+        if (!shiftTimeInputData.getKeyword().matches(Constants.KEYWORD_REGEX))
+            throw new ValidationException("Keyword contains invalid characters");
+
+        // check for allowed keyword length
+        if (shiftTimeInputData.getKeyword().length() > Constants.MAX_KEYWORD_LENGTH)
+            throw new ValidationException("Keyword has exceeded maximum allowed length of " + Constants.MAX_KEYWORD_LENGTH + " characters");
+
+        // check if time shift parameters contains only 0's
+        if (shiftTimeInputData.getYearShift() == 0
+                && shiftTimeInputData.getMonthShift() == 0
+                && shiftTimeInputData.getDayShift() == 0
+                && shiftTimeInputData.getHourShift() == 0
+                && shiftTimeInputData.getMinuteShift() == 0
+                && shiftTimeInputData.getSecondShift() == 0
+                && shiftTimeInputData.getMilisecondsShift() == 0
+                & shiftTimeInputData.getNanosecondShift() == 0)
+            throw new ValidationException("No time shift is specified");
     }
 
     /**
@@ -437,6 +479,8 @@ public class DefaultInputDataValidator implements InputDataValidator {
      * @throws ValidationException  when FITS files of input data are in invalid form
      */
     private void validateCommonInputData(InputData inputData) throws ValidationException {
+        if (inputData.getFitsFiles() == null)
+            throw new ValidationException("FITS files argument cannot be null");
         if (inputData.getFitsFiles().isEmpty())
             throw new ValidationException("No FITS files provided for operation");
     }

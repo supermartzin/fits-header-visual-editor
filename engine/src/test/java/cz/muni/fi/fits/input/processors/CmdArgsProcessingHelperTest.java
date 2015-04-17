@@ -4,7 +4,7 @@ import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.InvalidSwitchParameterException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
 import cz.muni.fi.fits.input.converters.TypeConverter;
-import cz.muni.fi.fits.input.converters.ValueTypeConverter;
+import cz.muni.fi.fits.input.converters.DefaultTypeConverter;
 import cz.muni.fi.fits.models.inputData.*;
 import org.junit.After;
 import org.junit.Before;
@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
  * Tests for {@link CmdArgumentsProcessorHelper} class
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1.1
  */
 public class CmdArgsProcessingHelperTest {
 
@@ -42,7 +42,7 @@ public class CmdArgsProcessingHelperTest {
     @Before
     public void setUp() throws Exception {
         Files.createFile(FILE_PATH);
-        _converter = new ValueTypeConverter();
+        _converter = new DefaultTypeConverter();
     }
 
     @After
@@ -51,7 +51,7 @@ public class CmdArgsProcessingHelperTest {
         _converter = null;
     }
 
-    // test for extraction of files data
+    // tests for extraction of files data
     @Test
     public void testExtractFilesData_NullFilePath() throws Exception {
         exception.expect(IllegalArgumentException.class);
@@ -98,7 +98,7 @@ public class CmdArgsProcessingHelperTest {
     }
 
 
-    // test for extraction of AddNewRecordData
+    // tests for extraction of AddNewRecordData
     @Test
     public void testExtractAddNewRecordData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "add", FILE_PATH.toString() };
@@ -140,7 +140,7 @@ public class CmdArgsProcessingHelperTest {
     }
 
 
-    // test for extraction of AddNewToIndexData
+    // tests for extraction of AddNewToIndexData
     @Test
     public void testExtractAddNewToIndexData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "add_ix", FILE_PATH.toString() };
@@ -192,7 +192,7 @@ public class CmdArgsProcessingHelperTest {
     }
 
 
-    // test for extraction of RemoveByKeywordData
+    // tests for extraction of RemoveByKeywordData
     @Test
     public void testExtractRemoveByKeywordData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "remove", FILE_PATH.toString(), "KEYWORD", "ARG1", "ARG2" };
@@ -211,7 +211,7 @@ public class CmdArgsProcessingHelperTest {
     }
 
 
-    // test for extraction of RemoveByIndexData
+    // tests for extraction of RemoveByIndexData
     @Test
     public void testExtractRemoveByIndexData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "remove_ix", FILE_PATH.toString() };
@@ -238,7 +238,7 @@ public class CmdArgsProcessingHelperTest {
     }
 
 
-    // test for extraction of ChangeKeywordData
+    // tests for extraction of ChangeKeywordData
     @Test
     public void testExtractChangeKeywordData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "change_kw", FILE_PATH.toString(), "KEYWORD" };
@@ -266,7 +266,7 @@ public class CmdArgsProcessingHelperTest {
     }
 
 
-    // test for extraction of ChangeValueByKeywordData
+    // tests for extraction of ChangeValueByKeywordData
     @Test
     public void testExtractChangeValueByKeywordData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "change", FILE_PATH.toString(), "KEYWORD", "VALUE", "COMMENT", "REDUNDANT_ARG" };
@@ -306,7 +306,7 @@ public class CmdArgsProcessingHelperTest {
     }
 
 
-    // test for extraction of ChainRecordsData
+    // tests for extraction of ChainRecordsData
     @Test
     public void testExtractChainRecordsData_WrongNumberOfParameters() throws Exception {
         String[] args = new String[] { "chain", "-u", FILE_PATH.toString() };
@@ -336,7 +336,7 @@ public class CmdArgsProcessingHelperTest {
         String[] args = new String[] { "chain", "-s", FILE_PATH.toString(), "KEYWORD", "COMMENT" };
 
         exception.expect(IllegalInputDataException.class);
-        exception.expectMessage("not contain any keyword or constant");
+        exception.expectMessage("does not contain any keyword or constant");
         CmdArgumentsProcessorHelper.extractChainRecordsData(args);
     }
 
@@ -358,20 +358,85 @@ public class CmdArgsProcessingHelperTest {
         assertTrue(crid.skipIfChainKwNotExists());
         assertFalse(crid.updateIfExists());
         assertEquals("KEYWORD", crid.getKeyword());
-        assertEquals("COMMENT", crid.getComment());
         assertEquals(4, crid.getChainValues().size());
+        assertEquals(ChainRecordsInputData.ChainValueType.CONSTANT, crid.getChainValues().get(0).getFirst());
+        assertEquals("CONSTANT 1", crid.getChainValues().get(0).getSecond());
+        assertEquals(ChainRecordsInputData.ChainValueType.KEYWORD, crid.getChainValues().get(1).getFirst());
+        assertEquals("KEYWORD 1", crid.getChainValues().get(1).getSecond());
+        assertEquals(ChainRecordsInputData.ChainValueType.KEYWORD, crid.getChainValues().get(2).getFirst());
+        assertEquals("KEYWORD 2", crid.getChainValues().get(2).getSecond());
+        assertEquals(ChainRecordsInputData.ChainValueType.CONSTANT, crid.getChainValues().get(3).getFirst());
+        assertEquals("CONSTANT 2", crid.getChainValues().get(3).getSecond());
+        assertEquals("COMMENT", crid.getComment());
     }
 
     @Test
     public void testExtractChainRecordsData_CorrectParameters2() throws Exception {
-        String[] args = new String[] { "chain", "-u", FILE_PATH.toString(), "KEYWORD", "-c=CONSTANT 1", "-k=KEYWORD 1", "-c=CONSTANT 2" };
+        String[] args = new String[] { "chain", "-u", FILE_PATH.toString(), "KEYWORD", "-c=CONSTANT 1", "-k=KEYWORD 1" };
 
         ChainRecordsInputData crid = CmdArgumentsProcessorHelper.extractChainRecordsData(args);
 
         assertFalse(crid.skipIfChainKwNotExists());
         assertTrue(crid.updateIfExists());
         assertEquals("KEYWORD", crid.getKeyword());
+        assertEquals(2, crid.getChainValues().size());
+        assertEquals(ChainRecordsInputData.ChainValueType.CONSTANT, crid.getChainValues().get(0).getFirst());
+        assertEquals("CONSTANT 1", crid.getChainValues().get(0).getSecond());
+        assertEquals(ChainRecordsInputData.ChainValueType.KEYWORD, crid.getChainValues().get(1).getFirst());
+        assertEquals("KEYWORD 1", crid.getChainValues().get(1).getSecond());
         assertNull(crid.getComment());
-        assertEquals(3, crid.getChainValues().size());
+    }
+
+
+    // tests for extraction of ShiftTimeData
+    @Test
+    public void testExtractShiftRecordData_WrongNumberOfParameters() throws Exception {
+        String[] args = new String[] { "shift_time", FILE_PATH.toString() };
+
+        exception.expect(WrongNumberOfParametersException.class);
+        CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
+    }
+
+    @Test
+    public void testExtractShiftRecordData_NoKeywordParameter() throws Exception {
+        String[] args = new String[] { "shift_time", FILE_PATH.toString(), "-y=-56", "-m=2" };
+
+        exception.expect(IllegalInputDataException.class);
+        exception.expectMessage("Keyword is not specified");
+        CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
+    }
+
+    @Test
+    public void testExtractShiftRecordData_UnknownShiftParameter() throws Exception {
+        String[] args = new String[] { "shift_time", FILE_PATH.toString(), "KEYWORD", "-years=-56", "-months=2" };
+
+        exception.expect(IllegalInputDataException.class);
+        exception.expectMessage("is in invalid format");
+        CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
+    }
+
+    @Test
+    public void testExtractShiftRecordData_InvalidFormatOfShiftParameter() throws Exception {
+        String[] args = new String[] { "shift_time", FILE_PATH.toString(), "KEYWORD", "-y=-56.0", "-min=2" };
+
+        exception.expect(IllegalInputDataException.class);
+        exception.expectMessage("argument is in invalid number format");
+        CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
+    }
+
+    @Test
+    public void testExtractShiftRecordData_CorrectParameters() throws Exception {
+        String[] args = new String[] { "shift_time", FILE_PATH.toString(), "KEYWORD", "-y=-56", "-m=0", "-d=2", "-h=-23", "-min=2", "-s=0", "-ms=230" };
+
+        ShiftTimeInputData stid = CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
+        assertNotNull(stid);
+        assertEquals("KEYWORD", stid.getKeyword());
+        assertEquals(-56, stid.getYearShift());
+        assertEquals(0, stid.getMonthShift());
+        assertEquals(2, stid.getDayShift());
+        assertEquals(-23, stid.getHourShift());
+        assertEquals(2, stid.getMinuteShift());
+        assertEquals(0, stid.getSecondShift());
+        assertEquals(230, stid.getMilisecondsShift());
     }
 }

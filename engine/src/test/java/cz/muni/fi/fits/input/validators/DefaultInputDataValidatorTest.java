@@ -19,7 +19,7 @@ import java.util.LinkedList;
  * Tests for {@link DefaultInputDataValidator} class
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1.1
  */
 public class DefaultInputDataValidatorTest {
 
@@ -42,6 +42,15 @@ public class DefaultInputDataValidatorTest {
         AddNewRecordInputData anrid = null;
 
         exception.expect(IllegalArgumentException.class);
+        _validator.validate(anrid);
+    }
+
+    @Test
+    public void testValidate_AddNewRecordInputData_NullFitsFiles() throws Exception {
+        AddNewRecordInputData anrid = new AddNewRecordInputData("KEYWORD", "VALUE", "COMMENT", false, null);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be null");
         _validator.validate(anrid);
     }
 
@@ -161,6 +170,15 @@ public class DefaultInputDataValidatorTest {
         AddNewToIndexInputData antiid = null;
 
         exception.expect(IllegalArgumentException.class);
+        _validator.validate(antiid);
+    }
+
+    @Test
+    public void testValidate_AddNewToIndexInputData_NullFitsFiles() throws Exception {
+        AddNewToIndexInputData antiid = new AddNewToIndexInputData(2, "KEYWORD", "VALUE", "COMMENT", false, null);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be null");
         _validator.validate(antiid);
     }
 
@@ -293,6 +311,15 @@ public class DefaultInputDataValidatorTest {
     }
 
     @Test
+    public void testValidate_RemoveByKeywordInputData_NullFitsFiles() throws Exception {
+        RemoveByKeywordInputData rbkid = new RemoveByKeywordInputData("KEYWORD", null);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be null");
+        _validator.validate(rbkid);
+    }
+
+    @Test
     public void testValidate_RemoveByKeywordInputData_NoFitsFiles() throws Exception {
         RemoveByKeywordInputData rbkid = new RemoveByKeywordInputData("KEYWORD", new HashSet<>());
 
@@ -348,6 +375,15 @@ public class DefaultInputDataValidatorTest {
     }
 
     @Test
+    public void testValidate_RemoveByIndexInputData_NullFitsFiles() throws Exception {
+        RemoveFromIndexInputData rfiid = new RemoveFromIndexInputData(2, null);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be null");
+        _validator.validate(rfiid);
+    }
+
+    @Test
     public void testValidate_RemoveByIndexInputData_NoFitsFiles() throws Exception {
         RemoveFromIndexInputData rfiid = new RemoveFromIndexInputData(2, new HashSet<>());
 
@@ -372,6 +408,15 @@ public class DefaultInputDataValidatorTest {
         ChangeKeywordInputData ckid = null;
 
         exception.expect(IllegalArgumentException.class);
+        _validator.validate(ckid);
+    }
+
+    @Test
+    public void testValidate_ChangeKeywordInputData_NullFitsFiles() throws Exception {
+        ChangeKeywordInputData ckid = new ChangeKeywordInputData("OLD_KW", "NEW_KW", false, null);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be null");
         _validator.validate(ckid);
     }
 
@@ -463,6 +508,15 @@ public class DefaultInputDataValidatorTest {
         ChangeValueByKeywordInputData cvbkid = null;
 
         exception.expect(IllegalArgumentException.class);
+        _validator.validate(cvbkid);
+    }
+
+    @Test
+    public void testValidate_ChangeValueByKeywordInputData_NullFitsFiles() throws Exception {
+        ChangeValueByKeywordInputData cvbkid = new ChangeValueByKeywordInputData("KEYWORD", "VALUE", "COMMENT", false, null);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be null");
         _validator.validate(cvbkid);
     }
 
@@ -586,8 +640,22 @@ public class DefaultInputDataValidatorTest {
     }
 
     @Test
+    public void testValidate_ChainRecordsInputData_NullFitsFiles() throws Exception {
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 1"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD")));
+        ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, "COMMENT", false, false, null);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be null");
+        _validator.validate(crid);
+    }
+
+    @Test
     public void testValidate_ChainRecordsInputData_NoFitsFiles() throws Exception {
-        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant 1"), new Tuple<>("keyword", "KEYWORD")));
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 1"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD")));
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, "COMMENT", false, false, new HashSet<>());
 
         exception.expect(ValidationException.class);
@@ -597,7 +665,9 @@ public class DefaultInputDataValidatorTest {
 
     @Test
     public void testValidate_ChainRecordsInputData_NullKeyword() throws Exception {
-        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant 1"), new Tuple<>("keyword", "KEYWORD")));
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 1"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD")));
         ChainRecordsInputData crid = new ChainRecordsInputData(null, chainValues, "COMMENT", false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -607,7 +677,9 @@ public class DefaultInputDataValidatorTest {
 
     @Test
     public void testValidate_ChainRecordsInputData_EmptyKeyword() throws Exception {
-        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant 1"), new Tuple<>("keyword", "KEYWORD")));
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 1"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD")));
         ChainRecordsInputData crid = new ChainRecordsInputData("", chainValues, "COMMENT", false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -617,7 +689,9 @@ public class DefaultInputDataValidatorTest {
 
     @Test
     public void testValidate_ChainRecordsInputData_KeywordWithInvalidChars() throws Exception {
-        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant 1"), new Tuple<>("keyword", "KEYWORD")));
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 1"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD")));
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD*", chainValues, "COMMENT", false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -627,7 +701,9 @@ public class DefaultInputDataValidatorTest {
 
     @Test
     public void testValidate_ChainRecordsInputData_TooLongKeyword() throws Exception {
-        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant 1"), new Tuple<>("keyword", "KEYWORD")));
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 1"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD")));
         ChainRecordsInputData crid = new ChainRecordsInputData("TOO_LONG_KEYWORD", chainValues, "COMMENT", false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -646,7 +722,7 @@ public class DefaultInputDataValidatorTest {
 
     @Test
     public void testValidate_ChainRecordsInputData_EmptyChainValues() throws Exception {
-        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", ""), new Tuple<>("keyword", "")));
+        LinkedList<Tuple> chainValues = new LinkedList<>();
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, "COMMENT", false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -657,9 +733,9 @@ public class DefaultInputDataValidatorTest {
     @Test
     public void testValidate_ChainRecordsInputData_NullConstant() throws Exception {
         LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
-                new Tuple<>("constant", "constant 1"),
-                new Tuple<>("keyword", "KEYWORD"),
-                new Tuple<>("constant", null)));
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 1"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, null)));
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, null, false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -670,9 +746,9 @@ public class DefaultInputDataValidatorTest {
     @Test
     public void testValidate_ChainRecordsInputData_ConstantsWithInvalidChars() throws Exception {
         LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
-                new Tuple<>("constant", "constant 1 čľščč"),
-                new Tuple<>("keyword", "KEYWORD"),
-                new Tuple<>("constant", "constant 2 žžťáýí")));
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 1 čľščč"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 2 žžťáýí")));
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, null, false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -683,8 +759,8 @@ public class DefaultInputDataValidatorTest {
     @Test
     public void testValidate_ChainRecordsInputData_TooLongConstants() throws Exception {
         LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
-                new Tuple<>("constant", "too long constant 1 - too long constant 1"),
-                new Tuple<>("constant", "too long constant 2 - too long constant 2")));
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "too long constant 1 - too long constant 1"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "too long constant 2 - too long constant 2")));
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, "COMMENT", false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -695,9 +771,9 @@ public class DefaultInputDataValidatorTest {
     @Test
     public void testValidate_ChainRecordsInputData_NullChainValuesKeyword() throws Exception {
         LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
-                new Tuple<>("constant", "constant 1"),
-                new Tuple<>("keyword", null),
-                new Tuple<>("constant", "constant 2")));
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 1"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, null),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 2")));
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, null, false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -707,7 +783,9 @@ public class DefaultInputDataValidatorTest {
 
     @Test
     public void testValidate_ChainRecordsInputData_EmptyChainValuesKeyword() throws Exception {
-        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant"), new Tuple<>("keyword", "")));
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "")));
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, null, false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -716,8 +794,22 @@ public class DefaultInputDataValidatorTest {
     }
 
     @Test
+    public void testValidate_ChainRecordsInputData_UnknownChainValue() throws Exception {
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>("unknown type", "value"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "key_word")));
+        ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, null, false, false, _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("contains unknown value");
+        _validator.validate(crid);
+    }
+
+    @Test
     public void testValidate_ChainRecordsInputData_ChainValuesKeywordWithInvalidChars() throws Exception {
-        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant"), new Tuple<>("keyword", "KE**ORD")));
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KE**ORD")));
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, null, false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -727,7 +819,9 @@ public class DefaultInputDataValidatorTest {
 
     @Test
     public void testValidate_ChainRecordsInputData_TooLongChainValuesKeyword() throws Exception {
-        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant"), new Tuple<>("keyword", "KEYWORD_TOO_LONG")));
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD_TOO_LONG")));
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, null, false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -737,7 +831,9 @@ public class DefaultInputDataValidatorTest {
 
     @Test
     public void testValidate_ChainRecordsInputData_CommentWithInvalidChars() throws Exception {
-        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant 1"), new Tuple<>("keyword", "KEYWORD")));
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 1"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD")));
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, "commentýáíáí", false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -747,7 +843,9 @@ public class DefaultInputDataValidatorTest {
 
     @Test
     public void testValidate_ChainRecordsInputData_TooLongComment() throws Exception {
-        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(new Tuple<>("constant", "constant"), new Tuple<>("keyword", "KEYWORD")));
+        LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD")));
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, "COMMENT TO LONG - COMMENT TO LONG - COMMENT TO LONG - COMMENT TOO", false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
@@ -758,13 +856,86 @@ public class DefaultInputDataValidatorTest {
     @Test
     public void testValidate_ChainRecordsInputData_TooLongConstantsAndComment() throws Exception {
         LinkedList<Tuple> chainValues = new LinkedList<>(Lists.<Tuple>newArrayList(
-                new Tuple<>("constant", "long constant 1"),
-                new Tuple<>("keyword", "KEYWORD"),
-                new Tuple<>("constant", "long constant 2")));
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "long constant 1"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "long constant 2")));
         ChainRecordsInputData crid = new ChainRecordsInputData("KEYWORD", chainValues, "TOO LONG COMMENT - TOO LONG COMENT - TOO lONG", false, false, _fitsFiles);
 
         exception.expect(ValidationException.class);
         exception.expectMessage("Comment is too long");
         _validator.validate(crid);
+    }
+
+
+    // validate 'ShiftTimeInputData'
+    @Test
+    public void testValidate_ShiftTimeInputData_Null() throws Exception {
+        ShiftTimeInputData stid = null;
+
+        exception.expect(IllegalArgumentException.class);
+        _validator.validate(stid);
+    }
+
+    @Test
+    public void testValidate_ShiftTimeInputData_NullFitsFiles() throws Exception {
+        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD", 0, 0, 0, 0, 0, 0, 0, null);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be null");
+        _validator.validate(stid);
+    }
+
+    @Test
+    public void testValidate_ShiftTimeInputData_NoFitsFiles() throws Exception {
+        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD", 0, 0, 0, 0, 0, 0, 0, new HashSet<>());
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("No FITS files provided");
+        _validator.validate(stid);
+    }
+
+    @Test
+    public void testValidate_ShiftTimeInputData_NullKeyword() throws Exception {
+        ShiftTimeInputData stid = new ShiftTimeInputData(null, 0, 0, 0, 0, 0, 0, 0, _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be null");
+        _validator.validate(stid);
+    }
+
+    @Test
+    public void testValidate_ShiftTimeInputData_EmptyKeyword() throws Exception {
+        ShiftTimeInputData stid = new ShiftTimeInputData("", 0, 0, 0, 0, 0, 0, 0, _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be empty");
+        _validator.validate(stid);
+    }
+
+    @Test
+    public void testValidate_ShiftTimeInputData_KeywordWithInvalidChars() throws Exception {
+        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD*", 0, 0, 0, 0, 0, 0, 0, _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("contains invalid characters");
+        _validator.validate(stid);
+    }
+
+    @Test
+    public void testValidate_ShiftTimeInputData_TooLongKeyword() throws Exception {
+        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD_TOO_LONG", 0, 0, 0, 0, 0, 0, 0, _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("has exceeded maximum allowed length");
+        _validator.validate(stid);
+    }
+
+    @Test
+    public void testValidate_ShiftTimeInputData_ZeroTimeShiftArguments() throws Exception {
+        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD", 0, 0, 0, 0, 0, 0, 0, _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("No time shift is specified");
+        _validator.validate(stid);
     }
 }
