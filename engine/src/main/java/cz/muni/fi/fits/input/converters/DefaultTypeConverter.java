@@ -1,14 +1,18 @@
 package cz.muni.fi.fits.input.converters;
 
+import cz.muni.fi.fits.exceptions.ParseException;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Default converter class for converting different object types,
  * implments {@link TypeConverter} interface
  *
  * @author Martin Vrábel
- * @version 1.1
+ * @version 1.2
  */
 public class DefaultTypeConverter implements TypeConverter {
 
@@ -34,15 +38,20 @@ public class DefaultTypeConverter implements TypeConverter {
     /**
      * Parses an <code>Integer</code> value from given <code>String</code> value
      *
-     * @param value <code>String</code> value from which to parse an <code>Integer</code>
-     * @return      {@inheritDoc}
+     * @param value             <code>String</code> value from which to parse an <code>Integer</code>
+     * @return                  {@inheritDoc}
+     * @throws ParseException   {@inheritDoc}
      */
     @Override
-    public int parseInt(String value) {
+    public int parseInt(String value) throws ParseException {
         if (value == null)
             throw new IllegalArgumentException("value is null");
 
-        return Integer.parseInt(value);
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException nfEx) {
+            throw new ParseException(nfEx.getMessage(), nfEx);
+        }
     }
 
     /**
@@ -67,15 +76,20 @@ public class DefaultTypeConverter implements TypeConverter {
     /**
      * Parses a <code>Long</code> value from given <code>String</code> value
      *
-     * @param value <code>String</code> value from which to parse a <code>Long</code>
-     * @return      {@inheritDoc}
+     * @param value             <code>String</code> value from which to parse a <code>Long</code>
+     * @return                  {@inheritDoc}
+     * @throws ParseException   {@inheritDoc}
      */
     @Override
-    public long parseLong(String value) {
+    public long parseLong(String value) throws ParseException {
         if (value == null)
             throw new IllegalArgumentException("value is null");
 
-        return Long.parseLong(value);
+        try {
+            return Long.parseLong(value);
+        } catch (NumberFormatException nfEx) {
+            throw new ParseException(nfEx.getMessage(), nfEx);
+        }
     }
 
     /**
@@ -100,15 +114,20 @@ public class DefaultTypeConverter implements TypeConverter {
     /**
      * Parses a <code>Double</code> value from given <code>String</code> value
      *
-     * @param value <code>String</code> value from which to parse a <code>Double</code>
-     * @return      {@inheritDoc}
+     * @param value             <code>String</code> value from which to parse a <code>Double</code>
+     * @return                  {@inheritDoc}
+     * @throws ParseException   {@inheritDoc}
      */
     @Override
-    public double parseDouble(String value) {
+    public double parseDouble(String value) throws ParseException {
         if (value == null)
             throw new IllegalArgumentException("value is null");
 
-        return Double.parseDouble(value);
+        try {
+            return Double.parseDouble(value);
+        } catch (NumberFormatException nfEx) {
+            throw new ParseException(nfEx.getMessage(), nfEx);
+        }
     }
 
     /**
@@ -132,11 +151,12 @@ public class DefaultTypeConverter implements TypeConverter {
     /**
      * Parses a <code>Boolean</code> value from given <code>String</code> value
      *
-     * @param value <code>String</code> value from which to parse a <code>Boolean</code>
-     * @return      {@inheritDoc}
+     * @param value             <code>String</code> value from which to parse a <code>Boolean</code>
+     * @return                  {@inheritDoc}
+     * @throws ParseException   {@inheritDoc}
      */
     @Override
-    public boolean parseBoolean(String value) {
+    public boolean parseBoolean(String value) throws ParseException {
         if (value == null)
             throw new IllegalArgumentException("value is null");
 
@@ -147,7 +167,7 @@ public class DefaultTypeConverter implements TypeConverter {
         if (value.equals("FALSE") || value.equals("F"))
             return false;
 
-        throw new IllegalArgumentException("string does not contain valid boolean value");
+        throw new ParseException("String value does not contain valid boolean value");
     }
 
     /**
@@ -172,15 +192,20 @@ public class DefaultTypeConverter implements TypeConverter {
     /**
      * Parses a <code>BigInteger</code> value from given <code>String</code> value
      *
-     * @param value <code>String</code> value from which to parse a <code>BigInteger</code>
-     * @return      {@inheritDoc}
+     * @param value             <code>String</code> value from which to parse a <code>BigInteger</code>
+     * @return                  {@inheritDoc}
+     * @throws ParseException   {@inheritDoc}
      */
     @Override
-    public BigInteger parseBigInteger(String value) {
+    public BigInteger parseBigInteger(String value) throws ParseException {
         if (value == null)
             throw new IllegalArgumentException("value is null");
 
-        return new BigInteger(value);
+        try {
+            return new BigInteger(value);
+        } catch (NumberFormatException nfEx) {
+            throw new ParseException(nfEx.getMessage(), nfEx);
+        }
     }
 
     /**
@@ -205,14 +230,57 @@ public class DefaultTypeConverter implements TypeConverter {
     /**
      * Parses a <code>BigDecimal</code> value from given <code>String</code> value
      *
-     * @param value <code>String</code> value from which to parse a <code>BigDecimal</code>
-     * @return      {@inheritDoc}
+     * @param value             <code>String</code> value from which to parse a <code>BigDecimal</code>
+     * @return                  {@inheritDoc}
+     * @throws ParseException   {@inheritDoc}
      */
     @Override
-    public BigDecimal parseBigDecimal(String value) {
+    public BigDecimal parseBigDecimal(String value) throws ParseException {
         if (value == null)
             throw new IllegalArgumentException("value is null");
 
-        return new BigDecimal(value);
+        try {
+            return new BigDecimal(value);
+        } catch (NumberFormatException nfEx) {
+            throw new ParseException(nfEx.getMessage(), nfEx);
+        }
+    }
+
+    /**
+     * Tries to parse a <code>LocalDateTime</code> value from given <code>String</code> value
+     *
+     * @param value <code>String</code> value from which to parse a <code>LocalDateTime</code>
+     * @return      {@inheritDoc}
+     */
+    @Override
+    public boolean tryParseLocalDateTime(String value) {
+        if (value == null)
+            throw new IllegalArgumentException("value is null");
+
+        try {
+            LocalDateTime.parse(value);
+            return true;
+        } catch (DateTimeParseException dtpEx) {
+            return false;
+        }
+    }
+
+    /**
+     * Parses a <code>LocalDateTime</code> value from given <code>String</code> value
+     *
+     * @param value             <code>String</code> value from which to parse a <code>LocalDateTime</code>
+     * @return                  {@inheritDoc}
+     * @throws ParseException   {@inheritDoc}
+     */
+    @Override
+    public LocalDateTime parseLocalDateTime(String value) throws ParseException {
+        if (value == null)
+            throw new IllegalArgumentException("value is null");
+
+        try {
+            return LocalDateTime.parse(value);
+        } catch (DateTimeParseException dtpEx) {
+            throw new ParseException(dtpEx.getMessage(), dtpEx);
+        }
     }
 }
