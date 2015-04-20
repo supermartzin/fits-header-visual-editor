@@ -231,6 +231,7 @@ public class FITSHeaderEditor {
                                 stid.getMinuteShift(),
                                 stid.getSecondShift(),
                                 stid.getNanosecondShift(),
+                                stid.updateJulianDate(),
                                 fitsFile);
 
                         // write result

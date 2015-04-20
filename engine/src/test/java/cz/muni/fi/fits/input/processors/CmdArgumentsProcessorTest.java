@@ -236,7 +236,7 @@ public class CmdArgumentsProcessorTest {
     @Test
     public void testGetProcessedInput_ValidShiftTimeInputData() throws Exception {
         Files.write(FILE_PATH, Arrays.asList("sample1.fits", "sample2.fits", "sample3.fit"));
-        String[] args = new String[] { "shift_time", FILE_PATH.toString(), "KEYWORD", "-y=-23", "-min=12", "-d=-123" };
+        String[] args = new String[] { "shift_time", "-jd", FILE_PATH.toString(), "KEYWORD", "-y=-23", "-min=12", "-d=-123" };
         InputProcessor inputProcessor = new CmdArgumentsProcessor(args, _converter);
 
         InputData inputData = inputProcessor.getProcessedInput();
@@ -248,6 +248,7 @@ public class CmdArgumentsProcessorTest {
         assertEquals(3, inputData.getFitsFiles().size());
 
         ShiftTimeInputData stid = (ShiftTimeInputData)inputData;
+        assertTrue(stid.updateJulianDate());
         assertEquals("KEYWORD", stid.getKeyword());
         assertEquals(-23, stid.getYearShift());
         assertEquals(0, stid.getMonthShift());

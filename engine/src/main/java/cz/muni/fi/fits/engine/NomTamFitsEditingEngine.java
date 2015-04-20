@@ -1,5 +1,6 @@
 package cz.muni.fi.fits.engine;
 
+import cz.muni.fi.fits.engine.tools.JulianDate;
 import cz.muni.fi.fits.models.Result;
 import cz.muni.fi.fits.utils.Constants;
 import cz.muni.fi.fits.utils.Tuple;
@@ -665,11 +666,14 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
      * @param minuteShift       time shift for minutes
      * @param secondShift       time shift for seconds
      * @param nanosecondShift   time shift for nanoseconds
+     * @param updateJulianDate  value indicating whether to update (or add if does not exist)
+     *                          Julian Date record
      * @param fitsFile          FITS file in which to chain records
      * @return                  {@inheritDoc}
      */
     @Override
-    public Result shiftTimeOfTimeRecord(String keyword, int yearShift, int monthShift, int dayShift, int hourShift, int minuteShift, int secondShift, int nanosecondShift, File fitsFile) {
+    public Result shiftTimeOfTimeRecord(String keyword, int yearShift, int monthShift, int dayShift,
+                                        int hourShift, int minuteShift, int secondShift, int nanosecondShift, boolean updateJulianDate, File fitsFile) {
         if (keyword == null)
             throw new IllegalArgumentException("keyword is null");
         if (fitsFile == null)
@@ -725,6 +729,22 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
             // update record in header
             header.updateLine(keyword, newCard);
+
+            // update or create Julian Date record
+            if (updateJulianDate) {
+                JulianDate julianDate = new JulianDate(newDateTime);
+                HeaderCard jdCard = new HeaderCard("JD", julianDate.getJulianDate(), null);
+
+                // check if JD record already exists
+                boolean jdExists = header.containsKey("JD");
+
+                if (jdExists)
+                    // update JD record
+                    header.updateLine("JD", jdCard);
+                else
+                    // add JD record
+                    header.addLine(jdCard);
+            }
 
             // write changes back to file
             BufferedFile bf = new BufferedFile(fitsFile, "rw");

@@ -451,11 +451,27 @@ final class CmdArgumentsProcessorHelper {
      * @throws IllegalInputDataException    when input data are in invalid form
      */
     static ShiftTimeInputData extractShiftTimeData(String[] cmdArgs, TypeConverter converter) throws IllegalInputDataException {
-        if (cmdArgs.length < 4 || cmdArgs.length > 10)
-            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'SHIFT_TIME'");
+        // get switch (optional)
+        boolean updateJulianDate = false;
+        String switchParam = cmdArgs[1].toLowerCase().trim();
+        if (switchParam.startsWith("-")) {
+            if (switchParam.equals("-jd")) {
+                updateJulianDate = true;
+            } else {
+                throw new InvalidSwitchParameterException("Switch parameter is in invalid format: '" + switchParam + "'. Correct format is '-jd'");
+            }
+        }
+
+        if (!updateJulianDate) {
+            if (cmdArgs.length < 4 || cmdArgs.length > 10)
+                throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'SHIFT_TIME'");
+        } else {
+            if (cmdArgs.length < 5 || cmdArgs.length > 11)
+                throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'SHIFT_TIME'");
+        }
 
         // get keyword (required)
-        String keyword = cmdArgs[2].trim();
+        String keyword = updateJulianDate ? cmdArgs[3].trim() : cmdArgs[2].trim();
         if (keyword.toLowerCase().startsWith("-y=")
                 || keyword.toLowerCase().startsWith("-m=")
                 || keyword.toLowerCase().startsWith("-d=")
@@ -473,7 +489,8 @@ final class CmdArgumentsProcessorHelper {
         int minuteShift = 0;
         int secondShift = 0;
         int milisecondShift = 0;
-        for (int i = 3; i < cmdArgs.length; i++) {
+        int startIndex = updateJulianDate ? 4 : 3;
+        for (int i = startIndex; i < cmdArgs.length; i++) {
             String argument = cmdArgs[i].trim();
 
             // parse the number from argument
@@ -532,6 +549,6 @@ final class CmdArgumentsProcessorHelper {
             }
         }
 
-        return new ShiftTimeInputData(keyword, yearShift, monthShift, dayShift, hourShift, minuteShift, secondShift, milisecondShift);
+        return new ShiftTimeInputData(keyword, yearShift, monthShift, dayShift, hourShift, minuteShift, secondShift, milisecondShift, updateJulianDate);
     }
 }

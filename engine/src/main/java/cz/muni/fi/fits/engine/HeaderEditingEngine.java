@@ -116,8 +116,11 @@ public interface HeaderEditingEngine {
      * @param minuteShift       time shift for minutes
      * @param secondShift       time shift for seconds
      * @param nanosecondShift   time shift for nanoseconds
+     * @param updateJulianDate  value indicating whether to update (or add if does not exist)
+     *                          Julian Date record
      * @param fitsFile          FITS file in which to chain records
      * @return                  {@link Result} object with results of this operation
      */
-    Result shiftTimeOfTimeRecord(String keyword, int yearShift, int monthShift, int dayShift, int hourShift, int minuteShift, int secondShift, int nanosecondShift, File fitsFile);
+    Result shiftTimeOfTimeRecord(String keyword, int yearShift, int monthShift, int dayShift,
+                                 int hourShift, int minuteShift, int secondShift, int nanosecondShift, boolean updateJulianDate ,File fitsFile);
 }

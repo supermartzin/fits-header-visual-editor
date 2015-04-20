@@ -100,7 +100,7 @@ public class CmdArgumentsProcessor implements InputProcessor {
 
             case "SHIFT_TIME":
                 inputData = CmdArgumentsProcessorHelper.extractShiftTimeData(_cmdArgs, _converter);
-                fitsFilesArgIndex = 1;
+                fitsFilesArgIndex = ((ShiftTimeInputData) inputData).updateJulianDate() ? 2 : 1;
                 break;
 
             default:

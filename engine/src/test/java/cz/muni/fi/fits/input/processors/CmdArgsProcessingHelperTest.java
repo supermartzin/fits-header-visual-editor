@@ -391,9 +391,17 @@ public class CmdArgsProcessingHelperTest {
     // tests for extraction of ShiftTimeData
     @Test
     public void testExtractShiftRecordData_WrongNumberOfParameters() throws Exception {
-        String[] args = new String[] { "shift_time", FILE_PATH.toString() };
+        String[] args = new String[] { "shift_time", "-jd", FILE_PATH.toString() };
 
         exception.expect(WrongNumberOfParametersException.class);
+        CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
+    }
+
+    @Test
+    public void testExtractShiftRecordData_WrongSwitchParameter() throws Exception {
+        String[] args = new String[] { "shift_time", "-j", FILE_PATH.toString(), "-min=16", "-m=-2" };
+
+        exception.expect(InvalidSwitchParameterException.class);
         CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
     }
 
@@ -430,6 +438,7 @@ public class CmdArgsProcessingHelperTest {
 
         ShiftTimeInputData stid = CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
         assertNotNull(stid);
+        assertFalse(stid.updateJulianDate());
         assertEquals("KEYWORD", stid.getKeyword());
         assertEquals(-56, stid.getYearShift());
         assertEquals(0, stid.getMonthShift());
