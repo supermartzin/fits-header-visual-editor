@@ -679,6 +679,9 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
         if (fitsFile == null)
             throw new IllegalArgumentException("fitsFiles is null");
 
+        boolean jdCreated = false;
+        boolean jdUpdated = false;
+
         try {
             Fits fits = new Fits(fitsFile);
 
@@ -738,12 +741,15 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                 // check if JD record already exists
                 boolean jdExists = header.containsKey("JD");
 
-                if (jdExists)
+                if (jdExists) {
                     // update JD record
                     header.updateLine("JD", jdCard);
-                else
+                    jdUpdated = true;
+                } else {
                     // add JD record
                     header.addLine(jdCard);
+                    jdCreated = true;
+                }
             }
 
             // write changes back to file
@@ -751,7 +757,14 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             fits.write(bf);
 
             // return success
-            return new Result(true, "DateTime of record '" + keyword + "' successfully changed from '" + parsedDateTime.toString() + "'" +
+            if (jdUpdated)
+                return new Result(true, "'" + keyword + "' record successfully changed from '" + parsedDateTime.toString() + "'" +
+                        " to '" + newDateTime.toString() + "' and JD record updated");
+            else if (jdCreated)
+                return new Result(true, "'" + keyword + "' record successfully changed from '" + parsedDateTime.toString() + "'" +
+                        " to '" + newDateTime.toString() + "' and JD record created");
+            else
+                return new Result(true, "'" + keyword + "' record successfully changed from '" + parsedDateTime.toString() + "'" +
                     " to '" + newDateTime.toString() + "'");
         } catch (FitsException | IOException ex) {
             return new Result(false, "Error in editing engine: " + ex.getMessage());
