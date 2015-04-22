@@ -1,7 +1,7 @@
 engine/target/
-engine/fits
 .idea/
 .idea
 engine/files.in
 engine/FITS-HeaderEditor.iml
 manuals/
+fits-files/
