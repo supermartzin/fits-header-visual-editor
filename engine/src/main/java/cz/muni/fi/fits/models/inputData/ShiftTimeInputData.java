@@ -10,7 +10,7 @@ import java.util.HashSet;
  * Class encapsulating input data for operation <b>Shift time of time record</b>
  *
  * @author Martin Vrábel
- * @version 1.1
+ * @version 1.2
  */
 public class ShiftTimeInputData extends SwitchInputData {
 
@@ -34,8 +34,6 @@ public class ShiftTimeInputData extends SwitchInputData {
      * @param minuteShift       time shift for minutes
      * @param secondShift       time shift for seconds
      * @param milisecondShift   time shift for nanoseconds
-     * @param updateJulianDate  value indicating whether to update (or add if does not exist)
-     *                          Julian Date record
      */
     public ShiftTimeInputData(String keyword,
                               int yearShift,
@@ -44,9 +42,8 @@ public class ShiftTimeInputData extends SwitchInputData {
                               int hourShift,
                               int minuteShift,
                               int secondShift,
-                              int milisecondShift,
-                              boolean updateJulianDate) {
-        this(keyword, yearShift, monthShift, dayShift, hourShift, minuteShift, secondShift, milisecondShift, updateJulianDate, new HashSet<>());
+                              int milisecondShift) {
+        this(keyword, yearShift, monthShift, dayShift, hourShift, minuteShift, secondShift, milisecondShift, new HashSet<>());
     }
 
     /**
@@ -60,8 +57,6 @@ public class ShiftTimeInputData extends SwitchInputData {
      * @param minuteShift       time shift for minutes
      * @param secondShift       time shift for seconds
      * @param milisecondShift   time shift for nanoseconds
-     * @param updateJulianDate  value indicating whether to update (or add if does not exist)
-     *                          Julian Date record
      * @param fitsFiles         FITS files in which to shift time of time record
      */
     public ShiftTimeInputData(String keyword,
@@ -72,7 +67,6 @@ public class ShiftTimeInputData extends SwitchInputData {
                               int minuteShift,
                               int secondShift,
                               int milisecondShift,
-                              boolean updateJulianDate,
                               Collection<File> fitsFiles) {
         super(OperationType.SHIFT_TIME, fitsFiles);
         _keyword = keyword != null ? keyword.toUpperCase() : null;
@@ -83,7 +77,6 @@ public class ShiftTimeInputData extends SwitchInputData {
         _minuteShift = minuteShift;
         _secondShift = secondShift;
         _nanosecondsShift = milisecondShift * 1000 * 1000; // convert to nanoseconds
-        _switches.put("updateJulianDate", updateJulianDate);
     }
 
     public String getKeyword() {
@@ -120,15 +113,5 @@ public class ShiftTimeInputData extends SwitchInputData {
 
     public int getNanosecondShift() {
         return _nanosecondsShift;
-    }
-
-    /**
-     * Value indicating whether to update (or add if does not exist) Julian Date record
-     *
-     * @return  <code>true</code> if update (or create) Julian Date record,
-     *          <code>false</code> if do not update (or create) Julian Date record
-     */
-    public boolean updateJulianDate() {
-        return _switches.get("updateJulianDate");
     }
 }

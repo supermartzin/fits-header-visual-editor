@@ -13,7 +13,7 @@ import java.util.LinkedList;
  * over FITS files
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.2.1
  */
 public interface HeaderEditingEngine {
 
@@ -118,13 +118,11 @@ public interface HeaderEditingEngine {
      * @param minuteShift       time shift for minutes
      * @param secondShift       time shift for seconds
      * @param nanosecondShift   time shift for nanoseconds
-     * @param updateJulianDate  value indicating whether to update (or add if does not exist)
-     *                          Julian Date record
      * @param fitsFile          FITS file in which to chain records
      * @return                  {@link Result} object with results of this operation
      */
     Result shiftTimeOfTimeRecord(String keyword, int yearShift, int monthShift, int dayShift,
-                                 int hourShift, int minuteShift, int secondShift, int nanosecondShift, boolean updateJulianDate, File fitsFile);
+                                 int hourShift, int minuteShift, int secondShift, int nanosecondShift, File fitsFile);
 
     /**
      * Computes Heliocentric Julian Date, saves/updates the value to <code>HJD</code> keyword,

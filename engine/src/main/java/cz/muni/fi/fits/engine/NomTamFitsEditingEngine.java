@@ -30,7 +30,7 @@ import java.util.List;
  * @see <a href="http://nom-tam-fits.github.io/nom-tam-fits/">Project pages</a>
  *
  * @author Martin Vrábel
- * @version 1.2
+ * @version 1.2.1
  */
 public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
@@ -669,21 +669,16 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
      * @param minuteShift       time shift for minutes
      * @param secondShift       time shift for seconds
      * @param nanosecondShift   time shift for nanoseconds
-     * @param updateJulianDate  value indicating whether to update (or add if does not exist)
-     *                          Julian Date record
      * @param fitsFile          FITS file in which to chain records
      * @return                  {@inheritDoc}
      */
     @Override
     public Result shiftTimeOfTimeRecord(String keyword, int yearShift, int monthShift, int dayShift,
-                                        int hourShift, int minuteShift, int secondShift, int nanosecondShift, boolean updateJulianDate, File fitsFile) {
+                                        int hourShift, int minuteShift, int secondShift, int nanosecondShift, File fitsFile) {
         if (keyword == null)
             throw new IllegalArgumentException("keyword is null");
         if (fitsFile == null)
             throw new IllegalArgumentException("fitsFiles is null");
-
-        boolean jdCreated = false;
-        boolean jdUpdated = false;
 
         try {
             Fits fits = new Fits(fitsFile);
@@ -736,38 +731,12 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             // update record in header
             header.updateLine(keyword, newCard);
 
-            // update or create Julian Date record
-            if (updateJulianDate) {
-                JulianDate julianDate = new JulianDate(newDateTime);
-                HeaderCard jdCard = new HeaderCard("JD", julianDate.getJulianDate(), null);
-
-                // check if JD record already exists
-                boolean jdExists = header.containsKey("JD");
-
-                if (jdExists) {
-                    // update JD record
-                    header.updateLine("JD", jdCard);
-                    jdUpdated = true;
-                } else {
-                    // add JD record
-                    header.addLine(jdCard);
-                    jdCreated = true;
-                }
-            }
-
             // write changes back to file
             BufferedFile bf = new BufferedFile(fitsFile, "rw");
             fits.write(bf);
 
             // return success
-            if (jdUpdated)
-                return new Result(true, "'" + keyword + "' record successfully changed from '" + parsedDateTime.toString() + "'" +
-                        " to '" + newDateTime.toString() + "' and JD record updated");
-            else if (jdCreated)
-                return new Result(true, "'" + keyword + "' record successfully changed from '" + parsedDateTime.toString() + "'" +
-                        " to '" + newDateTime.toString() + "' and JD record created");
-            else
-                return new Result(true, "'" + keyword + "' record successfully changed from '" + parsedDateTime.toString() + "'" +
+            return new Result(true, "'" + keyword + "' record successfully changed from '" + parsedDateTime.toString() + "'" +
                         " to '" + newDateTime.toString() + "'");
         } catch (FitsException | IOException ex) {
             return new Result(false, "Error in editing engine: " + ex.getMessage());

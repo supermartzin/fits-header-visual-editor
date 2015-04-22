@@ -1,7 +1,6 @@
 package cz.muni.fi.fits.input.processors;
 
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
-import cz.muni.fi.fits.exceptions.InvalidSwitchParameterException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
 import cz.muni.fi.fits.input.converters.DefaultTypeConverter;
 import cz.muni.fi.fits.input.converters.TypeConverter;
@@ -17,7 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -25,7 +23,7 @@ import static org.junit.Assert.assertNotNull;
  * in {@link CmdArgumentsProcessorHelper} class
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1
  */
 public class ProcessorHelper_ExtractShiftTimeDataTest {
 
@@ -50,17 +48,9 @@ public class ProcessorHelper_ExtractShiftTimeDataTest {
 
     @Test
     public void testExtractShiftRecordData_WrongNumberOfParameters() throws Exception {
-        String[] args = new String[] { "shift_time", "-jd", FILE_PATH.toString() };
+        String[] args = new String[] { "shift_time", FILE_PATH.toString() };
 
         exception.expect(WrongNumberOfParametersException.class);
-        CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
-    }
-
-    @Test
-    public void testExtractShiftRecordData_WrongSwitchParameter() throws Exception {
-        String[] args = new String[] { "shift_time", "-j", FILE_PATH.toString(), "-min=16", "-m=-2" };
-
-        exception.expect(InvalidSwitchParameterException.class);
         CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
     }
 
@@ -97,7 +87,6 @@ public class ProcessorHelper_ExtractShiftTimeDataTest {
 
         ShiftTimeInputData stid = CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
         assertNotNull(stid);
-        assertFalse(stid.updateJulianDate());
         assertEquals("KEYWORD", stid.getKeyword());
         assertEquals(-56, stid.getYearShift());
         assertEquals(0, stid.getMonthShift());

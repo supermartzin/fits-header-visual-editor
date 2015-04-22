@@ -16,7 +16,7 @@ import java.util.Collection;
  * that takes input data from commandline arguments
  *
  * @author Martin Vrábel
- * @version 1.2
+ * @version 1.2.1
  */
 @Singleton
 public class CmdArgumentsProcessor implements InputProcessor {
@@ -100,7 +100,7 @@ public class CmdArgumentsProcessor implements InputProcessor {
 
             case "SHIFT_TIME":
                 inputData = CmdArgumentsProcessorHelper.extractShiftTimeData(_cmdArgs, _converter);
-                fitsFilesArgIndex = ((ShiftTimeInputData) inputData).updateJulianDate() ? 2 : 1;
+                fitsFilesArgIndex = 1;
                 break;
 
             case "HJD":

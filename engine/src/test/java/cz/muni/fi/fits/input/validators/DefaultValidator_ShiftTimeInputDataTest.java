@@ -17,7 +17,7 @@ import java.util.HashSet;
  * in {@link DefaultInputDataValidator} class
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.0.1
  */
 public class DefaultValidator_ShiftTimeInputDataTest {
 
@@ -44,7 +44,7 @@ public class DefaultValidator_ShiftTimeInputDataTest {
 
     @Test
     public void testValidate_ShiftTimeInputData_NullFitsFiles() throws Exception {
-        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD", 0, 0, 0, 0, 1, 0, 0, true, null);
+        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD", 0, 0, 0, 0, 1, 0, 0, null);
 
         exception.expect(ValidationException.class);
         exception.expectMessage("cannot be null");
@@ -53,7 +53,7 @@ public class DefaultValidator_ShiftTimeInputDataTest {
 
     @Test
     public void testValidate_ShiftTimeInputData_NoFitsFiles() throws Exception {
-        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD", 0, 1, 0, 0, 10, 5, 0, false, new HashSet<>());
+        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD", 0, 1, 0, 0, 10, 5, 0, new HashSet<>());
 
         exception.expect(ValidationException.class);
         exception.expectMessage("No FITS files provided");
@@ -62,7 +62,7 @@ public class DefaultValidator_ShiftTimeInputDataTest {
 
     @Test
     public void testValidate_ShiftTimeInputData_NullKeyword() throws Exception {
-        ShiftTimeInputData stid = new ShiftTimeInputData(null, 0, -9, 0, 0, 0, 8, 12, true, _fitsFiles);
+        ShiftTimeInputData stid = new ShiftTimeInputData(null, 0, -9, 0, 0, 0, 8, 12, _fitsFiles);
 
         exception.expect(ValidationException.class);
         exception.expectMessage("cannot be null");
@@ -71,7 +71,7 @@ public class DefaultValidator_ShiftTimeInputDataTest {
 
     @Test
     public void testValidate_ShiftTimeInputData_EmptyKeyword() throws Exception {
-        ShiftTimeInputData stid = new ShiftTimeInputData("", 0, 3, 0, -2, 0, 4, 0, false, _fitsFiles);
+        ShiftTimeInputData stid = new ShiftTimeInputData("", 0, 3, 0, -2, 0, 4, 0, _fitsFiles);
 
         exception.expect(ValidationException.class);
         exception.expectMessage("cannot be empty");
@@ -80,7 +80,7 @@ public class DefaultValidator_ShiftTimeInputDataTest {
 
     @Test
     public void testValidate_ShiftTimeInputData_KeywordWithInvalidChars() throws Exception {
-        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD*", 0, 0, 0, 0, 4, 0, 0, true, _fitsFiles);
+        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD*", 0, 0, 0, 0, 4, 0, 0, _fitsFiles);
 
         exception.expect(ValidationException.class);
         exception.expectMessage("contains invalid characters");
@@ -89,7 +89,7 @@ public class DefaultValidator_ShiftTimeInputDataTest {
 
     @Test
     public void testValidate_ShiftTimeInputData_TooLongKeyword() throws Exception {
-        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD_TOO_LONG", 0, -5, 0, 0, 0, 0, 0, false, _fitsFiles);
+        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD_TOO_LONG", 0, -5, 0, 0, 0, 0, 0, _fitsFiles);
 
         exception.expect(ValidationException.class);
         exception.expectMessage("has exceeded maximum allowed length");
@@ -98,7 +98,7 @@ public class DefaultValidator_ShiftTimeInputDataTest {
 
     @Test
     public void testValidate_ShiftTimeInputData_ZeroTimeShiftArguments() throws Exception {
-        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD", 0, 0, 0, 0, 0, 0, 0, false, _fitsFiles);
+        ShiftTimeInputData stid = new ShiftTimeInputData("KEYWORD", 0, 0, 0, 0, 0, 0, 0, _fitsFiles);
 
         exception.expect(ValidationException.class);
         exception.expectMessage("No time shift is specified");
@@ -107,8 +107,8 @@ public class DefaultValidator_ShiftTimeInputDataTest {
 
     @Test
     public void testValidate_ShiftTimeInputData_ValidInputData() throws Exception {
-        ShiftTimeInputData stid1 = new ShiftTimeInputData("KEYWORD", 12, -5, 0, 0, 0, 0, 0, false, _fitsFiles);
-        ShiftTimeInputData stid2 = new ShiftTimeInputData("KEYWORD", 0, 0, 12, 45, -3, 2, 0, true, _fitsFiles);
+        ShiftTimeInputData stid1 = new ShiftTimeInputData("KEYWORD", 12, -5, 0, 0, 0, 0, 0, _fitsFiles);
+        ShiftTimeInputData stid2 = new ShiftTimeInputData("KEYWORD", 0, 0, 12, 45, -3, 2, 0, _fitsFiles);
 
         _validator.validate(stid1);
         _validator.validate(stid2);
