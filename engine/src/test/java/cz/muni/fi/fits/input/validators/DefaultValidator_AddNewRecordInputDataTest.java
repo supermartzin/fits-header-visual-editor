@@ -159,4 +159,15 @@ public class DefaultValidator_AddNewRecordInputDataTest {
         exception.expectMessage("Comment is too long");
         _validator.validate(anrid);
     }
+
+    @Test
+    public void testValidate_AddNewRecordInputData_ValidInputData() throws Exception {
+        AddNewRecordInputData anrid1 = new AddNewRecordInputData("KEYWORD", 125.45, null, true, _fitsFiles);
+        AddNewRecordInputData anrid2 = new AddNewRecordInputData("KEYWORD", "random value of testing record", "random comment", false, _fitsFiles);
+        AddNewRecordInputData anrid3 = new AddNewRecordInputData("KEYWORD", true, "random comment", false, _fitsFiles);
+
+        _validator.validate(anrid1);
+        _validator.validate(anrid2);
+        _validator.validate(anrid3);
+    }
 }

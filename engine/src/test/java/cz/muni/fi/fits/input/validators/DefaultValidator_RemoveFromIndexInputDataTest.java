@@ -68,4 +68,11 @@ public class DefaultValidator_RemoveFromIndexInputDataTest {
         exception.expectMessage("must be number bigger than 0");
         _validator.validate(rfiid);
     }
+
+    @Test
+    public void testValidate_RemoveFromIndexInputData_ValidInputData() throws Exception {
+        RemoveFromIndexInputData rfiid = new RemoveFromIndexInputData(12, _fitsFiles);
+
+        _validator.validate(rfiid);
+    }
 }

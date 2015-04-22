@@ -95,4 +95,11 @@ public class DefaultValidator_RemoveByKeywordInputDataTest {
         exception.expectMessage("has exceeded maximum allowed length");
         _validator.validate(rbkid);
     }
+
+    @Test
+    public void testValidate_RemoveByKeywordInputData_ValidInputData() throws Exception {
+        RemoveByKeywordInputData rbkid = new RemoveByKeywordInputData("KEYWORD", _fitsFiles);
+
+        _validator.validate(rbkid);
+    }
 }

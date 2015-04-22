@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -158,5 +159,16 @@ public class DefaultValidator_ChangeValueByKeywordInputDataTest {
         exception.expect(ValidationException.class);
         exception.expectMessage("Comment is too long");
         _validator.validate(cvbkid);
+    }
+
+    @Test
+    public void testValidate_ChangeValueByKeywordInputData_ValidInputData() throws Exception {
+        ChangeValueByKeywordInputData cvbkid1 = new ChangeValueByKeywordInputData("KEYWORD", "random value for testing purposes", "comment", false, _fitsFiles);
+        ChangeValueByKeywordInputData cvbkid2 = new ChangeValueByKeywordInputData("KEYWORD", false, "comment", true, _fitsFiles);
+        ChangeValueByKeywordInputData cvbkid3 = new ChangeValueByKeywordInputData("KEYWORD", LocalDateTime.of(2014, 5, 5, 12, 34, 56), null, true, _fitsFiles);
+
+        _validator.validate(cvbkid1);
+        _validator.validate(cvbkid2);
+        _validator.validate(cvbkid3);
     }
 }

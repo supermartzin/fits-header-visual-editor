@@ -271,4 +271,22 @@ public class DefaultValidator_ChainRecordsInputDataTest {
         exception.expectMessage("Comment is too long");
         _validator.validate(crid);
     }
+
+    @Test
+    public void testValidate_ChainRecordsInputData_ValidInputData() throws Exception {
+        LinkedList<Tuple> chainValues1 = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 1"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, "constant 2")));
+        ChainRecordsInputData crid1 = new ChainRecordsInputData("KEYWORD", chainValues1, "comment", false, true, _fitsFiles);
+        LinkedList<Tuple> chainValues2 = new LinkedList<>(Lists.<Tuple>newArrayList(
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "NEW_KW"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "KEYWORD"),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.CONSTANT, " "),
+                new Tuple<>(ChainRecordsInputData.ChainValueType.KEYWORD, "ANOTHER")));
+        ChainRecordsInputData crid2 = new ChainRecordsInputData("KEYWORD", chainValues2, "comment", false, true, _fitsFiles);
+
+        _validator.validate(crid1);
+        _validator.validate(crid2);
+    }
 }

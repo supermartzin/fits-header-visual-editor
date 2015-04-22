@@ -104,4 +104,13 @@ public class DefaultValidator_ShiftTimeInputDataTest {
         exception.expectMessage("No time shift is specified");
         _validator.validate(stid);
     }
+
+    @Test
+    public void testValidate_ShiftTimeInputData_ValidInputData() throws Exception {
+        ShiftTimeInputData stid1 = new ShiftTimeInputData("KEYWORD", 12, -5, 0, 0, 0, 0, 0, false, _fitsFiles);
+        ShiftTimeInputData stid2 = new ShiftTimeInputData("KEYWORD", 0, 0, 12, 45, -3, 2, 0, true, _fitsFiles);
+
+        _validator.validate(stid1);
+        _validator.validate(stid2);
+    }
 }

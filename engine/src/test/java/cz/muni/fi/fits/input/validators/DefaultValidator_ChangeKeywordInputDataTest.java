@@ -131,4 +131,13 @@ public class DefaultValidator_ChangeKeywordInputDataTest {
         exception.expectMessage("has exceeded maximum allowed length");
         _validator.validate(ckid);
     }
+
+    @Test
+    public void testValidate_ChangeKeywordInputData_ValidInputData() throws Exception {
+        ChangeKeywordInputData ckid1 = new ChangeKeywordInputData("OLD_KW", "NEW_KW", false, _fitsFiles);
+        ChangeKeywordInputData ckid2 = new ChangeKeywordInputData("OLD", "NEW", true, _fitsFiles);
+
+        _validator.validate(ckid1);
+        _validator.validate(ckid2);
+    }
 }
