@@ -264,7 +264,7 @@ public class CmdArgumentsProcessorTest {
     @Test
     public void testGetProcessedInput_ValidComputeHJDInputData() throws Exception {
         Files.write(FILE_PATH, Arrays.asList("sample1.fits", "sample2.fits", "sample3.fit", "sample4.fit", "sample5.fit", "sample6.fit"));
-        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATE-OBS", "10.50", "-ra=12:25:46.25", "-dec=-45:26:13.5" };
+        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATE-OBS", "10.50", "12:25:46.25", "-45:26:13.5" };
         InputProcessor inputProcessor = new CmdArgumentsProcessor(args, _converter);
 
         InputData inputData = inputProcessor.getProcessedInput();

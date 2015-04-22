@@ -55,17 +55,8 @@ public class ProcessorHelper_ExtractComputeHJDDataTest {
     }
 
     @Test
-    public void testExtractComputeHJDData_WrongDatetimeParameter() throws Exception {
-        String[] args = new String[] { "hjd", FILE_PATH.toString(), "-ra=14:22:30", "EXPOSURE", "DATETIME", "-dec=-15:-16:-17" };
-
-        exception.expect(IllegalInputDataException.class);
-        exception.expectMessage("Datetime parameter is not specified");
-        CmdArgumentsProcessorHelper.extractComputeHJDData(args, _converter);
-    }
-
-    @Test
     public void testExtractComputeHJDData_LocalDateTimeDatetimeParameter() throws Exception {
-        String[] args = new String[] { "hjd", FILE_PATH.toString(), "2015-05-08T12:34:56", "EXPOSURE", "-ra=14:22:30", "-dec=-15:-16:-17" };
+        String[] args = new String[] { "hjd", FILE_PATH.toString(), "2015-05-08T12:34:56", "EXPOSURE", "14:22:30", "-15:-16:-17" };
 
         ComputeHJDInputData chjdid = CmdArgumentsProcessorHelper.extractComputeHJDData(args, _converter);
         assertTrue(chjdid.getDatetime() instanceof LocalDateTime);
@@ -74,7 +65,7 @@ public class ProcessorHelper_ExtractComputeHJDDataTest {
 
     @Test
     public void testExtractComputeHJDData_StringDatetimeKeyword() throws Exception {
-        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATETIME", "EXPOSURE", "-ra=14:22:30", "-dec=-15:-16:-17" };
+        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATETIME", "EXPOSURE", "14:22:30", "-15:-16:-17" };
 
         ComputeHJDInputData chjdid = CmdArgumentsProcessorHelper.extractComputeHJDData(args, _converter);
         assertTrue(chjdid.getDatetime() instanceof String);
@@ -82,17 +73,8 @@ public class ProcessorHelper_ExtractComputeHJDDataTest {
     }
 
     @Test
-    public void testExtractComputeHJDData_WrongExposureParameter() throws Exception {
-        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATETIME", "-dec=-15:-16:-17", "-ra=14:22:30", "EXPOSURE", "comment" };
-
-        exception.expect(IllegalInputDataException.class);
-        exception.expectMessage("Exposure parameter is not specified");
-        CmdArgumentsProcessorHelper.extractComputeHJDData(args, _converter);
-    }
-
-    @Test
     public void testExtractComputeHJDData_DoubleExposureParameter() throws Exception {
-        String[] args = new String[] { "hjd", FILE_PATH.toString(), "2015-05-08T12:34:56", "25.45", "-ra=14:22:30", "-dec=-15:-16:-17" };
+        String[] args = new String[] { "hjd", FILE_PATH.toString(), "2015-05-08T12:34:56", "25.45", "14:22:30", "-15:-16:-17" };
 
         ComputeHJDInputData chjdid = CmdArgumentsProcessorHelper.extractComputeHJDData(args, _converter);
         assertTrue(chjdid.getExposure() instanceof Double);
@@ -101,7 +83,7 @@ public class ProcessorHelper_ExtractComputeHJDDataTest {
 
     @Test
     public void testExtractComputeHJDData_StringExposureKeyword() throws Exception {
-        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATETIME", "EXPOSURE", "-ra=14:22:30", "-dec=-15:-16:-17", "comment" };
+        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATETIME", "EXPOSURE", "14:22:30", "-15:-16:-17", "comment" };
 
         ComputeHJDInputData chjdid = CmdArgumentsProcessorHelper.extractComputeHJDData(args, _converter);
         assertTrue(chjdid.getExposure() instanceof String);
@@ -164,7 +146,7 @@ public class ProcessorHelper_ExtractComputeHJDDataTest {
 
     @Test
     public void testExtractComputeHJDData_CorrectParameters() throws Exception {
-        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATETIME", "12.48", "-ra=14:22:30", "-dec=-15:-16:-17", "comment" };
+        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATETIME", "12.48", "14:22:30", "-15:-16:-17", "comment" };
 
         ComputeHJDInputData chjdid = CmdArgumentsProcessorHelper.extractComputeHJDData(args, _converter);
         assertNotNull(chjdid);

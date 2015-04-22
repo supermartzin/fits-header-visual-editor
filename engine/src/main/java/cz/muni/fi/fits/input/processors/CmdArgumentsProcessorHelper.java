@@ -556,9 +556,6 @@ final class CmdArgumentsProcessorHelper {
         String datetimeKeyword = null;
         LocalDateTime datetimeValue = null;
         parameter = cmdArgs[2].trim();
-        if (parameter.toLowerCase().startsWith("-ra=")
-                || parameter.toLowerCase().startsWith("-dec="))
-            throw new IllegalInputDataException("Datetime parameter is not specified");
 
         if (converter.tryParseLocalDateTime(parameter))
             datetimeValue = converter.parseLocalDateTime(parameter);
@@ -569,9 +566,6 @@ final class CmdArgumentsProcessorHelper {
         String exposureKeyword = null;
         double exposureValue = Double.NaN;
         parameter = cmdArgs[3].trim();
-        if (parameter.toLowerCase().startsWith("-ra=")
-                || parameter.toLowerCase().startsWith("-dec="))
-            throw new IllegalInputDataException("Exposure parameter is not specified");
 
         if (converter.tryParseDouble(parameter))
             exposureValue = converter.parseDouble(parameter);
@@ -581,79 +575,59 @@ final class CmdArgumentsProcessorHelper {
         // get right ascension parameters (required)
         TimeObject rightAscensionParams;
         parameter = cmdArgs[4].trim();
-        if (parameter.startsWith("-")) {
-            if (parameter.toLowerCase().startsWith("-ra=")) {
-                parameter = parameter.substring(4).trim();
+        String[] raValues = parameter.split(":");
+        if (raValues.length == 3) {
+            double hours;
+            double minutes;
+            double seconds;
 
-                String[] values = parameter.split(":");
-                if (values.length == 3) {
-                    double hours;
-                    double minutes;
-                    double seconds;
+            // parse hours
+            if (converter.tryParseDouble(raValues[0].trim()))
+                hours = converter.parseDouble(raValues[0].trim());
+            else throw new IllegalInputDataException("Right ascension's hours parameter is in invalid format");
 
-                    // parse hours
-                    if (converter.tryParseDouble(values[0].trim()))
-                        hours = converter.parseDouble(values[0].trim());
-                    else throw new IllegalInputDataException("Right ascension's hours parameter is in invalid format");
+            // parse minutes
+            if (converter.tryParseDouble(raValues[1].trim()))
+                minutes = converter.parseDouble(raValues[1].trim());
+            else throw new IllegalInputDataException("Right ascension's minutes parameter is in invalid format");
 
-                    // parse minutes
-                    if (converter.tryParseDouble(values[1].trim()))
-                        minutes = converter.parseDouble(values[1].trim());
-                    else throw new IllegalInputDataException("Right ascension's minutes parameter is in invalid format");
+            // parse seconds
+            if (converter.tryParseDouble(raValues[2].trim()))
+                seconds = converter.parseDouble(raValues[2].trim());
+            else throw new IllegalInputDataException("Right ascension's seconds parameter is in invalid format");
 
-                    // parse seconds
-                    if (converter.tryParseDouble(values[2].trim()))
-                        seconds = converter.parseDouble(values[2].trim());
-                    else throw new IllegalInputDataException("Right ascension's seconds parameter is in invalid format");
-
-                    rightAscensionParams = new TimeObject(hours, minutes, seconds);
-                } else {
-                    throw new IllegalInputDataException("Value of right ascension parameter is in invalid format");
-                }
-            } else {
-                throw new IllegalInputDataException("Right ascension parameter is in invalid format. It must start with '-ra='");
-            }
+            rightAscensionParams = new TimeObject(hours, minutes, seconds);
         } else {
-            throw new IllegalInputDataException("Right ascension parameter is in invalid format. It must start with '-ra='");
+            throw new IllegalInputDataException("Value of right ascension parameter is in invalid format");
         }
 
         // get declination parameters (required)
         DegreesObject declinationParams;
         parameter = cmdArgs[5].trim();
-        if (parameter.startsWith("-")) {
-            if (parameter.toLowerCase().startsWith("-dec=")) {
-                parameter = parameter.substring(5).trim();
+        String[] decValues = parameter.split(":");
+        if (decValues.length == 3) {
+            double degrees;
+            double minutes;
+            double seconds;
 
-                String[] values = parameter.split(":");
-                if (values.length == 3) {
-                    double degrees;
-                    double minutes;
-                    double seconds;
+            // parse degrees
+            if (converter.tryParseDouble(decValues[0].trim()))
+                degrees = converter.parseDouble(decValues[0].trim());
+            else throw new IllegalInputDataException("Declination's degrees parameter is in invalid format");
 
-                    // parse degrees
-                    if (converter.tryParseDouble(values[0].trim()))
-                        degrees = converter.parseDouble(values[0].trim());
-                    else throw new IllegalInputDataException("Declination's degrees parameter is in invalid format");
+            // parse minutes
+            if (converter.tryParseDouble(decValues[1].trim()))
+                minutes = converter.parseDouble(decValues[1].trim());
+            else throw new IllegalInputDataException("Declination's minutes parameter is in invalid format");
 
-                    // parse minutes
-                    if (converter.tryParseDouble(values[1].trim()))
-                        minutes = converter.parseDouble(values[1].trim());
-                    else throw new IllegalInputDataException("Declination's minutes parameter is in invalid format");
+            // parse seconds
+            if (converter.tryParseDouble(decValues[2].trim()))
+                seconds = converter.parseDouble(decValues[2].trim());
+            else throw new IllegalInputDataException("Declination's seconds parameter is in invalid format");
 
-                    // parse seconds
-                    if (converter.tryParseDouble(values[2].trim()))
-                        seconds = converter.parseDouble(values[2].trim());
-                    else throw new IllegalInputDataException("Declination's seconds parameter is in invalid format");
-
-                    declinationParams = new DegreesObject(degrees, minutes, seconds);
-                } else {
-                    throw new IllegalInputDataException("Value of declination parameter is in invalid format");
-                }
-            } else {
-                throw new IllegalInputDataException("Decliation parameter is in invalid format. It must start with '-dec='");
-            }
+            declinationParams = new DegreesObject(degrees, minutes, seconds);
         } else {
-            throw new IllegalInputDataException("Decliation parameter is in invalid format. It must start with '-dec='");
+            throw new IllegalInputDataException("Value of declination parameter is in invalid format");
         }
 
         // get comment (optional)
