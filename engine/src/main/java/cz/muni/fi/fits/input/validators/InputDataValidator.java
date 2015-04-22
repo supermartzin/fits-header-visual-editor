@@ -75,4 +75,12 @@ public interface InputDataValidator {
      * @throws ValidationException  when input data are in invalid form
      */
     void validate(ShiftTimeInputData shiftTimeInputData) throws ValidationException;
+
+    /**
+     * Validates input data for operation <b>Compute Heliocentric Julian Date</b>
+     *
+     * @param computeHJDInputData   input data to validate
+     * @throws ValidationException  when input data are in invalid form
+     */
+    void validate(ComputeHJDInputData computeHJDInputData) throws ValidationException;
 }

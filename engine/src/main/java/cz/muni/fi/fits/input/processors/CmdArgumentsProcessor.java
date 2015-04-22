@@ -103,6 +103,11 @@ public class CmdArgumentsProcessor implements InputProcessor {
                 fitsFilesArgIndex = ((ShiftTimeInputData) inputData).updateJulianDate() ? 2 : 1;
                 break;
 
+            case "HJD":
+                inputData = CmdArgumentsProcessorHelper.extractComputeHJDData(_cmdArgs, _converter);
+                fitsFilesArgIndex = 1;
+                break;
+
             default:
                 throw new UnknownOperationException(operation, "Unknown operation '" + operation + "'");
         }

@@ -1,6 +1,8 @@
 package cz.muni.fi.fits;
 
 import cz.muni.fi.fits.engine.HeaderEditingEngine;
+import cz.muni.fi.fits.engine.tools.Declination;
+import cz.muni.fi.fits.engine.tools.RightAscension;
 import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.ValidationException;
 import cz.muni.fi.fits.input.processors.InputProcessor;
@@ -232,6 +234,39 @@ public class FITSHeaderEditor {
                                 stid.getSecondShift(),
                                 stid.getNanosecondShift(),
                                 stid.updateJulianDate(),
+                                fitsFile);
+
+                        // write result
+                        if (result.isSuccess())
+                            _outputWriter.writeInfo(fitsFile, result.getMessage());
+                        else
+                            _outputWriter.writeError(fitsFile, result.getMessage());
+                    }
+                    break;
+
+                case COMPUTE_HJD:
+                    ComputeHJDInputData chjdid = (ComputeHJDInputData)inputData;
+                    // validate input data
+                    _inputDataValidator.validate(chjdid);
+                    _outputWriter.writeInfo("Provided parameters are in correct format");
+
+                    // compute HJD in FITS files
+                    for (File fitsFile : chjdid.getFitsFiles()) {
+                        RightAscension rightAscension =
+                                new RightAscension(chjdid.getRightAscension().getHours(),
+                                                   chjdid.getRightAscension().getMinutes(),
+                                                   chjdid.getRightAscension().getSeconds());
+                        Declination declination =
+                                new Declination(chjdid.getDeclination().getDegrees(),
+                                                chjdid.getDeclination().getMinutes(),
+                                                chjdid.getDeclination().getSeconds());
+
+                        Result result = _headerEditingEngine.computeHeliocentricJulianDate(
+                                chjdid.getDatetime(),
+                                chjdid.getExposure(),
+                                rightAscension,
+                                declination,
+                                chjdid.getComment(),
                                 fitsFile);
 
                         // write result

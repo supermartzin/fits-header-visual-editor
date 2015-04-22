@@ -3,7 +3,7 @@ package cz.muni.fi.fits.engine.tools;
 import java.time.LocalDateTime;
 
 /**
- * Class for computing Julian Date from human readable datetime
+ * Class for computing julian date from human readable datetime
  *
  * @author Martin Vrábel
  * @version 1.0
@@ -54,7 +54,7 @@ public final class JulianDate {
     /**
      * Computes Julian Date from object's datetime parameters
      *
-     * @return  computed Julian Date
+     * @return  computed julian date
      */
     public double getJulianDate() {
         return 367 * _year

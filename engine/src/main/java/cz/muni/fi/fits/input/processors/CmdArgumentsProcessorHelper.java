@@ -4,10 +4,13 @@ import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.InvalidSwitchParameterException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
 import cz.muni.fi.fits.input.converters.TypeConverter;
+import cz.muni.fi.fits.models.DegreesObject;
+import cz.muni.fi.fits.models.TimeObject;
 import cz.muni.fi.fits.models.inputData.*;
 import cz.muni.fi.fits.utils.Tuple;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -550,5 +553,142 @@ final class CmdArgumentsProcessorHelper {
         }
 
         return new ShiftTimeInputData(keyword, yearShift, monthShift, dayShift, hourShift, minuteShift, secondShift, milisecondShift, updateJulianDate);
+    }
+
+    /**
+     * Extracts input data for operation <b>Compute Heliocentric Julian Date</b>
+     *
+     * @param cmdArgs                       commandline arguments containing specific input data
+     * @param converter                     {@link TypeConverter} object used to convert {@link String} input parameters to specific value types
+     * @return                              {@link ComputeHJDInputData} object with input data
+     * @throws IllegalInputDataException    when input data are in invalid form
+     */
+    static ComputeHJDInputData extractComputeHJDData(String[] cmdArgs, TypeConverter converter) throws IllegalInputDataException {
+        if (cmdArgs.length < 6 || cmdArgs.length > 7)
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'HJD'");
+
+        String parameter;
+
+        // get datetime parameter (requred)
+        String datetimeKeyword = null;
+        LocalDateTime datetimeValue = null;
+        parameter = cmdArgs[2].trim();
+        if (parameter.toLowerCase().startsWith("-ra=")
+                || parameter.toLowerCase().startsWith("-dec="))
+            throw new IllegalInputDataException("Datetime parameter is not specified");
+
+        if (converter.tryParseLocalDateTime(parameter))
+            datetimeValue = converter.parseLocalDateTime(parameter);
+        else
+            datetimeKeyword = parameter;
+
+        // get exposure time parameter (required)
+        String exposureKeyword = null;
+        double exposureValue = Double.NaN;
+        parameter = cmdArgs[3].trim();
+        if (parameter.toLowerCase().startsWith("-ra=")
+                || parameter.toLowerCase().startsWith("-dec="))
+            throw new IllegalInputDataException("Exposure parameter is not specified");
+
+        if (converter.tryParseDouble(parameter))
+            exposureValue = converter.parseDouble(parameter);
+        else
+            exposureKeyword = parameter;
+
+        // get right ascension parameters (required)
+        TimeObject rightAscensionParams;
+        parameter = cmdArgs[4].trim();
+        if (parameter.startsWith("-")) {
+            if (parameter.toLowerCase().startsWith("-ra=")) {
+                parameter = parameter.substring(4).trim();
+
+                String[] values = parameter.split(":");
+                if (values.length == 3) {
+                    double hours;
+                    double minutes;
+                    double seconds;
+
+                    // parse hours
+                    if (converter.tryParseDouble(values[0].trim()))
+                        hours = converter.parseDouble(values[0].trim());
+                    else throw new IllegalInputDataException("Right ascension's hours parameter is in invalid format");
+
+                    // parse minutes
+                    if (converter.tryParseDouble(values[1].trim()))
+                        minutes = converter.parseDouble(values[1].trim());
+                    else throw new IllegalInputDataException("Right ascension's minutes parameter is in invalid format");
+
+                    // parse seconds
+                    if (converter.tryParseDouble(values[2].trim()))
+                        seconds = converter.parseDouble(values[2].trim());
+                    else throw new IllegalInputDataException("Right ascension's seconds parameter is in invalid format");
+
+                    rightAscensionParams = new TimeObject(hours, minutes, seconds);
+                } else {
+                    throw new IllegalInputDataException("Value of right ascension parameter is in invalid format");
+                }
+            } else {
+                throw new IllegalInputDataException("Right ascension parameter is in invalid format. It must start with '-ra='");
+            }
+        } else {
+            throw new IllegalInputDataException("Right ascension parameter is in invalid format. It must start with '-ra='");
+        }
+
+        // get declination parameters (required)
+        DegreesObject declinationParams;
+        parameter = cmdArgs[5].trim();
+        if (parameter.startsWith("-")) {
+            if (parameter.toLowerCase().startsWith("-dec=")) {
+                parameter = parameter.substring(5).trim();
+
+                String[] values = parameter.split(":");
+                if (values.length == 3) {
+                    double degrees;
+                    double minutes;
+                    double seconds;
+
+                    // parse degrees
+                    if (converter.tryParseDouble(values[0].trim()))
+                        degrees = converter.parseDouble(values[0].trim());
+                    else throw new IllegalInputDataException("Declination's degrees parameter is in invalid format");
+
+                    // parse minutes
+                    if (converter.tryParseDouble(values[1].trim()))
+                        minutes = converter.parseDouble(values[1].trim());
+                    else throw new IllegalInputDataException("Declination's minutes parameter is in invalid format");
+
+                    // parse seconds
+                    if (converter.tryParseDouble(values[2].trim()))
+                        seconds = converter.parseDouble(values[2].trim());
+                    else throw new IllegalInputDataException("Declination's seconds parameter is in invalid format");
+
+                    declinationParams = new DegreesObject(degrees, minutes, seconds);
+                } else {
+                    throw new IllegalInputDataException("Value of declination parameter is in invalid format");
+                }
+            } else {
+                throw new IllegalInputDataException("Decliation parameter is in invalid format. It must start with '-dec='");
+            }
+        } else {
+            throw new IllegalInputDataException("Decliation parameter is in invalid format. It must start with '-dec='");
+        }
+
+        // get comment (optional)
+        String comment = null;
+        if (cmdArgs.length == 7)
+            comment = cmdArgs[6].trim();
+
+        // datetime == keyword && exposure = keyword
+        if (datetimeKeyword != null && exposureKeyword != null)
+            return new ComputeHJDInputData(datetimeKeyword, exposureKeyword, rightAscensionParams, declinationParams, comment);
+        // datetime == value && exposure == keyword
+        else if (datetimeValue != null && exposureKeyword != null)
+            return new ComputeHJDInputData(datetimeValue, exposureKeyword, rightAscensionParams, declinationParams, comment);
+        // datetime == keyword && exposure == value
+        else if (datetimeKeyword != null)
+            return new ComputeHJDInputData(datetimeKeyword, exposureValue, rightAscensionParams, declinationParams, comment);
+        // datetime == value && exposure == value
+        else
+            return new ComputeHJDInputData(datetimeValue, exposureValue, rightAscensionParams, declinationParams, comment);
     }
 }

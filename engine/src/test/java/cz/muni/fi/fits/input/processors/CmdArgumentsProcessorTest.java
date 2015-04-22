@@ -7,6 +7,7 @@ import cz.muni.fi.fits.input.converters.DefaultTypeConverter;
 import cz.muni.fi.fits.input.converters.TypeConverter;
 import cz.muni.fi.fits.models.OperationType;
 import cz.muni.fi.fits.models.inputData.*;
+import cz.muni.fi.fits.utils.Constants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -258,5 +259,34 @@ public class CmdArgumentsProcessorTest {
         assertEquals(0, stid.getSecondShift());
         assertEquals(0, stid.getMilisecondsShift());
         assertEquals(0, stid.getNanosecondShift());
+    }
+
+    // ComputeHJDInputData test
+    @Test
+    public void testGetProcessedInput_ValidComputeHJDInputData() throws Exception {
+        Files.write(FILE_PATH, Arrays.asList("sample1.fits", "sample2.fits", "sample3.fit", "sample4.fit", "sample5.fit", "sample6.fit"));
+        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATE-OBS", "10.50", "-ra=12:25:46.25", "-dec=-45:26:13.5" };
+        InputProcessor inputProcessor = new CmdArgumentsProcessor(args, _converter);
+
+        InputData inputData = inputProcessor.getProcessedInput();
+
+        assertTrue(inputData != null);
+        assertTrue(inputData.getOperationType() == OperationType.COMPUTE_HJD);
+        assertTrue(inputData instanceof ComputeHJDInputData);
+        assertNotNull(inputData.getFitsFiles());
+        assertEquals(6, inputData.getFitsFiles().size());
+
+        ComputeHJDInputData chjdid = (ComputeHJDInputData)inputData;
+        assertTrue(chjdid.getDatetime() instanceof String);
+        assertEquals("DATE-OBS", chjdid.getDatetime());
+        assertTrue(chjdid.getExposure() instanceof Double);
+        assertEquals(10.5, (double) chjdid.getExposure(), 0.0);
+        assertEquals(12.0, chjdid.getRightAscension().getHours(), 0.0);
+        assertEquals(25.0, chjdid.getRightAscension().getMinutes(), 0.0);
+        assertEquals(46.25, chjdid.getRightAscension().getSeconds(), 0.0);
+        assertEquals(-45.0, chjdid.getDeclination().getDegrees(), 0.0);
+        assertEquals(26.0, chjdid.getDeclination().getMinutes(), 0.0);
+        assertEquals(13.5, chjdid.getDeclination().getSeconds(), 0.0);
+        assertEquals(Constants.DEFAULT_HJD_COMMENT, chjdid.getComment());
     }
 }

@@ -14,5 +14,6 @@ public enum OperationType {
     CHANGE_KEYWORD,
     CHANGE_VALUE_BY_KEYWORD,
     CHAIN_RECORDS,
-    SHIFT_TIME
+    SHIFT_TIME,
+    COMPUTE_HJD
 }

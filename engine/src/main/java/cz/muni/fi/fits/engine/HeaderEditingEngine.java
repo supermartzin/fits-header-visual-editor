@@ -1,5 +1,7 @@
 package cz.muni.fi.fits.engine;
 
+import cz.muni.fi.fits.engine.tools.Declination;
+import cz.muni.fi.fits.engine.tools.RightAscension;
 import cz.muni.fi.fits.models.Result;
 import cz.muni.fi.fits.utils.Tuple;
 
@@ -122,5 +124,23 @@ public interface HeaderEditingEngine {
      * @return                  {@link Result} object with results of this operation
      */
     Result shiftTimeOfTimeRecord(String keyword, int yearShift, int monthShift, int dayShift,
-                                 int hourShift, int minuteShift, int secondShift, int nanosecondShift, boolean updateJulianDate ,File fitsFile);
+                                 int hourShift, int minuteShift, int secondShift, int nanosecondShift, boolean updateJulianDate, File fitsFile);
+
+    /**
+     * Computes Heliocentric Julian Date, saves/updates the value to <code>HJD</code> keyword,
+     * saves right ascension to <code>RA</code> keyword and declination do <code>DEC</code>
+     * keyword to FITS file header
+     *
+     * @param datetime              {@link String} value as keyword of datetime record
+     *                              or {@link java.time.LocalDateTime} as value of datetime
+     * @param exposure              {@link String} value as keyword of exposure record
+     *                              or {@link Double} as value of exposure in seconds
+     * @param rightAscension        object's right ascension parameter
+     * @param declination           object's declination parameter
+     * @param comment               comment of HJD record, insert
+     *                              <code>null</code> when no comment to add
+     * @param fitsFile              FITS file in which to chain records
+     * @return                      {@link Result} object with results of this operation
+     */
+    Result computeHeliocentricJulianDate(Object datetime, Object exposure, RightAscension rightAscension, Declination declination, String comment, File fitsFile);
 }
