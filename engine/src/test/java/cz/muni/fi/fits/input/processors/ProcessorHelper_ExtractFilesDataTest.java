@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
  * in {@link CmdArgumentsProcessorHelper} class
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1
  */
 public class ProcessorHelper_ExtractFilesDataTest {
 
