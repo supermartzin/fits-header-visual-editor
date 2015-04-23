@@ -79,8 +79,18 @@ public class ProcessorHelper_ExtractFilesDataTest {
     }
 
     @Test
+    public void testExtractFilesData_OnlyCommentedPaths() throws Exception {
+        List<String> fitsFilesLines = Arrays.asList("# sample1.fits", "#sample2.fits", "### sample3.fits");
+        Files.write(FILE_PATH, fitsFilesLines);
+
+        HashSet<File> fitsFiles = new HashSet<>(CmdArgumentsProcessorHelper.extractFilesData(FILE_PATH.toString()));
+
+        assertTrue(fitsFiles.size() == 0);
+    }
+
+    @Test
     public void testExtractFilesData_CorrectFile() throws Exception {
-        List<String> fitsFilesLines = Arrays.asList("sample1.fits", "sample2.fits", "sample3.fits");
+        List<String> fitsFilesLines = Arrays.asList("sample1.fits", "#sample2.fits", "sample3.fits", "##sample4.fits", "sample5.fits");
         Files.write(FILE_PATH, fitsFilesLines);
 
         HashSet<File> fitsFiles = new HashSet<>(CmdArgumentsProcessorHelper.extractFilesData(FILE_PATH.toString()));

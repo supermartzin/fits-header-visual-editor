@@ -21,7 +21,7 @@ import java.util.LinkedList;
  * that helps to extract input data to specific operation
  *
  * @author Martin Vrábel
- * @version 1.2.1
+ * @version 1.2.2
  */
 final class CmdArgumentsProcessorHelper {
 
@@ -50,6 +50,11 @@ final class CmdArgumentsProcessorHelper {
         {
             String line;
             while ((line = reader.readLine()) != null) {
+                line = line.trim();
+
+                // ignore commented lines
+                if (line.startsWith("#")) continue;
+
                 File fitsFile = new File(line);
                 fitsFiles.add(fitsFile);
             }
