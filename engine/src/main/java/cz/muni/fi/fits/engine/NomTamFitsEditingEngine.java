@@ -30,7 +30,7 @@ import java.util.List;
  * @see <a href="http://nom-tam-fits.github.io/nom-tam-fits/">Project pages</a>
  *
  * @author Martin Vrábel
- * @version 1.2.1
+ * @version 1.3
  */
 public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
@@ -738,6 +738,117 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             // return success
             return new Result(true, "'" + keyword + "' record successfully changed from '" + parsedDateTime.toString() + "'" +
                         " to '" + newDateTime.toString() + "'");
+        } catch (FitsException | IOException ex) {
+            return new Result(false, "Error in editing engine: " + ex.getMessage());
+        }
+    }
+
+    /**
+     * Computes Julian Date from provided datetime and exposure parameters
+     * and saves/updates value to <code>JD</code> keyword to FITS file header
+     *
+     * @param datetime  {@link String} value as keyword of datetime record
+     *                  or {@link java.time.LocalDateTime} as value of datetime
+     * @param exposure  {@link String} value as keyword of exposure record
+     *                  or {@link Double} as value of exposure in seconds
+     * @param comment   comment of JD record, insert
+     *                  <code>null</code> when no comment to add
+     * @param fitsFile  FITS file in which to chain records
+     * @return          {@inheritDoc}
+     */
+    @Override
+    public Result computeJulianDate(Object datetime, Object exposure, String comment, File fitsFile) {
+        if (datetime == null)
+            throw new IllegalArgumentException("datetime is null");
+        if (exposure == null)
+            throw new IllegalArgumentException("exposure is null");
+        if (fitsFile == null)
+            throw new IllegalArgumentException("fitsFile is null");
+
+        boolean jdUpdated = false;
+
+        try {
+            Fits fits = new Fits(fitsFile);
+
+            // get header of first HDU unit
+            BasicHDU hdu = fits.getHDU(0);
+            Header header = hdu.getHeader();
+
+            LocalDateTime datetimeValue;
+            double exposureValue;
+
+            // load datetime value
+            if (datetime instanceof LocalDateTime) {
+                datetimeValue = (LocalDateTime) datetime;
+            } else if (datetime instanceof String) {
+                // get value from FITS file header
+                String datetimeKeyword = (String) datetime;
+
+                if (header.containsKey(datetimeKeyword)) {
+                    HeaderCard datetimeCard = header.findCard(datetimeKeyword);
+
+                    // parse LocalDateTime value from record
+                    try {
+                        datetimeValue = LocalDateTime.parse(datetimeCard.getValue());
+                    } catch (DateTimeParseException dtpEx) {
+                        return new Result(false, "Record with keyword '" + datetimeKeyword + "' does not contain valid DateTime value");
+                    }
+                } else {
+                    return new Result(false, "Header does not contain DateTime record with keyword '" + datetimeKeyword + "'");
+                }
+            } else {
+                return new Result(false, "Unknown type for DateTime object");
+            }
+
+            // load exposure value
+            if (exposure instanceof Double) {
+                exposureValue = (double) exposure;
+            } else if (exposure instanceof String) {
+                // get value from FITS file header
+                String exposureKeyword = (String) exposure;
+
+                if (header.containsKey(exposureKeyword)) {
+                    HeaderCard exposureCard = header.findCard(exposureKeyword);
+
+                    // get Double value from record
+                    exposureValue = exposureCard.getValue(Double.class, Double.NaN);
+
+                    if (Double.isNaN(exposureValue))
+                        return new Result(false, "Record with keyword '" + exposureKeyword + "' does not contain valid Double value");
+                } else {
+                    return new Result(false, "Header does not contain Exposure record with keyword '" + exposureKeyword + "'");
+                }
+            } else {
+                return new Result(false, "Unknown type for Exposure object");
+            }
+
+            // move datetime to center of exposure time
+            double nanoseconds = exposureValue * 1000 * 1000 * 1000; // for greater precision
+            datetimeValue = datetimeValue.plusNanos(Double.valueOf(nanoseconds).longValue());
+
+            // compute Julian Date
+            JulianDate jd = new JulianDate(datetimeValue);
+
+            // save to header as new record
+            HeaderCard jdCard = new HeaderCard("JD", jd.getJulianDate(), comment);
+            if (header.containsKey("JD")) {
+                header.updateLine("JD", jdCard);
+                jdUpdated = true;
+            } else {
+                Cursor<String, HeaderCard> iterator = header.iterator();
+                iterator.end();
+                iterator.add("JD", jdCard);
+            }
+
+            // write changes back to file
+            BufferedFile bf = new BufferedFile(fitsFile, "rw");
+            fits.write(bf);
+
+            // return success
+            if (!jdUpdated)
+                return new Result(true, "Julian Date successfully saved to 'JD' record");
+            else
+                return new Result(true, "Julian Date successfully updated in 'JD' record");
         } catch (FitsException | IOException ex) {
             return new Result(false, "Error in editing engine: " + ex.getMessage());
         }

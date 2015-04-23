@@ -4,7 +4,7 @@ package cz.muni.fi.fits.models;
  * Enumeration of main editing operations
  *
  * @author Martin Vrábel
- * @version 1.1
+ * @version 1.2
  */
 public enum OperationType {
     ADD_NEW_RECORD_TO_END,
@@ -15,5 +15,6 @@ public enum OperationType {
     CHANGE_VALUE_BY_KEYWORD,
     CHAIN_RECORDS,
     SHIFT_TIME,
+    COMPUTE_JD,
     COMPUTE_HJD
 }

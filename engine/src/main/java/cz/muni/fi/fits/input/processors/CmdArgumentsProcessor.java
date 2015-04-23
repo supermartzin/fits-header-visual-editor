@@ -103,6 +103,11 @@ public class CmdArgumentsProcessor implements InputProcessor {
                 fitsFilesArgIndex = 1;
                 break;
 
+            case "JD":
+                inputData = CmdArgumentsProcessorHelper.extractComputeJDData(_cmdArgs, _converter);
+                fitsFilesArgIndex = 1;
+                break;
+
             case "HJD":
                 inputData = CmdArgumentsProcessorHelper.extractComputeHJDData(_cmdArgs, _converter);
                 fitsFilesArgIndex = 1;

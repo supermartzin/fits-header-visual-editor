@@ -243,6 +243,28 @@ public class FITSHeaderEditor {
                     }
                     break;
 
+                case COMPUTE_JD:
+                    ComputeJDInputData cjdid = (ComputeJDInputData)inputData;
+                    // validate input data
+                    _inputDataValidator.validate(cjdid);
+                    _outputWriter.writeInfo("Provided parameters are in correct format");
+
+                    // compute JD in FITS files
+                    for (File fitsFile : cjdid.getFitsFiles()) {
+                        Result result = _headerEditingEngine.computeJulianDate(
+                                cjdid.getDatetime(),
+                                cjdid.getExposure(),
+                                cjdid.getComment(),
+                                fitsFile);
+
+                        // write result
+                        if (result.isSuccess())
+                            _outputWriter.writeInfo(fitsFile, result.getMessage());
+                        else
+                            _outputWriter.writeError(fitsFile, result.getMessage());
+                    }
+                    break;
+
                 case COMPUTE_HJD:
                     ComputeHJDInputData chjdid = (ComputeHJDInputData)inputData;
                     // validate input data

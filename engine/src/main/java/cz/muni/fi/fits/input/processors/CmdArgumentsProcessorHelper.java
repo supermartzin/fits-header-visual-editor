@@ -539,6 +539,59 @@ final class CmdArgumentsProcessorHelper {
     }
 
     /**
+     * Extracts input data for operation <b>Compute Julian Date</b>
+     *
+     * @param cmdArgs                       commandline arguments containing specific input data
+     * @param converter                     {@link TypeConverter} object used to convert {@link String} input parameters to specific value types
+     * @return                              {@link ComputeJDInputData} object with input data
+     * @throws IllegalInputDataException    when input data are in invalid form
+     */
+    static ComputeJDInputData extractComputeJDData(String[] cmdArgs, TypeConverter converter) throws IllegalInputDataException {
+        if (cmdArgs.length < 4 || cmdArgs.length > 5)
+            throw new WrongNumberOfParametersException(cmdArgs.length, "Wrong number of parameters for operation 'JD'");
+
+        String parameter;
+
+        // get datetime parameter (required)
+        String datetimeKeyword = null;
+        LocalDateTime datetimeValue = null;
+        parameter = cmdArgs[2].trim();
+
+        if (converter.tryParseLocalDateTime(parameter))
+            datetimeValue = converter.parseLocalDateTime(parameter);
+        else
+            datetimeKeyword = parameter;
+
+        // get exposure time parameter (required)
+        String exposureKeyword = null;
+        double exposureValue = Double.NaN;
+        parameter = cmdArgs[3].trim();
+
+        if (converter.tryParseDouble(parameter))
+            exposureValue = converter.parseDouble(parameter);
+        else
+            exposureKeyword = parameter;
+
+        // get comment (optional)
+        String comment = null;
+        if (cmdArgs.length == 5)
+            comment = cmdArgs[4].trim();
+
+        // datetime == keyword && exposure = keyword
+        if (datetimeKeyword != null && exposureKeyword != null)
+            return new ComputeJDInputData(datetimeKeyword, exposureKeyword, comment);
+        // datetime == value && exposure == keyword
+        else if (datetimeValue != null && exposureKeyword != null)
+            return new ComputeJDInputData(datetimeValue, exposureKeyword, comment);
+        // datetime == keyword && exposure == value
+        else if (datetimeKeyword != null && !Double.isNaN(exposureValue))
+            return new ComputeJDInputData(datetimeKeyword, exposureValue, comment);
+        // datetime == value && exposure == value
+        else
+            return new ComputeJDInputData(datetimeValue, exposureValue, comment);
+    }
+
+    /**
      * Extracts input data for operation <b>Compute Heliocentric Julian Date</b>
      *
      * @param cmdArgs                       commandline arguments containing specific input data
@@ -642,7 +695,7 @@ final class CmdArgumentsProcessorHelper {
         else if (datetimeValue != null && exposureKeyword != null)
             return new ComputeHJDInputData(datetimeValue, exposureKeyword, rightAscensionParams, declinationParams, comment);
         // datetime == keyword && exposure == value
-        else if (datetimeKeyword != null)
+        else if (datetimeKeyword != null && !Double.isNaN(exposureValue))
             return new ComputeHJDInputData(datetimeKeyword, exposureValue, rightAscensionParams, declinationParams, comment);
         // datetime == value && exposure == value
         else
