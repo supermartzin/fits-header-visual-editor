@@ -5,6 +5,7 @@ import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
 import cz.muni.fi.fits.input.converters.DefaultTypeConverter;
 import cz.muni.fi.fits.input.converters.TypeConverter;
 import cz.muni.fi.fits.models.inputData.ComputeHJDInputData;
+import cz.muni.fi.fits.utils.Constants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,7 +24,7 @@ import static org.junit.Assert.*;
  * in {@link CmdArgumentsProcessorHelper} class
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.0.1
  */
 public class ProcessorHelper_ExtractComputeHJDDataTest {
 
@@ -146,20 +147,37 @@ public class ProcessorHelper_ExtractComputeHJDDataTest {
 
     @Test
     public void testExtractComputeHJDData_CorrectParameters() throws Exception {
-        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATETIME", "12.48", "14:22:30", "-15:-16:-17", "comment" };
+        String[] args1 = new String[] { "hjd", FILE_PATH.toString(), "DATETIME", "12.48", "14:22:30", "-15:-16:-17", "comment" };
 
-        ComputeHJDInputData chjdid = CmdArgumentsProcessorHelper.extractComputeHJDData(args, _converter);
-        assertNotNull(chjdid);
-        assertEquals("DATETIME", chjdid.getDatetime());
-        assertEquals(12.48, (double)chjdid.getExposure(), 0.0);
-        assertNotNull(chjdid.getRightAscension());
-        assertEquals(14.0, chjdid.getRightAscension().getHours(), 0.0);
-        assertEquals(22.0, chjdid.getRightAscension().getMinutes(), 0.0);
-        assertEquals(30.0, chjdid.getRightAscension().getSeconds(), 0.0);
-        assertNotNull(chjdid.getDeclination());
-        assertEquals(-15.0, chjdid.getDeclination().getDegrees(), 0.0);
-        assertEquals(-16.0, chjdid.getDeclination().getMinutes(), 0.0);
-        assertEquals(-17.0, chjdid.getDeclination().getSeconds(), 0.0);
-        assertEquals("comment", chjdid.getComment());
+        ComputeHJDInputData chjdid1 = CmdArgumentsProcessorHelper.extractComputeHJDData(args1, _converter);
+        assertNotNull(chjdid1);
+        assertEquals("DATETIME", chjdid1.getDatetime());
+        assertEquals(12.48, (double)chjdid1.getExposure(), 0.0);
+        assertNotNull(chjdid1.getRightAscension());
+        assertEquals(14.0, chjdid1.getRightAscension().getHours(), 0.0);
+        assertEquals(22.0, chjdid1.getRightAscension().getMinutes(), 0.0);
+        assertEquals(30.0, chjdid1.getRightAscension().getSeconds(), 0.0);
+        assertNotNull(chjdid1.getDeclination());
+        assertEquals(-15.0, chjdid1.getDeclination().getDegrees(), 0.0);
+        assertEquals(-16.0, chjdid1.getDeclination().getMinutes(), 0.0);
+        assertEquals(-17.0, chjdid1.getDeclination().getSeconds(), 0.0);
+        assertEquals("comment", chjdid1.getComment());
+
+
+        String[] args2 = new String[] { "hjd", FILE_PATH.toString(), "1970-01-01T00:00:00.0", "EXPTIME", "14:-12:-30", "15:16:37" };
+
+        ComputeHJDInputData chjdid2 = CmdArgumentsProcessorHelper.extractComputeHJDData(args2, _converter);
+        assertNotNull(chjdid2);
+        assertEquals(LocalDateTime.of(1970, 1, 1, 0, 0, 0, 0), chjdid2.getDatetime());
+        assertEquals("EXPTIME", chjdid2.getExposure());
+        assertNotNull(chjdid2.getRightAscension());
+        assertEquals(14.0, chjdid2.getRightAscension().getHours(), 0.0);
+        assertEquals(-12.0, chjdid2.getRightAscension().getMinutes(), 0.0);
+        assertEquals(-30.0, chjdid2.getRightAscension().getSeconds(), 0.0);
+        assertNotNull(chjdid2.getDeclination());
+        assertEquals(15.0, chjdid2.getDeclination().getDegrees(), 0.0);
+        assertEquals(16.0, chjdid2.getDeclination().getMinutes(), 0.0);
+        assertEquals(37.0, chjdid2.getDeclination().getSeconds(), 0.0);
+        assertEquals(Constants.DEFAULT_JD_COMMENT, chjdid2.getComment());
     }
 }

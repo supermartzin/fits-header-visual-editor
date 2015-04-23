@@ -14,12 +14,12 @@ import java.util.HashSet;
  * Class encapsulating input data for operation <b>Compute Heliocentric Julian Date</b>
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.0.1
  */
 public class ComputeHJDInputData extends InputData {
 
     private final Object _datetime;
-    private final Object _exposureTime;
+    private final Object _exposure;
     private final TimeObject _rightAscension;
     private final DegreesObject _declination;
     private final String _comment;
@@ -28,79 +28,79 @@ public class ComputeHJDInputData extends InputData {
      * Creates new {@link ComputeHJDInputData} object with provided parameters
      *
      * @param datetime          keyword of record which contains DateTime value for HJD
-     * @param exposureTime      keyword of record which contains Exposure value for HJD
+     * @param exposure          keyword of record which contains Exposure value for HJD
      * @param rightAscension    right ascension of observed object
      * @param declination       declination of observed object
      * @param comment           comment of HJD value, insert <code>null</code>
      *                          for default value <b>"center of exposure"</b>
      */
-    public ComputeHJDInputData(String datetime, String exposureTime,
+    public ComputeHJDInputData(String datetime, String exposure,
                                TimeObject rightAscension, DegreesObject declination, String comment) {
-        this(datetime, exposureTime, rightAscension, declination, comment, new HashSet<>());
+        this(datetime, exposure, rightAscension, declination, comment, new HashSet<>());
     }
 
     /**
      * Creates new {@link ComputeHJDInputData} object with provided parameters
      *
      * @param datetime          keyword of record which contains DateTime value for HJD
-     * @param exposureTime      value of Exposure in seconds
+     * @param exposure          value of Exposure in seconds
      * @param rightAscension    right ascension of observed object
      * @param declination       declination of observed object
      * @param comment           comment of HJD value, insert <code>null</code>
      *                          for default value <b>"center of exposure"</b>
      */
-    public ComputeHJDInputData(String datetime, double exposureTime,
+    public ComputeHJDInputData(String datetime, double exposure,
                                TimeObject rightAscension, DegreesObject declination, String comment) {
-        this(datetime, exposureTime, rightAscension, declination, comment, new HashSet<>());
+        this(datetime, exposure, rightAscension, declination, comment, new HashSet<>());
     }
 
     /**
      * Creates new {@link ComputeHJDInputData} object with provided parameters
      *
      * @param datetime          {@link LocalDateTime} value
-     * @param exposureTime      keyword of record which contains Exposure value for HJD
+     * @param exposure          keyword of record which contains Exposure value for HJD
      * @param rightAscension    right ascension of observed object
      * @param declination       declination of observed object
      * @param comment           comment of HJD value, insert <code>null</code>
      *                          for default value <b>"center of exposure"</b>
      */
-    public ComputeHJDInputData(LocalDateTime datetime, String exposureTime,
+    public ComputeHJDInputData(LocalDateTime datetime, String exposure,
                                TimeObject rightAscension, DegreesObject declination, String comment) {
-        this(datetime, exposureTime, rightAscension, declination, comment, new HashSet<>());
+        this(datetime, exposure, rightAscension, declination, comment, new HashSet<>());
     }
 
     /**
      * Creates new {@link ComputeHJDInputData} object with provided parameters
      *
      * @param datetime          {@link LocalDateTime} value
-     * @param exposureTime      value of Exposure in seconds
+     * @param exposure          value of Exposure in seconds
      * @param rightAscension    right ascension of observed object
      * @param declination       declination of observed object
      * @param comment           comment of HJD value, insert <code>null</code>
      *                          for default value <b>"center of exposure"</b>
      */
-    public ComputeHJDInputData(LocalDateTime datetime, double exposureTime,
+    public ComputeHJDInputData(LocalDateTime datetime, double exposure,
                                TimeObject rightAscension, DegreesObject declination, String comment) {
-        this(datetime, exposureTime, rightAscension, declination, comment, new HashSet<>());
+        this(datetime, exposure, rightAscension, declination, comment, new HashSet<>());
     }
 
     /**
      * Creates new {@link ComputeHJDInputData} object with provided parameters
      *
      * @param datetime          keyword of record which contains DateTime value for HJD
-     * @param exposureTime      keyword of record which contains Exposure value for HJD
+     * @param exposure          keyword of record which contains Exposure value for HJD
      * @param rightAscension    right ascension of observed object
      * @param declination       declination of observed object
      * @param comment           comment of HJD value, insert <code>null</code>
      *                          for default value <b>"center of exposure"</b>
      * @param fitsFiles         FITS files in which to shift time of time record
      */
-    public ComputeHJDInputData(String datetime, String exposureTime,
+    public ComputeHJDInputData(String datetime, String exposure,
                                TimeObject rightAscension, DegreesObject declination,
                                String comment, Collection<File> fitsFiles) {
         super(OperationType.COMPUTE_HJD, fitsFiles);
         _datetime = datetime != null ? datetime.toUpperCase() : null;
-        _exposureTime = exposureTime != null ? exposureTime.toUpperCase() : null;
+        _exposure = exposure != null ? exposure.toUpperCase() : null;
         _rightAscension = rightAscension;
         _declination = declination;
         _comment = comment != null ? comment : Constants.DEFAULT_HJD_COMMENT;
@@ -110,19 +110,19 @@ public class ComputeHJDInputData extends InputData {
      * Creates new {@link ComputeHJDInputData} object with provided parameters
      *
      * @param datetime          keyword of record which contains DateTime value for HJD
-     * @param exposureTime      value of Exposure in seconds
+     * @param exposure          value of Exposure in seconds
      * @param rightAscension    right ascension of observed object
      * @param declination       declination of observed object
      * @param comment           comment of HJD value, insert <code>null</code>
      *                          for default value <b>"center of exposure"</b>
      * @param fitsFiles         FITS files in which to shift time of time record
      */
-    public ComputeHJDInputData(String datetime, double exposureTime,
+    public ComputeHJDInputData(String datetime, double exposure,
                                TimeObject rightAscension, DegreesObject declination,
                                String comment, Collection<File> fitsFiles) {
         super(OperationType.COMPUTE_HJD, fitsFiles);
         _datetime = datetime != null ? datetime.toUpperCase() : null;
-        _exposureTime = exposureTime;
+        _exposure = exposure;
         _rightAscension = rightAscension;
         _declination = declination;
         _comment = comment != null ? comment : Constants.DEFAULT_HJD_COMMENT;
@@ -132,19 +132,19 @@ public class ComputeHJDInputData extends InputData {
      * Creates new {@link ComputeHJDInputData} object with provided parameters
      *
      * @param datetime          {@link LocalDateTime} value
-     * @param exposureTime      keyword of record which contains Exposure value for HJD
+     * @param exposure          keyword of record which contains Exposure value for HJD
      * @param rightAscension    right ascension of observed object
      * @param declination       declination of observed object
      * @param comment           comment of HJD value, insert <code>null</code>
      *                          for default value <b>"center of exposure"</b>
      * @param fitsFiles         FITS files in which to shift time of time record
      */
-    public ComputeHJDInputData(LocalDateTime datetime, String exposureTime,
+    public ComputeHJDInputData(LocalDateTime datetime, String exposure,
                                TimeObject rightAscension, DegreesObject declination,
                                String comment, Collection<File> fitsFiles) {
         super(OperationType.COMPUTE_HJD, fitsFiles);
         _datetime = datetime;
-        _exposureTime = exposureTime != null ? exposureTime.toUpperCase() : null;
+        _exposure = exposure != null ? exposure.toUpperCase() : null;
         _rightAscension = rightAscension;
         _declination = declination;
         _comment = comment != null ? comment : Constants.DEFAULT_HJD_COMMENT;
@@ -154,19 +154,19 @@ public class ComputeHJDInputData extends InputData {
      * Creates new {@link ComputeHJDInputData} object with provided parameters
      *
      * @param datetime          {@link LocalDateTime} value
-     * @param exposureTime      value of Exposure in seconds
+     * @param exposure          value of Exposure in seconds
      * @param rightAscension    right ascension of observed object
      * @param declination       declination of observed object
      * @param comment           comment of HJD value, insert <code>null</code>
      *                          for default value <b>"center of exposure"</b>
      * @param fitsFiles         FITS files in which to shift time of time record
      */
-    public ComputeHJDInputData(LocalDateTime datetime, double exposureTime,
+    public ComputeHJDInputData(LocalDateTime datetime, double exposure,
                                TimeObject rightAscension, DegreesObject declination,
                                String comment, Collection<File> fitsFiles) {
         super(OperationType.COMPUTE_HJD, fitsFiles);
         _datetime = datetime;
-        _exposureTime = exposureTime;
+        _exposure = exposure;
         _rightAscension = rightAscension;
         _declination = declination;
         _comment = comment != null ? comment : Constants.DEFAULT_HJD_COMMENT;
@@ -177,7 +177,7 @@ public class ComputeHJDInputData extends InputData {
     }
 
     public Object getExposure() {
-        return _exposureTime;
+        return _exposure;
     }
 
     public TimeObject getRightAscension() {

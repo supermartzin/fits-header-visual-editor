@@ -30,7 +30,7 @@ import java.util.List;
  * @see <a href="http://nom-tam-fits.github.io/nom-tam-fits/">Project pages</a>
  *
  * @author Martin Vrábel
- * @version 1.3
+ * @version 1.3.1
  */
 public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
@@ -960,7 +960,25 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             }
 
             // save right ascension to header
-            String raValue = rightAscension.getHours() + ":" + rightAscension.getMinutes() + ":" + rightAscension.getSeconds();
+            double raHours = rightAscension.getHours();
+            double raMinutes = rightAscension.getMinutes();
+            double raSeconds = rightAscension.getSeconds();
+            String raValue = "";
+            if (Math.rint(raHours) == raHours)
+                raValue += Double.valueOf(raHours).intValue();
+            else
+                raValue += raHours;
+            raValue += ":";
+            if (Math.rint(raMinutes) == raMinutes)
+                raValue += Double.valueOf(raMinutes).intValue();
+            else
+                raValue += raMinutes;
+            raValue += ":";
+            if (Math.rint(raSeconds) == raSeconds)
+                raValue += Double.valueOf(raSeconds).intValue();
+            else
+                raValue += raSeconds;
+
             HeaderCard raCard = new HeaderCard("RA", raValue, "ra");
             if (header.containsKey("RA"))
                 header.updateLine("RA", raCard);
@@ -971,7 +989,25 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             }
 
             // save declination to header
-            String decValue = declination.getDegrees() + ":" + declination.getMinutes() + ":" + declination.getSeconds();
+            double decDegrees = declination.getDegrees();
+            double decMinutes = declination.getMinutes();
+            double decSeconds = declination.getSeconds();
+            String decValue = "";
+            if (Math.rint(decDegrees) == decDegrees)
+                decValue += Double.valueOf(decDegrees).intValue();
+            else
+                decValue += decDegrees;
+            decValue += ":";
+            if (Math.rint(decMinutes) == decMinutes)
+                decValue += Double.valueOf(decMinutes).intValue();
+            else
+                decValue += decMinutes;
+            decValue += ":";
+            if (Math.rint(decSeconds) == decSeconds)
+                decValue += Double.valueOf(decSeconds).intValue();
+            else
+                decValue += decSeconds;
+
             HeaderCard decCard = new HeaderCard("DEC", decValue, "dec");
             if (header.containsKey("DEC"))
                 header.updateLine("DEC", decCard);

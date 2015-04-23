@@ -12,7 +12,7 @@ import java.util.HashSet;
  * @author Martin Vrábel
  * @version 1.2
  */
-public class ShiftTimeInputData extends SwitchInputData {
+public class ShiftTimeInputData extends InputData {
 
     private final String _keyword;
     private final int _yearShift;
