@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNotNull;
  * in {@link CmdArgumentsProcessorHelper} class
  *
  * @author Martin Vrábel
- * @version 1.1
+ * @version 1.2
  */
 public class ProcessorHelper_ExtractShiftTimeDataTest {
 
@@ -61,6 +61,15 @@ public class ProcessorHelper_ExtractShiftTimeDataTest {
         exception.expect(IllegalInputDataException.class);
         exception.expectMessage("Keyword is not specified");
         CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
+    }
+
+    @Test
+    public void testExtractShiftRecordData_Keyword() throws Exception {
+        String[] args = new String[] { "shift_time", FILE_PATH.toString(), "KEYword", "-y=-56", "-m=0", "-d=2", "-s=0", "-ms=230" };
+
+        ShiftTimeInputData stid = CmdArgumentsProcessorHelper.extractShiftTimeData(args, _converter);
+        assertNotNull(stid);
+        assertEquals("KEYWORD", stid.getKeyword());
     }
 
     @Test

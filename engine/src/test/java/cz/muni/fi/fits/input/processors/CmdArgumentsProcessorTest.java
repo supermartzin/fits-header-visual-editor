@@ -5,6 +5,7 @@ import cz.muni.fi.fits.exceptions.UnknownOperationException;
 import cz.muni.fi.fits.exceptions.WrongNumberOfParametersException;
 import cz.muni.fi.fits.input.converters.DefaultTypeConverter;
 import cz.muni.fi.fits.input.converters.TypeConverter;
+import cz.muni.fi.fits.models.DegreesObject;
 import cz.muni.fi.fits.models.OperationType;
 import cz.muni.fi.fits.models.inputData.*;
 import cz.muni.fi.fits.utils.Constants;
@@ -183,8 +184,8 @@ public class CmdArgumentsProcessorTest {
         assertEquals(3, inputData.getFitsFiles().size());
 
         ChangeKeywordInputData ckid = (ChangeKeywordInputData)inputData;
-        assertEquals("OLD_KEYWORD".toUpperCase(), ckid.getOldKeyword());
-        assertEquals("NEW KEYWORD".toUpperCase(), ckid.getNewKeyword());
+        assertEquals("OLD_KEYWORD", ckid.getOldKeyword());
+        assertEquals("NEW KEYWORD", ckid.getNewKeyword());
         assertTrue(ckid.removeValueOfNewIfExists());
     }
 
@@ -264,7 +265,7 @@ public class CmdArgumentsProcessorTest {
     @Test
     public void testGetProcessedInput_ValidComputeHJDInputData() throws Exception {
         Files.write(FILE_PATH, Arrays.asList("sample1.fits", "sample2.fits", "sample3.fit", "sample4.fit", "sample5.fit", "sample6.fit"));
-        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATE-OBS", "10.50", "12:25:46.25", "-45:26:13.5" };
+        String[] args = new String[] { "hjd", FILE_PATH.toString(), "DATE-OBS", "10.50", "RGHT_ASC", "-45:26:13.5" };
         InputProcessor inputProcessor = new CmdArgumentsProcessor(args, _converter);
 
         InputData inputData = inputProcessor.getProcessedInput();
@@ -280,12 +281,13 @@ public class CmdArgumentsProcessorTest {
         assertEquals("DATE-OBS", chjdid.getDatetime());
         assertTrue(chjdid.getExposure() instanceof Double);
         assertEquals(10.5, (double) chjdid.getExposure(), 0.0);
-        assertEquals(12.0, chjdid.getRightAscension().getHours(), 0.0);
-        assertEquals(25.0, chjdid.getRightAscension().getMinutes(), 0.0);
-        assertEquals(46.25, chjdid.getRightAscension().getSeconds(), 0.0);
-        assertEquals(-45.0, chjdid.getDeclination().getDegrees(), 0.0);
-        assertEquals(26.0, chjdid.getDeclination().getMinutes(), 0.0);
-        assertEquals(13.5, chjdid.getDeclination().getSeconds(), 0.0);
+        assertTrue(chjdid.getRightAscension() instanceof String);
+        assertEquals("RGHT_ASC", chjdid.getRightAscension());
+        assertTrue(chjdid.getDeclination() instanceof DegreesObject);
+        DegreesObject declination = (DegreesObject) chjdid.getDeclination();
+        assertEquals(-45.0, declination.getDegrees(), 0.0);
+        assertEquals(26.0, declination.getMinutes(), 0.0);
+        assertEquals(13.5, declination.getSeconds(), 0.0);
         assertEquals(Constants.DEFAULT_HJD_COMMENT, chjdid.getComment());
     }
 }

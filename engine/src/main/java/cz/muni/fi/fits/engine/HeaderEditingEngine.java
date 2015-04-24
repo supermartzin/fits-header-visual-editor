@@ -1,7 +1,5 @@
 package cz.muni.fi.fits.engine;
 
-import cz.muni.fi.fits.engine.tools.Declination;
-import cz.muni.fi.fits.engine.tools.RightAscension;
 import cz.muni.fi.fits.models.Result;
 import cz.muni.fi.fits.utils.Tuple;
 
@@ -13,7 +11,7 @@ import java.util.LinkedList;
  * over FITS files
  *
  * @author Martin Vrábel
- * @version 1.3
+ * @version 1.3.1
  */
 public interface HeaderEditingEngine {
 
@@ -148,12 +146,14 @@ public interface HeaderEditingEngine {
      *                              or {@link java.time.LocalDateTime} as value of datetime
      * @param exposure              {@link String} value as keyword of exposure record
      *                              or {@link Double} as value of exposure in seconds
-     * @param rightAscension        object's right ascension parameter
-     * @param declination           object's declination parameter
+     * @param rightAscension        {@link String} value as keyword of right ascension record
+     *                              or {@link cz.muni.fi.fits.engine.tools.RightAscension} as right ascension value parameters
+     * @param declination           {@link String} value as keyword of declination record
+     *                              or {@link cz.muni.fi.fits.engine.tools.Declination} as declination value parameters
      * @param comment               comment of HJD record, insert
      *                              <code>null</code> when no comment to add
      * @param fitsFile              FITS file in which to chain records
      * @return                      {@link Result} object with results of this operation
      */
-    Result computeHeliocentricJulianDate(Object datetime, Object exposure, RightAscension rightAscension, Declination declination, String comment, File fitsFile);
+    Result computeHeliocentricJulianDate(Object datetime, Object exposure, Object rightAscension, Object declination, String comment, File fitsFile);
 }

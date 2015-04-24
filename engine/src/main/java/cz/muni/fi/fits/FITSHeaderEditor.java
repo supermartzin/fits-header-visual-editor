@@ -7,7 +7,9 @@ import cz.muni.fi.fits.exceptions.IllegalInputDataException;
 import cz.muni.fi.fits.exceptions.ValidationException;
 import cz.muni.fi.fits.input.processors.InputProcessor;
 import cz.muni.fi.fits.input.validators.InputDataValidator;
+import cz.muni.fi.fits.models.DegreesObject;
 import cz.muni.fi.fits.models.Result;
+import cz.muni.fi.fits.models.TimeObject;
 import cz.muni.fi.fits.models.inputData.*;
 import cz.muni.fi.fits.output.writers.OutputWriter;
 
@@ -273,14 +275,23 @@ public class FITSHeaderEditor {
 
                     // compute HJD in FITS files
                     for (File fitsFile : chjdid.getFitsFiles()) {
-                        RightAscension rightAscension =
-                                new RightAscension(chjdid.getRightAscension().getHours(),
-                                                   chjdid.getRightAscension().getMinutes(),
-                                                   chjdid.getRightAscension().getSeconds());
-                        Declination declination =
-                                new Declination(chjdid.getDeclination().getDegrees(),
-                                                chjdid.getDeclination().getMinutes(),
-                                                chjdid.getDeclination().getSeconds());
+                        Object rightAscension = chjdid.getRightAscension();
+                        Object declination = chjdid.getDeclination();
+
+                        if (chjdid.getRightAscension() instanceof TimeObject) {
+                            TimeObject raTimeObject = (TimeObject) chjdid.getRightAscension();
+                            rightAscension = new RightAscension(
+                                    raTimeObject.getHours(),
+                                    raTimeObject.getMinutes(),
+                                    raTimeObject.getSeconds());
+                        }
+                        if (chjdid.getDeclination() instanceof DegreesObject) {
+                            DegreesObject decDegreesObject = (DegreesObject) chjdid.getDeclination();
+                            declination = new Declination(
+                                    decDegreesObject.getDegrees(),
+                                    decDegreesObject.getMinutes(),
+                                    decDegreesObject.getSeconds());
+                        }
 
                         Result result = _headerEditingEngine.computeHeliocentricJulianDate(
                                 chjdid.getDatetime(),

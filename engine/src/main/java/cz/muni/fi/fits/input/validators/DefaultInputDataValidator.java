@@ -2,16 +2,20 @@ package cz.muni.fi.fits.input.validators;
 
 import com.google.common.base.CharMatcher;
 import cz.muni.fi.fits.exceptions.ValidationException;
+import cz.muni.fi.fits.models.DegreesObject;
+import cz.muni.fi.fits.models.TimeObject;
 import cz.muni.fi.fits.models.inputData.*;
 import cz.muni.fi.fits.utils.Constants;
 import cz.muni.fi.fits.utils.Tuple;
+
+import java.time.LocalDateTime;
 
 /**
  * Default implementation of {@link InputDataValidator} interface
  * for validation of input data
  *
  * @author Martin Vrábel
- * @version 1.1.1
+ * @version 1.2
  */
 public class DefaultInputDataValidator implements InputDataValidator {
 
@@ -490,6 +494,11 @@ public class DefaultInputDataValidator implements InputDataValidator {
         if (computeJDInputData.getDatetime() == null)
             throw new ValidationException("DateTime parameter cannot be null");
 
+        // Datetime parameter must be either String or LocalDateTime
+        if (!(computeJDInputData.getDatetime() instanceof String)
+                && !(computeJDInputData.getDatetime() instanceof LocalDateTime))
+            throw new ValidationException("DateTime parameter must be either String keyword or LocalDateTime value");
+
         if (computeJDInputData.getDatetime() instanceof String) {
             String datetime = (String)computeJDInputData.getDatetime();
 
@@ -509,6 +518,11 @@ public class DefaultInputDataValidator implements InputDataValidator {
         // Exposure parameter cannot be null
         if (computeJDInputData.getExposure() == null)
             throw new ValidationException("Exposure parameter cannot be null");
+
+        // Exposure parameter must be either String or Double
+        if (!(computeJDInputData.getExposure() instanceof String)
+                && !(computeJDInputData.getExposure() instanceof Double))
+            throw new ValidationException("Exposure parameter must be either String keyword or Double value");
 
         if (computeJDInputData.getExposure() instanceof Double) {
             double exposure = (Double)computeJDInputData.getExposure();
@@ -565,6 +579,11 @@ public class DefaultInputDataValidator implements InputDataValidator {
         if (computeHJDInputData.getDatetime() == null)
             throw new ValidationException("DateTime parameter cannot be null");
 
+        // Datetime parameter must be either String or LocalDateTime
+        if (!(computeHJDInputData.getDatetime() instanceof String)
+                && !(computeHJDInputData.getDatetime() instanceof LocalDateTime))
+            throw new ValidationException("DateTime parameter must be either String keyword or LocalDateTime value");
+
         if (computeHJDInputData.getDatetime() instanceof String) {
             String datetime = (String)computeHJDInputData.getDatetime();
 
@@ -584,6 +603,11 @@ public class DefaultInputDataValidator implements InputDataValidator {
         // Exposure parameter cannot be null
         if (computeHJDInputData.getExposure() == null)
             throw new ValidationException("Exposure parameter cannot be null");
+
+        // Exposure parameter must be either String or Double
+        if (!(computeHJDInputData.getExposure() instanceof String)
+                && !(computeHJDInputData.getExposure() instanceof Double))
+            throw new ValidationException("Exposure parameter must be either String keyword or Double value");
 
         if (computeHJDInputData.getExposure() instanceof Double) {
             double exposure = (Double)computeHJDInputData.getExposure();
@@ -613,25 +637,75 @@ public class DefaultInputDataValidator implements InputDataValidator {
         if (computeHJDInputData.getRightAscension() == null)
             throw new ValidationException("Right ascension parameter cannot be null");
 
-        // right ascension parameter values must be numbers
-        if (Double.isNaN(computeHJDInputData.getRightAscension().getHours()))
-            throw new ValidationException("Right ascension's hours parameter must be number");
-        if (Double.isNaN(computeHJDInputData.getRightAscension().getMinutes()))
-            throw new ValidationException("Right ascension's minutes parameter must be number");
-        if (Double.isNaN(computeHJDInputData.getRightAscension().getSeconds()))
-            throw new ValidationException("Right ascension's seconds parameter must be number");
+        // right ascension parameter must be either String or TimeObject
+        if (!(computeHJDInputData.getRightAscension() instanceof String)
+                && !(computeHJDInputData.getRightAscension() instanceof TimeObject))
+            throw new ValidationException("Right ascension parameter must be either String keyword or TimeObject value");
+
+        if (computeHJDInputData.getRightAscension() instanceof TimeObject) {
+            TimeObject rightAscension = (TimeObject) computeHJDInputData.getRightAscension();
+
+            // right ascension parameter values must be numbers`
+            if (Double.isNaN(rightAscension.getHours()))
+                throw new ValidationException("Right ascension's hours parameter must be number");
+            if (Double.isNaN(rightAscension.getMinutes()))
+                throw new ValidationException("Right ascension's minutes parameter must be number");
+            if (Double.isNaN(rightAscension.getSeconds()))
+                throw new ValidationException("Right ascension's seconds parameter must be number");
+        }
+
+        if (computeHJDInputData.getRightAscension() instanceof String) {
+            String rightAscension = (String)computeHJDInputData.getRightAscension();
+
+            // String right ascension keyword cannot be empty
+            if (rightAscension.isEmpty())
+                throw new ValidationException("Right ascension keyword cannot be empty");
+
+            // String right ascension keyword cannot contain invalid characters
+            if (!rightAscension.matches(Constants.KEYWORD_REGEX))
+                throw new ValidationException("Right ascension keyword contains invalid characters");
+
+            // String right ascension keyword cannot exceed allowed length
+            if (rightAscension.length() > Constants.MAX_KEYWORD_LENGTH)
+                throw new ValidationException("Right ascension keyword has exceeded maximum allowed length of " + Constants.MAX_KEYWORD_LENGTH + " characters");
+        }
 
         // declination parameter cannot be null
         if (computeHJDInputData.getDeclination() == null)
             throw new ValidationException("Declination parameter cannot be null");
 
-        // declination parameter values must be numbers
-        if (Double.isNaN(computeHJDInputData.getDeclination().getDegrees()))
-            throw new ValidationException("Declination's degrees parameter must be number");
-        if (Double.isNaN(computeHJDInputData.getDeclination().getMinutes()))
-            throw new ValidationException("Declination's minutes parameter must be number");
-        if (Double.isNaN(computeHJDInputData.getDeclination().getSeconds()))
-            throw new ValidationException("Declination's seconds parameter must be number");
+        // declination parameter must be either String or DegreesObject
+        if (!(computeHJDInputData.getDeclination() instanceof String)
+                && !(computeHJDInputData.getDeclination() instanceof DegreesObject))
+            throw new ValidationException("Declination parameter must be either String keyword or DegreesObject value");
+
+        if (computeHJDInputData.getDeclination() instanceof DegreesObject) {
+            DegreesObject declination = (DegreesObject) computeHJDInputData.getDeclination();
+
+            // declination parameter values must be numbers
+            if (Double.isNaN(declination.getDegrees()))
+                throw new ValidationException("Declination's degrees parameter must be number");
+            if (Double.isNaN(declination.getMinutes()))
+                throw new ValidationException("Declination's minutes parameter must be number");
+            if (Double.isNaN(declination.getSeconds()))
+                throw new ValidationException("Declination's seconds parameter must be number");
+        }
+
+        if (computeHJDInputData.getDeclination() instanceof String) {
+            String declination = (String)computeHJDInputData.getDeclination();
+
+            // String declination keyword cannot be empty
+            if (declination.isEmpty())
+                throw new ValidationException("Declination keyword cannot be empty");
+
+            // String declination keyword cannot contain invalid characters
+            if (!declination.matches(Constants.KEYWORD_REGEX))
+                throw new ValidationException("Declination keyword contains invalid characters");
+
+            // String declination keyword cannot exceed allowed length
+            if (declination.length() > Constants.MAX_KEYWORD_LENGTH)
+                throw new ValidationException("Declination keyword has exceeded maximum allowed length of " + Constants.MAX_KEYWORD_LENGTH + " characters");
+        }
 
         // check comment
         if (computeHJDInputData.getComment() != null

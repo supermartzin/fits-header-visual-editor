@@ -13,15 +13,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Tests for extraction of input data for operation <b>Change keyword of record</b>
  * in {@link CmdArgumentsProcessorHelper} class
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1
  */
 public class ProcessorHelper_ExtractChangeKeywordDataTest {
 
@@ -49,7 +48,16 @@ public class ProcessorHelper_ExtractChangeKeywordDataTest {
     }
 
     @Test
-    public void testExtractChangeKeywordData_WrongSwtichParameter() throws Exception {
+    public void testExtractChangeKeywordData_NoSwitchParameter() throws Exception {
+        String[] args = new String[] { "change_kw", FILE_PATH.toString(), "OLD_KEYWORD", "NEW_KEYWORD" };
+
+        ChangeKeywordInputData ckid = CmdArgumentsProcessorHelper.extractChangeKeywordData(args);
+        assertNotNull(ckid);
+        assertFalse(ckid.removeValueOfNewIfExists());
+    }
+
+    @Test
+    public void testExtractChangeKeywordData_WrongSwitchParameter() throws Exception {
         String[] args = new String[] { "change_kw", "-remove", FILE_PATH.toString(), "OLD_KEYWORD", "NEW_KEYWORD" };
 
         exception.expect(InvalidSwitchParameterException.class);
@@ -57,12 +65,40 @@ public class ProcessorHelper_ExtractChangeKeywordDataTest {
     }
 
     @Test
-    public void testExtractChangeKeywordData_CorrectParameters() throws Exception {
-        String[] args = new String[] { "change_kw", "-rm", FILE_PATH.toString(), "OLD_KEYWORD", "5963" };
+    public void testExtractChangeKeywordData_OldKeyword() throws Exception {
+        String[] args = new String[] { "change_kw", "-rm", FILE_PATH.toString(), "OLD keyword", "NEW_KEYWORD" };
 
         ChangeKeywordInputData ckid = CmdArgumentsProcessorHelper.extractChangeKeywordData(args);
-        assertEquals("OLD_KEYWORD".toUpperCase(), ckid.getOldKeyword());
-        assertEquals("5963".toUpperCase(), ckid.getNewKeyword());
+        assertNotNull(ckid);
+        assertEquals("OLD KEYWORD", ckid.getOldKeyword());
+    }
+
+    @Test
+    public void testExtractChangeKeywordData_NewKeyword() throws Exception {
+        String[] args = new String[] { "change_kw", "-rm", FILE_PATH.toString(), "OLD", "new KEYWORD" };
+
+        ChangeKeywordInputData ckid = CmdArgumentsProcessorHelper.extractChangeKeywordData(args);
+        assertNotNull(ckid);
+        assertEquals("NEW KEYWORD", ckid.getNewKeyword());
+    }
+
+    @Test
+    public void testExtractChangeKeywordData_ValidSwitchParameter() throws Exception {
+        String[] args = new String[] { "change_kw", "-rm", FILE_PATH.toString(), "OLD_KEYWORD", "NEW_KEYWORD" };
+
+        ChangeKeywordInputData ckid = CmdArgumentsProcessorHelper.extractChangeKeywordData(args);
+        assertNotNull(ckid);
+        assertTrue(ckid.removeValueOfNewIfExists());
+    }
+
+    @Test
+    public void testExtractChangeKeywordData_CorrectParameters() throws Exception {
+        String[] args = new String[] { "change_kw", "-rm", FILE_PATH.toString(), "olD_KEYWORD", "5963" };
+
+        ChangeKeywordInputData ckid = CmdArgumentsProcessorHelper.extractChangeKeywordData(args);
+        assertNotNull(ckid);
+        assertEquals("OLD_KEYWORD", ckid.getOldKeyword());
+        assertEquals("5963", ckid.getNewKeyword());
         assertTrue(ckid.removeValueOfNewIfExists());
     }
 }

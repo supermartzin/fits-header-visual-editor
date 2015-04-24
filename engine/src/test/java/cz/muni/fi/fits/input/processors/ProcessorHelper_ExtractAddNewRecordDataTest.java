@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  * in {@link CmdArgumentsProcessorHelper} class
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1
  */
 public class ProcessorHelper_ExtractAddNewRecordDataTest {
 
@@ -54,26 +54,11 @@ public class ProcessorHelper_ExtractAddNewRecordDataTest {
     }
 
     @Test
-    public void testExtractAddNewRecordData_CorrectParameters1() throws Exception {
-        String[] args = new String[] { "add", "-u", FILE_PATH.toString(), "KEYWORD", "VALUE", "COMMENT" };
+    public void testExtractAddNewRecordData_NoSwitchParameter() throws Exception {
+        String[] args = new String[] { "add", FILE_PATH.toString(), "KEYWORD", "VALUE" };
 
         AddNewRecordInputData anrid = CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
-
-        assertEquals("KEYWORD".toUpperCase(), anrid.getKeyword());
-        assertEquals("VALUE", anrid.getValue());
-        assertEquals("COMMENT", anrid.getComment());
-        assertTrue(anrid.updateIfExists());
-    }
-
-    @Test
-    public void testExtractAddNewRecordData_CorrectParameters2() throws Exception {
-        String[] args = new String[] { "add", FILE_PATH.toString(), "KEYWORD", "true" };
-
-        AddNewRecordInputData anrid = CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
-
-        assertEquals("KEYWORD".toUpperCase(), anrid.getKeyword());
-        assertTrue((Boolean) anrid.getValue());
-        assertNull(anrid.getComment());
+        assertNotNull(anrid);
         assertFalse(anrid.updateIfExists());
     }
 
@@ -84,4 +69,59 @@ public class ProcessorHelper_ExtractAddNewRecordDataTest {
         exception.expect(InvalidSwitchParameterException.class);
         CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
     }
+
+    @Test
+    public void testExtractAddNewRecordData_ValidSwitchParameter() throws Exception {
+        String[] args = new String[] { "add", "-u", FILE_PATH.toString(), "KEYWORD", "VALUE" };
+
+        AddNewRecordInputData anrid = CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
+        assertNotNull(anrid);
+        assertTrue(anrid.updateIfExists());
+    }
+
+    @Test
+    public void testExtractAddNewRecordData_ContainsComment() throws Exception {
+        String[] args = new String[] { "add", "-u", FILE_PATH.toString(), "KEYWORD", "VALUE", "comment" };
+
+        AddNewRecordInputData anrid = CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
+
+        assertNotNull(anrid);
+        assertNotNull(anrid.getComment());
+        assertEquals("comment", anrid.getComment());
+    }
+
+    @Test
+    public void testExtractAddNewRecordData_DoesNotContainComment() throws Exception {
+        String[] args = new String[] { "add", "-u", FILE_PATH.toString(), "KEYWORD", "VALUE" };
+
+        AddNewRecordInputData anrid = CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
+
+        assertNotNull(anrid);
+        assertNull(anrid.getComment());
+    }
+
+    @Test
+    public void testExtractAddNewRecordData_Keyword() throws Exception {
+        String[] args = new String[] { "add", FILE_PATH.toString(), "keyWORD", "true" };
+
+        AddNewRecordInputData anrid = CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
+
+        assertNotNull(anrid);
+        assertEquals("KEYWORD", anrid.getKeyword());
+    }
+
+    @Test
+    public void testExtractAddNewRecordData_CorrectParameters() throws Exception {
+        String[] args = new String[] { "add", FILE_PATH.toString(), "KEYWORD", "true" };
+
+        AddNewRecordInputData anrid = CmdArgumentsProcessorHelper.extractAddNewRecordData(args, _converter);
+
+        assertNotNull(anrid);
+        assertEquals("KEYWORD", anrid.getKeyword());
+        assertTrue((Boolean) anrid.getValue());
+        assertNull(anrid.getComment());
+        assertFalse(anrid.updateIfExists());
+    }
+
+
 }

@@ -830,14 +830,14 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             JulianDate jd = new JulianDate(datetimeValue);
 
             // save to header as new record
-            HeaderCard jdCard = new HeaderCard("JD", jd.getJulianDate(), comment);
-            if (header.containsKey("JD")) {
-                header.updateLine("JD", jdCard);
+            HeaderCard jdCard = new HeaderCard(Constants.DEFAULT_JD_KEYWORD, jd.getJulianDate(), comment);
+            if (header.containsKey(Constants.DEFAULT_JD_KEYWORD)) {
+                header.updateLine(Constants.DEFAULT_JD_KEYWORD, jdCard);
                 jdUpdated = true;
             } else {
                 Cursor<String, HeaderCard> iterator = header.iterator();
                 iterator.end();
-                iterator.add("JD", jdCard);
+                iterator.add(Constants.DEFAULT_JD_KEYWORD, jdCard);
             }
 
             // write changes back to file
@@ -863,15 +863,17 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
      *                              or {@link java.time.LocalDateTime} as value of datetime
      * @param exposure              {@link String} value as keyword of exposure record
      *                              or {@link Double} as value of exposure in seconds
-     * @param rightAscension        object's right ascension parameter
-     * @param declination           object's declination parameter
+     * @param rightAscension        {@link String} value as keyword of right ascension record
+     *                              or {@link cz.muni.fi.fits.engine.tools.RightAscension} as right ascension value parameters
+     * @param declination           {@link String} value as keyword of declination record
+     *                              or {@link cz.muni.fi.fits.engine.tools.Declination} as declination value parameters
      * @param comment               comment of HJD record, insert
      *                              <code>null</code> when no comment to add
      * @param fitsFile              FITS file in which to chain records
      * @return                      {@inheritDoc}
      */
     @Override
-    public Result computeHeliocentricJulianDate(Object datetime, Object exposure, RightAscension rightAscension, Declination declination, String comment, File fitsFile) {
+    public Result computeHeliocentricJulianDate(Object datetime, Object exposure, Object rightAscension, Object declination, String comment, File fitsFile) {
         if (datetime == null)
             throw new IllegalArgumentException("datetime is null");
         if (exposure == null)
@@ -894,6 +896,8 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
             LocalDateTime datetimeValue;
             double exposureValue;
+            RightAscension rightAscensionValue;
+            Declination declinationValue;
 
             // load datetime value
             if (datetime instanceof LocalDateTime) {
@@ -940,81 +944,150 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                 return new Result(false, "Unknown type for Exposure object");
             }
 
+            // load right ascension value
+            if (rightAscension instanceof RightAscension) {
+                rightAscensionValue = (RightAscension) rightAscension;
+            } else if (rightAscension instanceof String) {
+                // get value from FITS file header
+                String rightAscensionKeyword = (String) rightAscension;
+
+                if (header.containsKey(rightAscensionKeyword)) {
+                    HeaderCard rightAscensionCard = header.findCard(rightAscensionKeyword);
+
+                    // parse right ascension from record
+                    String[] values = rightAscensionCard.getValue().trim().split(":");
+                    if (values.length == 3) {
+                        try {
+                            rightAscensionValue = new RightAscension(
+                                    Double.parseDouble(values[0].trim()),
+                                    Double.parseDouble(values[1].trim()),
+                                    Double.parseDouble(values[2].trim()));
+                        } catch (NumberFormatException nfEx) {
+                            return new Result(false, "Value of Right Ascension record '" + rightAscensionKeyword + "' is in invalid format");
+                        }
+                    } else {
+                        return new Result(false, "Record with keyword '" + rightAscensionKeyword + "' does not contain valid Right Ascension value");
+                    }
+                } else {
+                    return new Result(false, "Header does not contain Right Ascension record with keyword '" + rightAscensionKeyword + "'");
+                }
+            } else {
+                return new Result(false, "Unknown type for Right Ascension object");
+            }
+
+            // load declination value
+            if (declination instanceof Declination) {
+                declinationValue = (Declination) declination;
+            } else if (declination instanceof String) {
+                // get value from FITS file header
+                String declinationKeyword = (String) declination;
+
+                if (header.containsKey(declinationKeyword)) {
+                    HeaderCard declinationCard = header.findCard(declinationKeyword);
+
+                    // parse declination from record
+                    String[] values = declinationCard.getValue().trim().split(":");
+                    if (values.length == 3) {
+                        try {
+                            declinationValue = new Declination(
+                                    Double.parseDouble(values[0].trim()),
+                                    Double.parseDouble(values[1].trim()),
+                                    Double.parseDouble(values[2].trim()));
+                        } catch (NumberFormatException nfEx) {
+                            return new Result(false, "Value of Declination record '" + declinationKeyword + "' is in invalid format");
+                        }
+                    } else {
+                        return new Result(false, "Record with keyword '" + declinationKeyword + "' does not contain valid Declination value");
+                    }
+                } else {
+                    return new Result(false, "Header does not contain Declination record with keyword '" + declinationKeyword + "'");
+                }
+            } else {
+                return new Result(false, "Unknown type for Declination object");
+            }
+
             // move datetime to center of exposure time
             double nanoseconds = exposureValue * 1000 * 1000 * 1000; // for greater precision
             datetimeValue = datetimeValue.plusNanos(Double.valueOf(nanoseconds).longValue());
 
             // compute Heliocentric Julian Date
             JulianDate jd = new JulianDate(datetimeValue);
-            HeliocentricJulianDate hjd = new HeliocentricJulianDate(jd, rightAscension, declination);
+            HeliocentricJulianDate hjd = new HeliocentricJulianDate(jd, rightAscensionValue, declinationValue);
 
             // save to header as new record
-            HeaderCard hjdCard = new HeaderCard("HJD", hjd.computeHeliocentricJulianDate(), comment);
-            if (header.containsKey("HJD")) {
-                header.updateLine("HJD", hjdCard);
+            HeaderCard hjdCard = new HeaderCard(Constants.DEFAULT_HJD_KEYWORD, hjd.computeHeliocentricJulianDate(), comment);
+            if (header.containsKey(Constants.DEFAULT_HJD_KEYWORD)) {
+                header.updateLine(Constants.DEFAULT_HJD_KEYWORD, hjdCard);
                 hjdUpdated = true;
             } else {
                 Cursor<String, HeaderCard> iterator = header.iterator();
                 iterator.end();
-                iterator.add("HJD", hjdCard);
+                iterator.add(Constants.DEFAULT_HJD_KEYWORD, hjdCard);
             }
 
-            // save right ascension to header
-            double raHours = rightAscension.getHours();
-            double raMinutes = rightAscension.getMinutes();
-            double raSeconds = rightAscension.getSeconds();
-            String raValue = "";
-            if (Math.rint(raHours) == raHours)
-                raValue += Double.valueOf(raHours).intValue();
-            else
-                raValue += raHours;
-            raValue += ":";
-            if (Math.rint(raMinutes) == raMinutes)
-                raValue += Double.valueOf(raMinutes).intValue();
-            else
-                raValue += raMinutes;
-            raValue += ":";
-            if (Math.rint(raSeconds) == raSeconds)
-                raValue += Double.valueOf(raSeconds).intValue();
-            else
-                raValue += raSeconds;
+            boolean saveRightAscension = rightAscension instanceof RightAscension;
+            boolean saveDeclination = declination instanceof Declination;
 
-            HeaderCard raCard = new HeaderCard("RA", raValue, "ra");
-            if (header.containsKey("RA"))
-                header.updateLine("RA", raCard);
-            else {
-                Cursor<String, HeaderCard> iterator = header.iterator();
-                iterator.end();
-                iterator.add("RA", raCard);
+            if (saveRightAscension) {
+                // save right ascension to header
+                double raHours = rightAscensionValue.getHours();
+                double raMinutes = rightAscensionValue.getMinutes();
+                double raSeconds = rightAscensionValue.getSeconds();
+                String raValue = "";
+                if (Math.rint(raHours) == raHours)
+                    raValue += Double.valueOf(raHours).intValue();
+                else
+                    raValue += raHours;
+                raValue += ":";
+                if (Math.rint(raMinutes) == raMinutes)
+                    raValue += Double.valueOf(raMinutes).intValue();
+                else
+                    raValue += raMinutes;
+                raValue += ":";
+                if (Math.rint(raSeconds) == raSeconds)
+                    raValue += Double.valueOf(raSeconds).intValue();
+                else
+                    raValue += raSeconds;
+
+                HeaderCard raCard = new HeaderCard(Constants.DEFAULT_RA_KEYWORD, raValue, Constants.DEFAULT_RA_COMMENT);
+                if (header.containsKey(Constants.DEFAULT_RA_KEYWORD))
+                    header.updateLine(Constants.DEFAULT_RA_KEYWORD, raCard);
+                else {
+                    Cursor<String, HeaderCard> iterator = header.iterator();
+                    iterator.end();
+                    iterator.add(Constants.DEFAULT_RA_KEYWORD, raCard);
+                }
             }
 
-            // save declination to header
-            double decDegrees = declination.getDegrees();
-            double decMinutes = declination.getMinutes();
-            double decSeconds = declination.getSeconds();
-            String decValue = "";
-            if (Math.rint(decDegrees) == decDegrees)
-                decValue += Double.valueOf(decDegrees).intValue();
-            else
-                decValue += decDegrees;
-            decValue += ":";
-            if (Math.rint(decMinutes) == decMinutes)
-                decValue += Double.valueOf(decMinutes).intValue();
-            else
-                decValue += decMinutes;
-            decValue += ":";
-            if (Math.rint(decSeconds) == decSeconds)
-                decValue += Double.valueOf(decSeconds).intValue();
-            else
-                decValue += decSeconds;
+            if (saveDeclination) {
+                // save declination to header
+                double decDegrees = declinationValue.getDegrees();
+                double decMinutes = declinationValue.getMinutes();
+                double decSeconds = declinationValue.getSeconds();
+                String decValue = "";
+                if (Math.rint(decDegrees) == decDegrees)
+                    decValue += Double.valueOf(decDegrees).intValue();
+                else
+                    decValue += decDegrees;
+                decValue += ":";
+                if (Math.rint(decMinutes) == decMinutes)
+                    decValue += Double.valueOf(decMinutes).intValue();
+                else
+                    decValue += decMinutes;
+                decValue += ":";
+                if (Math.rint(decSeconds) == decSeconds)
+                    decValue += Double.valueOf(decSeconds).intValue();
+                else
+                    decValue += decSeconds;
 
-            HeaderCard decCard = new HeaderCard("DEC", decValue, "dec");
-            if (header.containsKey("DEC"))
-                header.updateLine("DEC", decCard);
-            else {
-                Cursor<String, HeaderCard> iterator = header.iterator();
-                iterator.end();
-                iterator.add("DEC", decCard);
+                HeaderCard decCard = new HeaderCard(Constants.DEFAULT_DEC_KEYWORD, decValue, Constants.DEFAULT_DEC_COMMENT);
+                if (header.containsKey(Constants.DEFAULT_DEC_KEYWORD))
+                    header.updateLine(Constants.DEFAULT_DEC_KEYWORD, decCard);
+                else {
+                    Cursor<String, HeaderCard> iterator = header.iterator();
+                    iterator.end();
+                    iterator.add(Constants.DEFAULT_DEC_KEYWORD, decCard);
+                }
             }
 
             // write changes back to file

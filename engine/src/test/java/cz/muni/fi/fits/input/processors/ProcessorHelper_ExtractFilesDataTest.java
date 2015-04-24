@@ -16,6 +16,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -23,7 +25,7 @@ import static org.junit.Assert.assertTrue;
  * in {@link CmdArgumentsProcessorHelper} class
  *
  * @author Martin Vrábel
- * @version 1.1
+ * @version 1.1.1
  */
 public class ProcessorHelper_ExtractFilesDataTest {
 
@@ -93,8 +95,8 @@ public class ProcessorHelper_ExtractFilesDataTest {
         List<String> fitsFilesLines = Arrays.asList("sample1.fits", "#sample2.fits", "sample3.fits", "##sample4.fits", "sample5.fits");
         Files.write(FILE_PATH, fitsFilesLines);
 
-        HashSet<File> fitsFiles = new HashSet<>(CmdArgumentsProcessorHelper.extractFilesData(FILE_PATH.toString()));
-
-        assertTrue(fitsFiles.size() == 3);
+        Collection<File> files = CmdArgumentsProcessorHelper.extractFilesData(FILE_PATH.toString());
+        assertNotNull(files);
+        assertEquals(3, files.size());
     }
 }

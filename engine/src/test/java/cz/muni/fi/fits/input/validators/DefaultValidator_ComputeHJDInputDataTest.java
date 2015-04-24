@@ -66,11 +66,21 @@ public class DefaultValidator_ComputeHJDInputDataTest {
 
     @Test
     public void testValidate_ComputeHJDInputData_DatetimeParameterNull() throws Exception {
-        ComputeHJDInputData chjdid = new ComputeHJDInputData((String)null, 40.0,
+        ComputeHJDInputData chjdid = new ComputeHJDInputData(null, 40.0,
                 new TimeObject(12, 25.3, 6), new DegreesObject(-87, 25, 14.256), "comment", _fitsFiles);
 
         exception.expect(ValidationException.class);
         exception.expectMessage("cannot be null");
+        _validator.validate(chjdid);
+    }
+
+    @Test
+    public void testValidate_ComputeHJDInputData_DatetimeParameterInvalidType() throws Exception {
+        ComputeHJDInputData chjdid = new ComputeHJDInputData(true, "exptime",
+                new TimeObject(12, 25.3, 6), "DEC", "comment", _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("must be either String keyword or LocalDateTime value");
         _validator.validate(chjdid);
     }
 
@@ -111,6 +121,16 @@ public class DefaultValidator_ComputeHJDInputDataTest {
 
         exception.expect(ValidationException.class);
         exception.expectMessage("cannot be null");
+        _validator.validate(chjdid);
+    }
+
+    @Test
+    public void testValidate_ComputeHJDInputData_ExposureParameterInvalidType() throws Exception {
+        ComputeHJDInputData chjdid = new ComputeHJDInputData(LocalDateTime.now(), true,
+                new TimeObject(12, 25.3, 6), "DEC", "comment", _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("must be either String keyword or Double value");
         _validator.validate(chjdid);
     }
 
@@ -165,6 +185,16 @@ public class DefaultValidator_ComputeHJDInputDataTest {
     }
 
     @Test
+    public void testValidate_ComputeHJDInputData_RightAscensionParameterInvalidType() throws Exception {
+        ComputeHJDInputData chjdid = new ComputeHJDInputData(LocalDateTime.now(), 10.0,
+                false, "DEC", "comment", _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("must be either String keyword or TimeObject value");
+        _validator.validate(chjdid);
+    }
+
+    @Test
     public void testValidate_ComputeHJDInputData_RightAscensionHoursNaN() throws Exception {
         ComputeHJDInputData chjdid = new ComputeHJDInputData("DATETIME", "EXPOSURE",
                 new TimeObject(Double.NaN, 24.0, 5), new DegreesObject(-87, 25, 14.256), null, _fitsFiles);
@@ -195,12 +225,52 @@ public class DefaultValidator_ComputeHJDInputDataTest {
     }
 
     @Test
+    public void testValidate_ComputeHJDInputData_RightAscensionKeywordEmpty() throws Exception {
+        ComputeHJDInputData chjdid = new ComputeHJDInputData("DATETIME", "EXPTIME",
+                "", new DegreesObject(-87, 25, 14.256), null, _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be empty");
+        _validator.validate(chjdid);
+    }
+
+    @Test
+    public void testValidate_ComputeHJDInputData_RightAscensionKeywordWithInvalidChars() throws Exception {
+        ComputeHJDInputData chjdid = new ComputeHJDInputData("DATETIME", "EXPOSURE",
+                "RA/*/", new DegreesObject(-87, 25, 14.256), null, _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("contains invalid characters");
+        _validator.validate(chjdid);
+    }
+
+    @Test
+    public void testValidate_ComputeHJDInputData_RightAscensionKeywordTooLong() throws Exception {
+        ComputeHJDInputData chjdid = new ComputeHJDInputData("DATETIME", "EXPOSURE",
+                "RIGHT_ASCENSION", new DegreesObject(-87, 25, 14.256), null, _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("has exceeded maximum allowed length");
+        _validator.validate(chjdid);
+    }
+
+    @Test
     public void testValidate_ComputeHJDInputData_DeclinationNull() throws Exception {
         ComputeHJDInputData chjdid = new ComputeHJDInputData("DATETIME", "EXPOSURE",
                 new TimeObject(12, 25.3, 6), null, "comment", _fitsFiles);
 
         exception.expect(ValidationException.class);
         exception.expectMessage("cannot be null");
+        _validator.validate(chjdid);
+    }
+
+    @Test
+    public void testValidate_ComputeHJDInputData_DeclinationParameterInvalidType() throws Exception {
+        ComputeHJDInputData chjdid = new ComputeHJDInputData("DATETIME", "EXPOSURE",
+                new TimeObject(12, 25.3, 6), true, "comment", _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("must be either String keyword or DegreesObject value");
         _validator.validate(chjdid);
     }
 
@@ -231,6 +301,36 @@ public class DefaultValidator_ComputeHJDInputDataTest {
 
         exception.expect(ValidationException.class);
         exception.expectMessage("must be number");
+        _validator.validate(chjdid);
+    }
+
+    @Test
+    public void testValidate_ComputeHJDInputData_DeclinationKeywordEmpty() throws Exception {
+        ComputeHJDInputData chjdid = new ComputeHJDInputData("DATETIME", "EXPTIME",
+                new TimeObject(12, 14, 23), "", null, _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("cannot be empty");
+        _validator.validate(chjdid);
+    }
+
+    @Test
+    public void testValidate_ComputeHJDInputData_DeclinationKeywordWithInvalidChars() throws Exception {
+        ComputeHJDInputData chjdid = new ComputeHJDInputData("DATETIME", "EXPOSURE",
+                new TimeObject(12, 14, 23), "DEC*/", null, _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("contains invalid characters");
+        _validator.validate(chjdid);
+    }
+
+    @Test
+    public void testValidate_ComputeHJDInputData_DeclinationKeywordTooLong() throws Exception {
+        ComputeHJDInputData chjdid = new ComputeHJDInputData("DATETIME", "EXPOSURE",
+                new TimeObject(12, 14, 23), "DECLINATION_TOO_LONG", "comment", _fitsFiles);
+
+        exception.expect(ValidationException.class);
+        exception.expectMessage("has exceeded maximum allowed length");
         _validator.validate(chjdid);
     }
 

@@ -21,7 +21,7 @@ import java.util.LinkedList;
  * that helps to extract input data to specific operation
  *
  * @author Martin Vrábel
- * @version 1.2.2
+ * @version 1.3
  */
 final class CmdArgumentsProcessorHelper {
 
@@ -611,28 +611,27 @@ final class CmdArgumentsProcessorHelper {
         String parameter;
 
         // get datetime parameter (requred)
-        String datetimeKeyword = null;
-        LocalDateTime datetimeValue = null;
+        Object datetime;
         parameter = cmdArgs[2].trim();
 
         if (converter.tryParseLocalDateTime(parameter))
-            datetimeValue = converter.parseLocalDateTime(parameter);
+            datetime = converter.parseLocalDateTime(parameter);
         else
-            datetimeKeyword = parameter;
+            datetime = parameter;
 
         // get exposure time parameter (required)
-        String exposureKeyword = null;
-        double exposureValue = Double.NaN;
+        Object exposure;
         parameter = cmdArgs[3].trim();
 
         if (converter.tryParseDouble(parameter))
-            exposureValue = converter.parseDouble(parameter);
+            exposure = converter.parseDouble(parameter);
         else
-            exposureKeyword = parameter;
+            exposure = parameter;
 
         // get right ascension parameters (required)
-        TimeObject rightAscensionParams;
+        Object rightAscension;
         parameter = cmdArgs[4].trim();
+
         String[] raValues = parameter.split(":");
         if (raValues.length == 3) {
             double hours;
@@ -654,14 +653,15 @@ final class CmdArgumentsProcessorHelper {
                 seconds = converter.parseDouble(raValues[2].trim());
             else throw new IllegalInputDataException("Right ascension's seconds parameter is in invalid format");
 
-            rightAscensionParams = new TimeObject(hours, minutes, seconds);
+            rightAscension = new TimeObject(hours, minutes, seconds);
         } else {
-            throw new IllegalInputDataException("Value of right ascension parameter is in invalid format");
+            rightAscension = parameter;
         }
 
         // get declination parameters (required)
-        DegreesObject declinationParams;
+        Object declination;
         parameter = cmdArgs[5].trim();
+
         String[] decValues = parameter.split(":");
         if (decValues.length == 3) {
             double degrees;
@@ -683,9 +683,9 @@ final class CmdArgumentsProcessorHelper {
                 seconds = converter.parseDouble(decValues[2].trim());
             else throw new IllegalInputDataException("Declination's seconds parameter is in invalid format");
 
-            declinationParams = new DegreesObject(degrees, minutes, seconds);
+            declination = new DegreesObject(degrees, minutes, seconds);
         } else {
-            throw new IllegalInputDataException("Value of declination parameter is in invalid format");
+            declination = parameter;
         }
 
         // get comment (optional)
@@ -693,17 +693,6 @@ final class CmdArgumentsProcessorHelper {
         if (cmdArgs.length == 7)
             comment = cmdArgs[6].trim();
 
-        // datetime == keyword && exposure = keyword
-        if (datetimeKeyword != null && exposureKeyword != null)
-            return new ComputeHJDInputData(datetimeKeyword, exposureKeyword, rightAscensionParams, declinationParams, comment);
-        // datetime == value && exposure == keyword
-        else if (datetimeValue != null && exposureKeyword != null)
-            return new ComputeHJDInputData(datetimeValue, exposureKeyword, rightAscensionParams, declinationParams, comment);
-        // datetime == keyword && exposure == value
-        else if (datetimeKeyword != null && !Double.isNaN(exposureValue))
-            return new ComputeHJDInputData(datetimeKeyword, exposureValue, rightAscensionParams, declinationParams, comment);
-        // datetime == value && exposure == value
-        else
-            return new ComputeHJDInputData(datetimeValue, exposureValue, rightAscensionParams, declinationParams, comment);
+        return new ComputeHJDInputData(datetime, exposure, rightAscension, declination, comment);
     }
 }

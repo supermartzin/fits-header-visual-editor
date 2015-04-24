@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  * in {@link CmdArgumentsProcessorHelper} class
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1
  */
 public class ProcessorHelper_ExtractChangeValueByKeywordDataTest {
 
@@ -54,6 +54,15 @@ public class ProcessorHelper_ExtractChangeValueByKeywordDataTest {
     }
 
     @Test
+    public void testExtractChangeValueByKeywordData_NoSwitchParameter() throws Exception {
+        String[] args = new String[] { "change", FILE_PATH.toString(), "KEYWORD", "VALUE" };
+
+        ChangeValueByKeywordInputData cvbkid = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args, _converter);
+        assertNotNull(cvbkid);
+        assertFalse(cvbkid.addNewIfNotExists());
+    }
+
+    @Test
     public void testExtractChangeValueByKeywordData_WrongSwitchParameter() throws Exception {
         String[] args = new String[] { "change", "-add", FILE_PATH.toString(), "KEYWORD", "VALUE" };
 
@@ -62,24 +71,51 @@ public class ProcessorHelper_ExtractChangeValueByKeywordDataTest {
     }
 
     @Test
-    public void testExtractChangeValueByKeywordData_CorrectParameters1() throws Exception {
-        String[] args = new String[] { "change", FILE_PATH.toString(), "KEYWORD", "VALUE", "COMMENT" };
+    public void testExtractChangeValueByKeywordData_ValidSwitchParameter() throws Exception {
+        String[] args = new String[] { "change", "-a", FILE_PATH.toString(), "KEYWORD", "VALUE" };
 
         ChangeValueByKeywordInputData cvbkid = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args, _converter);
-        assertEquals("KEYWORD".toUpperCase(), cvbkid.getKeyword());
-        assertFalse(cvbkid.addNewIfNotExists());
-        assertEquals("VALUE", cvbkid.getValue());
-        assertEquals("COMMENT", cvbkid.getComment());
+        assertNotNull(cvbkid);
+        assertTrue(cvbkid.addNewIfNotExists());
     }
 
     @Test
-    public void testExtractChangeValueByKeywordData_CorrectParameters2() throws Exception {
-        String[] args = new String[] { "change", "-a", FILE_PATH.toString(), "KEYWORD", "456." };
+    public void testExtractChangeValueByKeywordData_Keyword() throws Exception {
+        String[] args = new String[] { "change", "-a", FILE_PATH.toString(), "KEYword", "VALUE" };
 
         ChangeValueByKeywordInputData cvbkid = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args, _converter);
-        assertEquals("KEYWORD".toUpperCase(), cvbkid.getKeyword());
-        assertTrue(cvbkid.addNewIfNotExists());
-        assertEquals(456.0, cvbkid.getValue());
-        assertNull("COMMENT", cvbkid.getComment());
+        assertNotNull(cvbkid);
+        assertEquals("KEYWORD", cvbkid.getKeyword());
+    }
+
+    @Test
+    public void testExtractChangeValueByKeywordData_ContainsComment() throws Exception {
+        String[] args = new String[] { "change", "-a", FILE_PATH.toString(), "KEYWORD", "VALUE", "comment" };
+
+        ChangeValueByKeywordInputData cvbkid = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args, _converter);
+        assertNotNull(cvbkid);
+        assertNotNull(cvbkid.getComment());
+        assertEquals("comment", cvbkid.getComment());
+    }
+
+    @Test
+    public void testExtractChangeValueByKeywordData_DoesNotContainComment() throws Exception {
+        String[] args = new String[] { "change", "-a", FILE_PATH.toString(), "KEYWORD", "VALUE" };
+
+        ChangeValueByKeywordInputData cvbkid = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args, _converter);
+        assertNotNull(cvbkid);
+        assertNull(cvbkid.getComment());
+    }
+
+    @Test
+    public void testExtractChangeValueByKeywordData_CorrectParameters() throws Exception {
+        String[] args = new String[] { "change", FILE_PATH.toString(), "KEYWord", "VALUE", "COMMENT" };
+
+        ChangeValueByKeywordInputData cvbkid = CmdArgumentsProcessorHelper.extractChangeValueByKeywordData(args, _converter);
+        assertNotNull(cvbkid);
+        assertEquals("KEYWORD", cvbkid.getKeyword());
+        assertFalse(cvbkid.addNewIfNotExists());
+        assertEquals("VALUE", cvbkid.getValue());
+        assertEquals("COMMENT", cvbkid.getComment());
     }
 }

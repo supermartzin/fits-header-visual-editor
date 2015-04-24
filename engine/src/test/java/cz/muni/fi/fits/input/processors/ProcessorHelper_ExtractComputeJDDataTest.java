@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
  * in {@link CmdArgumentsProcessorHelper} class
  *
  * @author Martin Vrábel
- * @version 1.0.1
+ * @version 1.1
  */
 public class ProcessorHelper_ExtractComputeJDDataTest {
 
@@ -65,7 +65,7 @@ public class ProcessorHelper_ExtractComputeJDDataTest {
 
     @Test
     public void testExtractComputeJDData_StringDatetimeKeyword() throws Exception {
-        String[] args = new String[] { "jd", FILE_PATH.toString(), "DATETIME", "exposure" };
+        String[] args = new String[] { "jd", FILE_PATH.toString(), "DATEtime", "exposure" };
 
         ComputeJDInputData cjdid = CmdArgumentsProcessorHelper.extractComputeJDData(args, _converter);
         assertTrue(cjdid.getDatetime() instanceof String);
@@ -73,7 +73,7 @@ public class ProcessorHelper_ExtractComputeJDDataTest {
     }
 
     @Test
-    public void testExtractComputeHJDData_DoubleExposureParameter() throws Exception {
+    public void testExtractComputeJDData_DoubleExposureParameter() throws Exception {
         String[] args = new String[] { "jd", FILE_PATH.toString(), "2015-05-08T12:34:56", "25.45", "comment" };
 
         ComputeJDInputData cjdid = CmdArgumentsProcessorHelper.extractComputeJDData(args, _converter);
@@ -82,7 +82,7 @@ public class ProcessorHelper_ExtractComputeJDDataTest {
     }
 
     @Test
-    public void testExtractComputeHJDData_StringExposureKeyword() throws Exception {
+    public void testExtractComputeJDData_StringExposureKeyword() throws Exception {
         String[] args = new String[] { "jd", FILE_PATH.toString(), "DATETIME", "expoSURE" };
 
         ComputeJDInputData cjdid = CmdArgumentsProcessorHelper.extractComputeJDData(args, _converter);
@@ -91,7 +91,27 @@ public class ProcessorHelper_ExtractComputeJDDataTest {
     }
 
     @Test
-    public void testExtractComputeHJDData_CorrectParameters() throws Exception {
+    public void testExtractComputeJDData_ContainsComment() throws Exception {
+        String[] args = new String[] { "jd", FILE_PATH.toString(), "DATETIME", "expoSURE", "comment" };
+
+        ComputeJDInputData cjdid = CmdArgumentsProcessorHelper.extractComputeJDData(args, _converter);
+        assertNotNull(cjdid);
+        assertNotNull(cjdid.getComment());
+        assertEquals("comment", cjdid.getComment());
+    }
+
+    @Test
+    public void testExtractComputeJDData_DefaultComment() throws Exception {
+        String[] args = new String[] { "jd", FILE_PATH.toString(), "DATETIME", "expoSURE" };
+
+        ComputeJDInputData cjdid = CmdArgumentsProcessorHelper.extractComputeJDData(args, _converter);
+        assertNotNull(cjdid);
+        assertNotNull(cjdid.getComment());
+        assertEquals(Constants.DEFAULT_JD_COMMENT, cjdid.getComment());
+    }
+
+    @Test
+    public void testExtractComputeJDData_CorrectParameters() throws Exception {
         String[] args1 = new String[] { "jd", FILE_PATH.toString(), "2015-02-12T14:22:36.5", "EXPTIME", "comment" };
 
         ComputeJDInputData cjdid1 = CmdArgumentsProcessorHelper.extractComputeJDData(args1, _converter);

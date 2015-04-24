@@ -14,13 +14,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Tests for extraction of input data for operation <b>Remove record from specific index</b>
  * in {@link CmdArgumentsProcessorHelper} class
  *
  * @author Martin Vrábel
- * @version 1.0
+ * @version 1.1
  */
 public class ProcessorHelper_ExtractRemoveByIndexDataTest {
 
@@ -56,11 +57,11 @@ public class ProcessorHelper_ExtractRemoveByIndexDataTest {
     }
 
     @Test
-    public void testExtractRemoveByIndexData_CorrectParameters() throws Exception {
-        String[] args = new String[] { "remove_ix", FILE_PATH.toString(), "69" };
+    public void testExtractRemoveByIndexData_ValidIndex() throws Exception {
+        String[] args = new String[] { "remove_ix", FILE_PATH.toString(), "25" };
 
         RemoveFromIndexInputData rfiid = CmdArgumentsProcessorHelper.extractRemoveFromIndexData(args);
-
-        assertEquals(69, rfiid.getIndex());
+        assertNotNull(rfiid);
+        assertEquals(25, rfiid.getIndex());
     }
 }
