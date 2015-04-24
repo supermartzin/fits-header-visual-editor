@@ -829,8 +829,15 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             // compute Julian Date
             JulianDate jd = new JulianDate(datetimeValue);
 
-            // save to header as new record
             HeaderCard jdCard = new HeaderCard(Constants.DEFAULT_JD_KEYWORD, jd.getJulianDate(), comment);
+
+            // check for mandatory keyword
+            for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
+                if (jdCard.getValue().matches(mandatoryKwRegex))
+                    return new Result(false, "Header already contains record with '" + jdCard.getValue() + "' keyword but it is mandatory hence it cannot be changed");
+            }
+
+            // save/update to header as new record
             if (header.containsKey(Constants.DEFAULT_JD_KEYWORD)) {
                 header.updateLine(Constants.DEFAULT_JD_KEYWORD, jdCard);
                 jdUpdated = true;
@@ -1014,8 +1021,15 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             JulianDate jd = new JulianDate(datetimeValue);
             HeliocentricJulianDate hjd = new HeliocentricJulianDate(jd, rightAscensionValue, declinationValue);
 
-            // save to header as new record
             HeaderCard hjdCard = new HeaderCard(Constants.DEFAULT_HJD_KEYWORD, hjd.computeHeliocentricJulianDate(), comment);
+
+            // check for mandatory keyword
+            for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
+                if (hjdCard.getValue().matches(mandatoryKwRegex))
+                    return new Result(false, "Header already contains record with '" + hjdCard.getValue() + "' keyword but it is mandatory hence it cannot be changed");
+            }
+
+            // save/update to header as new record
             if (header.containsKey(Constants.DEFAULT_HJD_KEYWORD)) {
                 header.updateLine(Constants.DEFAULT_HJD_KEYWORD, hjdCard);
                 hjdUpdated = true;
@@ -1029,7 +1043,6 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             boolean saveDeclination = declination instanceof Declination;
 
             if (saveRightAscension) {
-                // save right ascension to header
                 double raHours = rightAscensionValue.getHours();
                 double raMinutes = rightAscensionValue.getMinutes();
                 double raSeconds = rightAscensionValue.getSeconds();
@@ -1050,6 +1063,14 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                     raValue += raSeconds;
 
                 HeaderCard raCard = new HeaderCard(Constants.DEFAULT_RA_KEYWORD, raValue, Constants.DEFAULT_RA_COMMENT);
+
+                // check for mandatory keyword
+                for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
+                    if (raCard.getValue().matches(mandatoryKwRegex))
+                        return new Result(false, "Header already contains record with '" + raCard.getValue() + "' keyword but it is mandatory hence it cannot be changed");
+                }
+
+                // save/update right ascension to header
                 if (header.containsKey(Constants.DEFAULT_RA_KEYWORD))
                     header.updateLine(Constants.DEFAULT_RA_KEYWORD, raCard);
                 else {
@@ -1060,7 +1081,6 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
             }
 
             if (saveDeclination) {
-                // save declination to header
                 double decDegrees = declinationValue.getDegrees();
                 double decMinutes = declinationValue.getMinutes();
                 double decSeconds = declinationValue.getSeconds();
@@ -1081,6 +1101,14 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                     decValue += decSeconds;
 
                 HeaderCard decCard = new HeaderCard(Constants.DEFAULT_DEC_KEYWORD, decValue, Constants.DEFAULT_DEC_COMMENT);
+
+                // check for mandatory keyword
+                for (String mandatoryKwRegex : MANDATORY_KEYWORDS_REGEX) {
+                    if (decCard.getValue().matches(mandatoryKwRegex))
+                        return new Result(false, "Header already contains record with '" + decCard.getValue() + "' keyword but it is mandatory hence it cannot be changed");
+                }
+
+                // save/update declination to header
                 if (header.containsKey(Constants.DEFAULT_DEC_KEYWORD))
                     header.updateLine(Constants.DEFAULT_DEC_KEYWORD, decCard);
                 else {
