@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToHeight="true" hbarPolicy="NEVER" maxWidth="350.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.muni.fi.fits.gui.view.controllers.FilesOverviewController">
+    <content>
+        <AnchorPane maxWidth="350.0" minWidth="350.0" prefWidth="350.0">
+            <children>
+                <ListView fx:id="filesList" minHeight="300.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <ButtonBar buttonMinWidth="88.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="130.0">
+                    <buttons>
+                        <Button disable="true" mnemonicParsing="false" onAction="#onSelectNone" text="%select.none" />
+                        <Button disable="true" mnemonicParsing="false" onAction="#onSelectAll" text="%select.all" />
+                    </buttons>
+                    <padding>
+                        <Insets right="15.0" />
+                    </padding>
+                </ButtonBar>
+                <ButtonBar buttonMinWidth="100.0" layoutX="215.0" layoutY="400.0" prefHeight="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="0.0">
+                    <buttons>
+                        <Button mnemonicParsing="false" onAction="#onBrowseFiles" text="%select.files" />
+                    </buttons>
+                    <padding>
+                        <Insets right="15.0" />
+                    </padding>
+                </ButtonBar>
+            </children>
+        </AnchorPane>
+    </content>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</ScrollPane>

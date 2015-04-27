@@ -1,10 +1,15 @@
 package cz.muni.fi.fits.gui;
 
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
+import cz.muni.fi.fits.gui.view.controllers.FilesOverviewController;
 import cz.muni.fi.fits.gui.view.controllers.RootLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -20,6 +25,7 @@ public class MainApp extends Application {
 
     private Stage _primaryStage;
     private BorderPane _rootLayout;
+    private SplitPane _centralLayout;
 
     public Stage getPrimaryStage() {
         return _primaryStage;
@@ -36,6 +42,9 @@ public class MainApp extends Application {
         // TODO set icon
 
         initRootLayout();
+        initFilesOverview();
+        //initOperationTabsView();
+        //initOutputView();
     }
 
     private void initRootLayout() {
@@ -51,6 +60,56 @@ public class MainApp extends Application {
             _primaryStage.setScene(scene);
 
             _primaryStage.show();
+        } catch (IOException e) {
+            // TODO handle exception
+            e.printStackTrace();
+        }
+    }
+
+    private void initFilesOverview() {
+        try {
+            FXMLLoader filesOverviewFile = new FXMLLoader(MainApp.class.getResource("view/FilesOverview.fxml"));
+            ResourceBundleService.setResourceBundle(filesOverviewFile);
+            ScrollPane filesList = filesOverviewFile.load();
+
+            FilesOverviewController controller = filesOverviewFile.getController();
+            controller.setMainApp(this);
+
+            _rootLayout.setLeft(filesList);
+        } catch (IOException e) {
+            // TODO handle exception
+            e.printStackTrace();
+        }
+    }
+
+    private void initOperationTabsView() {
+        try {
+            FXMLLoader operationTabsViewFile = new FXMLLoader(MainApp.class.getResource("view/OperationTabsView.fxml"));
+            ResourceBundleService.setResourceBundle(operationTabsViewFile);
+            TabPane tabView = operationTabsViewFile.load();
+
+            ScrollPane scrollPane = new ScrollPane(tabView);
+            //scrollPane.setFitToHeight(true);
+            //scrollPane.setFitToWidth(true);
+
+            _centralLayout.getItems().addAll(scrollPane);
+        } catch (IOException e) {
+            // TODO handle exception
+            e.printStackTrace();
+        }
+    }
+    
+    private void initOutputView() {
+        try {
+            FXMLLoader outputViewFile = new FXMLLoader(MainApp.class.getResource("view/OutputView.fxml"));
+            ResourceBundleService.setResourceBundle(outputViewFile);
+            AnchorPane outputTextFlow = outputViewFile.load();
+
+            ScrollPane scrollPane = new ScrollPane(outputTextFlow);
+            scrollPane.setFitToWidth(true);
+            scrollPane.setFitToHeight(true);
+
+            _centralLayout.getItems().addAll(scrollPane);
         } catch (IOException e) {
             // TODO handle exception
             e.printStackTrace();

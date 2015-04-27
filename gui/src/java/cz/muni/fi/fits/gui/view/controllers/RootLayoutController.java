@@ -3,8 +3,6 @@ package cz.muni.fi.fits.gui.view.controllers;
 import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.models.Language;
 import cz.muni.fi.fits.gui.services.PreferencesService;
-import cz.muni.fi.fits.gui.services.ResourceBundleService;
-import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
@@ -28,8 +26,6 @@ public class RootLayoutController implements Initializable {
         // add listener for language changed
         languages.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && !_firstToggleEvent) {
-                _firstToggleEvent = false;
-
                 RadioMenuItem langItem = (RadioMenuItem) newValue;
                 // get new language
                 Language newLanguage = Language.getLanguageByCode(langItem.getId());
@@ -37,13 +33,16 @@ public class RootLayoutController implements Initializable {
                 PreferencesService.saveLanguage(newLanguage, _mainApp.getClass());
                 // alert user about restart
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle(ResourceBundleService.getBundle().getString("restart.alert.title"));
-                alert.setHeaderText(ResourceBundleService.getBundle().getString("restart.alert.header"));
-                alert.setContentText(ResourceBundleService.getBundle().getString("restart.alert.text.lang"));
+                alert.setTitle(resources.getString("restart.alert.title"));
+                alert.setHeaderText(resources.getString("restart.alert.header"));
+                alert.setContentText(resources.getString("restart.alert.text.lang"));
                 alert.initModality(Modality.APPLICATION_MODAL);
                 alert.initOwner(_mainApp.getPrimaryStage());
                 alert.showAndWait();
             }
+
+            if (_firstToggleEvent)
+                _firstToggleEvent = false;
         });
 
         // set selected language menu item
@@ -55,6 +54,20 @@ public class RootLayoutController implements Initializable {
         _mainApp = mainApp;
     }
 
+    public void onExit() {
+        System.exit(0);
+    }
+
+    public void onAbout() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("TODO about dialog"); // TODO about dialog
+
+        alert.initOwner(_mainApp.getPrimaryStage());
+        alert.initModality(Modality.APPLICATION_MODAL);
+
+        alert.showAndWait();
+    }
+
     private void selectLanguageItem(Language language) {
         for (MenuItem menuItem : langMenu.getItems()) {
             RadioMenuItem item = (RadioMenuItem) menuItem;
@@ -63,20 +76,5 @@ public class RootLayoutController implements Initializable {
                 return;
             }
         }
-    }
-
-
-    public void onExit() {
-        System.exit(0);
-    }
-
-    public void onAbout() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("TODO about dialog");
-
-        alert.initOwner(_mainApp.getPrimaryStage());
-        alert.initModality(Modality.APPLICATION_MODAL);
-
-        alert.showAndWait();
     }
 }
