@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.muni.fi.fits.gui.view.controllers.RootLayoutController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="%program">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onExit" text="%exit" />
+                    </items>
+                </Menu>
+                <Menu fx:id="langMenu" mnemonicParsing="false" text="%lang">
+                    <items>
+                        <RadioMenuItem fx:id="en" mnemonicParsing="false" text="%lang.en">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="languages" />
+                            </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem fx:id="sk" mnemonicParsing="false" text="%lang.sk" toggleGroup="$languages" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%help">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onAbout" text="%about" />
+               </items></Menu>
+            </menus>
+        </MenuBar>
+    </top>
+</BorderPane>

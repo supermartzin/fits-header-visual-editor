@@ -6,3 +6,4 @@ engine/FITS-HeaderEditor.iml
 manuals/
 fits-files/
 gui/FITS-HeaderVisualEditor.iml
+gui/target/
