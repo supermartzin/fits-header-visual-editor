@@ -1,9 +1,12 @@
 package cz.muni.fi.fits.gui;
 
+import cz.muni.fi.fits.gui.models.FitsFile;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
 import cz.muni.fi.fits.gui.view.controllers.FilesOverviewController;
 import cz.muni.fi.fits.gui.view.controllers.RootLayoutController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -27,8 +30,14 @@ public class MainApp extends Application {
     private BorderPane _rootLayout;
     private SplitPane _centralLayout;
 
+    private ObservableList<FitsFile> _fitsFiles;
+
     public Stage getPrimaryStage() {
         return _primaryStage;
+    }
+
+    public ObservableList<FitsFile> getFitsFiles() {
+        return _fitsFiles;
     }
 
     public static void main(String[] args) {
@@ -40,6 +49,8 @@ public class MainApp extends Application {
         _primaryStage = primaryStage;
         this._primaryStage.setTitle("FITS Header Visual Editor Tool");
         // TODO set icon
+
+        _fitsFiles = FXCollections.observableArrayList();
 
         initRootLayout();
         initFilesOverview();
@@ -74,6 +85,7 @@ public class MainApp extends Application {
 
             FilesOverviewController controller = filesOverviewFile.getController();
             controller.setMainApp(this);
+            controller.setTableItemsCollection(_fitsFiles);
 
             _rootLayout.setLeft(filesList);
         } catch (IOException e) {
