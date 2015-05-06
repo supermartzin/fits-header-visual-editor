@@ -6,7 +6,6 @@ import cz.muni.fi.fits.engine.tools.JulianDate;
 import cz.muni.fi.fits.engine.tools.RightAscension;
 import cz.muni.fi.fits.models.Result;
 import cz.muni.fi.fits.utils.Constants;
-import cz.muni.fi.fits.utils.NumberFormatter;
 import cz.muni.fi.fits.utils.Tuple;
 import nom.tam.fits.*;
 import nom.tam.util.BufferedFile;
@@ -31,7 +30,7 @@ import java.util.List;
  * @see <a href="http://nom-tam-fits.github.io/nom-tam-fits/">Project pages</a>
  *
  * @author Martin Vrábel
- * @version 1.3.2
+ * @version 1.3.1
  */
 public class NomTamFitsEditingEngine implements HeaderEditingEngine {
 
@@ -1047,10 +1046,8 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                 double raHours = rightAscensionValue.getHours();
                 double raMinutes = rightAscensionValue.getMinutes();
                 double raSeconds = rightAscensionValue.getSeconds();
-                String raValue = NumberFormatter.format(raHours) + ":"
-                               + NumberFormatter.format(raMinutes) + ":"
-                               + NumberFormatter.format(raSeconds);
-                /*if (Math.rint(raHours) == raHours)
+                String raValue = "";
+                if (Math.rint(raHours) == raHours)
                     raValue += Double.valueOf(raHours).intValue();
                 else
                     raValue += raHours;
@@ -1063,7 +1060,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                 if (Math.rint(raSeconds) == raSeconds)
                     raValue += Double.valueOf(raSeconds).intValue();
                 else
-                    raValue += raSeconds;*/
+                    raValue += raSeconds;
 
                 HeaderCard raCard = new HeaderCard(Constants.DEFAULT_RA_KEYWORD, raValue, Constants.DEFAULT_RA_COMMENT);
 
@@ -1087,10 +1084,8 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                 double decDegrees = declinationValue.getDegrees();
                 double decMinutes = declinationValue.getMinutes();
                 double decSeconds = declinationValue.getSeconds();
-                String decValue = NumberFormatter.format(decDegrees) + ":"
-                                + NumberFormatter.format(decMinutes) + ":"
-                                + NumberFormatter.format(decSeconds);
-                /*if (Math.rint(decDegrees) == decDegrees)
+                String decValue = "";
+                if (Math.rint(decDegrees) == decDegrees)
                     decValue += Double.valueOf(decDegrees).intValue();
                 else
                     decValue += decDegrees;
@@ -1103,7 +1098,7 @@ public class NomTamFitsEditingEngine implements HeaderEditingEngine {
                 if (Math.rint(decSeconds) == decSeconds)
                     decValue += Double.valueOf(decSeconds).intValue();
                 else
-                    decValue += decSeconds;*/
+                    decValue += decSeconds;
 
                 HeaderCard decCard = new HeaderCard(Constants.DEFAULT_DEC_KEYWORD, decValue, Constants.DEFAULT_DEC_COMMENT);
 
