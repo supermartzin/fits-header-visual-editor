@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.muni.fi.fits.gui.view.controllers.OperationTabsViewController">
+  <content>
+    <AnchorPane minHeight="250.0" minWidth="300.0" prefHeight="400.0" prefWidth="550.0">
+         <children>
+            <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Separator layoutX="14.0" layoutY="348.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="49.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <ProgressBar fx:id="progressBar" prefWidth="2000.0" progress="0.0">
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </ProgressBar>
+                  <Button fx:id="startButton" minHeight="35.0" minWidth="70.0" mnemonicParsing="false" onAction="#onStartEditor" prefHeight="35.0" text="%editor.start">
+                     <HBox.margin>
+                        <Insets left="30.0" right="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children></AnchorPane>
+  </content>
+</ScrollPane>

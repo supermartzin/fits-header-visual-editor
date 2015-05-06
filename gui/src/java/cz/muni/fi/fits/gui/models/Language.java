@@ -8,6 +8,7 @@ import java.util.Locale;
 public enum Language {
     ENGLISH("en", Locale.ENGLISH),
     SLOVAK("sk", Locale.forLanguageTag("sk")),
+    CZECH("cs", Locale.forLanguageTag("cs")),
     UNKNOWN("", Locale.ROOT);
 
     private final String _code;
@@ -31,6 +32,8 @@ public enum Language {
             return ENGLISH;
         if (SLOVAK.getCode().equals(code))
             return SLOVAK;
+        if (CZECH.getCode().equals(code))
+            return CZECH;
 
         return UNKNOWN;
     }

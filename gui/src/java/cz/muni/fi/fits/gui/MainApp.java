@@ -8,10 +8,10 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -54,8 +54,8 @@ public class MainApp extends Application {
 
         initRootLayout();
         initFilesOverview();
-        //initOperationTabsView();
-        //initOutputView();
+        initOperationTabsView();
+        initOutputView();
     }
 
     private void initRootLayout() {
@@ -66,6 +66,10 @@ public class MainApp extends Application {
 
             RootLayoutController controller = rootLayoutFile.getController();
             controller.setMainApp(this);
+
+            _centralLayout = new SplitPane();
+            _centralLayout.setOrientation(Orientation.VERTICAL);
+            _rootLayout.setCenter(_centralLayout);
 
             Scene scene = new Scene(_rootLayout);
             _primaryStage.setScene(scene);
@@ -98,13 +102,9 @@ public class MainApp extends Application {
         try {
             FXMLLoader operationTabsViewFile = new FXMLLoader(MainApp.class.getResource("view/OperationTabsView.fxml"));
             ResourceBundleService.setResourceBundle(operationTabsViewFile);
-            TabPane tabView = operationTabsViewFile.load();
+            ScrollPane tabView = operationTabsViewFile.load();
 
-            ScrollPane scrollPane = new ScrollPane(tabView);
-            //scrollPane.setFitToHeight(true);
-            //scrollPane.setFitToWidth(true);
-
-            _centralLayout.getItems().addAll(scrollPane);
+            _centralLayout.getItems().addAll(tabView);
         } catch (IOException e) {
             // TODO handle exception
             e.printStackTrace();
