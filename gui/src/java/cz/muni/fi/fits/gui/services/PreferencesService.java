@@ -18,7 +18,7 @@ public class PreferencesService {
         if (!lang.isEmpty()) {
             return Language.getLanguageByCode(lang);
         } else {
-            // set and return default language
+            // save and return default language
             preferences.put("lang", Constants.DEFAULT_LANGUAGE.getCode());
             return Constants.DEFAULT_LANGUAGE;
         }
@@ -27,7 +27,7 @@ public class PreferencesService {
     public static void saveLanguage(Language language, Class<?> resourceClass) {
         // load preferences
         Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
-        // load language
+        // save language
         preferences.put("lang", language.getCode());
     }
 }

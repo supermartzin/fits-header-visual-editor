@@ -13,4 +13,6 @@ public interface TabController extends Initializable {
     void setCalled(boolean called);
 
     InputData getInputData();
+
+    String getTabName();
 }

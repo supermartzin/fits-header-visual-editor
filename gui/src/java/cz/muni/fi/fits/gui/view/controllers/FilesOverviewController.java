@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -148,6 +149,21 @@ public class FilesOverviewController implements Initializable {
 
     //region Context Menu methods
 
+    public void onContextMenuShowing() {
+        ObservableList<FitsFile> selectedItems = tableView.getSelectionModel().getSelectedItems();
+        if (areAllItemsSelected(selectedItems)) {
+            selectMenuItem.setDisable(true);
+        }
+        if (areAllItemsDeselected(selectedItems)) {
+            deselectMenuItem.setDisable(true);
+        }
+    }
+
+    public void onContextMenuHidden() {
+        selectMenuItem.setDisable(false);
+        deselectMenuItem.setDisable(false);
+    }
+
     public void onDeleteContextMenu() {
         ObservableList<FitsFile> selected = tableView.getSelectionModel().getSelectedItems();
         if (selected.size() > 0) tableView.getItems().removeAll(selected);
@@ -173,6 +189,32 @@ public class FilesOverviewController implements Initializable {
         selectMenuItem.setDisable(!selectState);
         deselectMenuItem.setDisable(!deselectState);
         invertMenuItem.setDisable(!invertState);
+    }
+
+    private boolean areAllItemsSelected(Collection<FitsFile> fitsFiles) {
+        if (fitsFiles == null)
+            return false;
+
+        // if at least one FitsFile is deselected > return false
+        for (FitsFile fitsFile : fitsFiles) {
+            if (!fitsFile.getSelected())
+                return false;
+        }
+
+        return true;
+    }
+
+    private boolean areAllItemsDeselected(Collection<FitsFile> fitsFiles) {
+        if (fitsFiles == null)
+            return false;
+
+        // if at least one FitsFile is selected > return false
+        for (FitsFile fitsFile : fitsFiles) {
+            if (fitsFile.getSelected())
+                return false;
+        }
+
+        return true;
     }
 
     //endregion

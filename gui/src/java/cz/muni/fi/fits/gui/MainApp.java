@@ -4,19 +4,25 @@ import cz.muni.fi.fits.gui.models.FitsFile;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
 import cz.muni.fi.fits.gui.view.controllers.FilesOverviewController;
 import cz.muni.fi.fits.gui.view.controllers.RootLayoutController;
+import cz.muni.fi.fits.gui.view.operationtabs.OperationTabsLoader;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 
 /**
  * TODO description
@@ -47,11 +53,12 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         _primaryStage = primaryStage;
-        this._primaryStage.setTitle("FITS Header Visual Editor Tool");
+        _primaryStage.setTitle("FITS Header Visual Editor Tool");
         // TODO set icon
 
         _fitsFiles = FXCollections.observableArrayList();
 
+        // initialize layouts
         initRootLayout();
         initFilesOverview();
         initOperationTabsView();
@@ -104,7 +111,15 @@ public class MainApp extends Application {
             ResourceBundleService.setResourceBundle(operationTabsViewFile);
             ScrollPane tabView = operationTabsViewFile.load();
 
-            _centralLayout.getItems().addAll(tabView);
+            // load Tabs into TabPane
+            TabPane tabPane = extractTabPane(tabView);
+            Collection<Tab> tabs = loadOperationTabs();
+            if (tabPane != null) {
+                tabPane.getTabs().addAll(tabs);
+            }
+
+            // load TabPane into view
+            _centralLayout.getItems().add(tabView);
         } catch (IOException e) {
             // TODO handle exception
             e.printStackTrace();
@@ -121,10 +136,34 @@ public class MainApp extends Application {
             scrollPane.setFitToWidth(true);
             scrollPane.setFitToHeight(true);
 
-            _centralLayout.getItems().addAll(scrollPane);
+            _centralLayout.getItems().add(scrollPane);
         } catch (IOException e) {
             // TODO handle exception
             e.printStackTrace();
         }
+    }
+
+    private Collection<Tab> loadOperationTabs()
+            throws IOException {
+        Collection<Tab> tabs = new LinkedHashSet<>();
+
+        // load Tabs
+        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/AddNewRecordTab.fxml"));
+        // TODO load other tabs
+
+        return tabs;
+    }
+
+    private TabPane extractTabPane(ScrollPane scrollPane) {
+        AnchorPane anchorPane = (AnchorPane) scrollPane.getContent();
+
+        if (anchorPane != null) {
+            for (Node node : anchorPane.getChildren()) {
+                if (node instanceof TabPane)
+                    return (TabPane) node;
+            }
+        }
+
+        return null;
     }
 }
