@@ -4,7 +4,7 @@ import cz.muni.fi.fits.gui.models.FitsFile;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
 import cz.muni.fi.fits.gui.view.controllers.FilesOverviewController;
 import cz.muni.fi.fits.gui.view.controllers.RootLayoutController;
-import cz.muni.fi.fits.gui.view.operationtabs.OperationTabsLoader;
+import cz.muni.fi.fits.gui.view.operationtabs.utils.OperationTabsLoader;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -149,6 +149,7 @@ public class MainApp extends Application {
 
         // load Tabs
         tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/AddNewRecordTab.fxml"));
+        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/RemoveRecordTab.fxml"));
         // TODO load other tabs
 
         return tabs;

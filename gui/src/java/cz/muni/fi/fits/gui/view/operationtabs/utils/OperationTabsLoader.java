@@ -1,4 +1,4 @@
-package cz.muni.fi.fits.gui.view.operationtabs;
+package cz.muni.fi.fits.gui.view.operationtabs.utils;
 
 import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;

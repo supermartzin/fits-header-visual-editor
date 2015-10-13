@@ -1,16 +1,20 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
-import cz.muni.fi.fits.gui.models.ValueType;
-import cz.muni.fi.fits.gui.models.ValueTypeItem;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
-import javafx.scene.control.*;
+import cz.muni.fi.fits.gui.models.operations.ValueType;
+import cz.muni.fi.fits.gui.models.operations.add.AddRecordToPlace;
+import cz.muni.fi.fits.gui.utils.Constants;
+import cz.muni.fi.fits.gui.utils.Constrainer;
+import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * TODO description
@@ -18,131 +22,123 @@ import java.util.regex.Pattern;
  * @author Martin Vrábel
  * @version 1.0
  */
-public class AddNewRecordTabController implements TabController {
+public class AddNewRecordTabController extends OperationTabController {
 
-    private static final Pattern TIME_PATTERN = Pattern.compile("^[0-9:.]{1,12}$");
-    private static final Pattern NUMBER_PATTERN = Pattern.compile("^[0-9.,]*$");
-
-    public TextField keywordTextField;
-    public CheckBox updateIfExistsCheckBox;
-    public TextField commentTextField;
-    public ComboBox valueTypeComboBox;
+    public TextField keywordField;
+    public CheckBox updateSwitchField;
+    public CheckBox removeSwitchField;
+    public TextField commentField;
+    public ComboBox valueTypeField;
+    public ComboBox insertToPlaceField;
+    public TextField indexNumberField;
 
     // STRING
-    public TextField valueTextField;
+    public TextField valueStringField;
     // NUMBER
     public TextField valueNumberField;
     // DATETIME
-    public HBox valueDateTimeHBox;
-    public DatePicker valueDateTimeDatePicker;
+    public HBox valueDateTimeContainer;
+    public DatePicker valueDateTimeDateField;
     public TextField valueDateTimeTimeField;
     // DATE
-    public DatePicker valueDatePicker;
+    public DatePicker valueDateField;
     // TIME
-    public TextField valueTimeTextField;
+    public TextField valueTimeField;
     // BOOLEAN
-    public CheckBox valueCheckBox;
-
-
-    private String _tabName;
+    public CheckBox valueBooleanField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         _tabName = resources.getString("tab.add");
 
         setFieldsConstraints();
-        loadComboBox(resources);
-    }
-
-    @Override
-    public boolean called() {
-        return false;
-    }
-
-    @Override
-    public void setCalled(boolean called) {
-
+        loadValueTypeField(resources);
+        loadInsertToPlaceField(resources);
     }
 
     @Override
     public InputData getInputData() {
-        return null;
-    }
-
-    @Override
-    public String getTabName() {
-        return _tabName;
+        throw new UnsupportedOperationException("not implemented yet");
     }
 
 
     private void setFieldsConstraints() {
-        // set time fields value constraints
-        valueTimeTextField.textProperty().addListener((observable, oldValue, newValue) ->
-                onTextValueChanged(oldValue, newValue, valueTimeTextField, TIME_PATTERN));
-        valueDateTimeTimeField.textProperty().addListener((observable1, oldValue1, newValue1) ->
-                onTextValueChanged(oldValue1, newValue1, valueDateTimeTimeField, TIME_PATTERN));
-
-        // set number field value validator
-        valueNumberField.textProperty().addListener((observable2, oldValue2, newValue2) ->
-                onTextValueChanged(oldValue2, newValue2, valueNumberField, NUMBER_PATTERN));
+        Constrainer.constrainTextFieldWithRegex(valueTimeField, Constants.TIME_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(valueDateTimeTimeField, Constants.TIME_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(valueNumberField, Constants.DECIMAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(indexNumberField, Constants.INTEGRAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(keywordField, Constants.KEYWORD_PATTERN);
     }
 
-    private void onTextValueChanged(String oldValue, String newValue, TextField field, Pattern regex) {
-        if (!newValue.isEmpty()) {
-            Matcher matcher = regex.matcher(newValue);
-            if (!matcher.matches())
-                field.setText(oldValue);
-        }
-    }
-
-    private void loadComboBox(ResourceBundle resources) {
+    private void loadValueTypeField(ResourceBundle resources) {
         if (resources != null) {
-            valueTypeComboBox.getItems().add(new ValueTypeItem(ValueType.STRING, resources.getString(ValueType.STRING.getPropertyName())));
-            valueTypeComboBox.getItems().add(new ValueTypeItem(ValueType.NUMBER, resources.getString(ValueType.NUMBER.getPropertyName())));
-            valueTypeComboBox.getItems().add(new ValueTypeItem(ValueType.DATETIME, resources.getString(ValueType.DATETIME.getPropertyName())));
-            valueTypeComboBox.getItems().add(new ValueTypeItem(ValueType.DATE, resources.getString(ValueType.DATE.getPropertyName())));
-            valueTypeComboBox.getItems().add(new ValueTypeItem(ValueType.TIME, resources.getString(ValueType.TIME.getPropertyName())));
-            valueTypeComboBox.getItems().add(new ValueTypeItem(ValueType.BOOLEAN, resources.getString(ValueType.BOOLEAN.getPropertyName())));
+            valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.STRING,
+                    resources.getString(ValueType.STRING.getPropertyName())));
+            valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.NUMBER,
+                    resources.getString(ValueType.NUMBER.getPropertyName())));
+            valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.DATETIME,
+                    resources.getString(ValueType.DATETIME.getPropertyName())));
+            valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.DATE,
+                    resources.getString(ValueType.DATE.getPropertyName())));
+            valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.TIME,
+                    resources.getString(ValueType.TIME.getPropertyName())));
+            valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.BOOLEAN,
+                    resources.getString(ValueType.BOOLEAN.getPropertyName())));
         }
 
-        valueTypeComboBox.setCellFactory(new Callback<ListView, ListCell>() {
-            @Override
-            public ListCell call(ListView param) {
-                return new ListCell<ValueTypeItem>() {
-                    @Override
-                    protected void updateItem(ValueTypeItem item, boolean empty) {
-                        super.updateItem(item, empty);
+        valueTypeField.setCellFactory(param -> new ComboBoxListCell<>());
 
-                        if (item != null)
-                            setText(item.getName());
-                    }
-                };
-            }
-        });
-
-        valueTypeComboBox.valueProperty().addListener((observable, oldValue, newValue) -> onComboBoxItemChanged((ValueTypeItem)newValue));
+        valueTypeField.valueProperty().addListener((observable, oldValue, newValue) -> onValueTypeSelectionChanged((ComboBoxItem) newValue));
     }
 
-    private void onComboBoxItemChanged(ValueTypeItem valueTypeItem) {
-        switch (valueTypeItem.getValueType()) {
-            case STRING:
-                setValueFieldVisibility(true, false, false, false, false, false);
-                break;
-            case NUMBER:
-                setValueFieldVisibility(false, true, false, false, false, false);
-                break;
-            case DATETIME:
-                setValueFieldVisibility(false, false, true, false, false, false);
-                break;
-            case DATE:
-                setValueFieldVisibility(false, false, false, true, false, false);
-                break;
-            case TIME:
-                setValueFieldVisibility(false, false, false, false, true, false);
-                break;
-            case BOOLEAN:
-                setValueFieldVisibility(false, false, false, false, false, true);
-                break;
+    private void loadInsertToPlaceField(ResourceBundle resources) {
+        if (resources != null) {
+            insertToPlaceField.getItems().add(new ComboBoxItem<>(AddRecordToPlace.END,
+                    resources.getString(AddRecordToPlace.END.getPropertyName())));
+            insertToPlaceField.getItems().add(new ComboBoxItem<>(AddRecordToPlace.INDEX,
+                    resources.getString(AddRecordToPlace.INDEX.getPropertyName())));
+        }
+
+        insertToPlaceField.setCellFactory(param -> new ComboBoxListCell<>());
+
+        insertToPlaceField.valueProperty().addListener((observable, oldValue, newValue) -> onInsertToPlaceSelectionChanged((ComboBoxItem) newValue));
+    }
+
+    private void onValueTypeSelectionChanged(ComboBoxItem comboBoxItem) {
+        if (comboBoxItem != null) {
+            switch ((ValueType) comboBoxItem.getType()) {
+                case STRING:
+                    setValueFieldVisibility(true, false, false, false, false, false);
+                    break;
+                case NUMBER:
+                    setValueFieldVisibility(false, true, false, false, false, false);
+                    break;
+                case DATETIME:
+                    setValueFieldVisibility(false, false, true, false, false, false);
+                    break;
+                case DATE:
+                    setValueFieldVisibility(false, false, false, true, false, false);
+                    break;
+                case TIME:
+                    setValueFieldVisibility(false, false, false, false, true, false);
+                    break;
+                case BOOLEAN:
+                    setValueFieldVisibility(false, false, false, false, false, true);
+                    break;
+            }
+        }
+    }
+
+    private void onInsertToPlaceSelectionChanged(ComboBoxItem comboBoxItem) {
+        if (comboBoxItem != null) {
+            switch ((AddRecordToPlace) comboBoxItem.getType()) {
+                case END:
+                    setRecordPlacingFieldsVisibility(true, false, false);
+                    break;
+                case INDEX:
+                    setRecordPlacingFieldsVisibility(false, true, true);
+                    break;
+            }
         }
     }
 
@@ -153,11 +149,20 @@ public class AddNewRecordTabController implements TabController {
             boolean dateField,
             boolean timeField,
             boolean booleanField) {
-        valueTextField.setVisible(stringField);
+        valueStringField.setVisible(stringField);
         valueNumberField.setVisible(numberField);
-        valueDateTimeHBox.setVisible(datetimeField);
-        valueDatePicker.setVisible(dateField);
-        valueTimeTextField.setVisible(timeField);
-        valueCheckBox.setVisible(booleanField);
+        valueDateTimeContainer.setVisible(datetimeField);
+        valueDateField.setVisible(dateField);
+        valueTimeField.setVisible(timeField);
+        valueBooleanField.setVisible(booleanField);
+    }
+
+    private void setRecordPlacingFieldsVisibility(
+            boolean updateSwitchField,
+            boolean removeSwitchField,
+            boolean indexNumberField) {
+        this.updateSwitchField.setVisible(updateSwitchField);
+        this.removeSwitchField.setVisible(removeSwitchField);
+        this.indexNumberField.setVisible(indexNumberField);
     }
 }

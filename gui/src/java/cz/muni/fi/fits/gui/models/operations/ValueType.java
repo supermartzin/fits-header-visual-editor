@@ -1,4 +1,4 @@
-package cz.muni.fi.fits.gui.models;
+package cz.muni.fi.fits.gui.models.operations;
 
 /**
  * TODO description
@@ -6,7 +6,7 @@ package cz.muni.fi.fits.gui.models;
  * @author Martin Vrábel
  * @version 1.0
  */
-public enum ValueType {
+public enum ValueType implements PropertyBasedEnum {
     STRING("value.type.string"),
     NUMBER("value.type.number"),
     DATETIME("value.type.datetime"),
@@ -20,6 +20,7 @@ public enum ValueType {
         _propertyName = propertyName;
     }
 
+    @Override
     public String getPropertyName() {
         return _propertyName;
     }
