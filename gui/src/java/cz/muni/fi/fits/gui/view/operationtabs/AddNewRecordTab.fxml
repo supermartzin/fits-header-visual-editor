@@ -13,7 +13,7 @@
             <Font name="System Bold" size="16.0" />
         </font>
     </Label>
-    <GridPane layoutX="14.0" layoutY="54.0" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+    <GridPane nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
         <columnConstraints>
             <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
             <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
@@ -99,7 +99,7 @@
                 </HBox.margin>
             </DatePicker>
             <AnchorPane maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-                <TextField fx:id="valueDateTimeTimeField" minWidth="50.0" promptText="%time.pattern" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" />
+                <TextField fx:id="valueDateTimeTimeField" minWidth="100.0" promptText="%time.pattern" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" />
             </AnchorPane>
         </HBox>
         <TextField fx:id="valueNumberField" promptText="%field.required" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">

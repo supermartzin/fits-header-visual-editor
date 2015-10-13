@@ -150,6 +150,9 @@ public class MainApp extends Application {
         // load Tabs
         tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/AddNewRecordTab.fxml"));
         tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/RemoveRecordTab.fxml"));
+        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/ChangeKeywordTab.fxml"));
+        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/ChangeValueTab.fxml"));
+        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/ShiftTimeTab.fxml"));
         // TODO load other tabs
 
         return tabs;

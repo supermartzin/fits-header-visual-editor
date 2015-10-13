@@ -2,28 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f75cbd79-da48-46e1-b6ee-23e4456d518f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operations/add/AddRecordToPlace.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/combobox/ComboBoxItem.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Constrainer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/OperationTabController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operations/PropertyBasedEnum.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/RemoveRecordController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/RemoveRecordTab.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operations/remove/RemoveType.java" />
-      <change type="DELETED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\gui\src\java\cz\muni\fi\fits\gui\models\ValueTypeItem.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChangeKeywordTab.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChangeKeywordTabController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChangeValueTab.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChangeValueTabController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ShiftTimeTab.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ShiftTimeTabController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ValueOperationTabController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/AddNewRecordTab.fxml" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/AddNewRecordTab.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Constants.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/bundles/Language_cs.properties" afterPath="$PROJECT_DIR$/src/resources/bundles/Language_cs.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/bundles/Language_en.properties" afterPath="$PROJECT_DIR$/src/resources/bundles/Language_en.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/bundles/Language_sk.properties" afterPath="$PROJECT_DIR$/src/resources/bundles/Language_sk.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/RootLayout.fxml" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/RootLayout.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/UTF8Control.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/UTF8Control.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/findbugs-idea.xml" afterPath="$PROJECT_DIR$/.idea/findbugs-idea.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\gui\src\java\cz\muni\fi\fits\gui\models\ValueType.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operations/ValueType.java" />
-      <change type="MOVED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\gui\src\java\cz\muni\fi\fits\gui\view\operationtabs\OperationTabsLoader.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/utils/OperationTabsLoader.java" />
     </list>
     <ignored path="FITS-HeaderVisualEditor.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,65 +44,48 @@
             <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="150" column="26" selection-start-line="150" selection-start-column="26" selection-end-line="150" selection-end-column="26" />
-                  <folding>
-                    <element signature="method#initRootLayout#0;class#MainApp#0" expanded="true" />
-                    <element signature="method#initFilesOverview#0;class#MainApp#0" expanded="true" />
-                    <element signature="method#initOperationTabsView#0;class#MainApp#0" expanded="true" />
-                    <element signature="method#extractTabPane#0;class#MainApp#0" expanded="true" />
-                  </folding>
+                  <caret line="154" column="95" selection-start-line="154" selection-start-column="95" selection-end-line="154" selection-end-column="95" />
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="RemoveRecordTab.fxml" pinned="false" current-in-tab="true">
+          <file leaf-file-name="RemoveRecordTab.fxml" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/RemoveRecordTab.fxml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.15925059">
-                  <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
               <provider editor-type-id="JavaFX-Scene-Builder">
                 <state />
+              </provider>
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-4.6896553">
+                  <caret line="13" column="15" selection-start-line="13" selection-start-column="15" selection-end-line="13" selection-end-column="15" />
+                  <folding />
+                </state>
               </provider>
             </entry>
           </file>
           <file leaf-file-name="RootLayout.fxml" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/RootLayout.fxml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-9.379311">
-                  <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
-                  <folding />
-                </state>
-              </provider>
               <provider editor-type-id="JavaFX-Scene-Builder">
                 <state />
               </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="RootLayoutController.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/RootLayoutController.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="24" column="67" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
-                  <folding>
-                    <element signature="method#selectLanguageItem#0;class#RootLayoutController#0" expanded="true" />
-                  </folding>
+                  <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
           <file leaf-file-name="AddNewRecordTab.fxml" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/AddNewRecordTab.fxml">
+              <provider editor-type-id="JavaFX-Scene-Builder">
+                <state />
+              </provider>
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
+                <state vertical-scroll-proportion="-0.0">
                   <caret line="19" column="76" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
                   <folding />
                 </state>
-              </provider>
-              <provider editor-type-id="JavaFX-Scene-Builder">
-                <state />
               </provider>
             </entry>
           </file>
@@ -118,14 +93,34 @@
             <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="162" column="38" selection-start-line="162" selection-start-column="38" selection-end-line="162" selection-end-column="38" />
-                  <folding>
-                    <element signature="method#initialize#0;class#AddNewRecordTabController#0" expanded="true" />
-                    <element signature="method#loadValueTypeField#0;class#AddNewRecordTabController#0" expanded="true" />
-                    <element signature="method#onValueTypeSelectionChanged#0;class#AddNewRecordTabController#0" expanded="true" />
-                    <element signature="method#onInsertToPlaceSelectionChanged#0;class#AddNewRecordTabController#0" expanded="true" />
-                    <element signature="method#setRecordPlacingFieldsVisibility#0;class#AddNewRecordTabController#0" expanded="true" />
-                  </folding>
+                  <caret line="21" column="64" selection-start-line="21" selection-start-column="64" selection-end-line="21" selection-end-column="64" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ShiftTimeTab.fxml" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ShiftTimeTab.fxml">
+              <provider editor-type-id="JavaFX-Scene-Builder">
+                <state />
+              </provider>
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.040141676">
+                  <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ChangeValueTab.fxml" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChangeValueTab.fxml">
+              <provider editor-type-id="JavaFX-Scene-Builder">
+                <state />
+              </provider>
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-26.275862">
+                  <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -136,28 +131,28 @@
         <leaf>
           <file leaf-file-name="Language_sk.properties" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/resources/bundles/Language_sk.properties">
+              <provider selected="true" editor-type-id="ResourceBundle">
+                <state />
+              </provider>
               <provider editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
                   <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
                   <folding />
                 </state>
               </provider>
-              <provider selected="true" editor-type-id="ResourceBundle">
-                <state />
-              </provider>
             </entry>
           </file>
-          <file leaf-file-name="RemoveRecordController.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/RemoveRecordController.java">
+          <file leaf-file-name="ChangeKeywordTabController.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChangeKeywordTabController.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="28" column="29" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
+                  <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
                   <folding>
-                    <element signature="method#initialize#0;class#RemoveRecordController#0" expanded="true" />
-                    <element signature="e#1190#1191#0" expanded="true" />
-                    <element signature="e#1268#1269#0" expanded="true" />
-                    <element signature="method#setFieldsConstraints#0;class#RemoveRecordController#0" expanded="true" />
-                    <element signature="method#loadRemoveTypeField#0;class#RemoveRecordController#0" expanded="true" />
+                    <element signature="docComment;class#ChangeKeywordTabController#0" expanded="true" />
+                    <element signature="method#initialize#0;class#ChangeKeywordTabController#0" expanded="true" />
+                    <element signature="e#843#844#0" expanded="true" />
+                    <element signature="e#921#922#0" expanded="true" />
+                    <element signature="method#setFieldsConstraints#0;class#ChangeKeywordTabController#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -169,7 +164,13 @@
                 <state vertical-scroll-proportion="0.0">
                   <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
                   <folding>
-                    <element signature="method#ComboBoxItem#0;class#ComboBoxItem#0" expanded="true" />
+                    <element signature="docComment;class#ComboBoxItem#0" expanded="false" />
+                    <element signature="e#322#323#0" expanded="false" />
+                    <element signature="e#350#351#0" expanded="false" />
+                    <element signature="e#382#383#0" expanded="false" />
+                    <element signature="e#411#412#0" expanded="false" />
+                    <element signature="e#457#458#0" expanded="false" />
+                    <element signature="e#486#487#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -188,12 +189,25 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Constants.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Constants.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.46137786">
-                  <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
                   <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ShiftTimeTabController.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ShiftTimeTabController.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.21347032">
+                  <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#402#403#0" expanded="true" />
+                    <element signature="e#461#462#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -248,19 +262,26 @@
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/combobox/ComboBoxListCell.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operations/add/AddRecordToPlace.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/RootLayout.fxml" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/UTF8Control.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Constrainer.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/TabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AbstractTabController.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/OperationTabController.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operations/remove/RemoveByType.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operations/remove/RemoveType.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/RemoveRecordController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/RemoveRecordTab.fxml" />
-        <option value="$PROJECT_DIR$/src/resources/bundles/Language_sk.properties" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Constants.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChangeKeywordTab.fxml" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChangeKeywordTabController.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChangeValueTab.fxml" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/OperationTabController.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ValueOperationTabController.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChangeValueTabController.java" />
+        <option value="$PROJECT_DIR$/src/resources/bundles/Language_sk.properties" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ShiftTimeTabController.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ShiftTimeTab.fxml" />
       </list>
     </option>
   </component>
@@ -300,8 +321,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1616" />
-    <option name="height" value="876" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -397,6 +418,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -563,138 +585,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FITS-HeaderVisualEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FITS-HeaderVisualEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="operations" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FITS-HeaderVisualEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="operations" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="remove" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FITS-HeaderVisualEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="operations" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="add" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -713,7 +610,7 @@
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.folding" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
@@ -1026,11 +923,12 @@
       <workItem from="1444580988760" duration="1157000" />
       <workItem from="1444721856942" duration="8994000" />
       <workItem from="1444735210380" duration="9160000" />
+      <workItem from="1444759733470" duration="12201000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51940000" />
+    <option name="totallyTimeSpent" value="64141000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1042,7 +940,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1055,14 +953,13 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.21002132" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32359308" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" x="725" y="210" width="469" height="620" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891566" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1073,6 +970,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891566" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1088,7 +986,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1097,75 +995,15 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/TabController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/combobox/ComboBoxItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="41" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/FilesOverviewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="149" column="4" selection-start-line="149" selection-start-column="4" selection-end-line="149" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/FitsFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="43" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/OperationTabsView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
+    <entry file="file://$PROJECT_DIR$/src/resources/bundles/Language_sk.properties">
+      <provider selected="true" editor-type-id="ResourceBundle">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/utils/OperationTabsLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="15" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
-          <folding>
-            <element signature="docComment;class#OperationTabsLoader#0" expanded="true" />
-            <element signature="method#loadOperationTab#0;class#OperationTabsLoader#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/resources/bundles/Language_sk.properties">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="ResourceBundle">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Constants.java">
@@ -1179,35 +1017,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="49" column="24" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
-          <folding>
-            <element signature="method#initRootLayout#0;class#MainApp#0" expanded="true" />
-            <element signature="method#initFilesOverview#0;class#MainApp#0" expanded="true" />
-            <element signature="method#initOperationTabsView#0;class#MainApp#0" expanded="true" />
-            <element signature="method#extractTabPane#0;class#MainApp#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/RootLayout.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="27" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="27" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/FilesOverview.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/FilesOverview.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/FilesOverviewController.java">
@@ -1218,14 +1051,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/resources/bundles/Language_cs.properties">
+      <provider selected="true" editor-type-id="ResourceBundle">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="ResourceBundle">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/FitsFile.java">
@@ -1271,14 +1104,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/FilesOverview.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/jfxtras/jfxtras-labs/8.0-r4/jfxtras-labs-8.0-r4.jar!/jfxtras/labs/scene/control/BigDecimalField.class">
@@ -1299,14 +1132,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/OperationTabsView.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.06007067">
           <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/javafx-src.zip!/javafx/beans/property/ObjectPropertyBase.java">
@@ -1383,48 +1216,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/AddNewRecordTab.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="76" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/RootLayout.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/RootLayout.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.379311">
+        <state vertical-scroll-proportion="0.0">
           <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
           <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/RootLayoutController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="67" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
-          <folding>
-            <element signature="method#selectLanguageItem#0;class#RootLayoutController#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="150" column="26" selection-start-line="150" selection-start-column="26" selection-end-line="150" selection-end-column="26" />
-          <folding>
-            <element signature="method#initRootLayout#0;class#MainApp#0" expanded="true" />
-            <element signature="method#initFilesOverview#0;class#MainApp#0" expanded="true" />
-            <element signature="method#initOperationTabsView#0;class#MainApp#0" expanded="true" />
-            <element signature="method#extractTabPane#0;class#MainApp#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1432,7 +1231,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3148148">
           <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1441,19 +1239,8 @@
         <state vertical-scroll-proportion="0.37777779">
           <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
           <folding>
-            <element signature="docComment;class#Constrainer#0" expanded="true" />
-            <element signature="method#constrainTextFieldWithRegex#0;class#Constrainer#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/utils/OperationTabsLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding>
-            <element signature="docComment;class#OperationTabsLoader#0" expanded="true" />
-            <element signature="method#loadOperationTab#0;class#OperationTabsLoader#0" expanded="true" />
+            <element signature="docComment;class#Constrainer#0" expanded="false" />
+            <element signature="method#constrainTextFieldWithRegex#0;class#Constrainer#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1463,22 +1250,6 @@
         <state vertical-scroll-proportion="0.15711646">
           <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/OperationTabController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7535461">
-          <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
-          <folding>
-            <element signature="docComment;class#OperationTabController#0" expanded="true" />
-            <element signature="e#331#332#0" expanded="true" />
-            <element signature="e#375#376#0" expanded="true" />
-            <element signature="e#434#435#0" expanded="true" />
-            <element signature="e#480#481#0" expanded="true" />
-            <element signature="e#528#529#0" expanded="true" />
-            <element signature="e#559#560#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1495,7 +1266,13 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
           <folding>
-            <element signature="method#ComboBoxItem#0;class#ComboBoxItem#0" expanded="true" />
+            <element signature="docComment;class#ComboBoxItem#0" expanded="false" />
+            <element signature="e#322#323#0" expanded="false" />
+            <element signature="e#350#351#0" expanded="false" />
+            <element signature="e#382#383#0" expanded="false" />
+            <element signature="e#411#412#0" expanded="false" />
+            <element signature="e#457#458#0" expanded="false" />
+            <element signature="e#486#487#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1508,61 +1285,179 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java">
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/RemoveRecordTab.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.6896553">
+          <caret line="13" column="15" selection-start-line="13" selection-start-column="15" selection-end-line="13" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/AddNewRecordTab.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="162" column="38" selection-start-line="162" selection-start-column="38" selection-end-line="162" selection-end-column="38" />
+          <caret line="19" column="76" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChangeKeywordTab.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.413794">
+          <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/RootLayoutController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="67" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
           <folding>
-            <element signature="method#initialize#0;class#AddNewRecordTabController#0" expanded="true" />
-            <element signature="method#loadValueTypeField#0;class#AddNewRecordTabController#0" expanded="true" />
-            <element signature="method#onValueTypeSelectionChanged#0;class#AddNewRecordTabController#0" expanded="true" />
-            <element signature="method#onInsertToPlaceSelectionChanged#0;class#AddNewRecordTabController#0" expanded="true" />
-            <element signature="method#setRecordPlacingFieldsVisibility#0;class#AddNewRecordTabController#0" expanded="true" />
+            <element signature="method#selectLanguageItem#0;class#RootLayoutController#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/RemoveRecordTab.fxml">
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/utils/OperationTabsLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15925059">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding>
+            <element signature="docComment;class#OperationTabsLoader#0" expanded="true" />
+            <element signature="method#loadOperationTab#0;class#OperationTabsLoader#0" expanded="true" />
+          </folding>
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/RemoveRecordController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="29" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.61764705">
+          <caret line="37" column="39" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
           <folding>
-            <element signature="method#initialize#0;class#RemoveRecordController#0" expanded="true" />
-            <element signature="e#1190#1191#0" expanded="true" />
-            <element signature="e#1268#1269#0" expanded="true" />
             <element signature="method#setFieldsConstraints#0;class#RemoveRecordController#0" expanded="true" />
             <element signature="method#loadRemoveTypeField#0;class#RemoveRecordController#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChangeValueTab.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-26.275862">
+          <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/OperationTabController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ValueOperationTabController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34931508">
+          <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
+          <folding>
+            <element signature="docComment;class#ValueOperationTabController#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChangeValueTabController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.543379">
+          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+          <folding>
+            <element signature="method#initialize#0;class#ChangeValueTabController#0" expanded="true" />
+            <element signature="method#setFieldConstraints#0;class#ChangeValueTabController#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="64" selection-start-line="21" selection-start-column="64" selection-end-line="21" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/resources/bundles/Language_sk.properties">
+      <provider selected="true" editor-type-id="ResourceBundle">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="ResourceBundle">
-        <state />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChangeKeywordTabController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+          <folding>
+            <element signature="docComment;class#ChangeKeywordTabController#0" expanded="true" />
+            <element signature="method#initialize#0;class#ChangeKeywordTabController#0" expanded="true" />
+            <element signature="e#843#844#0" expanded="true" />
+            <element signature="e#921#922#0" expanded="true" />
+            <element signature="method#setFieldsConstraints#0;class#ChangeKeywordTabController#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Constants.java">
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46137786">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="154" column="95" selection-start-line="154" selection-start-column="95" selection-end-line="154" selection-end-column="95" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ShiftTimeTab.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.040141676">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ShiftTimeTabController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21347032">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#402#403#0" expanded="true" />
+            <element signature="e#461#462#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
