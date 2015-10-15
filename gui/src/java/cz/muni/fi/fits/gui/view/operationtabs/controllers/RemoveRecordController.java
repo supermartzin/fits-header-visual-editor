@@ -1,7 +1,7 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
-import cz.muni.fi.fits.gui.models.operations.remove.RemoveType;
+import cz.muni.fi.fits.gui.models.operationenums.RemoveType;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Constrainer;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
@@ -58,25 +58,26 @@ public class RemoveRecordController extends OperationTabController {
 
         removeTypeField.setCellFactory(param -> new ComboBoxListCell<>());
 
-        removeTypeField.valueProperty().addListener((observable, oldValue, newValue) -> onRemoveTypeSelectionChanged((ComboBoxItem) newValue));
+        removeTypeField.valueProperty().addListener(
+                (observable, oldValue, newValue) -> onRemoveTypeFieldSelectionChanged((ComboBoxItem) newValue));
     }
 
-    private void onRemoveTypeSelectionChanged(ComboBoxItem comboBoxItem) {
+    private void onRemoveTypeFieldSelectionChanged(ComboBoxItem comboBoxItem) {
         if (comboBoxItem != null) {
             switch ((RemoveType) comboBoxItem.getType()) {
                 case BY_KEYWORD:
-                    setRemoveTypeFieldsVisibility(true, true, false, false);
+                    setRemoveTypeDependentFieldsVisibility(true, true, false, false);
                     break;
                 case FROM_INDEX:
-                    setRemoveTypeFieldsVisibility(false, false, true, true);
+                    setRemoveTypeDependentFieldsVisibility(false, false, true, true);
             }
         }
     }
 
-    private void setRemoveTypeFieldsVisibility(boolean keywordLabel,
-                                               boolean keywordField,
-                                               boolean indexLabel,
-                                               boolean indexField) {
+    private void setRemoveTypeDependentFieldsVisibility(boolean keywordLabel,
+                                                        boolean keywordField,
+                                                        boolean indexLabel,
+                                                        boolean indexField) {
         this.keywordLabel.setVisible(keywordLabel);
         this.keywordField.setVisible(keywordField);
         this.indexLabel.setVisible(indexLabel);

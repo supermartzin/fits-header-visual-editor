@@ -4,13 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<ScrollPane fitToHeight="true" hbarPolicy="NEVER" maxWidth="450.0" minWidth="300.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.muni.fi.fits.gui.view.controllers.FilesOverviewController">
+<ScrollPane fitToHeight="true" hbarPolicy="NEVER" maxWidth="450.0" minWidth="300.0" prefWidth="450.0" styleClass="edge-to-edge" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.muni.fi.fits.gui.view.controllers.FilesOverviewController">
     <opaqueInsets>
         <Insets />
     </opaqueInsets>
     <AnchorPane maxWidth="450.0" minWidth="300.0" prefWidth="450.0">
         <Label layoutX="7.0" layoutY="6.0" text="%label.select.files" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="7.0" />
-        <TableView fx:id="tableView" editable="true" minHeight="300.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+        <TableView fx:id="tableView" editable="true" minHeight="300.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="30.0">
             <columns>
                 <TableColumn fx:id="selectColumn" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" resizable="false" sortable="false" />
                 <TableColumn fx:id="filenameColumn" editable="false" minWidth="-1.0" prefWidth="170.0" text="%file.name" />

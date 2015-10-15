@@ -1,6 +1,4 @@
-package cz.muni.fi.fits.gui.models.operations.remove;
-
-import cz.muni.fi.fits.gui.models.operations.PropertyBasedEnum;
+package cz.muni.fi.fits.gui.models.operationenums;
 
 /**
  * TODO insert description
@@ -9,8 +7,8 @@ import cz.muni.fi.fits.gui.models.operations.PropertyBasedEnum;
  * @version 1.0
  */
 public enum RemoveType implements PropertyBasedEnum {
-    BY_KEYWORD("oper.remove.by.keyword"),
-    FROM_INDEX("oper.remove.by.index");
+    BY_KEYWORD("remove.by.keyword"),
+    FROM_INDEX("remove.by.index");
 
     private final String _propertyName;
 

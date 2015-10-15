@@ -10,16 +10,16 @@ public abstract class OperationTabController implements TabController {
 
     protected String _tabName;
 
-    private boolean _operationOnTabCalled;
+    private boolean _operationCalled;
 
     @Override
     public boolean called() {
-        return _operationOnTabCalled;
+        return _operationCalled;
     }
 
     @Override
     public void setCalled(boolean called) {
-        _operationOnTabCalled = called;
+        _operationCalled = called;
     }
 
     @Override

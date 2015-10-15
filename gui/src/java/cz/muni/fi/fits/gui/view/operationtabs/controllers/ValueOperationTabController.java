@@ -1,6 +1,6 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
-import cz.muni.fi.fits.gui.models.operations.ValueType;
+import cz.muni.fi.fits.gui.models.operationenums.ValueType;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -60,35 +60,36 @@ public abstract class ValueOperationTabController extends OperationTabController
 
         valueTypeField.setCellFactory(param -> new ComboBoxListCell<>());
 
-        valueTypeField.valueProperty().addListener((observable, oldValue, newValue) -> onValueTypeSelectionChanged((ComboBoxItem) newValue));
+        valueTypeField.valueProperty().addListener(
+                (observable, oldValue, newValue) -> onValueTypeFieldSelectionChanged((ComboBoxItem) newValue));
     }
 
-    protected void onValueTypeSelectionChanged(ComboBoxItem comboBoxItem) {
+    protected void onValueTypeFieldSelectionChanged(ComboBoxItem comboBoxItem) {
         if (comboBoxItem != null) {
             switch ((ValueType) comboBoxItem.getType()) {
                 case STRING:
-                    setValueFieldVisibility(true, false, false, false, false, false);
+                    setValueTypeDependentFieldsVisibility(true, false, false, false, false, false);
                     break;
                 case NUMBER:
-                    setValueFieldVisibility(false, true, false, false, false, false);
+                    setValueTypeDependentFieldsVisibility(false, true, false, false, false, false);
                     break;
                 case DATETIME:
-                    setValueFieldVisibility(false, false, true, false, false, false);
+                    setValueTypeDependentFieldsVisibility(false, false, true, false, false, false);
                     break;
                 case DATE:
-                    setValueFieldVisibility(false, false, false, true, false, false);
+                    setValueTypeDependentFieldsVisibility(false, false, false, true, false, false);
                     break;
                 case TIME:
-                    setValueFieldVisibility(false, false, false, false, true, false);
+                    setValueTypeDependentFieldsVisibility(false, false, false, false, true, false);
                     break;
                 case BOOLEAN:
-                    setValueFieldVisibility(false, false, false, false, false, true);
+                    setValueTypeDependentFieldsVisibility(false, false, false, false, false, true);
                     break;
             }
         }
     }
 
-    protected void setValueFieldVisibility(
+    protected void setValueTypeDependentFieldsVisibility(
             boolean stringField,
             boolean numberField,
             boolean datetimeField,

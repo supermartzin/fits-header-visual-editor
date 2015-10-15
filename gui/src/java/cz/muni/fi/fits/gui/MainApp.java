@@ -109,17 +109,16 @@ public class MainApp extends Application {
         try {
             FXMLLoader operationTabsViewFile = new FXMLLoader(MainApp.class.getResource("view/OperationTabsView.fxml"));
             ResourceBundleService.setResourceBundle(operationTabsViewFile);
-            ScrollPane tabView = operationTabsViewFile.load();
+            AnchorPane anchorPane = operationTabsViewFile.load();
 
             // load Tabs into TabPane
-            TabPane tabPane = extractTabPane(tabView);
             Collection<Tab> tabs = loadOperationTabs();
-            if (tabPane != null) {
+            TabPane tabPane = extractTabPane(anchorPane);
+            if (tabPane != null)
                 tabPane.getTabs().addAll(tabs);
-            }
 
-            // load TabPane into view
-            _centralLayout.getItems().add(tabView);
+            // load Tabs into view
+            _centralLayout.getItems().add(anchorPane);
         } catch (IOException e) {
             // TODO handle exception
             e.printStackTrace();
@@ -133,6 +132,7 @@ public class MainApp extends Application {
             AnchorPane outputTextFlow = outputViewFile.load();
 
             ScrollPane scrollPane = new ScrollPane(outputTextFlow);
+            scrollPane.getStyleClass().addAll("edge-to-edge");
             scrollPane.setFitToWidth(true);
             scrollPane.setFitToHeight(true);
 
@@ -152,15 +152,15 @@ public class MainApp extends Application {
         tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/RemoveRecordTab.fxml"));
         tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/ChangeKeywordTab.fxml"));
         tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/ChangeValueTab.fxml"));
+        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/ChainRecordsTab.fxml"));
         tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/ShiftTimeTab.fxml"));
-        // TODO load other tabs
+        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/JulianDateTab.fxml"));
+        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/HeliocentricJulianDateTab.fxml"));
 
         return tabs;
     }
 
-    private TabPane extractTabPane(ScrollPane scrollPane) {
-        AnchorPane anchorPane = (AnchorPane) scrollPane.getContent();
-
+    private TabPane extractTabPane(AnchorPane anchorPane) {
         if (anchorPane != null) {
             for (Node node : anchorPane.getChildren()) {
                 if (node instanceof TabPane)

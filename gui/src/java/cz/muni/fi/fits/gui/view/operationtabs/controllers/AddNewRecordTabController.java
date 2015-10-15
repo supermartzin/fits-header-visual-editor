@@ -1,7 +1,7 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
-import cz.muni.fi.fits.gui.models.operations.add.AddRecordToPlace;
+import cz.muni.fi.fits.gui.models.operationenums.RecordPlacement;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Constrainer;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
@@ -25,7 +25,7 @@ public class AddNewRecordTabController extends ValueOperationTabController {
     public CheckBox updateSwitchField;
     public CheckBox removeSwitchField;
     public TextField commentField;
-    public ComboBox insertToPlaceField;
+    public ComboBox recordPlacementField;
     public TextField indexNumberField;
 
     @Override
@@ -35,7 +35,7 @@ public class AddNewRecordTabController extends ValueOperationTabController {
         _tabName = resources.getString("tab.add");
 
         setFieldsConstraints();
-        loadInsertToPlaceField(resources);
+        loadRecordPlacementField(resources);
     }
 
     @Override
@@ -51,33 +51,34 @@ public class AddNewRecordTabController extends ValueOperationTabController {
         Constrainer.constrainTextFieldWithRegex(keywordField, Constants.KEYWORD_PATTERN);
     }
 
-    private void loadInsertToPlaceField(ResourceBundle resources) {
+    private void loadRecordPlacementField(ResourceBundle resources) {
         if (resources != null) {
-            insertToPlaceField.getItems().add(new ComboBoxItem<>(AddRecordToPlace.END,
-                    resources.getString(AddRecordToPlace.END.getPropertyName())));
-            insertToPlaceField.getItems().add(new ComboBoxItem<>(AddRecordToPlace.INDEX,
-                    resources.getString(AddRecordToPlace.INDEX.getPropertyName())));
+            recordPlacementField.getItems().add(new ComboBoxItem<>(RecordPlacement.END,
+                    resources.getString(RecordPlacement.END.getPropertyName())));
+            recordPlacementField.getItems().add(new ComboBoxItem<>(RecordPlacement.INDEX,
+                    resources.getString(RecordPlacement.INDEX.getPropertyName())));
         }
 
-        insertToPlaceField.setCellFactory(param -> new ComboBoxListCell<>());
+        recordPlacementField.setCellFactory(param -> new ComboBoxListCell<>());
 
-        insertToPlaceField.valueProperty().addListener((observable, oldValue, newValue) -> onInsertToPlaceSelectionChanged((ComboBoxItem) newValue));
+        recordPlacementField.valueProperty().addListener(
+                (observable, oldValue, newValue) -> onRecordPlacementFieldSelectionChanged((ComboBoxItem) newValue));
     }
 
-    private void onInsertToPlaceSelectionChanged(ComboBoxItem comboBoxItem) {
+    private void onRecordPlacementFieldSelectionChanged(ComboBoxItem comboBoxItem) {
         if (comboBoxItem != null) {
-            switch ((AddRecordToPlace) comboBoxItem.getType()) {
+            switch ((RecordPlacement) comboBoxItem.getType()) {
                 case END:
-                    setRecordPlacingFieldsVisibility(true, false, false);
+                    setRecordPlacementDependentFieldsVisibility(true, false, false);
                     break;
                 case INDEX:
-                    setRecordPlacingFieldsVisibility(false, true, true);
+                    setRecordPlacementDependentFieldsVisibility(false, true, true);
                     break;
             }
         }
     }
 
-    private void setRecordPlacingFieldsVisibility(
+    private void setRecordPlacementDependentFieldsVisibility(
             boolean updateSwitchField,
             boolean removeSwitchField,
             boolean indexNumberField) {

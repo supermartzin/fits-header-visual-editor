@@ -1,4 +1,4 @@
-package cz.muni.fi.fits.gui.models.operations;
+package cz.muni.fi.fits.gui.models.operationenums;
 
 /**
  * TODO description
