@@ -37,6 +37,8 @@ public abstract class JulianDateBaseOperationTabController extends OperationTabC
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
+
         setFieldsConstraints();
         loadDatetimeRecordTypeField(resources);
         loadExposureRecordTypeField(resources);

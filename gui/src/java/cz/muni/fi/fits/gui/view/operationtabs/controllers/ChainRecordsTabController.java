@@ -1,12 +1,14 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
 import cz.muni.fi.fits.gui.models.ChainRecordGroup;
-import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
-import java.util.*;
+import java.util.EventObject;
+import java.util.ResourceBundle;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * TODO insert description
@@ -20,7 +22,6 @@ public class ChainRecordsTabController extends OperationTabController {
     public Button addValueButton;
 
     private int _currentIndex;
-    private ResourceBundle _resources;
     private final SortedMap<Integer, ChainRecordGroup> _chainRecordGroups;
 
     public ChainRecordsTabController() {
@@ -30,7 +31,8 @@ public class ChainRecordsTabController extends OperationTabController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        _resources = resources;
+        super.initialize(location, resources);
+
         _tabName = resources.getString("tab.chain");
 
         ChainRecordGroup requiredGroup = new ChainRecordGroup(resources, true);
@@ -38,7 +40,7 @@ public class ChainRecordsTabController extends OperationTabController {
     }
 
     @Override
-    public InputData getInputData() {
+    public String getInputDataString() {
         throw new UnsupportedOperationException("not implemented yet");
     }
 

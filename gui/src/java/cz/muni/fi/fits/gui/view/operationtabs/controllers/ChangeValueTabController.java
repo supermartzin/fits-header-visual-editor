@@ -1,10 +1,7 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
-import cz.muni.fi.fits.gui.models.inputdata.InputData;
-import cz.muni.fi.fits.gui.utils.Constants;
-import cz.muni.fi.fits.gui.utils.Constrainer;
+import cz.muni.fi.fits.gui.utils.ValidationException;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,30 +12,39 @@ import java.util.ResourceBundle;
  * @author Martin Vrábel
  * @version 1.0
  */
-public class ChangeValueTabController extends ValueOperationTabController {
+public class ChangeValueTabController extends BasicRecordBasedOperationTabController {
 
     public CheckBox addSwitchField;
-    public TextField keywordField;
-    public TextField commentField;
+
+    private Validator _validator;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
 
         _tabName = resources.getString("tab.change.value");
+        _validator = new Validator();
 
-        setFieldConstraints();
+        setFieldsConstraints();
     }
 
     @Override
-    public InputData getInputData() {
-        throw new UnsupportedOperationException("not implemented yet");
+    public String getInputDataString() {
+        try {
+            // validate fields
+            _validator.validateKeywordField();
+            _validator.validateValueTypeField();
+            _validator.validateValueField();
+
+            return "";
+        } catch (ValidationException vEx) {
+            return null;
+        }
     }
 
-    private void setFieldConstraints() {
-        Constrainer.constrainTextFieldWithRegex(valueTimeField, Constants.TIME_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(valueDateTimeTimeField, Constants.TIME_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(valueNumberField, Constants.DECIMAL_NUMBER_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(keywordField, Constants.KEYWORD_PATTERN);
-    }
+
+    /**
+     *
+     */
+    class Validator extends BasicRecordBasedOperationTabController.Validator { }
 }

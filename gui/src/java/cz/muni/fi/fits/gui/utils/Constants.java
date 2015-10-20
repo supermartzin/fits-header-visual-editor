@@ -23,4 +23,7 @@ public final class Constants {
     public static final Pattern SECONDS_PATTERN = Pattern.compile("^\\d|[1-5]\\d$");
     public static final Pattern RIGHT_ASCENSION_PATTERN = Pattern.compile("^(([1-2]?\\d?\\d)|(3[0-5]\\d))(\\.\\d*)?|360$");
     public static final Pattern DECLINATION_PATTERN = Pattern.compile("^-|-?((\\d|[1-8]\\d)(\\.\\d*)?|90)$");
+
+    public static final String INPUT_FILES_PLACEHOLDER = "<<files>>";
+    public static final String EXPRESSIONS_DELIMITER = " ";
 }

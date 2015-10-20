@@ -2,6 +2,7 @@ package cz.muni.fi.fits.gui.view.operationtabs.utils;
 
 import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
+import cz.muni.fi.fits.gui.view.controllers.OperationTabsViewController;
 import cz.muni.fi.fits.gui.view.operationtabs.controllers.TabController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
@@ -17,15 +18,25 @@ import java.io.IOException;
  */
 public class OperationTabsLoader {
 
-    public static Tab loadOperationTab(String resourcePath)
+    public static Tab loadTab(String resourcePath, OperationTabsViewController parentController)
             throws IOException {
-
         FXMLLoader tabFile = new FXMLLoader(MainApp.class.getResource(resourcePath));
         ResourceBundleService.setResourceBundle(tabFile);
         ScrollPane scrollPane = tabFile.load();
 
+        // load controller
         TabController controller = tabFile.getController();
 
-        return new Tab(controller.getTabName(), scrollPane);
+        // add to parent controller
+        if (parentController != null)
+            parentController.addTabController(controller);
+
+        // create Tab
+        Tab tab = new Tab(controller.getTabName(), scrollPane);
+
+        // add Tab to its controller
+        controller.setTab(tab);
+
+        return tab;
     }
 }

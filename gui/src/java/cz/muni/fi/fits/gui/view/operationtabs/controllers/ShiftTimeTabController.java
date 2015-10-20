@@ -1,6 +1,5 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
-import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.operationenums.ShiftDirection;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Constrainer;
@@ -42,6 +41,8 @@ public class ShiftTimeTabController extends OperationTabController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
+
         _tabName = resources.getString("tab.shift");
 
         setFieldsConstraints();
@@ -49,7 +50,7 @@ public class ShiftTimeTabController extends OperationTabController {
     }
 
     @Override
-    public InputData getInputData() {
+    public String getInputDataString() {
         throw new UnsupportedOperationException("not implemented yet");
     }
 

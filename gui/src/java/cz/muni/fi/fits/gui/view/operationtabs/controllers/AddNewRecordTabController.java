@@ -1,9 +1,7 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
-import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.operationenums.RecordPlacement;
-import cz.muni.fi.fits.gui.utils.Constants;
-import cz.muni.fi.fits.gui.utils.Constrainer;
+import cz.muni.fi.fits.gui.utils.*;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -19,36 +17,61 @@ import java.util.ResourceBundle;
  * @author Martin Vrábel
  * @version 1.0
  */
-public class AddNewRecordTabController extends ValueOperationTabController {
+public class AddNewRecordTabController extends BasicRecordBasedOperationTabController {
 
-    public TextField keywordField;
     public CheckBox updateSwitchField;
     public CheckBox removeSwitchField;
-    public TextField commentField;
-    public ComboBox recordPlacementField;
+    public ComboBox<ComboBoxItem<RecordPlacement>> recordPlacementField;
     public TextField indexNumberField;
+
+    private Validator _validator;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
 
         _tabName = resources.getString("tab.add");
+        _validator = new Validator();
 
         setFieldsConstraints();
         loadRecordPlacementField(resources);
     }
 
     @Override
-    public InputData getInputData() {
-        throw new UnsupportedOperationException("not implemented yet");
+    public String getInputDataString() {
+        try {
+            // validate fields
+            _validator.validateRecordPlacement();
+            _validator.validateIndexField();
+            _validator.validateKeywordField();
+            _validator.validateValueTypeField();
+            _validator.validateValueField();
+
+            String inputDataString = "";
+
+            switch (recordPlacementField.getValue().getType()) {
+                case END:
+                    // operation name
+                    inputDataString += "ADD" + Constants.EXPRESSIONS_DELIMITER;
+                    // set switch
+                    if (updateSwitchField.isSelected())
+                        inputDataString += "-u" + Constants.EXPRESSIONS_DELIMITER;
+                    // set files placeholder
+                    inputDataString += Constants.INPUT_FILES_PLACEHOLDER + Constants.EXPRESSIONS_DELIMITER;
+                    // set
+            }
+
+            return "";
+        } catch (ValidationException vEx) {
+            return null;
+        }
     }
 
-    private void setFieldsConstraints() {
-        Constrainer.constrainTextFieldWithRegex(valueTimeField, Constants.TIME_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(valueDateTimeTimeField, Constants.TIME_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(valueNumberField, Constants.DECIMAL_NUMBER_PATTERN);
+    @Override
+    protected void setFieldsConstraints() {
+        super.setFieldsConstraints();
+
         Constrainer.constrainTextFieldWithRegex(indexNumberField, Constants.INTEGRAL_NUMBER_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(keywordField, Constants.KEYWORD_PATTERN);
     }
 
     private void loadRecordPlacementField(ResourceBundle resources) {
@@ -85,5 +108,55 @@ public class AddNewRecordTabController extends ValueOperationTabController {
         this.updateSwitchField.setVisible(updateSwitchField);
         this.removeSwitchField.setVisible(removeSwitchField);
         this.indexNumberField.setVisible(indexNumberField);
+    }
+
+
+    /**
+     *
+     */
+    class Validator extends BasicRecordBasedOperationTabController.Validator {
+
+        /**
+         *
+         * @throws ValidationException
+         */
+        void validateRecordPlacement() throws ValidationException {
+            if (recordPlacementField.getValue() == null) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.add.alert.content.rec_place"));
+
+                throw new ValidationException();
+            }
+        }
+
+        /**
+         *
+         * @throws ValidationException
+         */
+        void validateIndexField() throws ValidationException {
+            RecordPlacement recordPlacement = recordPlacementField.getValue().getType();
+            if (recordPlacement.equals(RecordPlacement.INDEX)) {
+                String indexText = indexNumberField.getText();
+
+                if (indexText.isEmpty()) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.common.alert.content.index.empty"));
+
+                    throw new ValidationException();
+                }
+                if (!Parsers.Integer.tryParse(indexText)) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.common.alert.content.index.invalid"));
+
+                    throw new ValidationException();
+                }
+            }
+        }
     }
 }

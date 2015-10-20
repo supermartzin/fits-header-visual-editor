@@ -115,7 +115,7 @@ public class ChainRecordGroup {
             _removeListener = listener;
     }
 
-    
+
     private void initializeFields() {
         initValueTypeField();
         initValueFields();

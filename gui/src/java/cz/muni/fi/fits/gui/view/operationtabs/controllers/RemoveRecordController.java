@@ -1,6 +1,5 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
-import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.operationenums.RemoveType;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Constrainer;
@@ -32,6 +31,8 @@ public class RemoveRecordController extends OperationTabController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
+
         _tabName = resources.getString("tab.remove");
 
         setFieldsConstraints();
@@ -39,7 +40,7 @@ public class RemoveRecordController extends OperationTabController {
     }
 
     @Override
-    public InputData getInputData() {
+    public String getInputDataString() {
         throw new UnsupportedOperationException("not implemented yet");
     }
 

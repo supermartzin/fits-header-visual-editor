@@ -1,5 +1,10 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
+import javafx.scene.control.Tab;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
  * TODO insert description
  *
@@ -9,17 +14,30 @@ package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 public abstract class OperationTabController implements TabController {
 
     protected String _tabName;
+    protected ResourceBundle _resources;
 
-    private boolean _operationCalled;
+    private boolean _selected;
 
     @Override
-    public boolean called() {
-        return _operationCalled;
+    public void initialize(URL location, ResourceBundle resources) {
+        if (resources != null)
+            _resources = resources;
     }
 
     @Override
-    public void setCalled(boolean called) {
-        _operationCalled = called;
+    public void setTab(final Tab tab) {
+        if (tab != null) {
+            // add listener for Tab selection
+            tab.selectedProperty().addListener(
+                    (observable, oldValue, newValue) -> {
+                        _selected = newValue;
+                    });
+        }
+    }
+
+    @Override
+    public boolean selected() {
+        return _selected;
     }
 
     @Override

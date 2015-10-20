@@ -1,18 +1,34 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
-import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Tab;
 
 /**
  * TODO description
  */
 public interface TabController extends Initializable {
 
-    boolean called();
+    /**
+     *
+     * @param tab
+     */
+    void setTab(final Tab tab);
 
-    void setCalled(boolean called);
+    /**
+     *
+     * @return
+     */
+    boolean selected();
 
-    InputData getInputData();
+    /**
+     *
+     * @return
+     */
+    String getInputDataString();
 
+    /**
+     *
+     * @return
+     */
     String getTabName();
 }

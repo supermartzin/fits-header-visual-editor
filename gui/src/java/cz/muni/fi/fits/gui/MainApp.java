@@ -3,6 +3,7 @@ package cz.muni.fi.fits.gui;
 import cz.muni.fi.fits.gui.models.FitsFile;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
 import cz.muni.fi.fits.gui.view.controllers.FilesOverviewController;
+import cz.muni.fi.fits.gui.view.controllers.OperationTabsViewController;
 import cz.muni.fi.fits.gui.view.controllers.RootLayoutController;
 import cz.muni.fi.fits.gui.view.operationtabs.utils.OperationTabsLoader;
 import javafx.application.Application;
@@ -111,8 +112,10 @@ public class MainApp extends Application {
             ResourceBundleService.setResourceBundle(operationTabsViewFile);
             AnchorPane anchorPane = operationTabsViewFile.load();
 
+            OperationTabsViewController controller = operationTabsViewFile.getController();
+
             // load Tabs into TabPane
-            Collection<Tab> tabs = loadOperationTabs();
+            Collection<Tab> tabs = loadOperationTabs(controller);
             TabPane tabPane = extractTabPane(anchorPane);
             if (tabPane != null)
                 tabPane.getTabs().addAll(tabs);
@@ -143,19 +146,19 @@ public class MainApp extends Application {
         }
     }
 
-    private Collection<Tab> loadOperationTabs()
+    private Collection<Tab> loadOperationTabs(OperationTabsViewController parentController)
             throws IOException {
         Collection<Tab> tabs = new LinkedHashSet<>();
 
         // load Tabs
-        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/AddNewRecordTab.fxml"));
-        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/RemoveRecordTab.fxml"));
-        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/ChangeKeywordTab.fxml"));
-        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/ChangeValueTab.fxml"));
-        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/ChainRecordsTab.fxml"));
-        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/ShiftTimeTab.fxml"));
-        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/JulianDateTab.fxml"));
-        tabs.add(OperationTabsLoader.loadOperationTab("view/operationtabs/HeliocentricJulianDateTab.fxml"));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/AddNewRecordTab.fxml", parentController));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/RemoveRecordTab.fxml", parentController));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/ChangeKeywordTab.fxml", parentController));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/ChangeValueTab.fxml", parentController));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/ChainRecordsTab.fxml", parentController));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/ShiftTimeTab.fxml", parentController));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/JulianDateTab.fxml", parentController));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/HeliocentricJulianDateTab.fxml", parentController));
 
         return tabs;
     }

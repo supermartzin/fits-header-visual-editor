@@ -1,7 +1,5 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
-import cz.muni.fi.fits.gui.models.inputdata.InputData;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,7 +19,7 @@ public class JulianDateTabController extends JulianDateBaseOperationTabControlle
     }
 
     @Override
-    public InputData getInputData() {
+    public String getInputDataString() {
         throw new UnsupportedOperationException("not implemented yet");
     }
 }
