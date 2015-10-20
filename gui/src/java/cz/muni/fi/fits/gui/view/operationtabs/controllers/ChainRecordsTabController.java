@@ -1,16 +1,12 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
+import cz.muni.fi.fits.gui.models.ChainRecordGroup;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.RowConstraints;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * TODO insert description
@@ -21,48 +17,80 @@ import java.util.ResourceBundle;
 public class ChainRecordsTabController extends OperationTabController {
 
     public GridPane gridPane;
+    public Button addValueButton;
+
+    private int _currentIndex;
+    private ResourceBundle _resources;
+    private final SortedMap<Integer, ChainRecordGroup> _chainRecordGroups;
+
+    public ChainRecordsTabController() {
+        _chainRecordGroups = new TreeMap<>();
+        _currentIndex = 3;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        _resources = resources;
         _tabName = resources.getString("tab.chain");
 
-        addNewGroup(4);
-        addNewGroup(5);
-        addNewGroup(6);
-        addNewGroup(7);
-        addNewGroup(8);
-        addNewGroup(9);
-    }
-
-    private void addNewGroup(int rowIndex) {
-        Button btn = new Button("Add");
-        GridPane.setRowIndex(btn, rowIndex);
-        GridPane.setColumnIndex(btn, 0);
-
-        TextField txtField = new TextField();
-        GridPane.setRowIndex(txtField, rowIndex);
-        GridPane.setColumnIndex(txtField, 1);
-
-        ComboBox comboBox = new ComboBox();
-        GridPane.setRowIndex(comboBox, rowIndex);
-        GridPane.setColumnIndex(comboBox, 2);
-
-        Button btn2 = new Button("X");
-        GridPane.setRowIndex(btn2, rowIndex);
-        GridPane.setColumnIndex(btn2, 3);
-
-        gridPane.addRow(rowIndex, btn, txtField, comboBox, btn2);
-
-        RowConstraints rowConstraints = new RowConstraints(
-                Region.USE_PREF_SIZE,
-                30.0,
-                Region.USE_PREF_SIZE);
-        rowConstraints.setVgrow(Priority.NEVER);
-        gridPane.getRowConstraints().add(rowConstraints);
+        ChainRecordGroup requiredGroup = new ChainRecordGroup(resources, true);
+        addNewRecordGroup(requiredGroup);
     }
 
     @Override
     public InputData getInputData() {
         throw new UnsupportedOperationException("not implemented yet");
+    }
+
+    public void onAddRecordButtonClicked() {
+        ChainRecordGroup chainRecordGroup = new ChainRecordGroup(_resources, false);
+        chainRecordGroup.setRemoveListener(this::onRemove);
+
+        addNewRecordGroup(chainRecordGroup);
+    }
+
+    private void addNewRecordGroup(ChainRecordGroup chainRecordGroup) {
+        if (chainRecordGroup != null) {
+            _chainRecordGroups.put(_currentIndex, chainRecordGroup);
+            chainRecordGroup.addToGrid(gridPane, _currentIndex);
+
+            moveAddValueButton(++_currentIndex);
+        }
+    }
+
+    private void onRemove(EventObject eventObject) {
+        if (eventObject != null) {
+            ChainRecordGroup group = (ChainRecordGroup) eventObject.getSource();
+            _chainRecordGroups.remove(group.getRowIndex());
+
+            // move all following value groups
+            moveFollowingValueGroups(group.getRowIndex());
+
+            // move addRecord button
+            int index = GridPane.getRowIndex(addValueButton);
+            moveAddValueButton(--index);
+
+            // decrease current row index
+            _currentIndex--;
+        }
+    }
+
+    private void moveFollowingValueGroups(int startIndex) {
+        // iterate over copied map to be able to modify original map
+        new TreeMap<>(_chainRecordGroups).forEach(
+                (index, chainRecordGroup) -> {
+                    if (index > startIndex) {
+                        // remove from actual index
+                        _chainRecordGroups.remove(index);
+                        // put to index lower by one
+                        _chainRecordGroups.put(index - 1, chainRecordGroup);
+                        // set lower index to group
+                        chainRecordGroup.setRowIndex(index - 1);
+                    }
+                });
+    }
+
+    private void moveAddValueButton(int index) {
+        GridPane.setRowIndex(addValueButton, index);
     }
 }
