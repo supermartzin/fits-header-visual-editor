@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+
 <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="edge-to-edge" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.muni.fi.fits.gui.view.operationtabs.controllers.ChangeValueTabController">
     <AnchorPane>
         <Label layoutX="15.0" layoutY="14.0" text="%oper.change.value">
@@ -31,12 +34,12 @@
                     <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
             </Label>
-            <Label text="%value" GridPane.rowIndex="1">
+            <Label text="%value.new" GridPane.rowIndex="1">
                 <GridPane.margin>
                     <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
             </Label>
-            <Label text="%comment" GridPane.rowIndex="2">
+            <Label text="%comment.new" GridPane.rowIndex="2">
                 <GridPane.margin>
                     <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
