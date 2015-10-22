@@ -11,6 +11,9 @@ import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 /**
@@ -117,6 +120,36 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
         valueBooleanField.setVisible(booleanField);
     }
 
+    protected String getRecordValue() {
+        // get value based on selected value type
+        switch (valueTypeField.getValue().getType()) {
+            case STRING:
+                return valueStringField.getText();
+            case NUMBER:
+                return valueNumberField.getText();
+            case BOOLEAN:
+                return Boolean.toString(valueBooleanField.isSelected());
+            case DATE:
+                return valueDateField.getValue().toString();
+            case TIME:
+                LocalTime valueTime = Parsers.Time.parse(valueTimeField.getText());
+                if (valueTime != null)
+                    return valueTime.toString();
+            case DATETIME:
+                LocalDate date = valueDateTimeDateField.getValue();
+                LocalTime time = Parsers.Time.parse(valueDateTimeTimeField.getText());
+
+                if (date == null)
+                    date = LocalDate.of(0, 1, 1);
+                if (time == null)
+                    time =  LocalTime.of(0, 0, 0);
+
+                return LocalDateTime.of(date, time).toString();
+        }
+
+        return null;
+    }
+
 
     /**
      *
@@ -127,35 +160,38 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
          *
          * @throws ValidationException
          */
-        void validateKeywordField() throws ValidationException {
+        void validateKeywordField()
+                throws ValidationException {
             if (keywordField.getText().isEmpty()) {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
                         _resources.getString("oper.common.alert.content.keyword.empty"));
 
-                throw new ValidationException();
+                throw new ValidationException("Keyword field is not set");
             }
         }
 
         /**
          * @throws ValidationException
          */
-        void validateValueTypeField() throws ValidationException {
+        void validateValueTypeField()
+                throws ValidationException {
             if (valueTypeField.getValue() == null) {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
                         _resources.getString("oper.common.alert.content.value.type"));
 
-                throw new ValidationException();
+                throw new ValidationException("Value type field is not set");
             }
         }
 
         /**
          * @throws ValidationException
          */
-        void validateValueField() throws ValidationException {
+        void validateValueField()
+                throws ValidationException {
             ValueType valueType = valueTypeField.getValue().getType();
 
             switch (valueType) {
@@ -208,22 +244,24 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
         }
 
 
-        private void valueEmpty() throws ValidationException {
+        private void valueEmpty()
+                throws ValidationException {
             WarningDialog.show(
                     _resources.getString("oper.common.alert.title"),
                     _resources.getString("oper.common.alert.header"),
                     _resources.getString("oper.common.alert.content.value.empty"));
 
-            throw new ValidationException();
+            throw new ValidationException("Value of the record is empty");
         }
 
-        private void valueInvalid() throws ValidationException {
+        private void valueInvalid()
+                throws ValidationException {
             WarningDialog.show(
                     _resources.getString("oper.common.alert.title"),
                     _resources.getString("oper.common.alert.header"),
                     _resources.getString("oper.common.alert.content.value.invalid"));
 
-            throw new ValidationException();
+            throw new ValidationException("Value of the record is in invalid format");
         }
     }
 }

@@ -1,5 +1,6 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
+import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.operationenums.HJDRecordType;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Constrainer;
@@ -49,7 +50,7 @@ public class HeliocentricJulianDateTabController extends JulianDateBaseOperation
     }
 
     @Override
-    public String getInputDataString() {
+    public InputData getInputData() {
         throw new UnsupportedOperationException("not implemented yet");
     }
 

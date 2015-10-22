@@ -1,5 +1,6 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
+import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.operationenums.ShiftDirection;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Constrainer;
@@ -50,20 +51,20 @@ public class ShiftTimeTabController extends OperationTabController {
     }
 
     @Override
-    public String getInputDataString() {
+    public InputData getInputData() {
         throw new UnsupportedOperationException("not implemented yet");
     }
 
     private void setFieldsConstraints() {
         Constrainer.constrainTextFieldWithRegex(keywordField, Constants.KEYWORD_PATTERN);
 
-        Constrainer.constrainTextFieldWithRegex(yearsField, Constants.INTEGRAL_NUMBER_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(monthsField, Constants.INTEGRAL_NUMBER_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(daysField, Constants.INTEGRAL_NUMBER_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(hoursField, Constants.INTEGRAL_NUMBER_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(minutesField, Constants.INTEGRAL_NUMBER_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(secondsField, Constants.INTEGRAL_NUMBER_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(millisecondsField, Constants.INTEGRAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(yearsField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(monthsField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(daysField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(hoursField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(minutesField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(secondsField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(millisecondsField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
     }
 
     private void loadShiftDirectionFields(ResourceBundle resources) {

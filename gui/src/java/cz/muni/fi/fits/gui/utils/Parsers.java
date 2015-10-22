@@ -26,6 +26,19 @@ public final class Parsers {
                 return false;
             }
         }
+
+        /**
+         *
+         * @param text
+         * @return
+         */
+        public static int parse(String text) {
+            try {
+                return java.lang.Integer.parseInt(text, 10);
+            } catch (NumberFormatException nfEx) {
+                return java.lang.Integer.MIN_VALUE;
+            }
+        }
     }
 
     public static class Long {
@@ -86,7 +99,11 @@ public final class Parsers {
          * @return
          */
         public static LocalTime parse(String text) {
-            return LocalTime.parse(text);
+            try {
+                return LocalTime.parse(text);
+            } catch (DateTimeParseException dtpEx) {
+                return null;
+            }
         }
     }
 }

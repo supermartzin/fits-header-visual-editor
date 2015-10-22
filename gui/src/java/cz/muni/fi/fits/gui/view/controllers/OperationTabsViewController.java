@@ -1,5 +1,6 @@
 package cz.muni.fi.fits.gui.view.controllers;
 
+import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.view.operationtabs.controllers.TabController;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -36,8 +37,11 @@ public class OperationTabsViewController implements Initializable {
         if (optional.isPresent()) {
             TabController tab = optional.get();
 
-            String inputData = tab.getInputDataString();
-            System.out.println(inputData); // TODO delete
+            InputData inputData = tab.getInputData();
+            if (inputData != null) {
+                inputData.setInputFilePath("files.in");
+                System.out.println(inputData.getInputDataString()); // TODO delete
+            }
         }
     }
     

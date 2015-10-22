@@ -1,8 +1,10 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
+import cz.muni.fi.fits.gui.models.inputdata.InputData;
+import cz.muni.fi.fits.gui.models.inputdata.RemoveByKeywordInputData;
+import cz.muni.fi.fits.gui.models.inputdata.RemoveFromIndexInputData;
 import cz.muni.fi.fits.gui.models.operationenums.RemoveType;
-import cz.muni.fi.fits.gui.utils.Constants;
-import cz.muni.fi.fits.gui.utils.Constrainer;
+import cz.muni.fi.fits.gui.utils.*;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -20,7 +22,7 @@ import java.util.ResourceBundle;
  */
 public class RemoveRecordController extends OperationTabController {
 
-    public ComboBox removeTypeField;
+    public ComboBox<ComboBoxItem<RemoveType>> removeTypeField;
 
     // remove BY KEYWORD fields
     public Label keywordLabel;
@@ -29,24 +31,60 @@ public class RemoveRecordController extends OperationTabController {
     public Label indexLabel;
     public TextField indexField;
 
+    private Validator _validator;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
 
         _tabName = resources.getString("tab.remove");
+        _validator = new Validator();
 
         setFieldsConstraints();
         loadRemoveTypeField(resources);
     }
 
     @Override
-    public String getInputDataString() {
-        throw new UnsupportedOperationException("not implemented yet");
+    public InputData getInputData() {
+        try {
+            // validate fields
+            _validator.validateRemoveTypeField();
+
+            InputData inputData = null;
+
+            // create InputData based on remove type
+            switch (removeTypeField.getValue().getType()) {
+                case BY_KEYWORD:
+                    // validate
+                    _validator.validateKeywordField();
+
+                    // get keyword
+                    String keyword = keywordField.getText();
+
+                    inputData = new RemoveByKeywordInputData(keyword);
+                    break;
+
+                case FROM_INDEX:
+                    // validate
+                    _validator.validateIndexField();
+
+                    // get index
+                    int index = Parsers.Integer.parse(indexField.getText());
+
+                    inputData = new RemoveFromIndexInputData(index);
+                    break;
+            }
+
+            return inputData;
+        } catch (ValidationException vEx) {
+            // validation errors
+            return null;
+        }
     }
 
     private void setFieldsConstraints() {
         Constrainer.constrainTextFieldWithRegex(keywordField, Constants.KEYWORD_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(indexField, Constants.INTEGRAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(indexField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
     }
 
     private void loadRemoveTypeField(ResourceBundle resources) {
@@ -83,5 +121,70 @@ public class RemoveRecordController extends OperationTabController {
         this.keywordField.setVisible(keywordField);
         this.indexLabel.setVisible(indexLabel);
         this.indexField.setVisible(indexField);
+    }
+
+
+    /**
+     *
+     */
+    class Validator {
+
+        /**
+         *
+         * @throws ValidationException
+         */
+        void validateRemoveTypeField()
+                throws ValidationException {
+            if (removeTypeField.getValue() == null) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.remove.alert.content.remove_type"));
+
+                throw new ValidationException("Remove type field is not set");
+            }
+        }
+
+        /**
+         *
+         * @throws ValidationException
+         */
+        void validateKeywordField()
+                throws ValidationException {
+            if (keywordField.getText().isEmpty()) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.common.alert.content.keyword.empty"));
+
+                throw new ValidationException("Keyword field is not set");
+            }
+        }
+
+        /**
+         *
+         * @throws ValidationException
+         */
+        void validateIndexField()
+                throws ValidationException {
+            String indexText = indexField.getText();
+
+            if (indexText.isEmpty()) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.common.alert.content.index.empty"));
+
+                throw new ValidationException("Index field is not set");
+            }
+            if (!Parsers.Integer.tryParse(indexText)) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.common.alert.content.index.invalid"));
+
+                throw new ValidationException("Index field value is in invalid format");
+            }
+        }
     }
 }

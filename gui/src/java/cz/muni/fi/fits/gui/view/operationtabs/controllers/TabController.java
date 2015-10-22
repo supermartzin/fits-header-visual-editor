@@ -1,5 +1,6 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
+import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 
@@ -24,7 +25,7 @@ public interface TabController extends Initializable {
      *
      * @return
      */
-    String getInputDataString();
+    InputData getInputData();
 
     /**
      *

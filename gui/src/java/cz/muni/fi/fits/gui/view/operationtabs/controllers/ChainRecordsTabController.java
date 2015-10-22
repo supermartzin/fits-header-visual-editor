@@ -1,6 +1,7 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
 import cz.muni.fi.fits.gui.models.ChainRecordGroup;
+import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -40,7 +41,7 @@ public class ChainRecordsTabController extends OperationTabController {
     }
 
     @Override
-    public String getInputDataString() {
+    public InputData getInputData() {
         throw new UnsupportedOperationException("not implemented yet");
     }
 

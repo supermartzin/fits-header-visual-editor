@@ -1,10 +1,25 @@
 package cz.muni.fi.fits.gui.models.inputdata;
 
 /**
- * TODO insert description
+ * Abstract class implementing {@link InputData} interface
+ * with properties common to all operations.
+ * Used as a base class for all input data subclasses
  *
- * @author Martin Vrábel - © 2015 FITS-HeaderVisualEditor
+ * @author Martin Vrábel
  * @version 1.0
  */
-public class InputDataBase {
+public abstract class InputDataBase implements InputData {
+
+    protected String _inputFilePath;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param filePath  path to existing file with FITS files paths
+     */
+    @Override
+    public void setInputFilePath(String filePath) {
+        if (filePath != null)
+            _inputFilePath = filePath;
+    }
 }

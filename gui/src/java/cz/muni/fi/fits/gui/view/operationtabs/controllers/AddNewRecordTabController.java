@@ -1,5 +1,8 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
+import cz.muni.fi.fits.gui.models.inputdata.AddNewRecordInputData;
+import cz.muni.fi.fits.gui.models.inputdata.AddNewToIndexInputData;
+import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.operationenums.RecordPlacement;
 import cz.muni.fi.fits.gui.utils.*;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
@@ -38,31 +41,48 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
     }
 
     @Override
-    public String getInputDataString() {
+    public InputData getInputData() {
         try {
             // validate fields
-            _validator.validateRecordPlacement();
-            _validator.validateIndexField();
+            _validator.validateRecordPlacementField();
             _validator.validateKeywordField();
             _validator.validateValueTypeField();
             _validator.validateValueField();
 
-            String inputDataString = "";
+            InputData inputData = null;
 
+            // get keyword
+            String keyword = keywordField.getText();
+            // get value
+            String value = getRecordValue();
+            // get comment
+            String comment = commentField.getText();
+
+            // create InputData based on placement in header
             switch (recordPlacementField.getValue().getType()) {
                 case END:
-                    // operation name
-                    inputDataString += "ADD" + Constants.EXPRESSIONS_DELIMITER;
-                    // set switch
-                    if (updateSwitchField.isSelected())
-                        inputDataString += "-u" + Constants.EXPRESSIONS_DELIMITER;
-                    // set files placeholder
-                    inputDataString += Constants.INPUT_FILES_PLACEHOLDER + Constants.EXPRESSIONS_DELIMITER;
-                    // set
+                    // get switch
+                    boolean updateIfExists = updateSwitchField.isSelected();
+
+                    inputData = new AddNewRecordInputData(keyword, value, comment, updateIfExists);
+                    break;
+
+                case INDEX:
+                    // validate
+                    _validator.validateIndexField();
+
+                    // get index
+                    int index = Parsers.Integer.parse(indexNumberField.getText());
+                    //get switch
+                    boolean removeOldIfExists = removeSwitchField.isSelected();
+
+                    inputData = new AddNewToIndexInputData(keyword, value, comment, index, removeOldIfExists);
+                    break;
             }
 
-            return "";
+            return inputData;
         } catch (ValidationException vEx) {
+            // validation errors
             return null;
         }
     }
@@ -71,7 +91,7 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
     protected void setFieldsConstraints() {
         super.setFieldsConstraints();
 
-        Constrainer.constrainTextFieldWithRegex(indexNumberField, Constants.INTEGRAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(indexNumberField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
     }
 
     private void loadRecordPlacementField(ResourceBundle resources) {
@@ -110,52 +130,48 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
         this.indexNumberField.setVisible(indexNumberField);
     }
 
-
     /**
      *
      */
     class Validator extends BasicRecordBasedOperationTabController.Validator {
 
         /**
-         *
          * @throws ValidationException
          */
-        void validateRecordPlacement() throws ValidationException {
+        void validateRecordPlacementField()
+                throws ValidationException {
             if (recordPlacementField.getValue() == null) {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
                         _resources.getString("oper.add.alert.content.rec_place"));
 
-                throw new ValidationException();
+                throw new ValidationException("Record placement field is not set");
             }
         }
 
         /**
-         *
          * @throws ValidationException
          */
-        void validateIndexField() throws ValidationException {
-            RecordPlacement recordPlacement = recordPlacementField.getValue().getType();
-            if (recordPlacement.equals(RecordPlacement.INDEX)) {
-                String indexText = indexNumberField.getText();
+        void validateIndexField()
+                throws ValidationException {
+            String indexText = indexNumberField.getText();
 
-                if (indexText.isEmpty()) {
-                    WarningDialog.show(
-                            _resources.getString("oper.common.alert.title"),
-                            _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.common.alert.content.index.empty"));
+            if (indexText.isEmpty()) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.common.alert.content.index.empty"));
 
-                    throw new ValidationException();
-                }
-                if (!Parsers.Integer.tryParse(indexText)) {
-                    WarningDialog.show(
-                            _resources.getString("oper.common.alert.title"),
-                            _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.common.alert.content.index.invalid"));
+                throw new ValidationException("Index field is not set");
+            }
+            if (!Parsers.Integer.tryParse(indexText)) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.common.alert.content.index.invalid"));
 
-                    throw new ValidationException();
-                }
+                throw new ValidationException("Index field value is in invalid format");
             }
         }
     }

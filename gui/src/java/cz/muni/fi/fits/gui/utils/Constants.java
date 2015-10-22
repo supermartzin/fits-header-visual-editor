@@ -15,7 +15,7 @@ public final class Constants {
     public static final Language DEFAULT_LANGUAGE = Language.ENGLISH;
     public static final Pattern TIME_PATTERN = Pattern.compile("^[\\d:.]{1,12}$");
     public static final Pattern DECIMAL_NUMBER_PATTERN = Pattern.compile("^\\d*(\\.\\d*)?$");
-    public static final Pattern INTEGRAL_NUMBER_PATTERN = Pattern.compile("^\\d{1,5}$");
+    public static final Pattern NONNEG_INTEGRAL_NUMBER_PATTERN = Pattern.compile("^\\d{1,5}$");
     public static final Pattern KEYWORD_PATTERN = Pattern.compile("[a-zA-Z\\d_-]{1,8}");
     public static final Pattern HOURS_PATTERN = Pattern.compile("^\\d|1\\d|2[0-3]$");
     public static final Pattern DEGREES_PATTERN = Pattern.compile("^-|-?(\\d|[0-8]\\d|90)$");
@@ -24,6 +24,5 @@ public final class Constants {
     public static final Pattern RIGHT_ASCENSION_PATTERN = Pattern.compile("^(([1-2]?\\d?\\d)|(3[0-5]\\d))(\\.\\d*)?|360$");
     public static final Pattern DECLINATION_PATTERN = Pattern.compile("^-|-?((\\d|[1-8]\\d)(\\.\\d*)?|90)$");
 
-    public static final String INPUT_FILES_PLACEHOLDER = "<<files>>";
     public static final String EXPRESSIONS_DELIMITER = " ";
 }

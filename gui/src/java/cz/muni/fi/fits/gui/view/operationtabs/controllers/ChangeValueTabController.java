@@ -1,5 +1,7 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
+import cz.muni.fi.fits.gui.models.inputdata.ChangeValueByKeywordInputData;
+import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.utils.ValidationException;
 import javafx.scene.control.CheckBox;
 
@@ -29,15 +31,25 @@ public class ChangeValueTabController extends BasicRecordBasedOperationTabContro
     }
 
     @Override
-    public String getInputDataString() {
+    public InputData getInputData() {
         try {
             // validate fields
             _validator.validateKeywordField();
             _validator.validateValueTypeField();
             _validator.validateValueField();
 
-            return "";
+            // get keyword
+            String keyword = keywordField.getText();
+            // get value
+            String newValue = getRecordValue();
+            // get comment
+            String newComment = commentField.getText();
+            // get switch
+            boolean addNewIfNotExist = addSwitchField.isSelected();
+
+            return new ChangeValueByKeywordInputData(keyword, newValue, newComment, addNewIfNotExist);
         } catch (ValidationException vEx) {
+            // validation errors
             return null;
         }
     }
