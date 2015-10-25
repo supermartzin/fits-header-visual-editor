@@ -2,8 +2,7 @@ package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.operationenums.HJDRecordType;
-import cz.muni.fi.fits.gui.utils.Constants;
-import cz.muni.fi.fits.gui.utils.Constrainer;
+import cz.muni.fi.fits.gui.utils.*;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -19,10 +18,10 @@ import java.util.ResourceBundle;
  * @author Martin Vrábel
  * @version 1.0
  */
-public class HeliocentricJulianDateTabController extends JulianDateBaseOperationTabController {
+public class HeliocentricJulianDateTabController extends JulianDateBasedOperationTabController {
 
     // RIGHT ASCENSION
-    public ComboBox rightAscensionRecordTypeField;
+    public ComboBox<ComboBoxItem<HJDRecordType>> rightAscensionRecordTypeField;
     public TextField rightAscensionKeywordField;
     public TextField rightAscensionDecimalValueField;
     public HBox rightAscensionFullValueContainer;
@@ -31,7 +30,7 @@ public class HeliocentricJulianDateTabController extends JulianDateBaseOperation
     public TextField rightAscensionSecondsField;
 
     // DECLINATION
-    public ComboBox declinationRecordTypeField;
+    public ComboBox<ComboBoxItem<HJDRecordType>> declinationRecordTypeField;
     public TextField declinationKeywordField;
     public TextField declinationDecimalValueField;
     public HBox declinationFullValueContainer;
@@ -39,11 +38,14 @@ public class HeliocentricJulianDateTabController extends JulianDateBaseOperation
     public TextField declinationMinutesField;
     public TextField declinationSecondsField;
 
+    private Validator _validator;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
 
         _tabName = resources.getString("tab.hjd");
+        _validator = new Validator();
 
         loadRightAscensionRecordTypeField(resources);
         loadDeclinationRecordTypeField(resources);
@@ -51,7 +53,24 @@ public class HeliocentricJulianDateTabController extends JulianDateBaseOperation
 
     @Override
     public InputData getInputData() {
-        throw new UnsupportedOperationException("not implemented yet");
+        try {
+            // validate fields
+            _validator.validateDatetimeRecordTypeField();
+            _validator.validateDatetimeValueField();
+            _validator.validateExposureRecordTypeField();
+            _validator.validateExposureValueField();
+            _validator.validateRightAscensionRecordType();
+            _validator.validateRightAscensionValueField();
+            _validator.validateDeclinationRecordType();
+            _validator.validateDeclinationValueField();
+
+            // TODO construct InputData object and return it
+
+            return null;
+        } catch (ValidationException vEx) {
+            // validation errors
+            return null;
+        }
     }
 
     @Override
@@ -148,5 +167,180 @@ public class HeliocentricJulianDateTabController extends JulianDateBaseOperation
         this.declinationKeywordField.setVisible(declinationKeywordField);
         this.declinationDecimalValueField.setVisible(declinationDecimalValueField);
         this.declinationFullValueContainer.setVisible(declinationFullValueContainer);
+    }
+
+
+    /**
+     *
+     */
+    class Validator extends JulianDateBasedOperationTabController.Validator {
+
+        /**
+         *
+         * @throws ValidationException
+         */
+        void validateRightAscensionRecordType()
+                throws ValidationException {
+            if (rightAscensionRecordTypeField.getValue() == null) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.hjd.alert.content.ra.type"));
+
+                throw new ValidationException("Right ascension value type is not selected");
+            }
+        }
+
+        /**
+         *
+         * @throws ValidationException
+         */
+        void validateRightAscensionValueField()
+                throws ValidationException {
+            HJDRecordType rightAscensionRecordType = rightAscensionRecordTypeField.getValue().getType();
+
+            switch (rightAscensionRecordType) {
+                case KEYWORD:
+                    if (rightAscensionKeywordField.getText().isEmpty()) {
+                        WarningDialog.show(
+                                _resources.getString("oper.common.alert.title"),
+                                _resources.getString("oper.common.alert.header"),
+                                _resources.getString("oper.hjd.alert.content.ra.keyword.empty"));
+
+                        throw new ValidationException("Keyword of the right ascension record is not set");
+                    }
+                    break;
+
+                case DECIMAL_VALUE:
+                    String raDecimalValueText = rightAscensionDecimalValueField.getText();
+
+                    if (raDecimalValueText.isEmpty()) {
+                        WarningDialog.show(
+                                _resources.getString("oper.common.alert.title"),
+                                _resources.getString("oper.common.alert.header"),
+                                _resources.getString("oper.hjd.alert.content.ra.value.empty"));
+
+                        throw new ValidationException("Right ascension value is empty");
+                    }
+                    if (!Parsers.Double.tryParse(raDecimalValueText)) {
+                        WarningDialog.show(
+                                _resources.getString("oper.common.alert.title"),
+                                _resources.getString("oper.common.alert.header"),
+                                _resources.getString("oper.hjd.alert.content.ra.value.invalid"));
+
+                        throw new ValidationException("Right ascension value is in invalid format");
+                    }
+                    break;
+
+                case FULL_VALUE:
+                    String raHours = rightAscensionHoursField.getText();
+                    String raMinutes = rightAscensionMinutesField.getText();
+                    String raSeconds = rightAscensionSecondsField.getText();
+
+                    if (raHours.isEmpty() && raMinutes.isEmpty() && raSeconds.isEmpty()) {
+                        WarningDialog.show(
+                                _resources.getString("oper.common.alert.title"),
+                                _resources.getString("oper.common.alert.header"),
+                                _resources.getString("oper.hjd.alert.content.ra.value.empty"));
+
+                        throw new ValidationException("Right ascension value is empty");
+                    }
+                    if (!raHours.isEmpty() && !Parsers.Integer.tryParse(raHours)
+                            || !raMinutes.isEmpty() && !Parsers.Integer.tryParse(raMinutes)
+                            || !raSeconds.isEmpty() && !Parsers.Integer.tryParse(raSeconds)) {
+                        WarningDialog.show(
+                                _resources.getString("oper.common.alert.title"),
+                                _resources.getString("oper.common.alert.header"),
+                                _resources.getString("oper.hjd.alert.content.ra.value.invalid"));
+
+                        throw new ValidationException("Right ascension value is in invalid format");
+                    }
+                    break;
+            }
+        }
+
+        /**
+         *
+         * @throws ValidationException
+         */
+        void validateDeclinationRecordType()
+                throws ValidationException {
+            if (declinationRecordTypeField.getValue() == null) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.hjd.alert.content.dec.type"));
+
+                throw new ValidationException("Declination value type is not selected");
+            }
+        }
+
+        /**
+         *
+         * @throws ValidationException
+         */
+        void validateDeclinationValueField()
+                throws ValidationException {
+            HJDRecordType declinationRecordType = declinationRecordTypeField.getValue().getType();
+
+            switch (declinationRecordType) {
+                case KEYWORD:
+                    if (declinationKeywordField.getText().isEmpty()) {
+                        WarningDialog.show(
+                                _resources.getString("oper.common.alert.title"),
+                                _resources.getString("oper.common.alert.header"),
+                                _resources.getString("oper.hjd.alert.content.dec.keyword.empty"));
+
+                        throw new ValidationException("Keyword of the declination record is not set");
+                    }
+                    break;
+
+                case DECIMAL_VALUE:
+                    String decDecimalValueText = declinationDecimalValueField.getText();
+
+                    if (decDecimalValueText.isEmpty()) {
+                        WarningDialog.show(
+                                _resources.getString("oper.common.alert.title"),
+                                _resources.getString("oper.common.alert.header"),
+                                _resources.getString("oper.hjd.alert.content.dec.value.empty"));
+
+                        throw new ValidationException("Declination value is empty");
+                    }
+                    if (!Parsers.Double.tryParse(decDecimalValueText)) {
+                        WarningDialog.show(
+                                _resources.getString("oper.common.alert.title"),
+                                _resources.getString("oper.common.alert.header"),
+                                _resources.getString("oper.hjd.alert.content.dec.value.invalid"));
+
+                        throw new ValidationException("Declination value is in invalid format");
+                    }
+                    break;
+
+                case FULL_VALUE:
+                    String decDegrees = declinationDegreesField.getText();
+                    String decMinutes = declinationMinutesField.getText();
+                    String decSeconds = declinationSecondsField.getText();
+
+                    if (decDegrees.isEmpty() && decMinutes.isEmpty() && decSeconds.isEmpty()) {
+                        WarningDialog.show(
+                                _resources.getString("oper.common.alert.title"),
+                                _resources.getString("oper.common.alert.header"),
+                                _resources.getString("oper.hjd.alert.content.dec.value.empty"));
+
+                        throw new ValidationException("Declination value is empty");
+                    }
+                    if (!decDegrees.isEmpty() && !Parsers.Integer.tryParse(decDegrees)
+                            || !decMinutes.isEmpty() && !Parsers.Integer.tryParse(decMinutes)
+                            || !decSeconds.isEmpty() && !Parsers.Integer.tryParse(decSeconds)) {
+                        WarningDialog.show(
+                                _resources.getString("oper.common.alert.title"),
+                                _resources.getString("oper.common.alert.header"),
+                                _resources.getString("oper.hjd.alert.content.dec.value.invalid"));
+
+                        throw new ValidationException("Declination value is in invalid format");
+                    }
+                    break;
+            }
+        }
     }
 }

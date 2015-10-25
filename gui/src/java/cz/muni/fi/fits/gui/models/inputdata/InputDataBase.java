@@ -11,6 +11,7 @@ package cz.muni.fi.fits.gui.models.inputdata;
 public abstract class InputDataBase implements InputData {
 
     protected String _inputFilePath;
+    protected Operation _operation;
 
     /**
      * {@inheritDoc}

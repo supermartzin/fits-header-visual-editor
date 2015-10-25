@@ -10,21 +10,25 @@ import cz.muni.fi.fits.gui.utils.Constants;
  */
 public class ChangeValueByKeywordInputData extends InputDataBase {
 
-    /**
-     * Type of {@link Operation} for which this class stores input data
-     */
-    public static final Operation OPERATION = Operation.CHANGE_VALUE;
-
     private final String _keyword;
     private final String _value;
     private final String _comment;
     private final boolean _addNewIfNotExist;
 
+    /**
+     * TODO
+     * @param keyword
+     * @param value
+     * @param comment
+     * @param addNewIfNotExist
+     */
     public ChangeValueByKeywordInputData(String keyword, String value, String comment, boolean addNewIfNotExist) {
         _keyword = keyword;
         _value = value;
         _comment = comment;
         _addNewIfNotExist = addNewIfNotExist;
+
+        _operation = Operation.CHANGE_VALUE;
     }
 
     /**
@@ -40,7 +44,7 @@ public class ChangeValueByKeywordInputData extends InputDataBase {
                 || _inputFilePath == null)
             return null;
 
-        return OPERATION.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
+        return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
                 ((_addNewIfNotExist) ? "-a" + Constants.EXPRESSIONS_DELIMITER : "") +
                 _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
                 _keyword.toUpperCase() + Constants.EXPRESSIONS_DELIMITER +

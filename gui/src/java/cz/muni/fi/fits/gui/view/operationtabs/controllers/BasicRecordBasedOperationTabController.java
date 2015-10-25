@@ -154,7 +154,7 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
     /**
      *
      */
-    class Validator {
+    abstract class Validator {
 
         /**
          *
@@ -183,7 +183,7 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
                         _resources.getString("oper.common.alert.header"),
                         _resources.getString("oper.common.alert.content.value.type"));
 
-                throw new ValidationException("Value type field is not set");
+                throw new ValidationException("Value type is not selected");
             }
         }
 

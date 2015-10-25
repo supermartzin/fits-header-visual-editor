@@ -10,23 +10,28 @@ import cz.muni.fi.fits.gui.utils.Constants;
  */
 public class AddNewToIndexInputData extends InputDataBase {
 
-    /**
-     * Type of {@link Operation} for which this class stores input data
-     */
-    public static final Operation OPERATION = Operation.ADD_TO_INDEX;
-
     private final String _keyword;
     private final String _value;
     private final String _comment;
     private final int _index;
     private final boolean _removeOldIfExists;
 
+    /**
+     * TODO
+     * @param keyword
+     * @param value
+     * @param comment
+     * @param index
+     * @param removeOldIfExists
+     */
     public AddNewToIndexInputData(String keyword, String value, String comment, int index, boolean removeOldIfExists) {
         _keyword = keyword;
         _value = value;
         _comment = comment;
         _index = index;
         _removeOldIfExists = removeOldIfExists;
+
+        _operation = Operation.ADD_TO_INDEX;
     }
 
     /**
@@ -43,7 +48,7 @@ public class AddNewToIndexInputData extends InputDataBase {
                 || _inputFilePath == null)
             return null;
 
-        return OPERATION.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
+        return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
                 ((_removeOldIfExists) ? "-rm" + Constants.EXPRESSIONS_DELIMITER : "") +
                 _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
                 Integer.toString(_index, 10) + Constants.EXPRESSIONS_DELIMITER +

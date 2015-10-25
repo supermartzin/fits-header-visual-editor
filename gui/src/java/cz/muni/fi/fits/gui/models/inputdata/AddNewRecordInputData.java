@@ -10,21 +10,25 @@ import cz.muni.fi.fits.gui.utils.Constants;
  */
 public class AddNewRecordInputData extends InputDataBase {
 
-    /**
-     * Type of {@link Operation} for which this class stores input data
-     */
-    public static final Operation OPERATION = Operation.ADD_TO_END;
-
     private final String _keyword;
     private final String _value;
     private final String _comment;
     private final boolean _updateIfExists;
 
+    /**
+     * TODO
+     * @param keyword
+     * @param value
+     * @param comment
+     * @param updateIfExists
+     */
     public AddNewRecordInputData(String keyword, String value, String comment, boolean updateIfExists) {
         _keyword = keyword;
         _value = value;
         _comment = comment;
         _updateIfExists = updateIfExists;
+
+        _operation = Operation.ADD_TO_END;
     }
 
     /**
@@ -40,7 +44,7 @@ public class AddNewRecordInputData extends InputDataBase {
                 || _inputFilePath == null)
             return null;
 
-        return OPERATION.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
+        return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
                 ((_updateIfExists) ? "-u" + Constants.EXPRESSIONS_DELIMITER : "") +
                 _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
                 _keyword.toUpperCase() + Constants.EXPRESSIONS_DELIMITER +

@@ -75,6 +75,19 @@ public final class Parsers {
                 return false;
             }
         }
+
+        /**
+         *
+         * @param text
+         * @return
+         */
+        public static double parse(String text) {
+            try {
+                return java.lang.Double.parseDouble(text);
+            } catch (NumberFormatException nfEx) {
+                return java.lang.Double.NaN;
+            }
+        }
     }
 
     public static class Time {

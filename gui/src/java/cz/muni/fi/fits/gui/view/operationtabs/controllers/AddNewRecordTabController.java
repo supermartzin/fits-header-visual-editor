@@ -146,7 +146,7 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
                         _resources.getString("oper.common.alert.header"),
                         _resources.getString("oper.add.alert.content.rec_place"));
 
-                throw new ValidationException("Record placement field is not set");
+                throw new ValidationException("Record placement is not selected");
             }
         }
 

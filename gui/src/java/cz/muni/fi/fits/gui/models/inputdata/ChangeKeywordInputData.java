@@ -10,19 +10,22 @@ import cz.muni.fi.fits.gui.utils.Constants;
  */
 public class ChangeKeywordInputData extends InputDataBase {
 
-    /**
-     * Type of {@link Operation} for which this class stores input data
-     */
-    public static final Operation OPERATION = Operation.CHANGE_KEYWORD;
-
     private final String _oldKeyword;
     private final String _newKeyword;
     private final boolean _removeValueOfNewIfExists;
 
+    /**
+     * TODO
+     * @param oldKeyword
+     * @param newKeyword
+     * @param removeValueOfNewIfExists
+     */
     public ChangeKeywordInputData(String oldKeyword, String newKeyword, boolean removeValueOfNewIfExists) {
         _oldKeyword = oldKeyword;
         _newKeyword = newKeyword;
         _removeValueOfNewIfExists = removeValueOfNewIfExists;
+
+        _operation = Operation.CHANGE_KEYWORD;
     }
 
     /**
@@ -38,7 +41,7 @@ public class ChangeKeywordInputData extends InputDataBase {
                 || _inputFilePath == null)
             return null;
 
-        return OPERATION.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
+        return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
                 ((_removeValueOfNewIfExists) ? "-rm" + Constants.EXPRESSIONS_DELIMITER : "") +
                 _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
                 _oldKeyword.toUpperCase() + Constants.EXPRESSIONS_DELIMITER +

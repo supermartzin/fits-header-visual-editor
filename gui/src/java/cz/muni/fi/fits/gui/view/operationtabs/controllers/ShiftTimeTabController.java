@@ -1,9 +1,9 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
+import cz.muni.fi.fits.gui.models.inputdata.ShiftTimeInputData;
 import cz.muni.fi.fits.gui.models.operationenums.ShiftDirection;
-import cz.muni.fi.fits.gui.utils.Constants;
-import cz.muni.fi.fits.gui.utils.Constrainer;
+import cz.muni.fi.fits.gui.utils.*;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -32,19 +32,22 @@ public class ShiftTimeTabController extends OperationTabController {
     public TextField millisecondsField;
 
     // shift direction fields
-    public ComboBox yearsDirectionField;
-    public ComboBox monthsDirectionField;
-    public ComboBox daysDirectionField;
-    public ComboBox hoursDirectionField;
-    public ComboBox minutesDirectionField;
-    public ComboBox secondsDirectionField;
-    public ComboBox millisecondsDirectionField;
+    public ComboBox<ComboBoxItem<ShiftDirection>> yearsDirectionField;
+    public ComboBox<ComboBoxItem<ShiftDirection>> monthsDirectionField;
+    public ComboBox<ComboBoxItem<ShiftDirection>> daysDirectionField;
+    public ComboBox<ComboBoxItem<ShiftDirection>> hoursDirectionField;
+    public ComboBox<ComboBoxItem<ShiftDirection>> minutesDirectionField;
+    public ComboBox<ComboBoxItem<ShiftDirection>> secondsDirectionField;
+    public ComboBox<ComboBoxItem<ShiftDirection>> millisecondsDirectionField;
+
+    private Validator _validator;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
 
         _tabName = resources.getString("tab.shift");
+        _validator = new Validator();
 
         setFieldsConstraints();
         loadShiftDirectionFields(resources);
@@ -52,7 +55,36 @@ public class ShiftTimeTabController extends OperationTabController {
 
     @Override
     public InputData getInputData() {
-        throw new UnsupportedOperationException("not implemented yet");
+        try {
+            // validate fields
+            _validator.validateKeywordField();
+            _validator.validateTimeFields();
+            _validator.validateYearsField();
+            _validator.validateMonthsField();
+            _validator.validateDaysField();
+            _validator.validateHoursField();
+            _validator.validateMinutesField();
+            _validator.validateSecondsField();
+            _validator.validateMillisecondsField();
+
+            // get keyword
+            String keyword = keywordField.getText();
+
+            // get time shifts
+            int yearsShift = parseShift(yearsField.getText(), yearsDirectionField.getValue());
+            int monthsShift = parseShift(monthsField.getText(), monthsDirectionField.getValue());
+            int daysShift = parseShift(daysField.getText(), daysDirectionField.getValue());
+            int hoursShift = parseShift(hoursField.getText(), hoursDirectionField.getValue());
+            int minutesShift = parseShift(minutesField.getText(), minutesDirectionField.getValue());
+            int secondsShift = parseShift(secondsField.getText(), secondsDirectionField.getValue());
+            int millisecondsShift = parseShift(millisecondsField.getText(), millisecondsDirectionField.getValue());
+
+            return new ShiftTimeInputData(keyword, yearsShift, monthsShift, daysShift, hoursShift,
+                    minutesShift, secondsShift, millisecondsShift);
+        } catch (ValidationException vEx) {
+            // validation errors
+            return null;
+        }
     }
 
     private void setFieldsConstraints() {
@@ -90,5 +122,241 @@ public class ShiftTimeTabController extends OperationTabController {
         minutesDirectionField.setCellFactory(param -> new ComboBoxListCell<>());
         secondsDirectionField.setCellFactory(param -> new ComboBoxListCell<>());
         millisecondsDirectionField.setCellFactory(param -> new ComboBoxListCell<>());
+    }
+
+    private int parseShift(String text, ComboBoxItem<ShiftDirection> direction) {
+        if (!text.isEmpty() && direction != null) {
+            if (direction.getType().equals(ShiftDirection.BACKWARD))
+                return -1 * Parsers.Integer.parse(text);
+            if (direction.getType().equals(ShiftDirection.FORWARD))
+                return Parsers.Integer.parse(text);
+        }
+
+        return Integer.MIN_VALUE;
+    }
+
+
+    /**
+     *
+     */
+    class Validator {
+
+        /**
+         *
+         * @throws ValidationException
+         */
+        void validateKeywordField()
+                throws ValidationException {
+            if (keywordField.getText().isEmpty()) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.common.alert.content.keyword.empty"));
+
+                throw new ValidationException("Keyword field is not set");
+            }
+        }
+
+        /**
+         *
+         */
+        void validateTimeFields() throws ValidationException {
+            if (yearsField.getText().isEmpty()
+                    && monthsField.getText().isEmpty()
+                    && daysField.getText().isEmpty()
+                    && hoursField.getText().isEmpty()
+                    && minutesField.getText().isEmpty()
+                    && secondsField.getText().isEmpty()
+                    && millisecondsField.getText().isEmpty()) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.shift.alert.content.value.empty"));
+
+                throw new ValidationException("None of the time shift fields is set");
+            }
+        }
+
+        /**
+         *
+         */
+        void validateYearsField()
+                throws ValidationException {
+            String yearsText = yearsField.getText();
+            if (!yearsText.isEmpty()) {
+                if (!Parsers.Integer.tryParse(yearsText)) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.years.invalid"));
+
+                    throw new ValidationException("Value of years shift is in invalid format");
+                }
+                if (yearsDirectionField.getValue() == null) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.years.direction.empty"));
+
+                    throw new ValidationException("Direction of years shift is not selected");
+                }
+            }
+        }
+
+        /**
+         *
+         */
+        void validateMonthsField()
+                throws ValidationException {
+            String monthsText = monthsField.getText();
+            if (!monthsText.isEmpty()) {
+                if (!Parsers.Integer.tryParse(monthsText)) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.months.invalid"));
+
+                    throw new ValidationException("Value of months shift is in invalid format");
+                }
+                if (monthsDirectionField.getValue() == null) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.months.direction.empty"));
+
+                    throw new ValidationException("Direction of months shift is not selected");
+                }
+            }
+        }
+
+        /**
+         *
+         */
+        void validateDaysField()
+                throws ValidationException {
+            String daysText = daysField.getText();
+            if (!daysText.isEmpty()) {
+                if (!Parsers.Integer.tryParse(daysText)) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.days.invalid"));
+
+                    throw new ValidationException("Value of days shift is in invalid format");
+                }
+                if (daysDirectionField.getValue() == null) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.days.direction.empty"));
+
+                    throw new ValidationException("Direction of days shift is not selected");
+                }
+            }
+        }
+
+        /**
+         *
+         */
+        void validateHoursField()
+                throws ValidationException {
+            String hoursText = hoursField.getText();
+            if (!hoursText.isEmpty()) {
+                if (!Parsers.Integer.tryParse(hoursText)) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.hours.invalid"));
+
+                    throw new ValidationException("Value of hours shift is in invalid format");
+                }
+                if (hoursDirectionField.getValue() == null) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.hours.direction.empty"));
+
+                    throw new ValidationException("Direction of hours shift is not selected");
+                }
+            }
+        }
+
+        /**
+         *
+         */
+        void validateMinutesField()
+                throws ValidationException {
+            String minutesText = minutesField.getText();
+            if (!minutesText.isEmpty()) {
+                if (!Parsers.Integer.tryParse(minutesText)) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.minutes.invalid"));
+
+                    throw new ValidationException("Value of minutes shift is in invalid format");
+                }
+                if (minutesDirectionField.getValue() == null) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.minutes.direction.empty"));
+
+                    throw new ValidationException("Direction of minutes shift is not selected");
+                }
+            }
+        }
+
+        /**
+         *
+         */
+        void validateSecondsField()
+                throws ValidationException {
+            String secondsText = secondsField.getText();
+            if (!secondsText.isEmpty()) {
+                if (!Parsers.Integer.tryParse(secondsText)) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.seconds.invalid"));
+
+                    throw new ValidationException("Value of seconds shift is in invalid format");
+                }
+                if (secondsDirectionField.getValue() == null) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.seconds.direction.empty"));
+
+                    throw new ValidationException("Direction of seconds shift is not selected");
+                }
+            }
+        }
+
+        /**
+         *
+         */
+        void validateMillisecondsField()
+                throws ValidationException {
+            String millisecondsText = millisecondsField.getText();
+            if (!millisecondsText.isEmpty()) {
+                if (!Parsers.Integer.tryParse(millisecondsText)) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.milliseconds.invalid"));
+
+                    throw new ValidationException("Value of milliseconds shift is in invalid format");
+                }
+                if (millisecondsDirectionField.getValue() == null) {
+                    WarningDialog.show(
+                            _resources.getString("oper.common.alert.title"),
+                            _resources.getString("oper.common.alert.header"),
+                            _resources.getString("oper.shift.alert.content.value.milliseconds.direction.empty"));
+
+                    throw new ValidationException("Direction of milliseconds shift is not selected");
+                }
+            }
+        }
     }
 }

@@ -139,9 +139,9 @@ public class RemoveRecordController extends OperationTabController {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.remove.alert.content.remove_type"));
+                        _resources.getString("oper.remove.alert.content.type"));
 
-                throw new ValidationException("Remove type field is not set");
+                throw new ValidationException("Remove type is not selected");
             }
         }
 

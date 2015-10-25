@@ -10,15 +10,16 @@ import cz.muni.fi.fits.gui.utils.Constants;
  */
 public class RemoveFromIndexInputData extends InputDataBase {
 
-    /**
-     * Type of {@link Operation} for which this class stores input data
-     */
-    public static final Operation OPERATION = Operation.REMOVE_FROM_INDEX;
-
     private final int _index;
 
+    /**
+     * TODO
+     * @param index
+     */
     public RemoveFromIndexInputData(int index) {
         _index = index;
+
+        _operation = Operation.REMOVE_FROM_INDEX;
     }
 
     /**
@@ -33,7 +34,7 @@ public class RemoveFromIndexInputData extends InputDataBase {
                 || _index < 1)
             return null;
 
-        return OPERATION.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
+        return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
                 _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
                 Integer.toString(_index, 10);
     }
