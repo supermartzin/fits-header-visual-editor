@@ -1,5 +1,7 @@
 package cz.muni.fi.fits.gui.view.controllers;
 
+import cz.muni.fi.fits.gui.MainApp;
+import cz.muni.fi.fits.gui.models.FitsFile;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.view.operationtabs.controllers.TabController;
 import javafx.fxml.Initializable;
@@ -21,6 +23,7 @@ public class OperationTabsViewController implements Initializable {
     public ProgressBar progressBar;
 
     private final Collection<TabController> _tabs;
+    private MainApp _mainApp;
 
     public OperationTabsViewController() {
         _tabs = new HashSet<>();
@@ -37,7 +40,14 @@ public class OperationTabsViewController implements Initializable {
         if (optional.isPresent()) {
             TabController tab = optional.get();
 
+            // input data
             InputData inputData = tab.getInputData();
+
+            // FITS files
+            Collection<FitsFile> fitsFiles = _mainApp.getFitsFiles();
+
+
+
             if (inputData != null) {
                 inputData.setInputFilePath("files.in");
                 System.out.println(inputData.getInputDataString()); // TODO delete
@@ -49,5 +59,12 @@ public class OperationTabsViewController implements Initializable {
         if (tabController != null) {
             _tabs.add(tabController);
         }
+    }
+
+    public void setMainApp(MainApp mainApp) {
+        if (mainApp == null)
+            throw new IllegalArgumentException("mainApp object is null");
+
+        _mainApp = mainApp;
     }
 }

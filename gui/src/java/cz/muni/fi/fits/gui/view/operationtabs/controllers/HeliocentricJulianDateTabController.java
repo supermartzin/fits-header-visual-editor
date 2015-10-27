@@ -1,5 +1,6 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
+import cz.muni.fi.fits.gui.models.inputdata.HeliocentricJulianDateInputData;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.operationenums.HJDRecordType;
 import cz.muni.fi.fits.gui.utils.*;
@@ -64,9 +65,22 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
             _validator.validateDeclinationRecordType();
             _validator.validateDeclinationValueField();
 
-            // TODO construct InputData object and return it
+            // get datetime
+            String datetime = getDatetimeFieldValue();
 
-            return null;
+            // get exposure
+            String exposure = getExposureFieldValue();
+
+            // get Right Ascension
+            String rightAscension = getRightAscensionFieldValue();
+
+            // get Declination
+            String declination = getDeclinationFieldValue();
+
+            // get comment
+            String comment = commentField.getText();
+
+            return new HeliocentricJulianDateInputData(datetime, exposure, rightAscension, declination, comment);
         } catch (ValidationException vEx) {
             // validation errors
             return null;
@@ -167,6 +181,62 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
         this.declinationKeywordField.setVisible(declinationKeywordField);
         this.declinationDecimalValueField.setVisible(declinationDecimalValueField);
         this.declinationFullValueContainer.setVisible(declinationFullValueContainer);
+    }
+
+    private String getRightAscensionFieldValue() {
+        ComboBoxItem<HJDRecordType> recordTypeItem = rightAscensionRecordTypeField.getValue();
+
+        if (recordTypeItem != null) {
+            switch (recordTypeItem.getType()) {
+                case KEYWORD:
+                    return rightAscensionKeywordField.getText();
+
+                case DECIMAL_VALUE:
+                    return rightAscensionDecimalValueField.getText();
+
+                case FULL_VALUE:
+                    String raHoursText = rightAscensionHoursField.getText();
+                    String hours = raHoursText.isEmpty() ? "00" : raHoursText;
+
+                    String raMinutesText = rightAscensionMinutesField.getText();
+                    String minutes = raMinutesText.isEmpty() ? "00" : raMinutesText;
+
+                    String raSecondsText = rightAscensionSecondsField.getText();
+                    String seconds = raSecondsText.isEmpty() ? "00" : raSecondsText;
+
+                    return hours + ":" + minutes + ":" + seconds;
+            }
+        }
+
+        return null;
+    }
+
+    private String getDeclinationFieldValue() {
+        ComboBoxItem<HJDRecordType> recordTypeItem = declinationRecordTypeField.getValue();
+
+        if (recordTypeItem != null) {
+            switch (recordTypeItem.getType()) {
+                case KEYWORD:
+                    return declinationKeywordField.getText();
+
+                case DECIMAL_VALUE:
+                    return declinationDecimalValueField.getText();
+
+                case FULL_VALUE:
+                    String decDegreesText = declinationDegreesField.getText();
+                    String degrees = decDegreesText.isEmpty() ? "00" : decDegreesText;
+
+                    String decMinutesText = declinationMinutesField.getText();
+                    String minutes = decMinutesText.isEmpty() ? "00" : decMinutesText;
+
+                    String decSecondsText = declinationSecondsField.getText();
+                    String seconds = decSecondsText.isEmpty() ? "00" : decSecondsText;
+
+                    return degrees + ":" + minutes + ":" + seconds;
+            }
+        }
+
+        return null;
     }
 
 

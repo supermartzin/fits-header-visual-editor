@@ -2,28 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f75cbd79-da48-46e1-b6ee-23e4456d518f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/HeliocentricJulianDateInputData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateBasedOperationTabController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/JulianDateInputData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ShiftTimeInputData.java" />
-      <change type="DELETED" beforePath="D:\Projekty\Bakalárka\FITSHeaderEditor\gui\src\java\cz\muni\fi\fits\gui\view\operationtabs\controllers\JulianDateBaseOperationTabController.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChainRecordsInputData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/StringUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/AddNewRecordInputData.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/AddNewRecordInputData.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/AddNewToIndexInputData.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/AddNewToIndexInputData.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/BasicRecordBasedOperationTabController.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/BasicRecordBasedOperationTabController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChangeKeywordInputData.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChangeKeywordInputData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/ChainRecordGroup.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/ChainRecordGroup.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChainRecordsTab.fxml" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChainRecordsTab.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChainRecordsTabController.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChainRecordsTabController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChangeValueByKeywordInputData.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChangeValueByKeywordInputData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/HeliocentricJulianDateInputData.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/HeliocentricJulianDateInputData.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/HeliocentricJulianDateTabController.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/HeliocentricJulianDateTabController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/InputDataBase.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/InputDataBase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateBasedOperationTabController.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateBasedOperationTabController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/JulianDateInputData.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/JulianDateInputData.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateTabController.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateTabController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/bundles/Language_cs.properties" afterPath="$PROJECT_DIR$/src/resources/bundles/Language_cs.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/bundles/Language_en.properties" afterPath="$PROJECT_DIR$/src/resources/bundles/Language_en.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/bundles/Language_sk.properties" afterPath="$PROJECT_DIR$/src/resources/bundles/Language_sk.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Parsers.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Parsers.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/RemoveByKeywordInputData.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/RemoveByKeywordInputData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/RemoveFromIndexInputData.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/RemoveFromIndexInputData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/RemoveRecordController.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/RemoveRecordController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ShiftTimeTabController.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ShiftTimeTabController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/OperationTabsViewController.java" afterPath="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/OperationTabsViewController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FITS-HeaderVisualEditor.iws" />
@@ -46,16 +43,18 @@
     <favorites_list name="FITS-HeaderVisualEditor" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.48081023">
+    <splitter split-orientation="horizontal" split-proportion="0.5090618">
       <split-first>
         <leaf>
           <file leaf-file-name="MainApp.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+                  <caret line="131" column="34" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
                   <folding>
-                    <element signature="method#loadOperationTabs#0;class#MainApp#0" expanded="true" />
+                    <element signature="method#start#0;class#MainApp#0" expanded="true" />
+                    <element signature="method#initOperationTabsView#0;class#MainApp#0" expanded="true" />
+                    <element signature="method#initOutputView#0;class#MainApp#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -67,54 +66,35 @@
                 <state vertical-scroll-proportion="0.0">
                   <caret line="60" column="31" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="31" />
                   <folding>
-                    <element signature="method#parse#0;class#Integer#0;class#Parsers#0" expanded="true" />
-                    <element signature="method#tryParse#0;class#Double#0;class#Parsers#0" expanded="true" />
-                    <element signature="method#parse#0;class#Double#0;class#Parsers#0" expanded="true" />
+                    <element signature="imports" expanded="false" />
+                    <element signature="docComment;class#Parsers#0" expanded="false" />
+                    <element signature="class#Integer#0;class#Parsers#0" expanded="false" />
+                    <element signature="docComment;method#tryParse#0;class#Integer#0;class#Parsers#0" expanded="false" />
+                    <element signature="method#tryParse#0;class#Integer#0;class#Parsers#0" expanded="false" />
+                    <element signature="docComment;method#parse#0;class#Integer#0;class#Parsers#0" expanded="false" />
+                    <element signature="class#Long#0;class#Parsers#0" expanded="false" />
+                    <element signature="docComment;method#tryParse#0;class#Long#0;class#Parsers#0" expanded="false" />
+                    <element signature="method#tryParse#0;class#Long#0;class#Parsers#0" expanded="false" />
+                    <element signature="class#Double#0;class#Parsers#0" expanded="false" />
+                    <element signature="docComment;method#tryParse#0;class#Double#0;class#Parsers#0" expanded="false" />
+                    <element signature="docComment;method#parse#0;class#Double#0;class#Parsers#0" expanded="false" />
+                    <element signature="class#Time#0;class#Parsers#0" expanded="false" />
+                    <element signature="docComment;method#tryParse#0;class#Time#0;class#Parsers#0" expanded="false" />
+                    <element signature="method#tryParse#0;class#Time#0;class#Parsers#0" expanded="false" />
+                    <element signature="docComment;method#parse#0;class#Time#0;class#Parsers#0" expanded="false" />
+                    <element signature="method#parse#0;class#Time#0;class#Parsers#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="OperationTabsViewController.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="OperationTabsViewController.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/OperationTabsViewController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="41" column="49" selection-start-line="41" selection-start-column="49" selection-end-line="41" selection-end-column="49" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="AddNewRecordTabController.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="66" column="35" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="JulianDateBasedOperationTabController.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateBasedOperationTabController.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="219" column="26" selection-start-line="219" selection-start-column="26" selection-end-line="219" selection-end-column="26" />
+                <state vertical-scroll-proportion="0.5294772">
+                  <caret line="46" column="69" selection-start-line="46" selection-start-column="69" selection-end-line="46" selection-end-column="69" />
                   <folding>
-                    <element signature="method#initialize#0;class#JulianDateBasedOperationTabController#0" expanded="true" />
-                    <element signature="method#validateDatetimeRecordTypeField#0;class#Validator#0;class#JulianDateBasedOperationTabController#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="HeliocentricJulianDateTabController.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/HeliocentricJulianDateTabController.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="1.1358447">
-                  <caret line="175" column="76" selection-start-line="175" selection-start-column="76" selection-end-line="175" selection-end-column="76" />
-                  <folding>
-                    <element signature="method#getInputData#0;class#HeliocentricJulianDateTabController#0" expanded="true" />
+                    <element signature="method#setMainApp#0;class#OperationTabsViewController#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -124,7 +104,7 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="Language_sk.properties" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Language_sk.properties" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/resources/bundles/Language_sk.properties">
               <provider editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
@@ -137,14 +117,25 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="JulianDateTabController.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateTabController.java">
+          <file leaf-file-name="AddNewRecordTabController.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="0" column="53" selection-start-line="0" selection-start-column="53" selection-end-line="0" selection-end-column="53" />
+                  <caret line="43" column="36" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
                   <folding>
-                    <element signature="method#initialize#0;class#JulianDateTabController#0" expanded="true" />
+                    <element signature="method#getInputData#0;class#AddNewRecordTabController#0" expanded="true" />
+                    <element signature="class#Validator#0;class#AddNewRecordTabController#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ChangeValueByKeywordInputData.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChangeValueByKeywordInputData.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.2458287">
+                  <caret line="25" column="113" selection-start-line="25" selection-start-column="113" selection-end-line="25" selection-end-column="113" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -173,24 +164,15 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChangeKeywordTab.fxml" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operationenums/AddRecordToPlace.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operationenums/RecordPlace.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operationenums/RecordPlacement.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operationenums/RemoveType.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operationenums/RecordType.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/HeliocentricJulianDateTab.fxml" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/DateOperationTabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operationenums/HJDRecordType.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operationenums/ChainRecordType.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operationenums/ChainValueType.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/listeners/RemoveListener.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChainRecordsTab.fxml" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/ChainRecordGroup.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/utils/OperationTabsLoader.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/OperationTabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/WarningDialog.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/ValidationException.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ValueOperationTabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata.java" />
@@ -198,32 +180,41 @@
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/TabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/Operation.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/AddToIndexInputData.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChainRecordsTabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Constants.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/OperationTabsViewController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChangeKeywordTabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChangeValueTabController.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/RemoveRecordController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ShiftTimeTabController.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/BasicRecordBasedOperationTabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/InputData.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/InputDataBase.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChangeKeywordInputData.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/AddNewRecordInputData.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/AddNewToIndexInputData.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChangeValueByKeywordInputData.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/RemoveByKeywordInputData.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/RemoveFromIndexInputData.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ShiftTimeInputData.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/JulianDateInputData.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/HeliocentricJulianDateInputData.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateBaseOperationTabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Parsers.java" />
-        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateTabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateBasedOperationTabController.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateTabController.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/BasicRecordBasedOperationTabController.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java" />
         <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/HeliocentricJulianDateTabController.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/ChainRecordGroup.java" />
         <option value="$PROJECT_DIR$/src/resources/bundles/Language_sk.properties" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChainRecordsTab.fxml" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Tuple.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/ChainTuple.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChainRecordsTabController.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/WhitespaceChecker.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/StringUtils.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/AddNewRecordInputData.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChangeValueByKeywordInputData.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/JulianDateInputData.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/HeliocentricJulianDateInputData.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChainRecordsInputData.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/OperationTabsViewController.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/FilesOverviewController.java" />
+        <option value="$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java" />
       </list>
     </option>
   </component>
@@ -468,97 +459,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="operationtabs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FITS-HeaderVisualEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="operationtabs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FITS-HeaderVisualEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FITS-HeaderVisualEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -585,6 +486,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FITS-HeaderVisualEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="operationenums" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -674,7 +605,7 @@
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="FullScreen" value="false" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="SearchEverywhereHistoryKey" value="Cons&#9;FILE&#9;file://D:/Projekty/Bakalárka/FITSHeaderEditor/gui/src/java/cz/muni/fi/fits/gui/utils/Constants.java&#10;Input&#9;PSI&#9;JAVA://cz.muni.fi.fits.gui.models.inputdata.InputData" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/Projekty/Bakalárka/FITSHeaderEditor/gui/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChainRecordsTab.fxml&#10;Cons&#9;FILE&#9;file://D:/Projekty/Bakalárka/FITSHeaderEditor/gui/src/java/cz/muni/fi/fits/gui/utils/Constants.java&#10;Input&#9;PSI&#9;JAVA://cz.muni.fi.fits.gui.models.inputdata.InputData" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -990,11 +921,12 @@
       <workItem from="1445325716073" duration="34395000" />
       <workItem from="1445507552408" duration="20332000" />
       <workItem from="1445780449878" duration="23656000" />
+      <workItem from="1445932972370" duration="18513000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="179443000" />
+    <option name="totallyTimeSpent" value="197956000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1026,6 +958,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" x="725" y="210" width="469" height="620" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32792208" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1036,7 +969,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32792208" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1065,43 +997,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operationenums/ShiftDirection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0378198">
-          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/JulianDateTab.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2609209">
-          <caret line="13" column="59" selection-start-line="13" selection-start-column="59" selection-end-line="13" selection-end-column="59" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/HeliocentricJulianDateTab.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.254023">
-          <caret line="13" column="19" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/AddNewRecordTab.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46896553">
-          <caret line="60" column="28" selection-start-line="60" selection-start-column="28" selection-end-line="60" selection-end-column="28" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/javafx-src.zip!/javafx/scene/Node.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
@@ -1132,13 +1027,6 @@
           <folding>
             <element signature="method#constrainTextFieldWithRegex#0;class#Constrainer#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operationenums/ChainValueType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1512792">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -1178,25 +1066,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChainRecordsTab.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5275862">
-          <caret line="27" column="29" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/ChainRecordGroup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6807564">
-          <caret line="117" column="4" selection-start-line="117" selection-start-column="4" selection-end-line="117" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1240,7 +1109,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="53" column="36" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1259,30 +1127,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.189099">
-          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/OperationTabController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0945495">
           <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChainRecordsTabController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36872146">
-          <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
-          <folding>
-            <element signature="e#1190#1191#0" expanded="false" />
-            <element signature="e#1268#1269#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1295,14 +1144,6 @@
             <element signature="method#setFieldsConstraints#0;class#ChangeKeywordTabController#0" expanded="false" />
             <element signature="class#Validator#0;class#ChangeKeywordTabController#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/OperationTabsViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="49" selection-start-line="41" selection-start-column="49" selection-end-line="41" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1334,16 +1175,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
-          <folding>
-            <element signature="method#loadOperationTabs#0;class#MainApp#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operationenums/JDRecordType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.05821918">
@@ -1359,54 +1190,6 @@
           <folding>
             <element signature="docComment;method#getInputDataString#0;class#InputData#0" expanded="false" />
             <element signature="docComment;method#setInputFilePath#0;class#InputData#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/AddNewRecordInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2522831">
-          <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
-          <folding>
-            <element signature="method#AddNewRecordInputData#0;class#AddNewRecordInputData#0" expanded="false" />
-            <element signature="docComment;method#getInputDataString#0;class#AddNewRecordInputData#0" expanded="false" />
-            <element signature="method#getInputDataString#0;class#AddNewRecordInputData#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/AddNewToIndexInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36872146">
-          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
-          <folding>
-            <element signature="docComment;class#AddNewToIndexInputData#0" expanded="false" />
-            <element signature="method#AddNewToIndexInputData#0;class#AddNewToIndexInputData#0" expanded="false" />
-            <element signature="docComment;method#getInputDataString#0;class#AddNewToIndexInputData#0" expanded="false" />
-            <element signature="method#getInputDataString#0;class#AddNewToIndexInputData#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChangeKeywordInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
-          <folding>
-            <element signature="docComment;class#ChangeKeywordInputData#0" expanded="false" />
-            <element signature="method#ChangeKeywordInputData#0;class#ChangeKeywordInputData#0" expanded="false" />
-            <element signature="method#getInputDataString#0;class#ChangeKeywordInputData#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChangeValueByKeywordInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4851598">
-          <caret line="30" column="44" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
-          <folding>
-            <element signature="docComment;method#ChangeValueByKeywordInputData#0;class#ChangeValueByKeywordInputData#0" expanded="false" />
-            <element signature="method#getInputDataString#0;class#ChangeValueByKeywordInputData#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1444,31 +1227,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34931508">
           <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
-          <folding>
-            <element signature="docComment;class#RemoveByKeywordInputData#0" expanded="false" />
-            <element signature="docComment;method#RemoveByKeywordInputData#0;class#RemoveByKeywordInputData#0" expanded="false" />
-            <element signature="docComment;method#getInputDataString#0;class#RemoveByKeywordInputData#0" expanded="false" />
-            <element signature="method#getInputDataString#0;class#RemoveByKeywordInputData#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/HeliocentricJulianDateInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="43" column="39" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/JulianDateInputData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42694065">
-          <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
-          <folding>
-            <element signature="docComment;class#JulianDateInputData#0" expanded="true" />
-            <element signature="docComment;method#getInputDataString#0;class#JulianDateInputData#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1477,9 +1235,23 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="60" column="31" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="31" />
           <folding>
-            <element signature="method#parse#0;class#Integer#0;class#Parsers#0" expanded="true" />
-            <element signature="method#tryParse#0;class#Double#0;class#Parsers#0" expanded="true" />
-            <element signature="method#parse#0;class#Double#0;class#Parsers#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#Parsers#0" expanded="false" />
+            <element signature="class#Integer#0;class#Parsers#0" expanded="false" />
+            <element signature="docComment;method#tryParse#0;class#Integer#0;class#Parsers#0" expanded="false" />
+            <element signature="method#tryParse#0;class#Integer#0;class#Parsers#0" expanded="false" />
+            <element signature="docComment;method#parse#0;class#Integer#0;class#Parsers#0" expanded="false" />
+            <element signature="class#Long#0;class#Parsers#0" expanded="false" />
+            <element signature="docComment;method#tryParse#0;class#Long#0;class#Parsers#0" expanded="false" />
+            <element signature="method#tryParse#0;class#Long#0;class#Parsers#0" expanded="false" />
+            <element signature="class#Double#0;class#Parsers#0" expanded="false" />
+            <element signature="docComment;method#tryParse#0;class#Double#0;class#Parsers#0" expanded="false" />
+            <element signature="docComment;method#parse#0;class#Double#0;class#Parsers#0" expanded="false" />
+            <element signature="class#Time#0;class#Parsers#0" expanded="false" />
+            <element signature="docComment;method#tryParse#0;class#Time#0;class#Parsers#0" expanded="false" />
+            <element signature="method#tryParse#0;class#Time#0;class#Parsers#0" expanded="false" />
+            <element signature="docComment;method#parse#0;class#Time#0;class#Parsers#0" expanded="false" />
+            <element signature="method#parse#0;class#Time#0;class#Parsers#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1488,20 +1260,79 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.019406393">
           <caret line="5" column="3" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateTabController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.77530587">
+          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
           <folding>
-            <element signature="docComment;method#getInputDataString#0;class#ShiftTimeInputData#0" expanded="true" />
-            <element signature="method#getInputDataString#0;class#ShiftTimeInputData#0" expanded="true" />
+            <element signature="method#initialize#0;class#JulianDateTabController#0" expanded="false" />
+            <element signature="method#getInputData#0;class#JulianDateTabController#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3105023">
+          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/HeliocentricJulianDateTabController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2625571">
+          <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateBasedOperationTabController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8732877">
+          <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;method#validateDatetimeRecordTypeField#0;class#Validator#0;class#JulianDateBasedOperationTabController#0" expanded="false" />
+            <element signature="docComment;method#validateDatetimeValueField#0;class#Validator#0;class#JulianDateBasedOperationTabController#0" expanded="false" />
+            <element signature="docComment;method#validateExposureRecordTypeField#0;class#Validator#0;class#JulianDateBasedOperationTabController#0" expanded="false" />
+            <element signature="docComment;method#validateExposureValueField#0;class#Validator#0;class#JulianDateBasedOperationTabController#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/operationenums/ChainValueType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05821918">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/ChainRecordsTab.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.040141676">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/BasicRecordBasedOperationTabController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7730812">
-          <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.2057842">
+          <caret line="179" column="11" selection-start-line="179" selection-start-column="11" selection-end-line="179" selection-end-column="11" />
           <folding>
+            <element signature="docComment;class#Validator#0;class#BasicRecordBasedOperationTabController#0" expanded="true" />
+            <element signature="docComment;method#validateKeywordField#0;class#Validator#0;class#BasicRecordBasedOperationTabController#0" expanded="true" />
             <element signature="method#validateKeywordField#0;class#Validator#0;class#BasicRecordBasedOperationTabController#0" expanded="true" />
+            <element signature="docComment;method#validateValueTypeField#0;class#Validator#0;class#BasicRecordBasedOperationTabController#0" expanded="true" />
             <element signature="method#validateValueTypeField#0;class#Validator#0;class#BasicRecordBasedOperationTabController#0" expanded="true" />
+            <element signature="docComment;method#validateValueField#0;class#Validator#0;class#BasicRecordBasedOperationTabController#0" expanded="true" />
             <element signature="method#validateValueField#0;class#Validator#0;class#BasicRecordBasedOperationTabController#0" expanded="true" />
             <element signature="method#valueEmpty#0;class#Validator#0;class#BasicRecordBasedOperationTabController#0" expanded="true" />
             <element signature="method#valueInvalid#0;class#Validator#0;class#BasicRecordBasedOperationTabController#0" expanded="true" />
@@ -1509,31 +1340,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java">
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChangeKeywordInputData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="66" column="35" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.2269188">
+          <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateTabController.java">
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/AddNewToIndexInputData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="53" selection-start-line="0" selection-start-column="53" selection-end-line="0" selection-end-column="53" />
+        <state vertical-scroll-proportion="0.1701891">
+          <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
           <folding>
-            <element signature="method#initialize#0;class#JulianDateTabController#0" expanded="true" />
+            <element signature="docComment;method#AddNewToIndexInputData#0;class#AddNewToIndexInputData#0" expanded="true" />
+            <element signature="method#getInputDataString#0;class#AddNewToIndexInputData#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/JulianDateBasedOperationTabController.java">
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/ChainRecordGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.097031966">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+          <folding>
+            <element signature="method#getValue#0;class#ChainRecordGroup#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/AddNewRecordTabController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="219" column="26" selection-start-line="219" selection-start-column="26" selection-end-line="219" selection-end-column="26" />
+          <caret line="43" column="36" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
           <folding>
-            <element signature="method#initialize#0;class#JulianDateBasedOperationTabController#0" expanded="true" />
-            <element signature="method#validateDatetimeRecordTypeField#0;class#Validator#0;class#JulianDateBasedOperationTabController#0" expanded="true" />
+            <element signature="method#getInputData#0;class#AddNewRecordTabController#0" expanded="true" />
+            <element signature="class#Validator#0;class#AddNewRecordTabController#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/utils/StringUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32990867">
+          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+          <folding>
+            <element signature="docComment;class#StringUtils#0" expanded="true" />
+            <element signature="docComment;method#wrapIfContainsWhitespace#0;class#StringUtils#0" expanded="true" />
+            <element signature="method#wrapIfContainsWhitespace#0;class#StringUtils#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/AddNewRecordInputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7568493">
+          <caret line="56" column="37" selection-start-line="56" selection-start-column="37" selection-end-line="56" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;method#AddNewRecordInputData#0;class#AddNewRecordInputData#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1549,12 +1414,93 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/HeliocentricJulianDateTabController.java">
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/JulianDateInputData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1358447">
-          <caret line="175" column="76" selection-start-line="175" selection-start-column="76" selection-end-line="175" selection-end-column="76" />
+        <state vertical-scroll-proportion="0.69863015">
+          <caret line="51" column="37" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
           <folding>
-            <element signature="method#getInputData#0;class#HeliocentricJulianDateTabController#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="method#JulianDateInputData#0;class#JulianDateInputData#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/HeliocentricJulianDateInputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36872146">
+          <caret line="44" column="40" selection-start-line="44" selection-start-column="40" selection-end-line="44" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChainRecordsInputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/models/inputdata/ChangeValueByKeywordInputData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2458287">
+          <caret line="25" column="113" selection-start-line="25" selection-start-column="113" selection-end-line="25" selection-end-column="113" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/operationtabs/controllers/ChainRecordsTabController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7474972">
+          <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
+          <folding>
+            <element signature="method#ChainRecordsTabController#0;class#ChainRecordsTabController#0" expanded="true" />
+            <element signature="class#Validator#0;class#ChainRecordsTabController#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/FilesOverviewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4916574">
+          <caret line="89" column="18" selection-start-line="89" selection-start-column="18" selection-end-line="89" selection-end-column="18" />
+          <folding>
+            <element signature="method#setTableItemsCollection#0;class#FilesOverviewController#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/OutputView.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/MainApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="131" column="34" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
+          <folding>
+            <element signature="method#start#0;class#MainApp#0" expanded="true" />
+            <element signature="method#initOperationTabsView#0;class#MainApp#0" expanded="true" />
+            <element signature="method#initOutputView#0;class#MainApp#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/cz/muni/fi/fits/gui/view/controllers/OperationTabsViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5294772">
+          <caret line="46" column="69" selection-start-line="46" selection-start-column="69" selection-end-line="46" selection-end-column="69" />
+          <folding>
+            <element signature="method#setMainApp#0;class#OperationTabsViewController#0" expanded="true" />
           </folding>
         </state>
       </provider>

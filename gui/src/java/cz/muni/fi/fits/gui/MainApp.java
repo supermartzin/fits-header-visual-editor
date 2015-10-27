@@ -44,7 +44,7 @@ public class MainApp extends Application {
     }
 
     public ObservableList<FitsFile> getFitsFiles() {
-        return _fitsFiles;
+        return FXCollections.unmodifiableObservableList(_fitsFiles);
     }
 
     public static void main(String[] args) {
@@ -113,6 +113,7 @@ public class MainApp extends Application {
             AnchorPane anchorPane = operationTabsViewFile.load();
 
             OperationTabsViewController controller = operationTabsViewFile.getController();
+            controller.setMainApp(this);
 
             // load Tabs into TabPane
             Collection<Tab> tabs = loadOperationTabs(controller);

@@ -121,30 +121,33 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
     }
 
     protected String getRecordValue() {
-        // get value based on selected value type
-        switch (valueTypeField.getValue().getType()) {
-            case STRING:
-                return valueStringField.getText();
-            case NUMBER:
-                return valueNumberField.getText();
-            case BOOLEAN:
-                return Boolean.toString(valueBooleanField.isSelected());
-            case DATE:
-                return valueDateField.getValue().toString();
-            case TIME:
-                LocalTime valueTime = Parsers.Time.parse(valueTimeField.getText());
-                if (valueTime != null)
-                    return valueTime.toString();
-            case DATETIME:
-                LocalDate date = valueDateTimeDateField.getValue();
-                LocalTime time = Parsers.Time.parse(valueDateTimeTimeField.getText());
+        ComboBoxItem<ValueType> valueTypeItem = valueTypeField.getValue();
 
-                if (date == null)
-                    date = LocalDate.of(0, 1, 1);
-                if (time == null)
-                    time =  LocalTime.of(0, 0, 0);
+        if(valueTypeItem != null) {
+            switch (valueTypeItem.getType()) {
+                case STRING:
+                    return valueStringField.getText();
+                case NUMBER:
+                    return valueNumberField.getText();
+                case BOOLEAN:
+                    return Boolean.toString(valueBooleanField.isSelected());
+                case DATE:
+                    return valueDateField.getValue().toString();
+                case TIME:
+                    LocalTime valueTime = Parsers.Time.parse(valueTimeField.getText());
+                    if (valueTime != null)
+                        return valueTime.toString();
+                case DATETIME:
+                    LocalDate date = valueDateTimeDateField.getValue();
+                    LocalTime time = Parsers.Time.parse(valueDateTimeTimeField.getText());
 
-                return LocalDateTime.of(date, time).toString();
+                    if (date == null)
+                        date = LocalDate.of(0, 1, 1);
+                    if (time == null)
+                        time = LocalTime.of(0, 0, 0);
+
+                    return LocalDateTime.of(date, time).toString();
+            }
         }
 
         return null;

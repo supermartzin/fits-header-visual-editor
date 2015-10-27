@@ -10,6 +10,9 @@ import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 /**
@@ -115,6 +118,47 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
             boolean exposureValueField) {
         this.exposureKeywordField.setVisible(exposureKeywordField);
         this.exposureValueField.setVisible(exposureValueField);
+    }
+
+    protected String getDatetimeFieldValue() {
+        ComboBoxItem<JDRecordType> recordTypeItem = datetimeRecordTypeField.getValue();
+
+        if (recordTypeItem != null) {
+            switch (recordTypeItem.getType()){
+                case KEYWORD:
+                    return datetimeKeywordField.getText();
+
+                case VALUE:
+                    LocalDate date = datetimeValueDateField.getValue();
+                    LocalTime time = Parsers.Time.parse(datetimeValueTimeField.getText());
+
+                    if (date == null)
+                        date = LocalDate.of(0, 1, 1);
+                    if (time == null)
+                        time = LocalTime.of(0, 0, 0);
+
+                    return LocalDateTime.of(date, time).toString();
+            }
+        }
+
+        return null;
+    }
+
+    protected String getExposureFieldValue() {
+        ComboBoxItem<JDRecordType> recordTypeItem = exposureRecordTypeField.getValue();
+
+        if (recordTypeItem != null) {
+            switch (recordTypeItem.getType()) {
+                case KEYWORD:
+                    return exposureKeywordField.getText();
+
+                case VALUE:
+                    double exposureValue = Parsers.Double.parse(exposureValueField.getText());
+                    return Double.toString(exposureValue);
+            }
+        }
+
+        return null;
     }
 
 

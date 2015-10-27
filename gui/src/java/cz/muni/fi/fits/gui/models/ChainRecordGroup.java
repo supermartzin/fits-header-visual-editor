@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  */
 public class ChainRecordGroup {
 
-    private ComboBox _valueTypeField;
+    private ComboBox<ComboBoxItem<ChainValueType>> _valueTypeField;
     private TextField _keywordValueField;
     private TextField _constantValueField;
     private Button _removeGroupButton;
@@ -82,19 +82,25 @@ public class ChainRecordGroup {
     }
 
     public ChainValueType getValueType() {
-        return (ChainValueType) _valueTypeField.getValue();
+        if (_valueTypeField.getValue() == null)
+            return null;
+
+        return _valueTypeField.getValue().getType();
     }
 
     public String getValue() {
-        ChainValueType recordType = (ChainValueType) _valueTypeField.getValue();
-        switch (recordType) {
-            case KEYWORD:
-                return _keywordValueField.getText();
-            case CONSTANT:
-                return _constantValueField.getText();
-            default:
-                return null;
+        ComboBoxItem<ChainValueType> chainValueTypeItem = _valueTypeField.getValue();
+
+        if (chainValueTypeItem != null) {
+            switch (chainValueTypeItem.getType()) {
+                case KEYWORD:
+                    return _keywordValueField.getText();
+                case CONSTANT:
+                    return _constantValueField.getText();
+            }
         }
+
+        return null;
     }
 
     public int getRowIndex() {

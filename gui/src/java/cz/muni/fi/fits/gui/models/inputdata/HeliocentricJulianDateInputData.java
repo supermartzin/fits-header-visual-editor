@@ -1,6 +1,7 @@
 package cz.muni.fi.fits.gui.models.inputdata;
 
 import cz.muni.fi.fits.gui.utils.Constants;
+import cz.muni.fi.fits.gui.utils.StringUtils;
 
 /**
  * Class for storing input data for operation <code>Compute Heliocentric Julian Date</code>
@@ -49,12 +50,15 @@ public class HeliocentricJulianDateInputData extends InputDataBase {
                 || _inputFilePath == null)
             return null;
 
+        // handle whitespaces
+        String comment = StringUtils.wrapIfContainsWhitespace(_comment, "\"");
+
         return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
                 _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
                 _datetime + Constants.EXPRESSIONS_DELIMITER +
                 _exposure + Constants.EXPRESSIONS_DELIMITER +
                 _rightAscension + Constants.EXPRESSIONS_DELIMITER +
                 _declination + Constants.EXPRESSIONS_DELIMITER +
-                ((_comment != null) ? _comment : "");
+                ((comment != null) ? comment : "");
     }
 }

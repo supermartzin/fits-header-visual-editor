@@ -2,13 +2,9 @@ package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.inputdata.JulianDateInputData;
-import cz.muni.fi.fits.gui.utils.Parsers;
 import cz.muni.fi.fits.gui.utils.ValidationException;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 /**
@@ -39,37 +35,10 @@ public class JulianDateTabController extends JulianDateBasedOperationTabControll
             _validator.validateExposureValueField();
 
             // get datetime
-            String datetime = null;
-            switch (datetimeRecordTypeField.getValue().getType()) {
-                case KEYWORD:
-                    datetime = datetimeKeywordField.getText();
-                    break;
-
-                case VALUE:
-                    LocalDate date = datetimeValueDateField.getValue();
-                    LocalTime time = Parsers.Time.parse(datetimeValueTimeField.getText());
-
-                    if (date == null)
-                        date = LocalDate.of(0, 1, 1);
-                    if (time == null)
-                        time = LocalTime.of(0, 0, 0);
-
-                    datetime = LocalDateTime.of(date, time).toString();
-                    break;
-            }
+            String datetime = getDatetimeFieldValue();
 
             //get exposure
-            String exposure = null;
-            switch (exposureRecordTypeField.getValue().getType()) {
-                case KEYWORD:
-                    exposure = exposureKeywordField.getText();
-                    break;
-
-                case VALUE:
-                    double exposureValue = Parsers.Double.parse(exposureValueField.getText());
-                    exposure = Double.toString(exposureValue);
-                    break;
-            }
+            String exposure = getExposureFieldValue();
 
             // get comment
             String comment = commentField.getText();

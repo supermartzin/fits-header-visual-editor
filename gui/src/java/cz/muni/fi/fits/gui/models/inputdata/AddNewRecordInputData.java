@@ -1,6 +1,7 @@
 package cz.muni.fi.fits.gui.models.inputdata;
 
 import cz.muni.fi.fits.gui.utils.Constants;
+import cz.muni.fi.fits.gui.utils.StringUtils;
 
 /**
  * Class for storing input data for operation <code>Add new record to end</code>
@@ -44,11 +45,15 @@ public class AddNewRecordInputData extends InputDataBase {
                 || _inputFilePath == null)
             return null;
 
+        // handle whitespaces
+        String value = StringUtils.wrapIfContainsWhitespace(_value, "\"");
+        String comment = StringUtils.wrapIfContainsWhitespace(_comment, "\"");
+
         return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
                 ((_updateIfExists) ? "-u" + Constants.EXPRESSIONS_DELIMITER : "") +
                 _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
                 _keyword.toUpperCase() + Constants.EXPRESSIONS_DELIMITER +
-                _value + Constants.EXPRESSIONS_DELIMITER +
-                ((_comment != null) ? _comment : "");
+                value + Constants.EXPRESSIONS_DELIMITER +
+                ((comment != null) ? comment : "");
     }
 }

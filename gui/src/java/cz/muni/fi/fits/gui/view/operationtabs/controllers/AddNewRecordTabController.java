@@ -59,25 +59,28 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
             String comment = commentField.getText();
 
             // create InputData based on placement in header
-            switch (recordPlacementField.getValue().getType()) {
-                case END:
-                    // get switch
-                    boolean updateIfExists = updateSwitchField.isSelected();
+            ComboBoxItem<RecordPlacement> recordPlacementItem = recordPlacementField.getValue();
+            if (recordPlacementItem != null) {
+                switch (recordPlacementItem.getType()) {
+                    case END:
+                        // get switch
+                        boolean updateIfExists = updateSwitchField.isSelected();
 
-                    inputData = new AddNewRecordInputData(keyword, value, comment, updateIfExists);
-                    break;
+                        inputData = new AddNewRecordInputData(keyword, value, comment, updateIfExists);
+                        break;
 
-                case INDEX:
-                    // validate
-                    _validator.validateIndexField();
+                    case INDEX:
+                        // validate
+                        _validator.validateIndexField();
 
-                    // get index
-                    int index = Parsers.Integer.parse(indexNumberField.getText());
-                    //get switch
-                    boolean removeOldIfExists = removeSwitchField.isSelected();
+                        // get index
+                        int index = Parsers.Integer.parse(indexNumberField.getText());
+                        //get switch
+                        boolean removeOldIfExists = removeSwitchField.isSelected();
 
-                    inputData = new AddNewToIndexInputData(keyword, value, comment, index, removeOldIfExists);
-                    break;
+                        inputData = new AddNewToIndexInputData(keyword, value, comment, index, removeOldIfExists);
+                        break;
+                }
             }
 
             return inputData;
@@ -129,6 +132,7 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
         this.removeSwitchField.setVisible(removeSwitchField);
         this.indexNumberField.setVisible(indexNumberField);
     }
+
 
     /**
      *
