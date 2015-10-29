@@ -1,5 +1,7 @@
 package cz.muni.fi.fits.gui.models.inputdata;
 
+import java.util.List;
+
 /**
  * Interface for creating classes storing input data
  * for various FITS Header editing operations
@@ -10,13 +12,12 @@ package cz.muni.fi.fits.gui.models.inputdata;
 public interface InputData {
 
     /**
-     * Creates {@link String} containing all input data
-     * in required order and format for use as command line
-     * argument in engine program
+     * Creates list of {@link String} containing all input data
+     * as ordered arguments for use in command line engine program
      *
-     * @return  {@link String} with ordered and formatted input data
+     * @return  list of {@link String} arguments in required order
      */
-    String getInputDataString();
+    List<String> getInputDataArguments();
 
     /**
      * Sets a path to file which contains paths to FITS files

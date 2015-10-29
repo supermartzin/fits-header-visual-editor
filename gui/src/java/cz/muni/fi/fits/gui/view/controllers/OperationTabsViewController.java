@@ -3,16 +3,18 @@ package cz.muni.fi.fits.gui.view.controllers;
 import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.models.FitsFile;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
+import cz.muni.fi.fits.gui.services.ExecutionService;
+import cz.muni.fi.fits.gui.services.ExecutionTask;
 import cz.muni.fi.fits.gui.view.operationtabs.controllers.TabController;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
 
 /**
  * TODO description
@@ -46,15 +48,42 @@ public class OperationTabsViewController implements Initializable {
             // FITS files
             Collection<FitsFile> fitsFiles = _mainApp.getFitsFiles();
 
+            try {
+                List<String> filepaths = new LinkedList<>();
+                fitsFiles.forEach(fitsFile -> filepaths.add(fitsFile.getFilepath()));
 
+                Path filesIn = Files.createTempFile("files", "in");
+                Files.write(filesIn, filepaths);
 
-            if (inputData != null) {
-                inputData.setInputFilePath("files.in");
-                System.out.println(inputData.getInputDataString()); // TODO delete
+                if (inputData != null) {
+                    inputData.setInputFilePath(filesIn.toAbsolutePath().toString());
+
+                    ExecutionTask executionTask = new ExecutionTask(
+                            inputData.getInputDataArguments(), fitsFiles.size(), _mainApp.getEngineFilepath());
+                    ExecutionService service = new ExecutionService(executionTask);
+
+                    progressBar.progressProperty().unbind();
+                    progressBar.progressProperty().bind(executionTask.progressProperty());
+
+                    service.setOnSucceeded(event -> {
+                        try {
+                            Files.deleteIfExists(filesIn);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                    service.setOnFailed(event -> System.err.println(event.getSource()));
+
+                    service.start();
+                }
+            } catch (IOException ioEx) {
+                // TODO handle exception
+                ioEx.printStackTrace();
             }
         }
     }
-    
+
     public void addTabController(TabController tabController) {
         if (tabController != null) {
             _tabs.add(tabController);

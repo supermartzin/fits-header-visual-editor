@@ -1,6 +1,7 @@
 package cz.muni.fi.fits.gui.models.inputdata;
 
-import cz.muni.fi.fits.gui.utils.Constants;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Class for storing input data for operation <code>Shift time of time record</code>
@@ -47,26 +48,37 @@ public class ShiftTimeInputData extends InputDataBase {
     /**
      * {@inheritDoc}
      *
-     * @return  {@link String} with ordered and formatted input data
+     * @return  list of {@link String} arguments in required order
      *          or <code>null</code> if some of the required parameters is not set
      */
     @Override
-    public String getInputDataString() {
+    public List<String> getInputDataArguments() {
         if (_keyword == null
                 || _inputFilePath == null
                 || shiftValuesNotSet())
             return null;
 
-        return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
-                _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
-                _keyword.toUpperCase() + Constants.EXPRESSIONS_DELIMITER +
-                ((_years != Integer.MIN_VALUE) ? "-y=" + _years + Constants.EXPRESSIONS_DELIMITER : "") +
-                ((_months != Integer.MIN_VALUE) ? "-m=" + _months + Constants.EXPRESSIONS_DELIMITER : "") +
-                ((_days != Integer.MIN_VALUE) ? "-d=" + _days + Constants.EXPRESSIONS_DELIMITER : "") +
-                ((_hours != Integer.MIN_VALUE) ? "-h=" + _hours + Constants.EXPRESSIONS_DELIMITER : "") +
-                ((_minutes != Integer.MIN_VALUE) ? "-min=" + _minutes + Constants.EXPRESSIONS_DELIMITER : "") +
-                ((_seconds != Integer.MIN_VALUE) ? "-s=" + _seconds + Constants.EXPRESSIONS_DELIMITER : "") +
-                ((_milliseconds != Integer.MIN_VALUE) ? "-ms=" + _milliseconds + Constants.EXPRESSIONS_DELIMITER : "");
+        // created ordered list
+        List<String> inputDataArguments = new LinkedList<>();
+        inputDataArguments.add(_operation.getStringValue());
+        inputDataArguments.add(_inputFilePath);
+        inputDataArguments.add(_keyword.toUpperCase());
+        if (_years != Integer.MIN_VALUE)
+            inputDataArguments.add("-y=" + _years);
+        if (_months != Integer.MIN_VALUE)
+            inputDataArguments.add("-m=" + _months);
+        if (_days != Integer.MIN_VALUE)
+            inputDataArguments.add("-d=" + _days);
+        if (_hours != Integer.MIN_VALUE)
+            inputDataArguments.add("-h=" + _hours);
+        if (_minutes != Integer.MIN_VALUE)
+            inputDataArguments.add("-min=" + _minutes);
+        if (_seconds != Integer.MIN_VALUE)
+            inputDataArguments.add("-s=" + _years);
+        if (_milliseconds != Integer.MIN_VALUE)
+            inputDataArguments.add("-ms=" + _milliseconds);
+
+        return inputDataArguments;
     }
 
     private boolean shiftValuesNotSet() {

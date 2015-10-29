@@ -13,6 +13,9 @@ import java.util.regex.Pattern;
 public final class Constants {
 
     public static final Language DEFAULT_LANGUAGE = Language.ENGLISH;
+    public static final String NEWLINE = System.getProperty("line.separator");
+    public static final String DEFAULT_ENGINE_FILEPATH = "engine.jar";
+
     public static final Pattern TIME_PATTERN = Pattern.compile("^[\\d:.]{1,12}$");
     public static final Pattern DECIMAL_NUMBER_PATTERN = Pattern.compile("^\\d*(\\.\\d*)?$");
     public static final Pattern NONNEG_INTEGRAL_NUMBER_PATTERN = Pattern.compile("^\\d{1,5}$");
@@ -23,6 +26,4 @@ public final class Constants {
     public static final Pattern SECONDS_PATTERN = Pattern.compile("^\\d|[1-5]\\d$");
     public static final Pattern RIGHT_ASCENSION_PATTERN = Pattern.compile("^(([1-2]?\\d?\\d)|(3[0-5]\\d))(\\.\\d*)?|360$");
     public static final Pattern DECLINATION_PATTERN = Pattern.compile("^-|-?((\\d|[1-8]\\d)(\\.\\d*)?|90)$");
-
-    public static final String EXPRESSIONS_DELIMITER = " ";
 }

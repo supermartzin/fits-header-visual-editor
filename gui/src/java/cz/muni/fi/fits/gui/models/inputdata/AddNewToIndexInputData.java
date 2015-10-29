@@ -1,6 +1,7 @@
 package cz.muni.fi.fits.gui.models.inputdata;
 
-import cz.muni.fi.fits.gui.utils.Constants;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Class for storing input data for operation <code>Add new record to index</code>
@@ -37,23 +38,29 @@ public class AddNewToIndexInputData extends InputDataBase {
     /**
      * {@inheritDoc}
      *
-     * @return  {@link String} with ordered and formatted input data
+     * @return  list of {@link String} arguments in required order
      *          or <code>null</code> if some of the required parameters is not set
      */
     @Override
-    public String getInputDataString() {
+    public List<String> getInputDataArguments() {
         if (_keyword == null
                 || _value == null
                 || _index < 1
                 || _inputFilePath == null)
             return null;
 
-        return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
-                ((_removeOldIfExists) ? "-rm" + Constants.EXPRESSIONS_DELIMITER : "") +
-                _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
-                Integer.toString(_index, 10) + Constants.EXPRESSIONS_DELIMITER +
-                _keyword.toUpperCase() + Constants.EXPRESSIONS_DELIMITER +
-                _value + Constants.EXPRESSIONS_DELIMITER +
-                ((_comment != null) ? _comment : "");
+        // created ordered list
+        List<String> inputDataArguments = new LinkedList<>();
+        inputDataArguments.add(_operation.getStringValue());
+        if (_removeOldIfExists)
+            inputDataArguments.add("-rm");
+        inputDataArguments.add(_inputFilePath);
+        inputDataArguments.add(Integer.toString(_index, 10));
+        inputDataArguments.add(_keyword.toUpperCase());
+        inputDataArguments.add(_value);
+        if (_comment != null)
+            inputDataArguments.add(_comment);
+
+        return inputDataArguments;
     }
 }

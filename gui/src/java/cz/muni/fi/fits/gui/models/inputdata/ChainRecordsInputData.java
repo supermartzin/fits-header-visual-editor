@@ -1,9 +1,9 @@
 package cz.muni.fi.fits.gui.models.inputdata;
 
 import cz.muni.fi.fits.gui.models.operationenums.ChainValueType;
-import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.StringUtils;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -31,18 +31,32 @@ public class ChainRecordsInputData extends InputDataBase {
         _operation = Operation.CHAIN_RECORDS;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return  list of {@link String} arguments in required order
+     *          or <code>null</code> if some of the required parameters is not set
+     */
     @Override
-    public String getInputDataString() {
+    public List<String> getInputDataArguments() {
         if (_keyword == null
                 || _valuesToChain == null
                 || _valuesToChain.isEmpty()
                 || _inputFilePath == null)
             return null;
 
-        String chainString = "";
-        for (ChainTuple chainTuple : _valuesToChain) {
+        // created ordered list
+        List<String> inputDataArguments = new LinkedList<>();
+        inputDataArguments.add(_operation.getStringValue());
+        if (_updateIfExists)
+            inputDataArguments.add("-u");
+        if (_longstringsSupport)
+            inputDataArguments.add("-l");
+        inputDataArguments.add(_inputFilePath);
+        inputDataArguments.add(_keyword.toUpperCase());
 
-            // construc value
+        for (ChainTuple chainTuple : _valuesToChain) {
+            // construct value
             String value = "";
             switch (chainTuple.getValueType()) {
                 case KEYWORD:
@@ -55,19 +69,17 @@ public class ChainRecordsInputData extends InputDataBase {
             value += chainTuple.getValue();
 
             // handle whitespaces
-            chainString += Constants.EXPRESSIONS_DELIMITER + StringUtils.wrapIfContainsWhitespace(value, "\"");
+            value = StringUtils.wrapIfContainsWhitespace(value, "\"");
+
+            inputDataArguments.add(value);
         }
 
         // handle whitespaces in comment
         String comment = StringUtils.wrapIfContainsWhitespace(_comment, "\"");
+        if (comment != null)
+            inputDataArguments.add(comment);
 
-        return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
-                ((_updateIfExists) ? "-u" + Constants.EXPRESSIONS_DELIMITER : "") +
-                ((_longstringsSupport) ? "-l" + Constants.EXPRESSIONS_DELIMITER : "") +
-                _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
-                _keyword.toUpperCase() +
-                chainString + Constants.EXPRESSIONS_DELIMITER +
-                ((comment != null) ? comment : "");
+        return inputDataArguments;
     }
 
 

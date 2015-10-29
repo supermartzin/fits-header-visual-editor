@@ -1,7 +1,9 @@
 package cz.muni.fi.fits.gui.models.inputdata;
 
-import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.StringUtils;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Class for storing input data for operation <code>Change value of existing record</code>
@@ -35,11 +37,11 @@ public class ChangeValueByKeywordInputData extends InputDataBase {
     /**
      * {@inheritDoc}
      *
-     * @return  {@link String} with ordered and formatted input data
+     * @return  list of {@link String} arguments in required order
      *          or <code>null</code> if some of the required parameters is not set
      */
     @Override
-    public String getInputDataString() {
+    public List<String> getInputDataArguments() {
         if (_keyword == null
                 || _value == null
                 || _inputFilePath == null)
@@ -49,11 +51,17 @@ public class ChangeValueByKeywordInputData extends InputDataBase {
         String value = StringUtils.wrapIfContainsWhitespace(_value, "\"");
         String comment = StringUtils.wrapIfContainsWhitespace(_comment, "\"");
 
-        return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
-                ((_addNewIfNotExist) ? "-a" + Constants.EXPRESSIONS_DELIMITER : "") +
-                _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
-                _keyword.toUpperCase() + Constants.EXPRESSIONS_DELIMITER +
-                value + Constants.EXPRESSIONS_DELIMITER +
-                ((comment != null) ? comment : "");
+        // created ordered list
+        List<String> inputDataArguments = new LinkedList<>();
+        inputDataArguments.add(_operation.getStringValue());
+        if (_addNewIfNotExist)
+            inputDataArguments.add("-a");
+        inputDataArguments.add(_inputFilePath);
+        inputDataArguments.add(_keyword.toUpperCase());
+        inputDataArguments.add(value);
+        if (comment != null)
+            inputDataArguments.add(comment);
+
+        return inputDataArguments;
     }
 }

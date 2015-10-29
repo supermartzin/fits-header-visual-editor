@@ -126,7 +126,7 @@ public class FilesOverviewController implements Initializable {
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("FITS files (*.fit, *.fits, *.fts)", "*.fit", "*.fits", "*.fts");
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File("D:\\Projekty"));
+        fileChooser.setInitialDirectory(new File("."));
         fileChooser.getExtensionFilters().add(extensionFilter);
         List<File> files = fileChooser.showOpenMultipleDialog(_mainApp.getPrimaryStage());
         if (files != null) {

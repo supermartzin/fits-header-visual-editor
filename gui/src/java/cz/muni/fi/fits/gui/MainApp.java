@@ -1,10 +1,12 @@
 package cz.muni.fi.fits.gui;
 
 import cz.muni.fi.fits.gui.models.FitsFile;
+import cz.muni.fi.fits.gui.services.PreferencesService;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
 import cz.muni.fi.fits.gui.view.controllers.FilesOverviewController;
 import cz.muni.fi.fits.gui.view.controllers.OperationTabsViewController;
 import cz.muni.fi.fits.gui.view.controllers.RootLayoutController;
+import cz.muni.fi.fits.gui.view.controllers.UserPreferencesController;
 import cz.muni.fi.fits.gui.view.operationtabs.utils.OperationTabsLoader;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -38,6 +40,7 @@ public class MainApp extends Application {
     private SplitPane _centralLayout;
 
     private ObservableList<FitsFile> _fitsFiles;
+    private String _engineFilepath;
 
     public Stage getPrimaryStage() {
         return _primaryStage;
@@ -58,12 +61,21 @@ public class MainApp extends Application {
         // TODO set icon
 
         _fitsFiles = FXCollections.observableArrayList();
+        _engineFilepath = PreferencesService.loadEngineFilePath(UserPreferencesController.class);
 
         // initialize layouts
         initRootLayout();
         initFilesOverview();
         initOperationTabsView();
         initOutputView();
+    }
+
+    public void setEngineFilepath(String engineFilepath) {
+        _engineFilepath = engineFilepath;
+    }
+
+    public String getEngineFilepath() {
+        return _engineFilepath;
     }
 
     private void initRootLayout() {

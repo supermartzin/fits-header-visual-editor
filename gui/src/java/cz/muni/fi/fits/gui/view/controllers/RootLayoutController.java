@@ -3,10 +3,16 @@ package cz.muni.fi.fits.gui.view.controllers;
 import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.models.Language;
 import cz.muni.fi.fits.gui.services.PreferencesService;
+import cz.muni.fi.fits.gui.services.ResourceBundleService;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,10 +25,13 @@ public class RootLayoutController implements Initializable {
     public Menu langMenu;
 
     private MainApp _mainApp;
+    private ResourceBundle _resources;
     private boolean _firstToggleEvent = true;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        _resources = resources;
+
         // add listener for language changed
         languages.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && !_firstToggleEvent) {
@@ -52,6 +61,30 @@ public class RootLayoutController implements Initializable {
 
     public void setMainApp(MainApp mainApp) {
         _mainApp = mainApp;
+    }
+
+    public void onPreferences() {
+        try {
+            FXMLLoader userPreferencesFile = new FXMLLoader(MainApp.class.getResource("view/UserPreferences.fxml"));
+            ResourceBundleService.setResourceBundle(userPreferencesFile);
+            AnchorPane anchorPane = userPreferencesFile.load();
+
+            Stage stage = new Stage();
+            stage.setTitle(_resources.getString("prefs"));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(_mainApp.getPrimaryStage());
+
+            stage.setScene(new Scene(anchorPane));
+
+            UserPreferencesController controller = userPreferencesFile.getController();
+            controller.setOwner(stage);
+            controller.setMainApp(_mainApp);
+
+            stage.showAndWait();
+        } catch (IOException ioEx) {
+            // TODO handle exception
+        }
+
     }
 
     public void onExit() {

@@ -10,16 +10,19 @@ import java.util.prefs.Preferences;
  */
 public class PreferencesService {
 
+    private static final String LANGUAGE_KEY = "lang";
+    private static final String FILEPATH_KEY = "filepath";
+
     public static Language getLanguage(Class<?> resourceClass) {
         // load preferences
         Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
         // load language
-        String lang = preferences.get("lang", "");
+        String lang = preferences.get(LANGUAGE_KEY, "");
         if (!lang.isEmpty()) {
             return Language.getLanguageByCode(lang);
         } else {
             // save and return default language
-            preferences.put("lang", Constants.DEFAULT_LANGUAGE.getCode());
+            preferences.put(LANGUAGE_KEY, Constants.DEFAULT_LANGUAGE.getCode());
             return Constants.DEFAULT_LANGUAGE;
         }
     }
@@ -28,6 +31,30 @@ public class PreferencesService {
         // load preferences
         Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
         // save language
-        preferences.put("lang", language.getCode());
+        preferences.put(LANGUAGE_KEY, language.getCode());
+    }
+
+    public static String loadEngineFilePath(Class<?> resourceClass) {
+        // load preferences
+        Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
+        // load filepath
+        String filepath = preferences.get(FILEPATH_KEY, "");
+        if (!filepath.isEmpty()) {
+            return filepath;
+        } else {
+            // save and return default language
+            preferences.put(FILEPATH_KEY, Constants.DEFAULT_ENGINE_FILEPATH);
+            return Constants.DEFAULT_ENGINE_FILEPATH;
+        }
+    }
+
+    public static void saveEngineFilePath(String filepath, Class<?> resourceClass) {
+        // load preferences
+        Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
+        // save filepath
+        if (filepath != null && !filepath.isEmpty())
+            preferences.put(FILEPATH_KEY, filepath);
+        else
+            preferences.put(FILEPATH_KEY, Constants.DEFAULT_ENGINE_FILEPATH);
     }
 }

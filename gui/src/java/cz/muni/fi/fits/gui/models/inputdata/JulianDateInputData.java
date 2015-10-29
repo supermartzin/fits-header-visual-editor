@@ -1,7 +1,9 @@
 package cz.muni.fi.fits.gui.models.inputdata;
 
-import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.StringUtils;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Class for storing input data for operation <code>Compute Julian Date</code>
@@ -32,11 +34,11 @@ public class JulianDateInputData extends InputDataBase {
     /**
      * {@inheritDoc}
      *
-     * @return  {@link String} with ordered and formatted input data
+     * @return  list of {@link String} arguments in required order
      *          or <code>null</code> if some of the required parameters is not set
      */
     @Override
-    public String getInputDataString() {
+    public List<String> getInputDataArguments() {
         if (_datetime == null
                 || _exposure == null
                 || _inputFilePath == null)
@@ -45,10 +47,15 @@ public class JulianDateInputData extends InputDataBase {
         // handle whitespaces
         String comment = StringUtils.wrapIfContainsWhitespace(_comment, "\"");
 
-        return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
-                _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
-                _datetime + Constants.EXPRESSIONS_DELIMITER +
-                _exposure + Constants.EXPRESSIONS_DELIMITER +
-                ((comment != null) ? comment : "");
+        // created ordered list
+        List<String> inputDataArguments = new LinkedList<>();
+        inputDataArguments.add(_operation.getStringValue());
+        inputDataArguments.add(_inputFilePath);
+        inputDataArguments.add(_datetime);
+        inputDataArguments.add(_exposure);
+        if (comment != null)
+            inputDataArguments.add(comment);
+
+        return inputDataArguments;
     }
 }

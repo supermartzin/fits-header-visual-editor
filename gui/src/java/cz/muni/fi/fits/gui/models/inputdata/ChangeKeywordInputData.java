@@ -1,6 +1,7 @@
 package cz.muni.fi.fits.gui.models.inputdata;
 
-import cz.muni.fi.fits.gui.utils.Constants;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Class for storing input data for operation <code>Change keyword of existing record</code>
@@ -35,16 +36,21 @@ public class ChangeKeywordInputData extends InputDataBase {
      *          or <code>null</code> if some of the required parameters is not set
      */
     @Override
-    public String getInputDataString() {
+    public List<String> getInputDataArguments() {
         if (_oldKeyword == null
                 || _newKeyword == null
                 || _inputFilePath == null)
             return null;
 
-        return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
-                ((_removeValueOfNewIfExists) ? "-rm" + Constants.EXPRESSIONS_DELIMITER : "") +
-                _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
-                _oldKeyword.toUpperCase() + Constants.EXPRESSIONS_DELIMITER +
-                _newKeyword.toUpperCase();
+        // created ordered list
+        List<String> inputDataArguments = new LinkedList<>();
+        inputDataArguments.add(_operation.getStringValue());
+        if (_removeValueOfNewIfExists)
+            inputDataArguments.add("-rm");
+        inputDataArguments.add(_inputFilePath);
+        inputDataArguments.add(_oldKeyword.toUpperCase());
+        inputDataArguments.add(_newKeyword.toUpperCase());
+
+        return inputDataArguments;
     }
 }

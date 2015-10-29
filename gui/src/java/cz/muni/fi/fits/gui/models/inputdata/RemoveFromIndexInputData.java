@@ -1,6 +1,7 @@
 package cz.muni.fi.fits.gui.models.inputdata;
 
-import cz.muni.fi.fits.gui.utils.Constants;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Class for storing input data for operation <code>Remove record from index</code>
@@ -25,17 +26,21 @@ public class RemoveFromIndexInputData extends InputDataBase {
     /**
      * {@inheritDoc}
      *
-     * @return  {@link String} with ordered and formatted input data
+     * @return  list of {@link String} arguments in required order
      *          or <code>null</code> if some of the required parameters is not set
      */
     @Override
-    public String getInputDataString() {
+    public List<String> getInputDataArguments() {
         if (_inputFilePath == null
                 || _index < 1)
             return null;
 
-        return _operation.getStringValue() + Constants.EXPRESSIONS_DELIMITER +
-                _inputFilePath + Constants.EXPRESSIONS_DELIMITER +
-                Integer.toString(_index, 10);
+        // created ordered list
+        List<String> inputDataArguments = new LinkedList<>();
+        inputDataArguments.add(_operation.getStringValue());
+        inputDataArguments.add(_inputFilePath);
+        inputDataArguments.add(Integer.toString(_index, 10));
+
+        return inputDataArguments;
     }
 }
