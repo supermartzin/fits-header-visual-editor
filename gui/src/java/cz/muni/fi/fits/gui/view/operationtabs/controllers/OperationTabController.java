@@ -1,9 +1,7 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
+import cz.muni.fi.fits.gui.view.controllers.Controller;
 import javafx.scene.control.Tab;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * TODO insert description
@@ -11,18 +9,11 @@ import java.util.ResourceBundle;
  * @author Martin Vrábel
  * @version 1.0
  */
-public abstract class OperationTabController implements TabController {
+public abstract class OperationTabController extends Controller implements TabController {
 
     protected String _tabName;
-    protected ResourceBundle _resources;
 
     private boolean _selected;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        if (resources != null)
-            _resources = resources;
-    }
 
     @Override
     public void setTab(final Tab tab) {

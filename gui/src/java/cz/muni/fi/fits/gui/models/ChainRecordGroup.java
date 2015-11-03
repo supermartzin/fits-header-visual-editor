@@ -1,6 +1,6 @@
 package cz.muni.fi.fits.gui.models;
 
-import cz.muni.fi.fits.gui.models.listeners.RemoveListener;
+import cz.muni.fi.fits.gui.listeners.RemoveListener;
 import cz.muni.fi.fits.gui.models.operationenums.ChainValueType;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Constrainer;

@@ -6,21 +6,18 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.net.URL;
 import java.util.Collection;
 import java.util.List;
-import java.util.ResourceBundle;
 
 /**
  * TODO description
  */
-public class FilesOverviewController implements Initializable {
+public class FilesOverviewController extends Controller {
 
     public TableView<FitsFile> tableView;
     public TableColumn<FitsFile, Boolean> selectColumn;
@@ -39,7 +36,7 @@ public class FilesOverviewController implements Initializable {
     private IntegerProperty _numberOfSelectedFiles;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init() {
         // initialize number of selected files
         _numberOfSelectedFiles = new SimpleIntegerProperty(0);
         _numberOfSelectedFiles.addListener((observable, oldValue, newValue) -> {
@@ -72,7 +69,7 @@ public class FilesOverviewController implements Initializable {
             CheckBoxTableCell<FitsFile, Boolean> checkBoxTableCell = new CheckBoxTableCell<>();
             // set value changed listener
             checkBoxTableCell.setSelectedStateCallback(index -> {
-                int count = tableView.getItems().stream().filter(FitsFile::getSelected).toArray().length;
+                int count = tableView.getItems().stream().filter(FitsFile::isSelected).toArray().length;
                 _numberOfSelectedFiles.setValue(count);
 
                 return tableView.getItems().get(index).selectedProperty();
@@ -118,7 +115,7 @@ public class FilesOverviewController implements Initializable {
     }
 
     public void onInvertSelection() {
-        tableView.getItems().forEach(fitsFile -> fitsFile.setSelected(!fitsFile.getSelected()));
+        tableView.getItems().forEach(fitsFile -> fitsFile.setSelected(!fitsFile.isSelected()));
     }
 
     public void onAddFiles() {
@@ -181,7 +178,7 @@ public class FilesOverviewController implements Initializable {
 
     public void onInvertContextMenu() {
         ObservableList<FitsFile> selected = tableView.getSelectionModel().getSelectedItems();
-        selected.forEach(fitsFile -> fitsFile.setSelected(!fitsFile.getSelected()));
+        selected.forEach(fitsFile -> fitsFile.setSelected(!fitsFile.isSelected()));
     }
 
     private void setContextMenuState(boolean deleteState, boolean selectState, boolean deselectState, boolean invertState) {
@@ -197,7 +194,7 @@ public class FilesOverviewController implements Initializable {
 
         // if at least one FitsFile is deselected > return false
         for (FitsFile fitsFile : fitsFiles) {
-            if (!fitsFile.getSelected())
+            if (!fitsFile.isSelected())
                 return false;
         }
 
@@ -210,7 +207,7 @@ public class FilesOverviewController implements Initializable {
 
         // if at least one FitsFile is selected > return false
         for (FitsFile fitsFile : fitsFiles) {
-            if (fitsFile.getSelected())
+            if (fitsFile.isSelected())
                 return false;
         }
 

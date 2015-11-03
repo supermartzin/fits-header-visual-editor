@@ -5,7 +5,6 @@ import cz.muni.fi.fits.gui.models.Language;
 import cz.muni.fi.fits.gui.services.PreferencesService;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -13,25 +12,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * TODO description
  */
-public class RootLayoutController implements Initializable {
+public class RootLayoutController extends Controller {
 
     public ToggleGroup languages;
     public Menu langMenu;
 
     private MainApp _mainApp;
-    private ResourceBundle _resources;
     private boolean _firstToggleEvent = true;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        _resources = resources;
-
+    public void init() {
         // add listener for language changed
         languages.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && !_firstToggleEvent) {
@@ -42,9 +36,9 @@ public class RootLayoutController implements Initializable {
                 PreferencesService.saveLanguage(newLanguage, _mainApp.getClass());
                 // alert user about restart
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle(resources.getString("restart.alert.title"));
-                alert.setHeaderText(resources.getString("restart.alert.header"));
-                alert.setContentText(resources.getString("restart.alert.text.lang"));
+                alert.setTitle(_resources.getString("restart.alert.title"));
+                alert.setHeaderText(_resources.getString("restart.alert.header"));
+                alert.setContentText(_resources.getString("restart.alert.text.lang"));
                 alert.initModality(Modality.APPLICATION_MODAL);
                 alert.initOwner(_mainApp.getPrimaryStage());
                 alert.showAndWait();

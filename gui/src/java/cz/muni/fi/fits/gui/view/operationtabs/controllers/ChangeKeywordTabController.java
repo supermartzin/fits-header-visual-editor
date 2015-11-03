@@ -5,12 +5,9 @@ import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Constrainer;
 import cz.muni.fi.fits.gui.utils.ValidationException;
-import cz.muni.fi.fits.gui.utils.WarningDialog;
+import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * TODO insert description
@@ -27,10 +24,8 @@ public class ChangeKeywordTabController extends OperationTabController {
     private Validator _validator;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
-
-        _tabName = resources.getString("tab.change.keyword");
+    public void init() {
+        _tabName = _resources.getString("tab.change.keyword");
         _validator = new Validator();
 
         setFieldsConstraints();

@@ -1,4 +1,4 @@
-package cz.muni.fi.fits.gui.models.listeners;
+package cz.muni.fi.fits.gui.listeners;
 
 import java.util.EventObject;
 

@@ -4,13 +4,12 @@ import cz.muni.fi.fits.gui.models.ChainRecordGroup;
 import cz.muni.fi.fits.gui.models.inputdata.ChainRecordsInputData;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.utils.ValidationException;
-import cz.muni.fi.fits.gui.utils.WarningDialog;
+import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-import java.net.URL;
 import java.util.*;
 
 /**
@@ -39,13 +38,11 @@ public class ChainRecordsTabController extends OperationTabController {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
-
-        _tabName = resources.getString("tab.chain");
+    public void init() {
+        _tabName = _resources.getString("tab.chain");
         _validator = new Validator();
 
-        ChainRecordGroup requiredGroup = new ChainRecordGroup(resources, true);
+        ChainRecordGroup requiredGroup = new ChainRecordGroup(_resources, true);
         addNewRecordGroup(requiredGroup);
     }
 

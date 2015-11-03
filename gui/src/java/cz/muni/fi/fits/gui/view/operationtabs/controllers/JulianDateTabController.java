@@ -4,9 +4,6 @@ import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.inputdata.JulianDateInputData;
 import cz.muni.fi.fits.gui.utils.ValidationException;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
  * TODO insert description
  *
@@ -18,10 +15,10 @@ public class JulianDateTabController extends JulianDateBasedOperationTabControll
     private Validator _validator;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
+    public void init() {
+        super.init();
 
-        _tabName = resources.getString("tab.jd");
+        _tabName = _resources.getString("tab.jd");
         _validator = new Validator();
     }
 

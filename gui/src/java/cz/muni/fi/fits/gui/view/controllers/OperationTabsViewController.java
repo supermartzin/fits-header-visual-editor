@@ -4,14 +4,13 @@ import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.models.FitsFile;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.services.ExecutionService;
-import cz.muni.fi.fits.gui.services.ExecutionTask;
+import cz.muni.fi.fits.gui.utils.dialogs.InfoDialog;
+import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import cz.muni.fi.fits.gui.view.operationtabs.controllers.TabController;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -19,7 +18,7 @@ import java.util.*;
 /**
  * TODO description
  */
-public class OperationTabsViewController implements Initializable {
+public class OperationTabsViewController extends Controller {
 
     public Button startButton;
     public ProgressBar progressBar;
@@ -32,54 +31,68 @@ public class OperationTabsViewController implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    public void init() {
     }
 
     public void onStartEditor() {
-        Optional<TabController> optional = _tabs.stream().filter(TabController::selected).findFirst();
+        // get currently selected operation tab
+        Optional<TabController> optional = _tabs.stream()
+                .filter(TabController::selected)
+                .findFirst();
 
         if (optional.isPresent()) {
             TabController tab = optional.get();
 
             // input data
             InputData inputData = tab.getInputData();
+            if (inputData != null) {
+                // FITS files
+                Collection<FitsFile> fitsFiles = _mainApp.getFitsFiles();
+                if (checkFitsFiles(fitsFiles)) {
+                    try {
+                        // create input file with FITS filepaths
+                        Path filesIn = createInputFile(fitsFiles);
 
-            // FITS files
-            Collection<FitsFile> fitsFiles = _mainApp.getFitsFiles();
+                        inputData.setInputFilePath(filesIn.toAbsolutePath().toString());
 
-            try {
-                List<String> filepaths = new LinkedList<>();
-                fitsFiles.forEach(fitsFile -> filepaths.add(fitsFile.getFilepath()));
+                        ExecutionService service =
+                                new ExecutionService(_mainApp.getEngineFilepath(),
+                                        inputData.getInputDataArguments(),
+                                        fitsFiles.size());
 
-                Path filesIn = Files.createTempFile("files", "in");
-                Files.write(filesIn, filepaths);
+                        progressBar.progressProperty().unbind();
+                        progressBar.progressProperty().bind(service.getTask().progressProperty());
 
-                if (inputData != null) {
-                    inputData.setInputFilePath(filesIn.toAbsolutePath().toString());
+                        // on operation succeeded
+                        service.setOnSucceeded(event -> {
+                            // delete temp input file
+                            deleteInputFile(filesIn);
 
-                    ExecutionTask executionTask = new ExecutionTask(
-                            inputData.getInputDataArguments(), fitsFiles.size(), _mainApp.getEngineFilepath());
-                    ExecutionService service = new ExecutionService(executionTask);
+                            // show success dialog
+                            InfoDialog.show(
+                                    ""/*_resources.getString("")*/,
+                                    null,
+                                    ""/*_resources.getString("")*/);
 
-                    progressBar.progressProperty().unbind();
-                    progressBar.progressProperty().bind(executionTask.progressProperty());
+                            progressBar.progressProperty().unbind();
+                            progressBar.setProgress(0);
+                        });
 
-                    service.setOnSucceeded(event -> {
-                        try {
-                            Files.deleteIfExists(filesIn);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
+                        service.setOnFailed(event -> {
+                            // delete temp input file
+                            deleteInputFile(filesIn);
 
-                    service.setOnFailed(event -> System.err.println(event.getSource()));
+                            // TODO show error dialog
 
-                    service.start();
+                            progressBar.progressProperty().unbind();
+                            progressBar.setProgress(0.0);
+                        });
+
+                        service.start();
+                    } catch (IOException ioEx) {
+                        // TODO handle exception
+                    }
                 }
-            } catch (IOException ioEx) {
-                // TODO handle exception
-                ioEx.printStackTrace();
             }
         }
     }
@@ -95,5 +108,36 @@ public class OperationTabsViewController implements Initializable {
             throw new IllegalArgumentException("mainApp object is null");
 
         _mainApp = mainApp;
+    }
+
+    private boolean checkFitsFiles(Collection<FitsFile> fitsFiles) {
+        if (fitsFiles == null || fitsFiles.isEmpty()) {
+            WarningDialog.show(
+                    _resources.getString("oper.common.alert.title"),
+                    _resources.getString("oper.common.alert.header"),
+                    _resources.getString("oper.common.alert.content.files.empty"));
+
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private Path createInputFile(Collection<FitsFile> fitsFiles)
+            throws IOException {
+        List<String> filepaths = new LinkedList<>();
+        fitsFiles.forEach(fitsFile -> filepaths.add(fitsFile.getFilepath()));
+
+        Path filesIn = Files.createTempFile("files", "in");
+        Files.write(filesIn, filepaths);
+
+        return filesIn;
+    }
+
+    private void deleteInputFile(Path inputFile) {
+        try {
+            Files.deleteIfExists(inputFile);
+        } catch (IOException ignored) {
+        }
     }
 }

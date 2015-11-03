@@ -5,9 +5,6 @@ import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.utils.ValidationException;
 import javafx.scene.control.CheckBox;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
  * TODO insert description
  *
@@ -21,10 +18,10 @@ public class ChangeValueTabController extends BasicRecordBasedOperationTabContro
     private Validator _validator;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
+    public void init() {
+        super.init();
 
-        _tabName = resources.getString("tab.change.value");
+        _tabName = _resources.getString("tab.change.value");
         _validator = new Validator();
 
         setFieldsConstraints();

@@ -6,13 +6,11 @@ import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.operationenums.RecordPlacement;
 import cz.muni.fi.fits.gui.utils.*;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
+import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxListCell;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * TODO description
@@ -30,14 +28,14 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
     private Validator _validator;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
+    public void init() {
+        super.init();
 
-        _tabName = resources.getString("tab.add");
+        _tabName = _resources.getString("tab.add");
         _validator = new Validator();
 
         setFieldsConstraints();
-        loadRecordPlacementField(resources);
+        loadRecordPlacementField();
     }
 
     @Override
@@ -97,13 +95,11 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
         Constrainer.constrainTextFieldWithRegex(indexNumberField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
     }
 
-    private void loadRecordPlacementField(ResourceBundle resources) {
-        if (resources != null) {
-            recordPlacementField.getItems().add(new ComboBoxItem<>(RecordPlacement.END,
-                    resources.getString(RecordPlacement.END.getPropertyName())));
-            recordPlacementField.getItems().add(new ComboBoxItem<>(RecordPlacement.INDEX,
-                    resources.getString(RecordPlacement.INDEX.getPropertyName())));
-        }
+    private void loadRecordPlacementField() {
+        recordPlacementField.getItems().add(new ComboBoxItem<>(RecordPlacement.END,
+                _resources.getString(RecordPlacement.END.getPropertyName())));
+        recordPlacementField.getItems().add(new ComboBoxItem<>(RecordPlacement.INDEX,
+                _resources.getString(RecordPlacement.INDEX.getPropertyName())));
 
         recordPlacementField.setCellFactory(param -> new ComboBoxListCell<>());
 

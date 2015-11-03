@@ -1,4 +1,4 @@
-package cz.muni.fi.fits.gui.utils;
+package cz.muni.fi.fits.gui.utils.dialogs;
 
 import javafx.scene.control.Alert;
 import javafx.stage.Modality;
@@ -11,6 +11,12 @@ import javafx.stage.Modality;
  */
 public final class WarningDialog {
 
+    /**
+     *
+     * @param title
+     * @param header
+     * @param content
+     */
     public static void show(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);

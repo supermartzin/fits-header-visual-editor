@@ -2,15 +2,12 @@ package cz.muni.fi.fits.gui.view.controllers;
 
 import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.services.PreferencesService;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * TODO insert description
@@ -18,7 +15,7 @@ import java.util.ResourceBundle;
  * @author Martin Vrábel - © 2015 FITS-HeaderVisualEditor
  * @version 1.0
  */
-public class UserPreferencesController implements Initializable {
+public class UserPreferencesController extends Controller {
 
     private Stage _ownerStage;
     private MainApp _mainApp;
@@ -29,7 +26,7 @@ public class UserPreferencesController implements Initializable {
     public Button cancelButton;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init() {
         enginePathField.setText(PreferencesService.loadEngineFilePath(this.getClass()));
     }
 

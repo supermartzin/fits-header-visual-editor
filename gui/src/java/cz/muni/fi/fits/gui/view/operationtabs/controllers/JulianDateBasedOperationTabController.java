@@ -3,17 +3,16 @@ package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 import cz.muni.fi.fits.gui.models.operationenums.JDRecordType;
 import cz.muni.fi.fits.gui.utils.*;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
+import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.HBox;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ResourceBundle;
 
 /**
  * TODO insert description
@@ -38,12 +37,10 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
     public TextField commentField;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
-
+    public void init() {
         setFieldsConstraints();
-        loadDatetimeRecordTypeField(resources);
-        loadExposureRecordTypeField(resources);
+        loadDatetimeRecordTypeField();
+        loadExposureRecordTypeField();
     }
 
     protected void setFieldsConstraints() {
@@ -53,8 +50,8 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
         Constrainer.constrainTextFieldWithRegex(exposureValueField, Constants.DECIMAL_NUMBER_PATTERN);
     }
 
-    protected void loadDatetimeRecordTypeField(ResourceBundle resources) {
-        loadJDRecordTypeItems(resources, datetimeRecordTypeField);
+    protected void loadDatetimeRecordTypeField() {
+        loadJDRecordTypeItems(datetimeRecordTypeField);
 
         datetimeRecordTypeField.setCellFactory(param -> new ComboBoxListCell<>());
 
@@ -62,8 +59,8 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
                 (observable, oldValue, newValue) -> onDatetimeRecordTypeFieldSelectionChanged((ComboBoxItem) newValue));
     }
 
-    protected void loadExposureRecordTypeField(ResourceBundle resources) {
-        loadJDRecordTypeItems(resources, exposureRecordTypeField);
+    protected void loadExposureRecordTypeField() {
+        loadJDRecordTypeItems(exposureRecordTypeField);
 
         exposureRecordTypeField.setCellFactory(param -> new ComboBoxListCell<>());
 
@@ -71,12 +68,12 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
                 (observable, oldValue, newValue) -> onExposureRecordTypeFieldSelectionChanged((ComboBoxItem) newValue));
     }
 
-    protected void loadJDRecordTypeItems(ResourceBundle resources, ComboBox comboBox) {
-        if (resources != null && comboBox != null) {
+    protected void loadJDRecordTypeItems(ComboBox comboBox) {
+        if (comboBox != null) {
             comboBox.getItems().add(new ComboBoxItem<>(JDRecordType.KEYWORD,
-                    resources.getString(JDRecordType.KEYWORD.getPropertyName())));
+                    _resources.getString(JDRecordType.KEYWORD.getPropertyName())));
             comboBox.getItems().add(new ComboBoxItem<>(JDRecordType.VALUE,
-                    resources.getString(JDRecordType.VALUE.getPropertyName())));
+                    _resources.getString(JDRecordType.VALUE.getPropertyName())));
         }
     }
 

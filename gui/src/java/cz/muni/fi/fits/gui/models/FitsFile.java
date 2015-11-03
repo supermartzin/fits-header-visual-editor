@@ -45,7 +45,7 @@ public class FitsFile {
         this._filepath.set(filepath);
     }
 
-    public boolean getSelected() {
+    public boolean isSelected() {
         return _selected.get();
     }
 

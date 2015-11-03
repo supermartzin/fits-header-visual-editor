@@ -6,13 +6,11 @@ import cz.muni.fi.fits.gui.models.inputdata.RemoveFromIndexInputData;
 import cz.muni.fi.fits.gui.models.operationenums.RemoveType;
 import cz.muni.fi.fits.gui.utils.*;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
+import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxListCell;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * TODO insert description
@@ -34,14 +32,12 @@ public class RemoveRecordController extends OperationTabController {
     private Validator _validator;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
-
-        _tabName = resources.getString("tab.remove");
+    public void init() {
+        _tabName = _resources.getString("tab.remove");
         _validator = new Validator();
 
         setFieldsConstraints();
-        loadRemoveTypeField(resources);
+        loadRemoveTypeField();
     }
 
     @Override
@@ -87,13 +83,11 @@ public class RemoveRecordController extends OperationTabController {
         Constrainer.constrainTextFieldWithRegex(indexField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
     }
 
-    private void loadRemoveTypeField(ResourceBundle resources) {
-        if (resources != null) {
-            removeTypeField.getItems().add(new ComboBoxItem<>(RemoveType.BY_KEYWORD,
-                    resources.getString(RemoveType.BY_KEYWORD.getPropertyName())));
-            removeTypeField.getItems().add(new ComboBoxItem<>(RemoveType.FROM_INDEX,
-                    resources.getString(RemoveType.FROM_INDEX.getPropertyName())));
-        }
+    private void loadRemoveTypeField() {
+        removeTypeField.getItems().add(new ComboBoxItem<>(RemoveType.BY_KEYWORD,
+                _resources.getString(RemoveType.BY_KEYWORD.getPropertyName())));
+        removeTypeField.getItems().add(new ComboBoxItem<>(RemoveType.FROM_INDEX,
+                _resources.getString(RemoveType.FROM_INDEX.getPropertyName())));
 
         removeTypeField.setCellFactory(param -> new ComboBoxListCell<>());
 
@@ -130,7 +124,6 @@ public class RemoveRecordController extends OperationTabController {
     class Validator {
 
         /**
-         *
          * @throws ValidationException
          */
         void validateRemoveTypeField()
@@ -146,7 +139,6 @@ public class RemoveRecordController extends OperationTabController {
         }
 
         /**
-         *
          * @throws ValidationException
          */
         void validateKeywordField()
@@ -162,7 +154,6 @@ public class RemoveRecordController extends OperationTabController {
         }
 
         /**
-         *
          * @throws ValidationException
          */
         void validateIndexField()

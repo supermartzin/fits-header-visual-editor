@@ -25,7 +25,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * TODO description
@@ -42,12 +44,9 @@ public class MainApp extends Application {
     private ObservableList<FitsFile> _fitsFiles;
     private String _engineFilepath;
 
-    public Stage getPrimaryStage() {
-        return _primaryStage;
-    }
-
-    public ObservableList<FitsFile> getFitsFiles() {
-        return FXCollections.unmodifiableObservableList(_fitsFiles);
+    public MainApp() {
+        _fitsFiles = FXCollections.observableArrayList();
+        _engineFilepath = PreferencesService.loadEngineFilePath(UserPreferencesController.class);
     }
 
     public static void main(String[] args) {
@@ -60,14 +59,26 @@ public class MainApp extends Application {
         _primaryStage.setTitle("FITS Header Visual Editor Tool");
         // TODO set icon
 
-        _fitsFiles = FXCollections.observableArrayList();
-        _engineFilepath = PreferencesService.loadEngineFilePath(UserPreferencesController.class);
-
         // initialize layouts
         initRootLayout();
         initFilesOverview();
         initOperationTabsView();
         initOutputView();
+    }
+
+    public Stage getPrimaryStage() {
+        return _primaryStage;
+    }
+
+    public Collection<FitsFile> getFitsFiles() {
+        Set<FitsFile> selectedFiles = new HashSet<>();
+
+        // filter only selected files
+        _fitsFiles.stream()
+                  .filter(FitsFile::isSelected)
+                  .forEach(selectedFiles::add);
+
+        return selectedFiles;
     }
 
     public void setEngineFilepath(String engineFilepath) {
@@ -77,6 +88,7 @@ public class MainApp extends Application {
     public String getEngineFilepath() {
         return _engineFilepath;
     }
+
 
     private void initRootLayout() {
         try {
@@ -140,7 +152,7 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-    
+
     private void initOutputView() {
         try {
             FXMLLoader outputViewFile = new FXMLLoader(MainApp.class.getResource("view/OutputView.fxml"));

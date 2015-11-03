@@ -5,13 +5,11 @@ import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.operationenums.HJDRecordType;
 import cz.muni.fi.fits.gui.utils.*;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
+import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.HBox;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * TODO insert description
@@ -42,14 +40,14 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
     private Validator _validator;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
+    public void init() {
+        super.init();
 
-        _tabName = resources.getString("tab.hjd");
+        _tabName = _resources.getString("tab.hjd");
         _validator = new Validator();
 
-        loadRightAscensionRecordTypeField(resources);
-        loadDeclinationRecordTypeField(resources);
+        loadRightAscensionRecordTypeField();
+        loadDeclinationRecordTypeField();
     }
 
     @Override
@@ -104,8 +102,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
         Constrainer.constrainTextFieldWithRegex(declinationSecondsField, Constants.SECONDS_PATTERN);
     }
 
-    private void loadRightAscensionRecordTypeField(ResourceBundle resources) {
-        loadHJDRecordTypeItems(resources, rightAscensionRecordTypeField);
+    private void loadRightAscensionRecordTypeField() {
+        loadHJDRecordTypeItems(rightAscensionRecordTypeField);
 
         rightAscensionRecordTypeField.setCellFactory(param -> new ComboBoxListCell<>());
 
@@ -113,8 +111,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                 (observable, oldValue, newValue) -> onRightAscensionRecordTypeFieldSelectionChanged((ComboBoxItem) newValue));
     }
 
-    private void loadDeclinationRecordTypeField(ResourceBundle resources) {
-        loadHJDRecordTypeItems(resources, declinationRecordTypeField);
+    private void loadDeclinationRecordTypeField() {
+        loadHJDRecordTypeItems(declinationRecordTypeField);
 
         declinationRecordTypeField.setCellFactory(param -> new ComboBoxListCell<>());
 
@@ -122,14 +120,14 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                 (observable, oldValue, newValue) -> onDeclinationRecordTypeFieldSelectionChanged((ComboBoxItem) newValue));
     }
 
-    private void loadHJDRecordTypeItems(ResourceBundle resources, ComboBox comboBox) {
-        if (resources != null && comboBox != null) {
+    private void loadHJDRecordTypeItems(ComboBox comboBox) {
+        if (comboBox != null) {
             comboBox.getItems().add(new ComboBoxItem<>(HJDRecordType.KEYWORD,
-                    resources.getString(HJDRecordType.KEYWORD.getPropertyName())));
+                    _resources.getString(HJDRecordType.KEYWORD.getPropertyName())));
             comboBox.getItems().add(new ComboBoxItem<>(HJDRecordType.DECIMAL_VALUE,
-                    resources.getString(HJDRecordType.DECIMAL_VALUE.getPropertyName())));
+                    _resources.getString(HJDRecordType.DECIMAL_VALUE.getPropertyName())));
             comboBox.getItems().add(new ComboBoxItem<>(HJDRecordType.FULL_VALUE,
-                    resources.getString(HJDRecordType.FULL_VALUE.getPropertyName())));
+                    _resources.getString(HJDRecordType.FULL_VALUE.getPropertyName())));
         }
     }
 

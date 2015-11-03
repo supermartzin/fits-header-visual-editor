@@ -13,6 +13,11 @@ public class PreferencesService {
     private static final String LANGUAGE_KEY = "lang";
     private static final String FILEPATH_KEY = "filepath";
 
+    /**
+     *
+     * @param resourceClass
+     * @return
+     */
     public static Language getLanguage(Class<?> resourceClass) {
         // load preferences
         Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
@@ -27,6 +32,11 @@ public class PreferencesService {
         }
     }
 
+    /**
+     *
+     * @param language
+     * @param resourceClass
+     */
     public static void saveLanguage(Language language, Class<?> resourceClass) {
         // load preferences
         Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
@@ -34,6 +44,11 @@ public class PreferencesService {
         preferences.put(LANGUAGE_KEY, language.getCode());
     }
 
+    /**
+     *
+     * @param resourceClass
+     * @return
+     */
     public static String loadEngineFilePath(Class<?> resourceClass) {
         // load preferences
         Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
@@ -48,6 +63,11 @@ public class PreferencesService {
         }
     }
 
+    /**
+     *
+     * @param filepath
+     * @param resourceClass
+     */
     public static void saveEngineFilePath(String filepath, Class<?> resourceClass) {
         // load preferences
         Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());

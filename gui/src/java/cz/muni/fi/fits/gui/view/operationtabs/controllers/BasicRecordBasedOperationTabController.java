@@ -3,6 +3,7 @@ package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 import cz.muni.fi.fits.gui.models.operationenums.ValueType;
 import cz.muni.fi.fits.gui.utils.*;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
+import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -10,11 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.HBox;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ResourceBundle;
 
 /**
  * TODO insert description
@@ -44,11 +43,10 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
     // BOOLEAN
     public CheckBox valueBooleanField;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
 
-        loadValueTypeField(resources);
+    @Override
+    public void init() {
+        loadValueTypeField();
     }
 
     protected void setFieldsConstraints() {
@@ -58,21 +56,19 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
         Constrainer.constrainTextFieldWithRegex(keywordField, Constants.KEYWORD_PATTERN);
     }
 
-    protected void loadValueTypeField(ResourceBundle resources) {
-        if (resources != null) {
-            valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.STRING,
-                    resources.getString(ValueType.STRING.getPropertyName())));
-            valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.NUMBER,
-                    resources.getString(ValueType.NUMBER.getPropertyName())));
-            valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.DATETIME,
-                    resources.getString(ValueType.DATETIME.getPropertyName())));
-            valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.DATE,
-                    resources.getString(ValueType.DATE.getPropertyName())));
-            valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.TIME,
-                    resources.getString(ValueType.TIME.getPropertyName())));
-            valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.BOOLEAN,
-                    resources.getString(ValueType.BOOLEAN.getPropertyName())));
-        }
+    protected void loadValueTypeField() {
+        valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.STRING,
+                _resources.getString(ValueType.STRING.getPropertyName())));
+        valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.NUMBER,
+                _resources.getString(ValueType.NUMBER.getPropertyName())));
+        valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.DATETIME,
+                _resources.getString(ValueType.DATETIME.getPropertyName())));
+        valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.DATE,
+                _resources.getString(ValueType.DATE.getPropertyName())));
+        valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.TIME,
+                _resources.getString(ValueType.TIME.getPropertyName())));
+        valueTypeField.getItems().add(new ComboBoxItem<>(ValueType.BOOLEAN,
+                _resources.getString(ValueType.BOOLEAN.getPropertyName())));
 
         valueTypeField.setCellFactory(param -> new ComboBoxListCell<>());
 
@@ -123,7 +119,7 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
     protected String getRecordValue() {
         ComboBoxItem<ValueType> valueTypeItem = valueTypeField.getValue();
 
-        if(valueTypeItem != null) {
+        if (valueTypeItem != null) {
             switch (valueTypeItem.getType()) {
                 case STRING:
                     return valueStringField.getText();
@@ -160,7 +156,6 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
     abstract class Validator {
 
         /**
-         *
          * @throws ValidationException
          */
         void validateKeywordField()
@@ -228,7 +223,7 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
                     break;
 
                 case NUMBER:
-                    String numberText =  valueNumberField.getText();
+                    String numberText = valueNumberField.getText();
                     if (numberText.isEmpty())
                         valueEmpty();
                     if (!Parsers.Integer.tryParse(numberText)
