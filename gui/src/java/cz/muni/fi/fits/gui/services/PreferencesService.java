@@ -12,6 +12,8 @@ public class PreferencesService {
 
     private static final String LANGUAGE_KEY = "lang";
     private static final String FILEPATH_KEY = "filepath";
+    private static final String SAVE_OUTPUT_TO_FILE_SWITCH_KEY = "save_output_to_file_switch";
+    private static final String OUTPUT_FILEPATH_KEY = "output_filepath";
 
     /**
      *
@@ -49,18 +51,11 @@ public class PreferencesService {
      * @param resourceClass
      * @return
      */
-    public static String loadEngineFilePath(Class<?> resourceClass) {
+    public static String loadEngineFilepath(Class<?> resourceClass) {
         // load preferences
         Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
         // load filepath
-        String filepath = preferences.get(FILEPATH_KEY, "");
-        if (!filepath.isEmpty()) {
-            return filepath;
-        } else {
-            // save and return default language
-            preferences.put(FILEPATH_KEY, Constants.DEFAULT_ENGINE_FILEPATH);
-            return Constants.DEFAULT_ENGINE_FILEPATH;
-        }
+        return preferences.get(FILEPATH_KEY, null);
     }
 
     /**
@@ -68,13 +63,60 @@ public class PreferencesService {
      * @param filepath
      * @param resourceClass
      */
-    public static void saveEngineFilePath(String filepath, Class<?> resourceClass) {
+    public static void saveEngineFilepath(String filepath, Class<?> resourceClass) {
         // load preferences
         Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
         // save filepath
         if (filepath != null && !filepath.isEmpty())
             preferences.put(FILEPATH_KEY, filepath);
-        else
-            preferences.put(FILEPATH_KEY, Constants.DEFAULT_ENGINE_FILEPATH);
+    }
+
+    /**
+     *
+     * @param resourceClass
+     * @return
+     */
+    public static boolean loadSaveOutputToFileSwitch(Class<?> resourceClass) {
+        // load preferences
+        Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
+        // load switch
+        return preferences.getBoolean(SAVE_OUTPUT_TO_FILE_SWITCH_KEY, false);
+    }
+
+    /**
+     *
+     * @param value
+     * @param resourceClass
+     */
+    public static void saveSaveOutputToFileSwitch(boolean value, Class<?> resourceClass) {
+        // load preferences
+        Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
+        // save switch
+        preferences.putBoolean(SAVE_OUTPUT_TO_FILE_SWITCH_KEY, value);
+    }
+
+    /**
+     *
+     * @param resourceClass
+     * @return
+     */
+    public static String loadOutputFilepath(Class<?> resourceClass) {
+        // load preferences
+        Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
+        // load output filepath
+        return preferences.get(OUTPUT_FILEPATH_KEY, null);
+    }
+
+    /**
+     *
+     * @param filepath
+     * @param resourceClass
+     */
+    public static void saveOutputFilepath(String filepath, Class<?> resourceClass) {
+        // load preferences
+        Preferences preferences = Preferences.userNodeForPackage(resourceClass.getClass());
+        // save filepath
+        if (filepath != null && !filepath.isEmpty())
+            preferences.put(OUTPUT_FILEPATH_KEY, filepath);
     }
 }

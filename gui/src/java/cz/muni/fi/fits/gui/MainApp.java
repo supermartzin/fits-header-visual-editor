@@ -1,14 +1,18 @@
 package cz.muni.fi.fits.gui;
 
+import cz.muni.fi.fits.gui.listeners.OutputListener;
 import cz.muni.fi.fits.gui.models.FitsFile;
-import cz.muni.fi.fits.gui.services.PreferencesService;
+import cz.muni.fi.fits.gui.models.Preferences;
+import cz.muni.fi.fits.gui.services.ExecutionService;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
+import cz.muni.fi.fits.gui.utils.dialogs.ErrorDialog;
 import cz.muni.fi.fits.gui.view.controllers.FilesOverviewController;
 import cz.muni.fi.fits.gui.view.controllers.OperationTabsViewController;
+import cz.muni.fi.fits.gui.view.controllers.OutputViewController;
 import cz.muni.fi.fits.gui.view.controllers.RootLayoutController;
-import cz.muni.fi.fits.gui.view.controllers.UserPreferencesController;
 import cz.muni.fi.fits.gui.view.operationtabs.utils.OperationTabsLoader;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -41,12 +45,14 @@ public class MainApp extends Application {
     private BorderPane _rootLayout;
     private SplitPane _centralLayout;
 
+    private OutputViewController _outputViewController;
+
     private ObservableList<FitsFile> _fitsFiles;
-    private String _engineFilepath;
+    private Preferences _preferences;
 
     public MainApp() {
         _fitsFiles = FXCollections.observableArrayList();
-        _engineFilepath = PreferencesService.loadEngineFilePath(UserPreferencesController.class);
+        _preferences = new Preferences();
     }
 
     public static void main(String[] args) {
@@ -64,6 +70,11 @@ public class MainApp extends Application {
         initFilesOverview();
         initOperationTabsView();
         initOutputView();
+
+        // set unhandled exception handler
+        Thread.currentThread().setUncaughtExceptionHandler((t, e) -> {
+            ErrorDialog.show("Error", "exception", "Error: " + e.getMessage()); // TODO
+        });
     }
 
     public Stage getPrimaryStage() {
@@ -81,12 +92,28 @@ public class MainApp extends Application {
         return selectedFiles;
     }
 
-    public void setEngineFilepath(String engineFilepath) {
-        _engineFilepath = engineFilepath;
+    public void setPreferences(Preferences preferences) {
+        _preferences = preferences;
     }
 
-    public String getEngineFilepath() {
-        return _engineFilepath;
+    public Preferences getPreferences() {
+        return _preferences;
+    }
+
+    public void setExecutionService(ExecutionService executionService) {
+        if (executionService != null) {
+            executionService.setOutputListener(new OutputListener() {
+                @Override
+                public void onInfo(String infoMessage) {
+                    Platform.runLater(() -> _outputViewController.onInfoMessage(infoMessage));
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    Platform.runLater(() -> _outputViewController.onErrorMessage(errorMessage));
+                }
+            });
+        }
     }
 
 
@@ -159,10 +186,14 @@ public class MainApp extends Application {
             ResourceBundleService.setResourceBundle(outputViewFile);
             AnchorPane outputTextFlow = outputViewFile.load();
 
+
             ScrollPane scrollPane = new ScrollPane(outputTextFlow);
             scrollPane.getStyleClass().addAll("edge-to-edge");
             scrollPane.setFitToWidth(true);
             scrollPane.setFitToHeight(true);
+
+            _outputViewController = outputViewFile.getController();
+            _outputViewController.setTopParentContainer(scrollPane);
 
             _centralLayout.getItems().add(scrollPane);
         } catch (IOException e) {

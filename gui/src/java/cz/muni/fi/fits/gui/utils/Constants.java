@@ -2,6 +2,7 @@ package cz.muni.fi.fits.gui.utils;
 
 import cz.muni.fi.fits.gui.models.Language;
 
+import java.io.File;
 import java.util.regex.Pattern;
 
 /**
@@ -13,8 +14,9 @@ import java.util.regex.Pattern;
 public final class Constants {
 
     public static final Language DEFAULT_LANGUAGE = Language.ENGLISH;
+    public static final String ENGINE_PROPERTIES_FILENAME = "fits.properties";
+    public static final String PATH_SEPARATOR = File.separator;
     public static final String NEWLINE = System.getProperty("line.separator");
-    public static final String DEFAULT_ENGINE_FILEPATH = "engine.jar";
 
     public static final Pattern TIME_PATTERN = Pattern.compile("^[\\d:.]{1,12}$");
     public static final Pattern DECIMAL_NUMBER_PATTERN = Pattern.compile("^\\d*(\\.\\d*)?$");

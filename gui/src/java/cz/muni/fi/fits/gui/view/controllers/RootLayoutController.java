@@ -64,6 +64,7 @@ public class RootLayoutController extends Controller {
             AnchorPane anchorPane = userPreferencesFile.load();
 
             Stage stage = new Stage();
+            stage.setResizable(false);
             stage.setTitle(_resources.getString("prefs"));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(_mainApp.getPrimaryStage());
