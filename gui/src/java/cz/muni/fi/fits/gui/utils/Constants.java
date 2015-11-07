@@ -19,6 +19,7 @@ public final class Constants {
     public static final String NEWLINE = System.getProperty("line.separator");
 
     public static final Pattern TIME_PATTERN = Pattern.compile("^[\\d:.]{1,12}$");
+    public static final Pattern INDEX_PATTERN = Pattern.compile("^[1-9]\\d*$");
     public static final Pattern DECIMAL_NUMBER_PATTERN = Pattern.compile("^\\d*(\\.\\d*)?$");
     public static final Pattern NONNEG_INTEGRAL_NUMBER_PATTERN = Pattern.compile("^\\d{1,5}$");
     public static final Pattern KEYWORD_PATTERN = Pattern.compile("[a-zA-Z\\d_-]{1,8}");
@@ -28,4 +29,7 @@ public final class Constants {
     public static final Pattern SECONDS_PATTERN = Pattern.compile("^\\d|[1-5]\\d$");
     public static final Pattern RIGHT_ASCENSION_PATTERN = Pattern.compile("^(([1-2]?\\d?\\d)|(3[0-5]\\d))(\\.\\d*)?|360$");
     public static final Pattern DECLINATION_PATTERN = Pattern.compile("^-|-?((\\d|[1-8]\\d)(\\.\\d*)?|90)$");
+
+    public static final Pattern OUTPUT_DATETIME_PATTERN = Pattern.compile("^(\\[\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{0,3})?\\])");
+    public static final Pattern OUTPUT_FITS_FILE_PATTERN = Pattern.compile(">> \\[(.+?)\\]: ");
 }

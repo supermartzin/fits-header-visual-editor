@@ -19,4 +19,10 @@ public interface OutputListener {
      * @param errorMessage
      */
     void onError(String errorMessage);
+
+    /**
+     *
+     * @param exceptionMessage
+     */
+    void onException(String exceptionMessage);
 }

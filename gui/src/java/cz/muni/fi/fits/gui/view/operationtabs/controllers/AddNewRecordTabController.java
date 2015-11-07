@@ -92,7 +92,7 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
     protected void setFieldsConstraints() {
         super.setFieldsConstraints();
 
-        Constrainer.constrainTextFieldWithRegex(indexNumberField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(indexNumberField, Constants.INDEX_PATTERN);
     }
 
     private void loadRecordPlacementField() {

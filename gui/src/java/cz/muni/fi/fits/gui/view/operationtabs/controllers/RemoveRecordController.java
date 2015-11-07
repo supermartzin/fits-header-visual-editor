@@ -80,7 +80,7 @@ public class RemoveRecordController extends OperationTabController {
 
     private void setFieldsConstraints() {
         Constrainer.constrainTextFieldWithRegex(keywordField, Constants.KEYWORD_PATTERN);
-        Constrainer.constrainTextFieldWithRegex(indexField, Constants.NONNEG_INTEGRAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(indexField, Constants.INDEX_PATTERN);
     }
 
     private void loadRemoveTypeField() {

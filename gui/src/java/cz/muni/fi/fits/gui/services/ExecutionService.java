@@ -2,17 +2,17 @@ package cz.muni.fi.fits.gui.services;
 
 import cz.muni.fi.fits.gui.listeners.OutputListener;
 import cz.muni.fi.fits.gui.utils.dialogs.ErrorDialog;
+import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * TODO insert description
@@ -39,10 +39,10 @@ public class ExecutionService extends Service {
             protected Void call() throws Exception {
                 // set unhandled exception handler
                 Thread.currentThread().setUncaughtExceptionHandler((t, e) -> {
-                    ErrorDialog.show("Error", "exception", "Error: " + e.getMessage()); // TODO
+                    Platform.runLater(() -> ErrorDialog.show("Error", "exception", "Error: " + e.getMessage())); // TODO
                 });
 
-                //String line;
+                String line;
                 int counter = 0;
                 int maxProcessLength = numberOfFiles + 2;
 
@@ -55,47 +55,35 @@ public class ExecutionService extends Service {
 
                 // set up and start engine process
                 Process process = new ProcessBuilder(arguments)
-                        .redirectInput(ProcessBuilder.Redirect.PIPE)
-                        .redirectError(ProcessBuilder.Redirect.PIPE)
-                        .start();
+                        .redirectErrorStream(true).start();
 
-                ExecutorService executors = Executors.newCachedThreadPool();
+                // process standard output
+                try (BufferedReader br =
+                             new BufferedReader(
+                                     new InputStreamReader(
+                                             new BufferedInputStream(process.getInputStream())))) {
+                    while ((line = br.readLine()) != null) {
+                        updateProgress(++counter, maxProcessLength);
 
-                executors.submit(() -> {
-                    String line;
-                    // process standard output
-                    try (BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                        while ((line = br.readLine()) != null) {
-                            //updateProgress(++counter, maxProcessLength);
-
-                            // raise onInfo event in registered listener
-                            if (_outputListener != null)
-                                _outputListener.onInfo(line);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-
-
-                executors.submit(() -> {
-                    String line;
-                    // process error output
-                    try (BufferedReader br = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-                        while ((line = br.readLine()) != null) {
-                            //updateProgress(++counter, maxProcessLength);
-
+                        if (line.contains(" ERROR >>")) {
                             // raise onError event in registered listener
                             if (_outputListener != null)
                                 _outputListener.onError(line);
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        if (line.contains(" INFO >>")) {
+                            // raise onInfo event in registered listener
+                            if (_outputListener != null)
+                                _outputListener.onInfo(line);
+                        }
+                        if (line.contains(" EXCEPTION >>")) {
+                            // raise onInfo event in registered listener
+                            if (_outputListener != null)
+                                _outputListener.onException(line);
+                        }
                     }
-                });
-
-                executors.shutdown();
-
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 if (counter < maxProcessLength)
                     updateProgress(1, 1);

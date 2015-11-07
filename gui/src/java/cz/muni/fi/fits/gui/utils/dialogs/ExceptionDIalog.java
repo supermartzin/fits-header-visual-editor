@@ -1,5 +1,6 @@
 package cz.muni.fi.fits.gui.utils.dialogs;
 
+import cz.muni.fi.fits.gui.services.ResourceBundleService;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -25,8 +26,8 @@ public final class ExceptionDialog {
      * @param exception
      * @param resources
      */
-    public static void show(String title, String header, String content, Throwable exception, ResourceBundle resources) {
-        Dialog exceptionDialog = new Dialog(resources);
+    public static void show(String title, String header, String content, Throwable exception) {
+        Dialog exceptionDialog = new Dialog(ResourceBundleService.getBundle());
         exceptionDialog.setTitle(title);
         exceptionDialog.setHeaderText(header);
         exceptionDialog.setContentText(content);

@@ -5,7 +5,7 @@ import cz.muni.fi.fits.gui.models.FitsFile;
 import cz.muni.fi.fits.gui.models.Preferences;
 import cz.muni.fi.fits.gui.services.ExecutionService;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
-import cz.muni.fi.fits.gui.utils.dialogs.ErrorDialog;
+import cz.muni.fi.fits.gui.utils.dialogs.ExceptionDialog;
 import cz.muni.fi.fits.gui.view.controllers.FilesOverviewController;
 import cz.muni.fi.fits.gui.view.controllers.OperationTabsViewController;
 import cz.muni.fi.fits.gui.view.controllers.OutputViewController;
@@ -19,7 +19,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -28,10 +27,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * TODO description
@@ -49,6 +45,7 @@ public class MainApp extends Application {
 
     private ObservableList<FitsFile> _fitsFiles;
     private Preferences _preferences;
+    private ResourceBundle _resources;
 
     public MainApp() {
         _fitsFiles = FXCollections.observableArrayList();
@@ -62,8 +59,10 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         _primaryStage = primaryStage;
-        _primaryStage.setTitle("FITS Header Visual Editor Tool");
+        _primaryStage.setTitle("FITS Header Visual Editor");
         // TODO set icon
+
+        _resources = ResourceBundleService.getBundle();
 
         // initialize layouts
         initRootLayout();
@@ -72,9 +71,13 @@ public class MainApp extends Application {
         initOutputView();
 
         // set unhandled exception handler
-        Thread.currentThread().setUncaughtExceptionHandler((t, e) -> {
-            ErrorDialog.show("Error", "exception", "Error: " + e.getMessage()); // TODO
-        });
+        Thread.currentThread().setUncaughtExceptionHandler((thread, exception) ->
+                Platform.runLater(() ->
+                        ExceptionDialog.show(
+                                _resources.getString("oper.common.error.title"),
+                                _resources.getString("oper.common.error.header"),
+                                _resources.getString("oper.common.error.content.unhandled_excp"),
+                                exception)));
     }
 
     public Stage getPrimaryStage() {
@@ -86,8 +89,8 @@ public class MainApp extends Application {
 
         // filter only selected files
         _fitsFiles.stream()
-                  .filter(FitsFile::isSelected)
-                  .forEach(selectedFiles::add);
+                .filter(FitsFile::isSelected)
+                .forEach(selectedFiles::add);
 
         return selectedFiles;
     }
@@ -112,6 +115,11 @@ public class MainApp extends Application {
                 public void onError(String errorMessage) {
                     Platform.runLater(() -> _outputViewController.onErrorMessage(errorMessage));
                 }
+
+                @Override
+                public void onException(String exceptionMessage) {
+                    Platform.runLater(() -> _outputViewController.onExceptionMessage(exceptionMessage));
+                }
             });
         }
     }
@@ -134,9 +142,15 @@ public class MainApp extends Application {
             _primaryStage.setScene(scene);
 
             _primaryStage.show();
-        } catch (IOException e) {
-            // TODO handle exception
-            e.printStackTrace();
+        } catch (IOException ioEx) {
+            ExceptionDialog.show(
+                    _resources.getString("oper.common.error.title"),
+                    _resources.getString("oper.common.error.header"),
+                    _resources.getString("app.error.dialog.content.fatal"),
+                    ioEx);
+
+            // exit application
+            System.exit(0);
         }
     }
 
@@ -144,13 +158,11 @@ public class MainApp extends Application {
         try {
             FXMLLoader filesOverviewFile = new FXMLLoader(MainApp.class.getResource("view/FilesOverview.fxml"));
             ResourceBundleService.setResourceBundle(filesOverviewFile);
-            ScrollPane filesList = filesOverviewFile.load();
+            _rootLayout.setLeft(filesOverviewFile.load());
 
             FilesOverviewController controller = filesOverviewFile.getController();
             controller.setMainApp(this);
             controller.setTableItemsCollection(_fitsFiles);
-
-            _rootLayout.setLeft(filesList);
         } catch (IOException e) {
             // TODO handle exception
             e.printStackTrace();
@@ -184,18 +196,9 @@ public class MainApp extends Application {
         try {
             FXMLLoader outputViewFile = new FXMLLoader(MainApp.class.getResource("view/OutputView.fxml"));
             ResourceBundleService.setResourceBundle(outputViewFile);
-            AnchorPane outputTextFlow = outputViewFile.load();
 
-
-            ScrollPane scrollPane = new ScrollPane(outputTextFlow);
-            scrollPane.getStyleClass().addAll("edge-to-edge");
-            scrollPane.setFitToWidth(true);
-            scrollPane.setFitToHeight(true);
-
+            _centralLayout.getItems().add(outputViewFile.load());
             _outputViewController = outputViewFile.getController();
-            _outputViewController.setTopParentContainer(scrollPane);
-
-            _centralLayout.getItems().add(scrollPane);
         } catch (IOException e) {
             // TODO handle exception
             e.printStackTrace();
