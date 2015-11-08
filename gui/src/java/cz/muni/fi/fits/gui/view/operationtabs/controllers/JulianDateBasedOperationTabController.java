@@ -160,7 +160,7 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
 
 
     /**
-     *
+     * TODO insert description
      */
     abstract class Validator {
 
@@ -173,7 +173,8 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.jd.alert.content.datetime.type"));
+                        _resources.getString("oper.jd.alert.content.datetime.type"),
+                        _mainApp);
 
                 throw new ValidationException("Datetime value type is not selected");
             }
@@ -193,7 +194,8 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.jd.alert.content.datetime.keyword.empty"));
+                                _resources.getString("oper.jd.alert.content.datetime.keyword.empty"),
+                                _mainApp);
 
                         throw new ValidationException("Keyword of the datetime record is not set");
                     }
@@ -207,7 +209,8 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.jd.alert.content.datetime.value.empty"));
+                                _resources.getString("oper.jd.alert.content.datetime.value.empty"),
+                                _mainApp);
 
                         throw new ValidationException("Datetime value is empty");
                     }
@@ -216,7 +219,8 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.jd.alert.content.datetime.value.invalid"));
+                                _resources.getString("oper.jd.alert.content.datetime.value.invalid"),
+                                _mainApp);
 
                         throw new ValidationException("Datetime value is in invalid format");
                     }
@@ -234,7 +238,8 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.jd.alert.content.exposure.type"));
+                        _resources.getString("oper.jd.alert.content.exposure.type"),
+                        _mainApp);
 
                 throw new ValidationException("Exposure value type is not selected");
             }
@@ -254,7 +259,8 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.jd.alert.content.exposure.keyword.empty"));
+                                _resources.getString("oper.jd.alert.content.exposure.keyword.empty"),
+                                _mainApp);
 
                         throw new ValidationException("Keyword of the exposure record is empty");
                     }
@@ -267,7 +273,8 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.jd.alert.content.exposure.value.empty"));
+                                _resources.getString("oper.jd.alert.content.exposure.value.empty"),
+                                _mainApp);
 
                         throw new ValidationException("Exposure value is empty");
                     }
@@ -275,7 +282,8 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.jd.alert.content.exposure.value.invalid"));
+                                _resources.getString("oper.jd.alert.content.exposure.value.invalid"),
+                                _mainApp);
 
                         throw new ValidationException("Exposure value is in invalid format");
                     }

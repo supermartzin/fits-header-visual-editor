@@ -4,6 +4,7 @@ import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.models.Language;
 import cz.muni.fi.fits.gui.services.PreferencesService;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
+import cz.muni.fi.fits.gui.utils.dialogs.ExceptionDialog;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -14,14 +15,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * TODO description
+ * TODO insert description
  */
 public class RootLayoutController extends Controller {
 
     public ToggleGroup languages;
     public Menu langMenu;
 
-    private MainApp _mainApp;
     private boolean _firstToggleEvent = true;
 
     @Override
@@ -53,10 +53,6 @@ public class RootLayoutController extends Controller {
         selectLanguageItem(language);
     }
 
-    public void setMainApp(MainApp mainApp) {
-        _mainApp = mainApp;
-    }
-
     public void onPreferences() {
         try {
             FXMLLoader userPreferencesFile = new FXMLLoader(MainApp.class.getResource("view/UserPreferences.fxml"));
@@ -66,6 +62,7 @@ public class RootLayoutController extends Controller {
             Stage stage = new Stage();
             stage.setResizable(false);
             stage.setTitle(_resources.getString("prefs"));
+            stage.getIcons().add(_mainApp.getApplicationIcon());
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(_mainApp.getPrimaryStage());
 
@@ -77,7 +74,12 @@ public class RootLayoutController extends Controller {
 
             stage.showAndWait();
         } catch (IOException ioEx) {
-            // TODO handle exception
+            ExceptionDialog.show(
+                    _resources.getString("app.error.dialog.title"),
+                    _resources.getString("app.error.dialog.header"),
+                    _resources.getString("app.error.dialog.content.preferences"),
+                    ioEx,
+                    _mainApp);
         }
 
     }
@@ -87,13 +89,31 @@ public class RootLayoutController extends Controller {
     }
 
     public void onAbout() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("TODO about dialog"); // TODO about dialog
+        try {
+            FXMLLoader aboutDialogFile = new FXMLLoader(MainApp.class.getResource("view/AboutDialog.fxml"));
+            ResourceBundleService.setResourceBundle(aboutDialogFile);
+            AnchorPane anchorPane = aboutDialogFile.load();
 
-        alert.initOwner(_mainApp.getPrimaryStage());
-        alert.initModality(Modality.APPLICATION_MODAL);
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setTitle(_resources.getString("app.about"));
+            stage.getIcons().add(_mainApp.getApplicationIcon());
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(_mainApp.getPrimaryStage());
+            stage.setScene(new Scene(anchorPane));
 
-        alert.showAndWait();
+            AboutDialogController controller = aboutDialogFile.getController();
+            controller.setMainApp(_mainApp);
+
+            stage.showAndWait();
+        } catch (IOException ioEx) {
+            ExceptionDialog.show(
+                    _resources.getString("app.error.dialog.title"),
+                    _resources.getString("app.error.dialog.header"),
+                    _resources.getString("app.error.dialog.content.about"),
+                    ioEx,
+                    _mainApp);
+        }
     }
 
     private void selectLanguageItem(Language language) {

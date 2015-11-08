@@ -18,6 +18,10 @@ public final class Constants {
     public static final String PATH_SEPARATOR = File.separator;
     public static final String NEWLINE = System.getProperty("line.separator");
 
+    public static final String INFO_IDENTIFIER = " INFO >>";
+    public static final String ERROR_IDENTIFIER = " ERROR >>";
+    public static final String EXCEPTION_IDENTIFIER = " EXCEPTION >>";
+
     public static final Pattern TIME_PATTERN = Pattern.compile("^[\\d:.]{1,12}$");
     public static final Pattern INDEX_PATTERN = Pattern.compile("^[1-9]\\d*$");
     public static final Pattern DECIMAL_NUMBER_PATTERN = Pattern.compile("^\\d*(\\.\\d*)?$");

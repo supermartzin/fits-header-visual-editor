@@ -1,6 +1,5 @@
 package cz.muni.fi.fits.gui.view.controllers;
 
-import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.models.Preferences;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -22,7 +21,6 @@ public class UserPreferencesController extends Controller {
     private static final Preferences PREFERENCES = new Preferences();
 
     private Stage _ownerStage;
-    private MainApp _mainApp;
 
     public TextField enginePathField;
 
@@ -54,13 +52,6 @@ public class UserPreferencesController extends Controller {
 
     public void setOwner(Stage ownerStage) {
         _ownerStage = ownerStage;
-    }
-
-    public void setMainApp(MainApp mainApp) {
-        if (mainApp == null)
-            throw new IllegalArgumentException("mainApp object is null");
-
-        _mainApp = mainApp;
     }
 
     public void onChooseEngineFile() {

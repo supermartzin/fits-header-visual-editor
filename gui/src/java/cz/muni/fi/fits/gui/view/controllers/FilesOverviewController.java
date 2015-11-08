@@ -1,6 +1,5 @@
 package cz.muni.fi.fits.gui.view.controllers;
 
-import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.models.FitsFile;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -32,7 +31,6 @@ public class FilesOverviewController extends Controller {
     public MenuItem deselectMenuItem;
     public Label numberOfSelectedFilesLabel;
 
-    private MainApp _mainApp;
     private IntegerProperty _numberOfSelectedFiles;
 
     @Override
@@ -81,10 +79,6 @@ public class FilesOverviewController extends Controller {
         selectColumn.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         filenameColumn.setCellValueFactory(cellData -> cellData.getValue().filenameProperty());
         filepathColumn.setCellValueFactory(cellData -> cellData.getValue().filepathProperty());
-    }
-
-    public void setMainApp(MainApp mainApp) {
-        _mainApp = mainApp;
     }
 
     public void setTableItemsCollection(ObservableList<FitsFile> observableList) {

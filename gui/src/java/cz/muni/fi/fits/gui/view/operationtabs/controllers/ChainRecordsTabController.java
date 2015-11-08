@@ -130,7 +130,7 @@ public class ChainRecordsTabController extends OperationTabController {
 
 
     /**
-     *
+     * TODO insert description
      */
     class Validator {
 
@@ -143,7 +143,8 @@ public class ChainRecordsTabController extends OperationTabController {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.common.alert.content.keyword.empty"));
+                        _resources.getString("oper.common.alert.content.keyword.empty"),
+                        _mainApp);
 
                 throw new ValidationException("Keyword field is not set");
             }
@@ -160,7 +161,8 @@ public class ChainRecordsTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.chain.alert.content.value.type.empty"));
+                            _resources.getString("oper.chain.alert.content.value.type.empty"),
+                            _mainApp);
 
                     throw new ValidationException("Keyword field is not set");
                 }
@@ -172,7 +174,8 @@ public class ChainRecordsTabController extends OperationTabController {
                             WarningDialog.show(
                                     _resources.getString("oper.common.alert.title"),
                                     _resources.getString("oper.common.alert.header"),
-                                    _resources.getString("oper.chain.alert.content.value.keyword.empty"));
+                                    _resources.getString("oper.chain.alert.content.value.keyword.empty"),
+                                    _mainApp);
 
                             throw new ValidationException("Keyword value of chained record is not set");
                         }
@@ -183,7 +186,8 @@ public class ChainRecordsTabController extends OperationTabController {
                             WarningDialog.show(
                                     _resources.getString("oper.common.alert.title"),
                                     _resources.getString("oper.common.alert.header"),
-                                    _resources.getString("oper.chain.alert.content.value.constant.empty"));
+                                    _resources.getString("oper.chain.alert.content.value.constant.empty"),
+                                    _mainApp);
 
                             throw new ValidationException("Constant value of chained record is not set");
                         }

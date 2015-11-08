@@ -20,7 +20,8 @@ public class HeliocentricJulianDateInputData extends InputDataBase {
     private final String _comment;
 
     /**
-     * TODO
+     * TODO insert description
+     *
      * @param datetime
      * @param exposure
      * @param rightAscension

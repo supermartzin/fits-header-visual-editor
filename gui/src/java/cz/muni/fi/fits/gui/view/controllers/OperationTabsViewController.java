@@ -1,6 +1,5 @@
 package cz.muni.fi.fits.gui.view.controllers;
 
-import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.models.FitsFile;
 import cz.muni.fi.fits.gui.models.Preferences;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
@@ -31,7 +30,6 @@ public class OperationTabsViewController extends Controller {
     public ProgressBar progressBar;
 
     private final Collection<TabController> _tabs;
-    private MainApp _mainApp;
 
     public OperationTabsViewController() {
         _tabs = new HashSet<>();
@@ -93,7 +91,8 @@ public class OperationTabsViewController extends Controller {
                         InfoDialog.show(
                                 _resources.getString("oper.success.dialog.title"),
                                 null,
-                                _resources.getString("oper.success.dialog.content"));
+                                _resources.getString("oper.success.dialog.content"),
+                                _mainApp);
 
                         progressBar.progressProperty().unbind();
                         progressBar.setProgress(0.0);
@@ -115,7 +114,7 @@ public class OperationTabsViewController extends Controller {
                                 _resources.getString("oper.fail.dialog.content")
                                         + Constants.NEWLINE + "   " + exception.getMessage(),
                                 exception,
-                                _resources);
+                                _mainApp);
 
                         progressBar.progressProperty().unbind();
                         progressBar.setProgress(0.0);
@@ -131,9 +130,10 @@ public class OperationTabsViewController extends Controller {
 
                         // show error dialog
                         ErrorDialog.show(
-                                _resources.getString("oper.common.error.title"),
-                                _resources.getString("oper.common.error.header"),
-                                _resources.getString("oper.cancelled.dialog.content"));
+                                _resources.getString("app.error.dialog.title"),
+                                _resources.getString("app.error.dialog.header"),
+                                _resources.getString("oper.cancelled.dialog.content"),
+                                _mainApp);
 
                         progressBar.progressProperty().unbind();
                         progressBar.setProgress(0.0);
@@ -143,7 +143,12 @@ public class OperationTabsViewController extends Controller {
                     service.start();
                 } catch (IOException
                         | IllegalArgumentException ex) {
-                    // TODO handle exception
+                    ExceptionDialog.show(
+                            _resources.getString("app.error.dialog.title"),
+                            _resources.getString("app.error.dialog.header"),
+                            _resources.getString("app.error.dialog.content.editor.start"),
+                            ex,
+                            _mainApp);
                 }
 
             }
@@ -156,19 +161,14 @@ public class OperationTabsViewController extends Controller {
         }
     }
 
-    public void setMainApp(MainApp mainApp) {
-        if (mainApp == null)
-            throw new IllegalArgumentException("mainApp object is null");
-
-        _mainApp = mainApp;
-    }
 
     private boolean checkEngineFilepath(String engineFilepath) {
         if (!new File(engineFilepath).exists()) {
             ErrorDialog.show(
-                    _resources.getString("oper.common.error.title"),
-                    _resources.getString("oper.common.error.header"),
-                    _resources.getString("oper.common.error.content.engine.not_exist"));
+                    _resources.getString("app.error.dialog.title"),
+                    _resources.getString("app.error.dialog.header"),
+                    _resources.getString("app.error.dialog.content.engine.not_exist"),
+                    _mainApp);
 
             return false;
         } else {
@@ -181,7 +181,8 @@ public class OperationTabsViewController extends Controller {
             WarningDialog.show(
                     _resources.getString("oper.common.alert.title"),
                     _resources.getString("oper.common.alert.header"),
-                    _resources.getString("oper.common.alert.content.files.empty"));
+                    _resources.getString("oper.common.alert.content.files.empty"),
+                    _mainApp);
 
             return false;
         } else {

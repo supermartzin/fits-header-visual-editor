@@ -1,15 +1,15 @@
 package cz.muni.fi.fits.gui.services;
 
 import cz.muni.fi.fits.gui.listeners.OutputListener;
-import cz.muni.fi.fits.gui.utils.dialogs.ErrorDialog;
-import javafx.application.Platform;
+import cz.muni.fi.fits.gui.utils.Constants;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * TODO insert description
  *
- * @author Martin Vrábel - © 2015 FITS-HeaderVisualEditor
+ * @author Martin Vrábel
  * @version 1.0
  */
 public class ExecutionService extends Service {
@@ -37,11 +37,6 @@ public class ExecutionService extends Service {
         _task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                // set unhandled exception handler
-                Thread.currentThread().setUncaughtExceptionHandler((t, e) -> {
-                    Platform.runLater(() -> ErrorDialog.show("Error", "exception", "Error: " + e.getMessage())); // TODO
-                });
-
                 String line;
                 int counter = 0;
                 int maxProcessLength = numberOfFiles + 2;
@@ -53,41 +48,50 @@ public class ExecutionService extends Service {
                     }
                 };
 
+                // set working directory
+                Path workingDirectory = Paths.get(engineFilepath).getParent();
+
                 // set up and start engine process
                 Process process = new ProcessBuilder(arguments)
-                        .redirectErrorStream(true).start();
+                        .redirectErrorStream(true)
+                        .directory(workingDirectory.toFile())
+                        .start();
 
                 // process standard output
-                try (BufferedReader br =
-                             new BufferedReader(
-                                     new InputStreamReader(
-                                             new BufferedInputStream(process.getInputStream())))) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                        new BufferedInputStream(process.getInputStream())))) {
                     while ((line = br.readLine()) != null) {
                         updateProgress(++counter, maxProcessLength);
 
-                        if (line.contains(" ERROR >>")) {
-                            // raise onError event in registered listener
-                            if (_outputListener != null)
-                                _outputListener.onError(line);
-                        }
-                        if (line.contains(" INFO >>")) {
+                        if (line.contains(Constants.INFO_IDENTIFIER)) {
                             // raise onInfo event in registered listener
                             if (_outputListener != null)
                                 _outputListener.onInfo(line);
+                            continue;
                         }
-                        if (line.contains(" EXCEPTION >>")) {
+                        if (line.contains(Constants.ERROR_IDENTIFIER)) {
+                            // raise onError event in registered listener
+                            if (_outputListener != null)
+                                _outputListener.onError(line);
+                            continue;
+                        }
+                        if (line.contains(Constants.EXCEPTION_IDENTIFIER)) {
                             // raise onInfo event in registered listener
                             if (_outputListener != null)
                                 _outputListener.onException(line);
+                            continue;
                         }
+
+                        // raise onError event in registered listeners on unknown message
+                        if (_outputListener != null)
+                            _outputListener.onError(line);
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
 
                 if (counter < maxProcessLength)
                     updateProgress(1, 1);
 
+                // wait for process to end
                 process.waitFor();
 
                 return null;

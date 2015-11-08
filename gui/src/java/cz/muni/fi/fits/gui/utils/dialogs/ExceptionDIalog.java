@@ -1,11 +1,13 @@
 package cz.muni.fi.fits.gui.utils.dialogs;
 
+import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -24,14 +26,22 @@ public final class ExceptionDialog {
      * @param header
      * @param content
      * @param exception
-     * @param resources
+     * @param mainApp
      */
-    public static void show(String title, String header, String content, Throwable exception) {
+    public static void show(String title, String header, String content, Throwable exception, MainApp mainApp) {
         Dialog exceptionDialog = new Dialog(ResourceBundleService.getBundle());
         exceptionDialog.setTitle(title);
         exceptionDialog.setHeaderText(header);
         exceptionDialog.setContentText(content);
         exceptionDialog.setException(exception);
+
+        if (mainApp != null) {
+            exceptionDialog.initOwner(mainApp.getPrimaryStage());
+
+            // set icon
+            Stage stage = (Stage) exceptionDialog.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(mainApp.getApplicationIcon());
+        }
 
         exceptionDialog.initModality(Modality.APPLICATION_MODAL);
 

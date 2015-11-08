@@ -58,7 +58,7 @@ public class ChangeKeywordTabController extends OperationTabController {
 
 
     /**
-     *
+     * TODO insert description
      */
     class Validator {
 
@@ -72,7 +72,8 @@ public class ChangeKeywordTabController extends OperationTabController {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.change.alert.content.keyword.old.empty"));
+                        _resources.getString("oper.change.alert.content.keyword.old.empty"),
+                        _mainApp);
 
                 throw new ValidationException("Old keyword field is not set");
             }
@@ -88,7 +89,8 @@ public class ChangeKeywordTabController extends OperationTabController {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.change.alert.content.keyword.new.empty"));
+                        _resources.getString("oper.change.alert.content.keyword.new.empty"),
+                        _mainApp);
 
                 throw new ValidationException("New keyword field is not set");
             }

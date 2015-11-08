@@ -14,7 +14,8 @@ public class RemoveByKeywordInputData extends InputDataBase {
     private final String _keyword;
 
     /**
-     * TODO
+     * TODO insert description
+     *
      * @param keyword
      */
     public RemoveByKeywordInputData(String keyword) {

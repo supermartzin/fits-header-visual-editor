@@ -119,7 +119,7 @@ public class RemoveRecordController extends OperationTabController {
 
 
     /**
-     *
+     * TODO insert description
      */
     class Validator {
 
@@ -132,7 +132,8 @@ public class RemoveRecordController extends OperationTabController {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.remove.alert.content.type"));
+                        _resources.getString("oper.remove.alert.content.type"),
+                        _mainApp);
 
                 throw new ValidationException("Remove type is not selected");
             }
@@ -147,7 +148,8 @@ public class RemoveRecordController extends OperationTabController {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.common.alert.content.keyword.empty"));
+                        _resources.getString("oper.common.alert.content.keyword.empty"),
+                        _mainApp);
 
                 throw new ValidationException("Keyword field is not set");
             }
@@ -164,7 +166,8 @@ public class RemoveRecordController extends OperationTabController {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.common.alert.content.index.empty"));
+                        _resources.getString("oper.common.alert.content.index.empty"),
+                        _mainApp);
 
                 throw new ValidationException("Index field is not set");
             }
@@ -172,7 +175,8 @@ public class RemoveRecordController extends OperationTabController {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.common.alert.content.index.invalid"));
+                        _resources.getString("oper.common.alert.content.index.invalid"),
+                        _mainApp);
 
                 throw new ValidationException("Index field value is in invalid format");
             }

@@ -14,7 +14,7 @@ public class RemoveFromIndexInputData extends InputDataBase {
     private final int _index;
 
     /**
-     * TODO
+     * TODO insert description
      * @param index
      */
     public RemoveFromIndexInputData(int index) {

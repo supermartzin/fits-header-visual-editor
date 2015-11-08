@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
- * TODO description
+ * TODO insert description
  */
 public class FitsFile {
 

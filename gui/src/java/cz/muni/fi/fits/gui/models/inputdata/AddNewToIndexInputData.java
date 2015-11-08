@@ -18,7 +18,8 @@ public class AddNewToIndexInputData extends InputDataBase {
     private final boolean _removeOldIfExists;
 
     /**
-     * TODO
+     * TODO insert description
+     *
      * @param keyword
      * @param value
      * @param comment

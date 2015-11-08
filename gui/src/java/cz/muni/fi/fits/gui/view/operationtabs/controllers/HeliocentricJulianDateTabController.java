@@ -239,7 +239,7 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
 
 
     /**
-     *
+     * TODO insert description
      */
     class Validator extends JulianDateBasedOperationTabController.Validator {
 
@@ -253,7 +253,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.hjd.alert.content.ra.type"));
+                        _resources.getString("oper.hjd.alert.content.ra.type"),
+                        _mainApp);
 
                 throw new ValidationException("Right ascension value type is not selected");
             }
@@ -273,7 +274,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.hjd.alert.content.ra.keyword.empty"));
+                                _resources.getString("oper.hjd.alert.content.ra.keyword.empty"),
+                                _mainApp);
 
                         throw new ValidationException("Keyword of the right ascension record is not set");
                     }
@@ -286,7 +288,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.hjd.alert.content.ra.value.empty"));
+                                _resources.getString("oper.hjd.alert.content.ra.value.empty"),
+                                _mainApp);
 
                         throw new ValidationException("Right ascension value is empty");
                     }
@@ -294,7 +297,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.hjd.alert.content.ra.value.invalid"));
+                                _resources.getString("oper.hjd.alert.content.ra.value.invalid"),
+                                _mainApp);
 
                         throw new ValidationException("Right ascension value is in invalid format");
                     }
@@ -309,7 +313,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.hjd.alert.content.ra.value.empty"));
+                                _resources.getString("oper.hjd.alert.content.ra.value.empty"),
+                                _mainApp);
 
                         throw new ValidationException("Right ascension value is empty");
                     }
@@ -319,7 +324,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.hjd.alert.content.ra.value.invalid"));
+                                _resources.getString("oper.hjd.alert.content.ra.value.invalid"),
+                                _mainApp);
 
                         throw new ValidationException("Right ascension value is in invalid format");
                     }
@@ -337,7 +343,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.hjd.alert.content.dec.type"));
+                        _resources.getString("oper.hjd.alert.content.dec.type"),
+                        _mainApp);
 
                 throw new ValidationException("Declination value type is not selected");
             }
@@ -357,7 +364,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.hjd.alert.content.dec.keyword.empty"));
+                                _resources.getString("oper.hjd.alert.content.dec.keyword.empty"),
+                                _mainApp);
 
                         throw new ValidationException("Keyword of the declination record is not set");
                     }
@@ -370,7 +378,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.hjd.alert.content.dec.value.empty"));
+                                _resources.getString("oper.hjd.alert.content.dec.value.empty"),
+                                _mainApp);
 
                         throw new ValidationException("Declination value is empty");
                     }
@@ -378,7 +387,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.hjd.alert.content.dec.value.invalid"));
+                                _resources.getString("oper.hjd.alert.content.dec.value.invalid"),
+                                _mainApp);
 
                         throw new ValidationException("Declination value is in invalid format");
                     }
@@ -393,7 +403,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.hjd.alert.content.dec.value.empty"));
+                                _resources.getString("oper.hjd.alert.content.dec.value.empty"),
+                                _mainApp);
 
                         throw new ValidationException("Declination value is empty");
                     }
@@ -403,7 +414,8 @@ public class HeliocentricJulianDateTabController extends JulianDateBasedOperatio
                         WarningDialog.show(
                                 _resources.getString("oper.common.alert.title"),
                                 _resources.getString("oper.common.alert.header"),
-                                _resources.getString("oper.hjd.alert.content.dec.value.invalid"));
+                                _resources.getString("oper.hjd.alert.content.dec.value.invalid"),
+                                _mainApp);
 
                         throw new ValidationException("Declination value is in invalid format");
                     }

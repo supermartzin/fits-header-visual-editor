@@ -1,7 +1,7 @@
 package cz.muni.fi.fits.gui.utils.combobox;
 
 /**
- * TODO description
+ * TODO insert description
  *
  * @author Martin Vrábel
  * @version 1.0

@@ -141,7 +141,7 @@ public class OutputViewController extends Controller {
     }
 
     private Text prepareMessageText(String message, Text fitsFileText) {
-        Text messageText = null;
+        Text messageText = new Text(message + Constants.NEWLINE);
 
         if (fitsFileText != null) {
             String text = "[" + fitsFileText.getText() + "]: ";

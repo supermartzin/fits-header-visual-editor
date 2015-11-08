@@ -6,7 +6,7 @@ import cz.muni.fi.fits.gui.utils.Constants;
 import java.util.prefs.Preferences;
 
 /**
- * TODO description
+ * TODO insert description
  */
 public class PreferencesService {
 

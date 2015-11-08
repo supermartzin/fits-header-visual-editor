@@ -16,7 +16,8 @@ public class ChangeKeywordInputData extends InputDataBase {
     private final boolean _removeValueOfNewIfExists;
 
     /**
-     * TODO
+     * TODO insert description
+     *
      * @param oldKeyword
      * @param newKeyword
      * @param removeValueOfNewIfExists

@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -40,6 +41,7 @@ public class MainApp extends Application {
     private Stage _primaryStage;
     private BorderPane _rootLayout;
     private SplitPane _centralLayout;
+    private Image _appIcon;
 
     private OutputViewController _outputViewController;
 
@@ -58,26 +60,33 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        _appIcon = new Image("graphics/icon.png");
+
         _primaryStage = primaryStage;
         _primaryStage.setTitle("FITS Header Visual Editor");
-        // TODO set icon
+        _primaryStage.getIcons().add(_appIcon);
 
         _resources = ResourceBundleService.getBundle();
 
-        // initialize layouts
-        initRootLayout();
-        initFilesOverview();
-        initOperationTabsView();
-        initOutputView();
+        try {
+            setUnhandledExceptionHandler();
 
-        // set unhandled exception handler
-        Thread.currentThread().setUncaughtExceptionHandler((thread, exception) ->
-                Platform.runLater(() ->
-                        ExceptionDialog.show(
-                                _resources.getString("oper.common.error.title"),
-                                _resources.getString("oper.common.error.header"),
-                                _resources.getString("oper.common.error.content.unhandled_excp"),
-                                exception)));
+            // initialize layouts
+            initRootLayout();
+            initFilesOverview();
+            initOperationTabsView();
+            initOutputView();
+        } catch (IOException ioEx) {
+            ExceptionDialog.show(
+                    _resources.getString("app.error.dialog.title"),
+                    _resources.getString("app.error.dialog.header"),
+                    _resources.getString("app.error.dialog.content.fatal"),
+                    ioEx,
+                    null);
+
+            // exit application
+            System.exit(0);
+        }
     }
 
     public Stage getPrimaryStage() {
@@ -124,85 +133,77 @@ public class MainApp extends Application {
         }
     }
 
-
-    private void initRootLayout() {
-        try {
-            FXMLLoader rootLayoutFile = new FXMLLoader(MainApp.class.getResource("view/RootLayout.fxml"));
-            ResourceBundleService.setResourceBundle(rootLayoutFile);
-            _rootLayout = rootLayoutFile.load();
-
-            RootLayoutController controller = rootLayoutFile.getController();
-            controller.setMainApp(this);
-
-            _centralLayout = new SplitPane();
-            _centralLayout.setOrientation(Orientation.VERTICAL);
-            _rootLayout.setCenter(_centralLayout);
-
-            Scene scene = new Scene(_rootLayout);
-            _primaryStage.setScene(scene);
-
-            _primaryStage.show();
-        } catch (IOException ioEx) {
-            ExceptionDialog.show(
-                    _resources.getString("oper.common.error.title"),
-                    _resources.getString("oper.common.error.header"),
-                    _resources.getString("app.error.dialog.content.fatal"),
-                    ioEx);
-
-            // exit application
-            System.exit(0);
-        }
+    public Image getApplicationIcon() {
+        return _appIcon;
     }
 
-    private void initFilesOverview() {
-        try {
-            FXMLLoader filesOverviewFile = new FXMLLoader(MainApp.class.getResource("view/FilesOverview.fxml"));
-            ResourceBundleService.setResourceBundle(filesOverviewFile);
-            _rootLayout.setLeft(filesOverviewFile.load());
-
-            FilesOverviewController controller = filesOverviewFile.getController();
-            controller.setMainApp(this);
-            controller.setTableItemsCollection(_fitsFiles);
-        } catch (IOException e) {
-            // TODO handle exception
-            e.printStackTrace();
-        }
+    private void setUnhandledExceptionHandler() {
+        // set unhandled exception handler
+        Thread.currentThread().setUncaughtExceptionHandler((thread, exception) ->
+                Platform.runLater(() ->
+                        ExceptionDialog.show(
+                                _resources.getString("app.error.dialog.title"),
+                                _resources.getString("app.error.dialog.header"),
+                                _resources.getString("app.error.dialog.content.fatal"),
+                                exception,
+                                this)));
     }
 
-    private void initOperationTabsView() {
-        try {
-            FXMLLoader operationTabsViewFile = new FXMLLoader(MainApp.class.getResource("view/OperationTabsView.fxml"));
-            ResourceBundleService.setResourceBundle(operationTabsViewFile);
-            AnchorPane anchorPane = operationTabsViewFile.load();
+    private void initRootLayout() throws IOException {
+        FXMLLoader rootLayoutFile = new FXMLLoader(MainApp.class.getResource("view/RootLayout.fxml"));
+        ResourceBundleService.setResourceBundle(rootLayoutFile);
+        _rootLayout = rootLayoutFile.load();
 
-            OperationTabsViewController controller = operationTabsViewFile.getController();
-            controller.setMainApp(this);
+        RootLayoutController controller = rootLayoutFile.getController();
+        controller.setMainApp(this);
 
-            // load Tabs into TabPane
-            Collection<Tab> tabs = loadOperationTabs(controller);
-            TabPane tabPane = extractTabPane(anchorPane);
-            if (tabPane != null)
-                tabPane.getTabs().addAll(tabs);
+        _centralLayout = new SplitPane();
+        _centralLayout.setOrientation(Orientation.VERTICAL);
+        _rootLayout.setCenter(_centralLayout);
 
-            // load Tabs into view
-            _centralLayout.getItems().add(anchorPane);
-        } catch (IOException e) {
-            // TODO handle exception
-            e.printStackTrace();
-        }
+        Scene scene = new Scene(_rootLayout);
+        _primaryStage.setScene(scene);
+
+        _primaryStage.show();
     }
 
-    private void initOutputView() {
-        try {
-            FXMLLoader outputViewFile = new FXMLLoader(MainApp.class.getResource("view/OutputView.fxml"));
-            ResourceBundleService.setResourceBundle(outputViewFile);
+    private void initFilesOverview()
+            throws IOException {
+        FXMLLoader filesOverviewFile = new FXMLLoader(MainApp.class.getResource("view/FilesOverview.fxml"));
+        ResourceBundleService.setResourceBundle(filesOverviewFile);
+        _rootLayout.setLeft(filesOverviewFile.load());
 
-            _centralLayout.getItems().add(outputViewFile.load());
-            _outputViewController = outputViewFile.getController();
-        } catch (IOException e) {
-            // TODO handle exception
-            e.printStackTrace();
-        }
+        FilesOverviewController controller = filesOverviewFile.getController();
+        controller.setMainApp(this);
+        controller.setTableItemsCollection(_fitsFiles);
+    }
+
+    private void initOperationTabsView()
+            throws IOException {
+        FXMLLoader operationTabsViewFile = new FXMLLoader(MainApp.class.getResource("view/OperationTabsView.fxml"));
+        ResourceBundleService.setResourceBundle(operationTabsViewFile);
+        AnchorPane anchorPane = operationTabsViewFile.load();
+
+        OperationTabsViewController controller = operationTabsViewFile.getController();
+        controller.setMainApp(this);
+
+        // load Tabs into TabPane
+        Collection<Tab> tabs = loadOperationTabs(controller);
+        TabPane tabPane = extractTabPane(anchorPane);
+        if (tabPane != null)
+            tabPane.getTabs().addAll(tabs);
+
+        // load Tabs into view
+        _centralLayout.getItems().add(anchorPane);
+    }
+
+    private void initOutputView()
+            throws IOException {
+        FXMLLoader outputViewFile = new FXMLLoader(MainApp.class.getResource("view/OutputView.fxml"));
+        ResourceBundleService.setResourceBundle(outputViewFile);
+
+        _centralLayout.getItems().add(outputViewFile.load());
+        _outputViewController = outputViewFile.getController();
     }
 
     private Collection<Tab> loadOperationTabs(OperationTabsViewController parentController)
@@ -210,14 +211,14 @@ public class MainApp extends Application {
         Collection<Tab> tabs = new LinkedHashSet<>();
 
         // load Tabs
-        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/AddNewRecordTab.fxml", parentController));
-        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/RemoveRecordTab.fxml", parentController));
-        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/ChangeKeywordTab.fxml", parentController));
-        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/ChangeValueTab.fxml", parentController));
-        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/ChainRecordsTab.fxml", parentController));
-        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/ShiftTimeTab.fxml", parentController));
-        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/JulianDateTab.fxml", parentController));
-        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/HeliocentricJulianDateTab.fxml", parentController));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/AddNewRecordTab.fxml", parentController, this));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/RemoveRecordTab.fxml", parentController, this));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/ChangeKeywordTab.fxml", parentController, this));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/ChangeValueTab.fxml", parentController, this));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/ChainRecordsTab.fxml", parentController, this));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/ShiftTimeTab.fxml", parentController, this));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/JulianDateTab.fxml", parentController, this));
+        tabs.add(OperationTabsLoader.loadTab("view/operationtabs/HeliocentricJulianDateTab.fxml", parentController, this));
 
         return tabs;
     }

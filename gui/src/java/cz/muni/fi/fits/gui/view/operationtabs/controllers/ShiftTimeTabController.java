@@ -131,7 +131,7 @@ public class ShiftTimeTabController extends OperationTabController {
 
 
     /**
-     *
+     * TODO insert description
      */
     class Validator {
 
@@ -144,7 +144,8 @@ public class ShiftTimeTabController extends OperationTabController {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.common.alert.content.keyword.empty"));
+                        _resources.getString("oper.common.alert.content.keyword.empty"),
+                        _mainApp);
 
                 throw new ValidationException("Keyword field is not set");
             }
@@ -164,7 +165,8 @@ public class ShiftTimeTabController extends OperationTabController {
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.shift.alert.content.value.empty"));
+                        _resources.getString("oper.shift.alert.content.value.empty"),
+                        _mainApp);
 
                 throw new ValidationException("None of the time shift fields is set");
             }
@@ -181,7 +183,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.years.invalid"));
+                            _resources.getString("oper.shift.alert.content.value.years.invalid"),
+                            _mainApp);
 
                     throw new ValidationException("Value of years shift is in invalid format");
                 }
@@ -189,7 +192,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.years.direction.empty"));
+                            _resources.getString("oper.shift.alert.content.value.years.direction.empty"),
+                            _mainApp);
 
                     throw new ValidationException("Direction of years shift is not selected");
                 }
@@ -207,7 +211,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.months.invalid"));
+                            _resources.getString("oper.shift.alert.content.value.months.invalid"),
+                            _mainApp);
 
                     throw new ValidationException("Value of months shift is in invalid format");
                 }
@@ -215,7 +220,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.months.direction.empty"));
+                            _resources.getString("oper.shift.alert.content.value.months.direction.empty"),
+                            _mainApp);
 
                     throw new ValidationException("Direction of months shift is not selected");
                 }
@@ -233,7 +239,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.days.invalid"));
+                            _resources.getString("oper.shift.alert.content.value.days.invalid"),
+                            _mainApp);
 
                     throw new ValidationException("Value of days shift is in invalid format");
                 }
@@ -241,7 +248,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.days.direction.empty"));
+                            _resources.getString("oper.shift.alert.content.value.days.direction.empty"),
+                            _mainApp);
 
                     throw new ValidationException("Direction of days shift is not selected");
                 }
@@ -259,7 +267,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.hours.invalid"));
+                            _resources.getString("oper.shift.alert.content.value.hours.invalid"),
+                            _mainApp);
 
                     throw new ValidationException("Value of hours shift is in invalid format");
                 }
@@ -267,7 +276,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.hours.direction.empty"));
+                            _resources.getString("oper.shift.alert.content.value.hours.direction.empty"),
+                            _mainApp);
 
                     throw new ValidationException("Direction of hours shift is not selected");
                 }
@@ -285,7 +295,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.minutes.invalid"));
+                            _resources.getString("oper.shift.alert.content.value.minutes.invalid"),
+                            _mainApp);
 
                     throw new ValidationException("Value of minutes shift is in invalid format");
                 }
@@ -293,7 +304,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.minutes.direction.empty"));
+                            _resources.getString("oper.shift.alert.content.value.minutes.direction.empty"),
+                            _mainApp);
 
                     throw new ValidationException("Direction of minutes shift is not selected");
                 }
@@ -311,7 +323,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.seconds.invalid"));
+                            _resources.getString("oper.shift.alert.content.value.seconds.invalid"),
+                            _mainApp);
 
                     throw new ValidationException("Value of seconds shift is in invalid format");
                 }
@@ -319,7 +332,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.seconds.direction.empty"));
+                            _resources.getString("oper.shift.alert.content.value.seconds.direction.empty"),
+                            _mainApp);
 
                     throw new ValidationException("Direction of seconds shift is not selected");
                 }
@@ -337,7 +351,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.milliseconds.invalid"));
+                            _resources.getString("oper.shift.alert.content.value.milliseconds.invalid"),
+                            _mainApp);
 
                     throw new ValidationException("Value of milliseconds shift is in invalid format");
                 }
@@ -345,7 +360,8 @@ public class ShiftTimeTabController extends OperationTabController {
                     WarningDialog.show(
                             _resources.getString("oper.common.alert.title"),
                             _resources.getString("oper.common.alert.header"),
-                            _resources.getString("oper.shift.alert.content.value.milliseconds.direction.empty"));
+                            _resources.getString("oper.shift.alert.content.value.milliseconds.direction.empty"),
+                            _mainApp);
 
                     throw new ValidationException("Direction of milliseconds shift is not selected");
                 }

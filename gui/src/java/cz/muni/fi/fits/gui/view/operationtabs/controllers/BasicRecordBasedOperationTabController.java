@@ -151,7 +151,7 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
 
 
     /**
-     *
+     * TODO insert description
      */
     abstract class Validator {
 
@@ -164,7 +164,8 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.common.alert.content.keyword.empty"));
+                        _resources.getString("oper.common.alert.content.keyword.empty"),
+                        _mainApp);
 
                 throw new ValidationException("Keyword field is not set");
             }
@@ -179,7 +180,8 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.common.alert.content.value.type"));
+                        _resources.getString("oper.common.alert.content.value.type"),
+                        _mainApp);
 
                 throw new ValidationException("Value type is not selected");
             }
@@ -247,7 +249,8 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
             WarningDialog.show(
                     _resources.getString("oper.common.alert.title"),
                     _resources.getString("oper.common.alert.header"),
-                    _resources.getString("oper.common.alert.content.value.empty"));
+                    _resources.getString("oper.common.alert.content.value.empty"),
+                    _mainApp);
 
             throw new ValidationException("Value of the record is empty");
         }
@@ -257,7 +260,8 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
             WarningDialog.show(
                     _resources.getString("oper.common.alert.title"),
                     _resources.getString("oper.common.alert.header"),
-                    _resources.getString("oper.common.alert.content.value.invalid"));
+                    _resources.getString("oper.common.alert.content.value.invalid"),
+                    _mainApp);
 
             throw new ValidationException("Value of the record is in invalid format");
         }

@@ -9,7 +9,6 @@ package cz.muni.fi.fits.gui.utils;
 public final class StringUtils {
 
     /**
-     * TODO
      *
      * @param stringToWrap
      * @param wrappingSymbol

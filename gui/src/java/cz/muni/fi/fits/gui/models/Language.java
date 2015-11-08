@@ -3,7 +3,7 @@ package cz.muni.fi.fits.gui.models;
 import java.util.Locale;
 
 /**
- * TODO description
+ * TODO insert description
  */
 public enum Language {
     ENGLISH("en", Locale.ENGLISH),

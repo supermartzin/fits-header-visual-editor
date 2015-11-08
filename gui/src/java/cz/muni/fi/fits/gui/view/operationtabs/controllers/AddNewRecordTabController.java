@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxListCell;
 
 /**
- * TODO description
+ * TODO insert description
  *
  * @author Martin Vrábel
  * @version 1.0
@@ -131,7 +131,7 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
 
 
     /**
-     *
+     * TODO insert description
      */
     class Validator extends BasicRecordBasedOperationTabController.Validator {
 
@@ -144,7 +144,8 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.add.alert.content.rec_place"));
+                        _resources.getString("oper.add.alert.content.rec_place"),
+                        _mainApp);
 
                 throw new ValidationException("Record placement is not selected");
             }
@@ -161,7 +162,8 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.common.alert.content.index.empty"));
+                        _resources.getString("oper.common.alert.content.index.empty"),
+                        _mainApp);
 
                 throw new ValidationException("Index field is not set");
             }
@@ -169,7 +171,8 @@ public class AddNewRecordTabController extends BasicRecordBasedOperationTabContr
                 WarningDialog.show(
                         _resources.getString("oper.common.alert.title"),
                         _resources.getString("oper.common.alert.header"),
-                        _resources.getString("oper.common.alert.content.index.invalid"));
+                        _resources.getString("oper.common.alert.content.index.invalid"),
+                        _mainApp);
 
                 throw new ValidationException("Index field value is in invalid format");
             }

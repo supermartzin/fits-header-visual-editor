@@ -1,7 +1,7 @@
 package cz.muni.fi.fits.gui.models.operationenums;
 
 /**
- * TODO description
+ * TODO insert description
  *
  * @author Martin Vrábel
  * @version 1.0
