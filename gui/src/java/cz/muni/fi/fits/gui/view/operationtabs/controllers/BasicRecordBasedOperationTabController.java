@@ -240,6 +240,9 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
                         valueEmpty();
 
                     break;
+
+                default:
+                    break;
             }
         }
 

@@ -26,12 +26,15 @@ public final class WarningDialog {
         warningDialog.setHeaderText(header);
         warningDialog.setContentText(content);
 
-        warningDialog.initOwner(mainApp.getPrimaryStage());
-        warningDialog.initModality(Modality.APPLICATION_MODAL);
+        if (mainApp != null) {
+            warningDialog.initOwner(mainApp.getPrimaryStage());
 
-        // set icon
-        Stage stage = (Stage) warningDialog.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(mainApp.getApplicationIcon());
+            // set icon
+            Stage stage = (Stage) warningDialog.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(mainApp.getApplicationIcon());
+        }
+
+        warningDialog.initModality(Modality.APPLICATION_MODAL);
 
         warningDialog.showAndWait();
     }

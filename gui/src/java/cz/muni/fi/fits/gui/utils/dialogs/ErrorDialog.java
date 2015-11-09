@@ -26,12 +26,15 @@ public final class ErrorDialog {
         errorDialog.setHeaderText(header);
         errorDialog.setContentText(content);
 
-        errorDialog.initOwner(mainApp.getPrimaryStage());
-        errorDialog.initModality(Modality.APPLICATION_MODAL);
+        if (mainApp != null) {
+            errorDialog.initOwner(mainApp.getPrimaryStage());
 
-        // set icon
-        Stage stage = (Stage) errorDialog.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(mainApp.getApplicationIcon());
+            // set icon
+            Stage stage = (Stage) errorDialog.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(mainApp.getApplicationIcon());
+        }
+
+        errorDialog.initModality(Modality.APPLICATION_MODAL);
 
         errorDialog.showAndWait();
     }

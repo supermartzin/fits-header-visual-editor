@@ -26,6 +26,12 @@ public class ExecutionService extends Service {
 
     private OutputListener _outputListener;
 
+    /**
+     *
+     * @param inputDataArguments
+     * @param engineFilepath
+     * @param numberOfFiles
+     */
     public ExecutionService(final List<String> inputDataArguments,
                             final String engineFilepath,
                             final int numberOfFiles) {
@@ -34,9 +40,9 @@ public class ExecutionService extends Service {
         if (inputDataArguments == null || inputDataArguments.isEmpty())
             throw new IllegalArgumentException("Input Data arguments are not set!");
 
-        _task = new Task<Void>() {
+        _task = new Task<Boolean>() {
             @Override
-            protected Void call() throws Exception {
+            protected Boolean call() throws Exception {
                 String line;
                 int counter = 0;
                 int maxProcessLength = numberOfFiles + 2;
@@ -53,13 +59,15 @@ public class ExecutionService extends Service {
 
                 // set up and start engine process
                 Process process = new ProcessBuilder(arguments)
-                        .redirectErrorStream(true)
                         .directory(workingDirectory.toFile())
+                        .redirectErrorStream(true)
                         .start();
+
+                boolean noErrors = true;
 
                 // process standard output
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                        new BufferedInputStream(process.getInputStream())))) {
+                        new BufferedInputStream(process.getInputStream()), Constants.DEFAULT_CHARSET))) {
                     while ((line = br.readLine()) != null) {
                         updateProgress(++counter, maxProcessLength);
 
@@ -70,12 +78,16 @@ public class ExecutionService extends Service {
                             continue;
                         }
                         if (line.contains(Constants.ERROR_IDENTIFIER)) {
+                            noErrors = false;
+
                             // raise onError event in registered listener
                             if (_outputListener != null)
                                 _outputListener.onError(line);
                             continue;
                         }
                         if (line.contains(Constants.EXCEPTION_IDENTIFIER)) {
+                            noErrors = false;
+
                             // raise onInfo event in registered listener
                             if (_outputListener != null)
                                 _outputListener.onException(line);
@@ -94,7 +106,7 @@ public class ExecutionService extends Service {
                 // wait for process to end
                 process.waitFor();
 
-                return null;
+                return noErrors;
             }
         };
     }

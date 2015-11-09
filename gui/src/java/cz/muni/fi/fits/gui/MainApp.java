@@ -204,6 +204,7 @@ public class MainApp extends Application {
 
         _centralLayout.getItems().add(outputViewFile.load());
         _outputViewController = outputViewFile.getController();
+        _outputViewController.setMainApp(this);
     }
 
     private Collection<Tab> loadOperationTabs(OperationTabsViewController parentController)

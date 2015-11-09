@@ -37,7 +37,7 @@ public class UTF8Control extends ResourceBundle.Control {
         if (stream != null) {
             try {
                 // Only this line is changed to make it to read properties files as UTF-8.
-                bundle = new PropertyResourceBundle(new InputStreamReader(stream, "UTF-8"));
+                bundle = new PropertyResourceBundle(new InputStreamReader(stream, Constants.DEFAULT_CHARSET));
             } finally {
                 stream.close();
             }

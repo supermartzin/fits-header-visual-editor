@@ -111,7 +111,7 @@ public class ChainRecordsTabController extends OperationTabController {
 
     private void moveFollowingValueGroups(int startIndex) {
         // iterate over copied map to be able to modify original map
-        new TreeMap<>(_chainRecordGroups).forEach(
+        _chainRecordGroups.forEach(
                 (index, chainRecordGroup) -> {
                     if (index > startIndex) {
                         // remove from actual index

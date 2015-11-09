@@ -5,6 +5,7 @@ import cz.muni.fi.fits.gui.models.Preferences;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.services.ExecutionService;
 import cz.muni.fi.fits.gui.utils.Constants;
+import cz.muni.fi.fits.gui.utils.Parsers;
 import cz.muni.fi.fits.gui.utils.dialogs.ErrorDialog;
 import cz.muni.fi.fits.gui.utils.dialogs.ExceptionDialog;
 import cz.muni.fi.fits.gui.utils.dialogs.InfoDialog;
@@ -53,6 +54,10 @@ public class OperationTabsViewController extends Controller {
             if (!checkEngineFilepath(engineFilepath))
                 return;
 
+            // check correct java version
+            if (!checkJavaVersion())
+                return;
+
             // input data
             InputData inputData = tab.getInputData();
             if (inputData != null) {
@@ -87,12 +92,24 @@ public class OperationTabsViewController extends Controller {
                         // delete engine properties file
                         deleteFileIfExists(engineProperties);
 
-                        // show success dialog
-                        InfoDialog.show(
-                                _resources.getString("oper.success.dialog.title"),
-                                null,
-                                _resources.getString("oper.success.dialog.content"),
-                                _mainApp);
+                        // get results
+                        boolean noErrors = (boolean) ((Worker) event.getSource()).getValue();
+
+                        if (noErrors) {
+                            // show success dialog
+                            InfoDialog.show(
+                                    _resources.getString("oper.success.dialog.title"),
+                                    null,
+                                    _resources.getString("oper.success.dialog.content"),
+                                    _mainApp);
+                        } else {
+                            // show half-success dialog
+                            InfoDialog.show(
+                                    _resources.getString("oper.success.dialog.title"),
+                                    null,
+                                    _resources.getString("oper.success.half.dialog.content"),
+                                    _mainApp);
+                        }
 
                         progressBar.progressProperty().unbind();
                         progressBar.setProgress(0.0);
@@ -174,6 +191,24 @@ public class OperationTabsViewController extends Controller {
         } else {
             return true;
         }
+    }
+
+    private boolean checkJavaVersion() {
+        String versionString = Runtime.class.getPackage().getSpecificationVersion();
+        if (Parsers.Double.tryParse(versionString)) {
+            Double version = Parsers.Double.parse(versionString);
+
+            if (version < 1.8) {
+                ErrorDialog.show(
+                        _resources.getString("app.error.dialog.title"),
+                        _resources.getString("app.error.dialog.header"),
+                        _resources.getString("app.error.dialog.content.java.bad_version"),
+                        _mainApp);
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private boolean checkFitsFiles(Collection<FitsFile> fitsFiles) {

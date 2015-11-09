@@ -26,12 +26,15 @@ public final class InfoDialog {
         infoDialog.setHeaderText(header);
         infoDialog.setContentText(content);
 
-        infoDialog.initOwner(mainApp.getPrimaryStage());
-        infoDialog.initModality(Modality.APPLICATION_MODAL);
+        if (mainApp != null) {
+            infoDialog.initOwner(mainApp.getPrimaryStage());
 
-        // set icon
-        Stage stage = (Stage) infoDialog.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(mainApp.getApplicationIcon());
+            // set icon
+            Stage stage = (Stage) infoDialog.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(mainApp.getApplicationIcon());
+        }
+
+        infoDialog.initModality(Modality.APPLICATION_MODAL);
 
         infoDialog.showAndWait();
     }

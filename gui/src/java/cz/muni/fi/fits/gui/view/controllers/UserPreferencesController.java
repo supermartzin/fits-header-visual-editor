@@ -29,9 +29,6 @@ public class UserPreferencesController extends Controller {
     public TextField outputFileLocationField;
     public Button outputFileChooseLocationField;
 
-    public Button okButton;
-    public Button cancelButton;
-
     @Override
     public void init() {
         saveOutputToFileSwitch.selectedProperty().addListener(
