@@ -104,6 +104,10 @@ public class MainApp extends Application {
         return selectedFiles;
     }
 
+    public ObservableList<FitsFile> getAllFitsFiles() {
+        return _fitsFiles;
+    }
+
     public void setPreferences(Preferences preferences) {
         _preferences = preferences;
     }

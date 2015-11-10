@@ -1,15 +1,24 @@
 package cz.muni.fi.fits.gui.view.controllers;
 
+import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.models.FitsFile;
+import cz.muni.fi.fits.gui.services.ResourceBundleService;
+import cz.muni.fi.fits.gui.utils.dialogs.ExceptionDialog;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,15 +31,17 @@ public class FilesOverviewController extends Controller {
     public TableColumn<FitsFile, Boolean> selectColumn;
     public TableColumn<FitsFile, String> filenameColumn;
     public TableColumn<FitsFile, String> filepathColumn;
-    public Button selectNoneButton;
-    public Button selectAllButton;
-    public Button invertSelectionButton;
+    public Label numberOfSelectedFilesLabel;
+
     public MenuItem deleteMenuItem;
     public MenuItem selectMenuItem;
     public MenuItem invertMenuItem;
     public MenuItem deselectMenuItem;
-    public Label numberOfSelectedFilesLabel;
 
+    public Button invertSelectionButton;
+    public Button filterFilesButton;
+
+    private CheckBox selectFilesCheckBox;
     private IntegerProperty _numberOfSelectedFiles;
 
     @Override
@@ -75,6 +86,14 @@ public class FilesOverviewController extends Controller {
             return checkBoxTableCell;
         });
 
+        // add checkbox to column heading
+        selectFilesCheckBox = new CheckBox();
+        selectFilesCheckBox.setDisable(true);
+        selectColumn.setGraphic(selectFilesCheckBox);
+        selectFilesCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            tableView.getItems().forEach(fitsFile -> fitsFile.setSelected(newValue));
+        });
+
         // set value of cells in column
         selectColumn.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         filenameColumn.setCellValueFactory(cellData -> cellData.getValue().filenameProperty());
@@ -100,16 +119,38 @@ public class FilesOverviewController extends Controller {
 
     //region Buttons methods
 
-    public void onSelectNone() {
-        tableView.getItems().forEach(fitsFile -> fitsFile.setSelected(false));
-    }
-
-    public void onSelectAll() {
-        tableView.getItems().forEach(fitsFile -> fitsFile.setSelected(true));
-    }
-
     public void onInvertSelection() {
         tableView.getItems().forEach(fitsFile -> fitsFile.setSelected(!fitsFile.isSelected()));
+    }
+
+    public void onFilterActivated() {
+        try {
+            FXMLLoader filterDialogFile = new FXMLLoader(MainApp.class.getResource("view/FilterDialog.fxml"));
+            ResourceBundleService.setResourceBundle(filterDialogFile);
+            AnchorPane anchorPane = filterDialogFile.load();
+
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setTitle(_resources.getString("filter.dialog.title"));
+            stage.getIcons().add(_mainApp.getApplicationIcon());
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(_mainApp.getPrimaryStage());
+
+            stage.setScene(new Scene(anchorPane));
+
+            FilterDialogController controller = filterDialogFile.getController();
+            controller.setMainApp(_mainApp);
+            controller.setOwner(stage);
+
+            stage.showAndWait();
+        } catch (IOException ioEx) {
+            ExceptionDialog.show(
+                    _resources.getString("app.error.dialog.title"),
+                    _resources.getString("app.error.dialog.header"),
+                    _resources.getString("app.error.dialog.content.filter"),
+                    ioEx,
+                    _mainApp);
+        }
     }
 
     public void onAddFiles() {
@@ -130,10 +171,10 @@ public class FilesOverviewController extends Controller {
         }
     }
 
-    private void setSelectButtonsState(boolean selectAllState, boolean selectNoneState, boolean invertSelectionState) {
-        selectAllButton.setDisable(!selectAllState);
-        selectNoneButton.setDisable(!selectNoneState);
+    private void setSelectButtonsState(boolean selectAllState, boolean invertSelectionState, boolean filterState) {
+        selectFilesCheckBox.setDisable(!selectAllState);
         invertSelectionButton.setDisable(!invertSelectionState);
+        filterFilesButton.setDisable(!filterState);
     }
 
     //endregion

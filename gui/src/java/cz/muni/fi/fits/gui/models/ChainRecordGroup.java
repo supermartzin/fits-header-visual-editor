@@ -11,11 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.text.Font;
 
 import java.util.EventObject;
 import java.util.ResourceBundle;
@@ -167,9 +168,10 @@ public class ChainRecordGroup {
     private void initRemoveGroupButton() {
         _removeGroupButton = new Button();
 
-        _removeGroupButton.setFont(new Font("System Bold", 12.0));
+        //_removeGroupButton.setFont(new Font("System Bold", 12.0));
+        _removeGroupButton.setGraphic(new ImageView(new Image("graphics/remove.png")));
 
-        _removeGroupButton.setText(_resources.getString("button.remove"));
+        //_removeGroupButton.setText(_resources.getString("button.remove"));
 
         _removeGroupButton.setMinWidth(Region.USE_PREF_SIZE);
         _removeGroupButton.setMaxWidth(Region.USE_PREF_SIZE);
