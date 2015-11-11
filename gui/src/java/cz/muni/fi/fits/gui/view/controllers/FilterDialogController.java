@@ -9,13 +9,15 @@ import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
 import cz.muni.fi.fits.gui.utils.dialogs.ExceptionDialog;
 import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.stage.Stage;
+
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * TODO insert description
@@ -53,7 +55,7 @@ public class FilterDialogController extends Controller {
         if (!checkFilterTypeField())
             return;
 
-        final ObservableList<FitsFile> fitsFiles = _mainApp.getAllFitsFiles();
+        final Collection<FitsFile> fitsFiles = _mainApp.getAllFitsFiles();
         final FilterType filterType = filterTypeField.getValue().getType();
         final String keyword = keywordField.getText();
         final String value = valueSwitchField.isSelected()
@@ -62,16 +64,20 @@ public class FilterDialogController extends Controller {
 
 
         // create background service
+        Task<Set<FitsFile>> filteringTask = new FilteringTask(fitsFiles, filterType, keyword, value);
         Service service = new Service() {
             @Override
             protected Task createTask() {
-                return new FilteringTask(fitsFiles, filterType, keyword, value);
+                return filteringTask;
             }
         };
 
         // set listeners
         service.setOnSucceeded(event ->
                 Platform.runLater(() -> {
+                    // remove all affected files
+                    _mainApp.getAllFitsFiles().removeAll(filteringTask.getValue());
+
                     showProgressIndicator(false);
                     closeStage();
                 }));
@@ -94,11 +100,12 @@ public class FilterDialogController extends Controller {
                     closeStage();
                 }));
 
-        service.start();
-
         showProgressIndicator(true);
-        okButton.setDisable(true);
-        cancelButton.setDisable(true);
+        disableButtons();
+        disableFilterField();
+
+        // START the filtering
+        service.start();
     }
 
     public void onCancel() {
@@ -172,5 +179,14 @@ public class FilterDialogController extends Controller {
 
     private void showProgressIndicator(boolean showSwitch) {
         progressIndicator.setVisible(showSwitch);
+    }
+
+    private void disableButtons() {
+        okButton.setDisable(true);
+        cancelButton.setDisable(true);
+    }
+
+    private void disableFilterField() {
+        filterTypeField.setDisable(true);
     }
 }

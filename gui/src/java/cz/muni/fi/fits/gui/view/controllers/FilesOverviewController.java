@@ -4,6 +4,7 @@ import cz.muni.fi.fits.gui.MainApp;
 import cz.muni.fi.fits.gui.models.FitsFile;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
 import cz.muni.fi.fits.gui.utils.dialogs.ExceptionDialog;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
@@ -26,6 +27,8 @@ import java.util.List;
  * TODO description
  */
 public class FilesOverviewController extends Controller {
+
+    private static final Object LOCK = new Object();
 
     public TableView<FitsFile> tableView;
     public TableColumn<FitsFile, Boolean> selectColumn;
@@ -78,8 +81,7 @@ public class FilesOverviewController extends Controller {
             CheckBoxTableCell<FitsFile, Boolean> checkBoxTableCell = new CheckBoxTableCell<>();
             // set value changed listener
             checkBoxTableCell.setSelectedStateCallback(index -> {
-                int count = tableView.getItems().stream().filter(FitsFile::isSelected).toArray().length;
-                _numberOfSelectedFiles.setValue(count);
+                setNumberOfSelectedFilesLabel();
 
                 return tableView.getItems().get(index).selectedProperty();
             });
@@ -91,7 +93,9 @@ public class FilesOverviewController extends Controller {
         selectFilesCheckBox.setDisable(true);
         selectColumn.setGraphic(selectFilesCheckBox);
         selectFilesCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            tableView.getItems().forEach(fitsFile -> fitsFile.setSelected(newValue));
+            synchronized (LOCK) {
+                tableView.getItems().forEach(fitsFile -> fitsFile.setSelected(newValue));
+            }
         });
 
         // set value of cells in column
@@ -108,13 +112,27 @@ public class FilesOverviewController extends Controller {
         tableView.setItems(observableList);
 
         // listener for number of items in table
-        tableView.getItems().addListener((ListChangeListener<FitsFile>) change -> {
-            if (change.getList().size() > 0) {
-                setSelectButtonsState(true, true, true);
-            } else {
-                setSelectButtonsState(false, false, false);
-            }
-        });
+        tableView.getItems().addListener((ListChangeListener<FitsFile>) change ->
+                Platform.runLater(() -> {
+                    if (change.getList().size() > 0) {
+                        setSelectButtonsState(true, true, true);
+                    } else {
+                        // unselect check box in table header
+                        selectFilesCheckBox.setSelected(false);
+
+                        setSelectButtonsState(false, false, false);
+                    }
+
+                    // set number of selected files label
+                    setNumberOfSelectedFilesLabel();
+                }));
+    }
+
+    private void setNumberOfSelectedFilesLabel() {
+        synchronized (LOCK) {
+            int count = tableView.getItems().stream().filter(FitsFile::isSelected).toArray().length;
+            _numberOfSelectedFiles.setValue(count);
+        }
     }
 
     //region Buttons methods

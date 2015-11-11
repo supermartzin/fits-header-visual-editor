@@ -4,7 +4,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import java.util.Objects;
 
 /**
  * TODO insert description
@@ -59,21 +60,20 @@ public class FitsFile {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o)
+            return true;
 
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null
+                || getClass() != o.getClass())
+            return false;
 
         FitsFile fitsFile = (FitsFile) o;
-
-        return fitsFile.getFilename().equals(getFilename())
-                && fitsFile.getFilepath().equals(getFilepath());
+        return Objects.equals(_filename, fitsFile._filename) &&
+                Objects.equals(_filepath, fitsFile._filepath);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(_filename)
-                .append(_filepath)
-                .toHashCode();
+        return Objects.hash(_filename, _filepath);
     }
 }
