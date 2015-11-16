@@ -163,6 +163,7 @@ public class ChainRecordGroup {
         _constantValueField.setVisible(false);
 
         Constrainer.constrainTextFieldWithRegex(_keywordValueField, Constants.KEYWORD_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(_constantValueField, Constants.ONLY_ASCII_PATERN);
     }
 
     private void initRemoveGroupButton() {

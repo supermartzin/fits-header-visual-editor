@@ -54,6 +54,10 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
         Constrainer.constrainTextFieldWithRegex(valueDateTimeTimeField, Constants.TIME_PATTERN);
         Constrainer.constrainTextFieldWithRegex(valueNumberField, Constants.DECIMAL_NUMBER_PATTERN);
         Constrainer.constrainTextFieldWithRegex(keywordField, Constants.KEYWORD_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(valueStringField, Constants.ONLY_ASCII_PATERN);
+        Constrainer.constrainTextFieldWithRegex(valueStringField, Constants.STRING_VALUE_MAX_LENGTH_PATERN);
+        Constrainer.constrainTextFieldWithRegex(commentField, Constants.ONLY_ASCII_PATERN);
+        Constrainer.constrainTextFieldWithRegex(commentField, Constants.COMMENT_MAX_LENGTH_PATERN);
     }
 
     protected void loadValueTypeField() {
@@ -239,6 +243,18 @@ public abstract class BasicRecordBasedOperationTabController extends OperationTa
                     if (valueStringField.getText().isEmpty())
                         valueEmpty();
 
+                    if (!commentField.getText().isEmpty()) {
+                        int length = commentField.getText().length() + valueStringField.getText().length();
+                        if (length > Constants.MAX_STRING_VALUE_AND_COMMENT_LENGTH) {
+                            WarningDialog.show(
+                                    _resources.getString("oper.common.alert.title"),
+                                    _resources.getString("oper.common.alert.header"),
+                                    _resources.getString("oper.common.alert.content.value_comment.too_long"),
+                                    _mainApp);
+
+                            throw new ValidationException("Value of the record along with comment is too long");
+                        }
+                    }
                     break;
 
                 default:

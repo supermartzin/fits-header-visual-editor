@@ -26,7 +26,10 @@ public final class Constants {
     public static final String EXCEPTION_IDENTIFIER = " EXCEPTION >>";
 
     public static final Pattern TIME_PATTERN = Pattern.compile("^[\\d:.]{1,12}$");
+    public static final Pattern ONLY_ASCII_PATERN = Pattern.compile("^[\\u0000-\\u007F]*$");
     public static final Pattern INDEX_PATTERN = Pattern.compile("^[1-9]\\d*$");
+    public static final Pattern STRING_VALUE_MAX_LENGTH_PATERN = Pattern.compile("^.{0,68}$");
+    public static final Pattern COMMENT_MAX_LENGTH_PATERN = Pattern.compile("^.{0,47}$");
     public static final Pattern DECIMAL_NUMBER_PATTERN = Pattern.compile("^\\d*(\\.\\d*)?$");
     public static final Pattern NONNEG_INTEGRAL_NUMBER_PATTERN = Pattern.compile("^\\d{1,5}$");
     public static final Pattern KEYWORD_PATTERN = Pattern.compile("[a-zA-Z\\d_-]{1,8}");
@@ -39,4 +42,7 @@ public final class Constants {
 
     public static final Pattern OUTPUT_DATETIME_PATTERN = Pattern.compile("^(\\[\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{0,3})?\\])");
     public static final Pattern OUTPUT_FITS_FILE_PATTERN = Pattern.compile(">> \\[(.+?)\\]: ");
+
+    public static final int MAX_STRING_VALUE_AND_COMMENT_LENGTH = 65;
+    public static final int MAX_STRING_VALUE_LENGTH = 68;
 }

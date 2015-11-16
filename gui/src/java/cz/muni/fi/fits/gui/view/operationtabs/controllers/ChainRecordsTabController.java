@@ -3,6 +3,8 @@ package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 import cz.muni.fi.fits.gui.models.ChainRecordGroup;
 import cz.muni.fi.fits.gui.models.inputdata.ChainRecordsInputData;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
+import cz.muni.fi.fits.gui.utils.Constants;
+import cz.muni.fi.fits.gui.utils.Constrainer;
 import cz.muni.fi.fits.gui.utils.ValidationException;
 import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import javafx.scene.control.Button;
@@ -42,6 +44,8 @@ public class ChainRecordsTabController extends OperationTabController {
         _tabName = _resources.getString("tab.chain");
         _validator = new Validator();
 
+        setFieldsConstraints();
+
         ChainRecordGroup requiredGroup = new ChainRecordGroup(_resources, true);
         addNewRecordGroup(requiredGroup);
     }
@@ -64,7 +68,7 @@ public class ChainRecordsTabController extends OperationTabController {
             List<ChainRecordsInputData.ChainTuple> chainValues = new LinkedList<>();
             _chainRecordGroups.forEach((index, chainRecordGroup) ->
                     chainValues.add(new ChainRecordsInputData.ChainTuple(chainRecordGroup.getValueType(),
-                                                                         chainRecordGroup.getValue())));
+                            chainRecordGroup.getValue())));
 
             // get comment
             String comment = commentField.getText();
@@ -107,6 +111,11 @@ public class ChainRecordsTabController extends OperationTabController {
             // decrease current row index
             _currentIndex--;
         }
+    }
+
+    private void setFieldsConstraints() {
+        Constrainer.constrainTextFieldWithRegex(commentField, Constants.ONLY_ASCII_PATERN);
+        Constrainer.constrainTextFieldWithRegex(commentField, Constants.COMMENT_MAX_LENGTH_PATERN);
     }
 
     private void moveFollowingValueGroups(int startIndex) {
@@ -155,6 +164,8 @@ public class ChainRecordsTabController extends OperationTabController {
          */
         void validateChainRecordGroupFields()
                 throws ValidationException {
+            int constantsLength = 0;
+
             for (ChainRecordGroup chainRecordGroup : _chainRecordGroups.values()) {
                 // validate value type
                 if (chainRecordGroup.getValueType() == null) {
@@ -191,8 +202,35 @@ public class ChainRecordsTabController extends OperationTabController {
 
                             throw new ValidationException("Constant value of chained record is not set");
                         }
+
+                        constantsLength += chainRecordGroup.getValue().length();
                         break;
                 }
+            }
+
+            // check constants length
+            if (!longstringsSwitchField.isSelected()
+                    && constantsLength > Constants.MAX_STRING_VALUE_LENGTH) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.chain.alert.content.value.constant.too_long"),
+                        _mainApp);
+
+                throw new ValidationException("Constant values of chained record are too long");
+            }
+
+            // check constants + comment length
+            if (!commentField.getText().isEmpty()
+                    && !longstringsSwitchField.isSelected()
+                    && constantsLength + commentField.getText().length() > Constants.MAX_STRING_VALUE_AND_COMMENT_LENGTH) {
+                WarningDialog.show(
+                        _resources.getString("oper.common.alert.title"),
+                        _resources.getString("oper.common.alert.header"),
+                        _resources.getString("oper.chain.alert.content.value.constants_comment.too_long"),
+                        _mainApp);
+
+                throw new ValidationException("Constant values of chained record along with the comment are too long");
             }
         }
     }

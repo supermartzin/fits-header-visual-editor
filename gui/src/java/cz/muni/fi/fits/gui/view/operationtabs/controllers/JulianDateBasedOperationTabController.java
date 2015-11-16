@@ -48,6 +48,8 @@ public abstract class JulianDateBasedOperationTabController extends OperationTab
         Constrainer.constrainTextFieldWithRegex(datetimeValueTimeField, Constants.TIME_PATTERN);
         Constrainer.constrainTextFieldWithRegex(exposureKeywordField, Constants.KEYWORD_PATTERN);
         Constrainer.constrainTextFieldWithRegex(exposureValueField, Constants.DECIMAL_NUMBER_PATTERN);
+        Constrainer.constrainTextFieldWithRegex(commentField, Constants.ONLY_ASCII_PATERN);
+        Constrainer.constrainTextFieldWithRegex(commentField, Constants.COMMENT_MAX_LENGTH_PATERN);
     }
 
     protected void loadDatetimeRecordTypeField() {
