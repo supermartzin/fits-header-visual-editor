@@ -4,7 +4,7 @@ import cz.muni.fi.fits.gui.models.inputdata.ChangeKeywordInputData;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Constrainer;
-import cz.muni.fi.fits.gui.utils.ValidationException;
+import cz.muni.fi.fits.gui.exceptions.ValidationException;
 import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;

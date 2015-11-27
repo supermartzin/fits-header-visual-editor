@@ -2,7 +2,7 @@ package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.models.inputdata.JulianDateInputData;
-import cz.muni.fi.fits.gui.utils.ValidationException;
+import cz.muni.fi.fits.gui.exceptions.ValidationException;
 
 /**
  * TODO insert description

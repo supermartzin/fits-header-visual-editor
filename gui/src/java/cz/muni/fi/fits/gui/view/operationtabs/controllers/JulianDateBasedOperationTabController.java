@@ -1,5 +1,6 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
+import cz.muni.fi.fits.gui.exceptions.ValidationException;
 import cz.muni.fi.fits.gui.models.operationenums.JDRecordType;
 import cz.muni.fi.fits.gui.utils.*;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;

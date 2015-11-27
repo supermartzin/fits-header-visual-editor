@@ -1,9 +1,10 @@
-package cz.muni.fi.fits.gui.services;
+package cz.muni.fi.fits.gui.tasks;
 
 import cz.muni.fi.fits.gui.models.FilterType;
 import cz.muni.fi.fits.gui.models.FitsFile;
+import cz.muni.fi.fits.gui.NomTamFitsReader;
 import javafx.concurrent.Task;
-import nom.tam.fits.*;
+import nom.tam.fits.FitsFactory;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -47,20 +48,14 @@ public class FilteringTask extends Task<Set<FitsFile>> {
 
         _fitsFiles.forEach(
                 fitsFile -> {
-                    try (Fits fits = new Fits(fitsFile.getFilepath())) {
+                    try (NomTamFitsReader fits = new NomTamFitsReader(fitsFile.getFilepath())) {
                         boolean matchesFilter = false;
 
-                        // get header of first HDU unit
-                        BasicHDU hdu = fits.getHDU(0);
-                        Header header = hdu.getHeader();
-
                         // find out if matches filter
-                        if (_value != null) {
-                            matchesFilter = header.containsKey(_keyword)
-                                    && header.findCard(_keyword).getValue().equals(_value);
-                        } else {
-                            matchesFilter = header.containsKey(_keyword);
-                        }
+                        if (_value != null)
+                            matchesFilter = fits.containsRecordWithValue(_keyword, _value);
+                        else
+                            matchesFilter = fits.containsRecord(_keyword);
 
                         // remove or keep files with matching keyword/value
                         switch (_filterType) {
@@ -74,7 +69,7 @@ public class FilteringTask extends Task<Set<FitsFile>> {
                                     filesToRemove.add(fitsFile);
                                 break;
                         }
-                    } catch (IOException | FitsException ignored) { }
+                    } catch (IOException ignored) { }
                 });
 
         // return files to remove

@@ -3,26 +3,14 @@ package cz.muni.fi.fits.gui.listeners;
 /**
  * TODO insert description
  *
- * @author Martin Vrábel - © 2015 FITS-HeaderVisualEditor
+ * @author Martin Vrábel
  * @version 1.0
  */
 public interface OutputListener {
 
     /**
      *
-     * @param infoMessage
+     * @param message
      */
-    void onInfo(String infoMessage);
-
-    /**
-     *
-     * @param errorMessage
-     */
-    void onError(String errorMessage);
-
-    /**
-     *
-     * @param exceptionMessage
-     */
-    void onException(String exceptionMessage);
+    void onOutputMessage(String message);
 }

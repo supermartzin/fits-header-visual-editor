@@ -2,7 +2,7 @@ package cz.muni.fi.fits.gui.view.controllers;
 
 import cz.muni.fi.fits.gui.models.FilterType;
 import cz.muni.fi.fits.gui.models.FitsFile;
-import cz.muni.fi.fits.gui.services.FilteringTask;
+import cz.muni.fi.fits.gui.tasks.FilteringTask;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Constrainer;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;

@@ -1,10 +1,10 @@
 package cz.muni.fi.fits.gui;
 
-import cz.muni.fi.fits.gui.listeners.OutputListener;
+import cz.muni.fi.fits.gui.listeners.MessageListener;
 import cz.muni.fi.fits.gui.models.FitsFile;
 import cz.muni.fi.fits.gui.models.Preferences;
-import cz.muni.fi.fits.gui.services.ExecutionService;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
+import cz.muni.fi.fits.gui.tasks.EditingTask;
 import cz.muni.fi.fits.gui.utils.dialogs.ExceptionDialog;
 import cz.muni.fi.fits.gui.view.controllers.FilesOverviewController;
 import cz.muni.fi.fits.gui.view.controllers.OperationTabsViewController;
@@ -116,9 +116,9 @@ public class MainApp extends Application {
         return _preferences;
     }
 
-    public void setExecutionService(ExecutionService executionService) {
-        if (executionService != null) {
-            executionService.setOutputListener(new OutputListener() {
+    public void setEditingTask(EditingTask editingTask) {
+        if (editingTask != null) {
+            editingTask.setMessageListener(new MessageListener() {
                 @Override
                 public void onInfo(String infoMessage) {
                     Platform.runLater(() -> _outputViewController.onInfoMessage(infoMessage));

@@ -5,7 +5,7 @@ import cz.muni.fi.fits.gui.models.inputdata.ChainRecordsInputData;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Constrainer;
-import cz.muni.fi.fits.gui.utils.ValidationException;
+import cz.muni.fi.fits.gui.exceptions.ValidationException;
 import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;

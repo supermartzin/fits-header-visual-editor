@@ -1,5 +1,6 @@
 package cz.muni.fi.fits.gui.view.operationtabs.controllers;
 
+import cz.muni.fi.fits.gui.exceptions.ValidationException;
 import cz.muni.fi.fits.gui.models.inputdata.AddNewRecordInputData;
 import cz.muni.fi.fits.gui.models.inputdata.AddNewToIndexInputData;
 import cz.muni.fi.fits.gui.models.inputdata.InputData;

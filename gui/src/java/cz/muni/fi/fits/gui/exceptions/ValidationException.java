@@ -1,4 +1,4 @@
-package cz.muni.fi.fits.gui.utils;
+package cz.muni.fi.fits.gui.exceptions;
 
 /**
  * TODO insert description
