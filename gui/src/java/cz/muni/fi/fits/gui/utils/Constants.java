@@ -18,7 +18,7 @@ public final class Constants {
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
     public static final String ENGINE_PROPERTIES_FILENAME = "fits.properties";
-    public static final String PATH_SEPARATOR = File.separator;
+    public static final String FILE_SEPARATOR = File.separator;
     public static final String NEWLINE = System.getProperty("line.separator");
 
     public static final String INFO_IDENTIFIER = " INFO >>";

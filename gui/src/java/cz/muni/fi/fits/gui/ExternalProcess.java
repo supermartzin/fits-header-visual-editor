@@ -11,7 +11,7 @@ import java.util.Collection;
  * @author Martin Vrábel
  * @version 1.0
  */
-public interface ExternalEditor {
+public interface ExternalProcess {
 
     /**
      *

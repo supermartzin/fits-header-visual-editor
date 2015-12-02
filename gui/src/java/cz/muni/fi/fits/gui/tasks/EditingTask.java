@@ -1,7 +1,7 @@
 package cz.muni.fi.fits.gui.tasks;
 
 import cz.muni.fi.fits.gui.listeners.MessageListener;
-import cz.muni.fi.fits.gui.ExternalEditor;
+import cz.muni.fi.fits.gui.ExternalProcess;
 import cz.muni.fi.fits.gui.utils.Constants;
 import javafx.concurrent.Task;
 
@@ -15,7 +15,7 @@ import java.util.Collection;
  */
 public class EditingTask extends Task<Void> {
 
-    private final ExternalEditor _fitsEditor;
+    private final ExternalProcess _fitsEditor;
     private final Collection<String> _inputArguments;
     private final int _maxProcessLength;
 
@@ -24,7 +24,7 @@ public class EditingTask extends Task<Void> {
     private int _counter;
     private boolean _endedWithErrors;
 
-    public EditingTask(ExternalEditor fitsEditor, Collection<String> inputArguments, int numberOfFiles) {
+    public EditingTask(ExternalProcess fitsEditor, Collection<String> inputArguments, int numberOfFiles) {
         if (fitsEditor == null)
             throw new IllegalArgumentException("External Editor is null");
         if (inputArguments == null)
@@ -52,6 +52,7 @@ public class EditingTask extends Task<Void> {
     protected Void call() throws Exception {
         _fitsEditor.addOutputListener(this::onMessage);
 
+        // reset flags
         _counter = 0;
         _endedWithErrors = false;
 

@@ -1,12 +1,11 @@
 package cz.muni.fi.fits.gui.view.controllers;
 
 import cz.muni.fi.fits.gui.MainApp;
-import cz.muni.fi.fits.gui.models.FitsFile;
+import cz.muni.fi.fits.gui.models.FileItem;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
 import cz.muni.fi.fits.gui.utils.dialogs.ExceptionDialog;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -30,11 +29,10 @@ public class FilesOverviewController extends Controller {
 
     private static final Object LOCK = new Object();
 
-    public TableView<FitsFile> tableView;
-    public TableColumn<FitsFile, Boolean> selectColumn;
-    public TableColumn<FitsFile, String> filenameColumn;
-    public TableColumn<FitsFile, String> filepathColumn;
-    public Label numberOfSelectedFilesLabel;
+    public TableView<FileItem> tableView;
+    public TableColumn<FileItem, Boolean> selectColumn;
+    public TableColumn<FileItem, String> filenameColumn;
+    public TableColumn<FileItem, String> filepathColumn;
 
     public MenuItem deleteMenuItem;
     public MenuItem selectMenuItem;
@@ -49,12 +47,6 @@ public class FilesOverviewController extends Controller {
 
     @Override
     public void init() {
-        // initialize number of selected files
-        _numberOfSelectedFiles = new SimpleIntegerProperty(0);
-        _numberOfSelectedFiles.addListener((observable, oldValue, newValue) -> {
-            numberOfSelectedFilesLabel.setText(newValue.toString());
-        });
-
         // allow multiple rows selection
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -68,7 +60,7 @@ public class FilesOverviewController extends Controller {
         });
 
         // prevent table columns reordering
-        tableView.getColumns().addListener((ListChangeListener<TableColumn<FitsFile, ?>>) change -> {
+        tableView.getColumns().addListener((ListChangeListener<TableColumn<FileItem, ?>>) change -> {
             change.next();
             if (change.wasReplaced()) {
                 tableView.getColumns().clear();
@@ -78,13 +70,9 @@ public class FilesOverviewController extends Controller {
 
         // set column as a CheckBox column
         selectColumn.setCellFactory(cellData -> {
-            CheckBoxTableCell<FitsFile, Boolean> checkBoxTableCell = new CheckBoxTableCell<>();
+            CheckBoxTableCell<FileItem, Boolean> checkBoxTableCell = new CheckBoxTableCell<>();
             // set value changed listener
-            checkBoxTableCell.setSelectedStateCallback(index -> {
-                setNumberOfSelectedFilesLabel();
-
-                return tableView.getItems().get(index).selectedProperty();
-            });
+            checkBoxTableCell.setSelectedStateCallback(index -> tableView.getItems().get(index).selectedProperty());
             return checkBoxTableCell;
         });
 
@@ -94,7 +82,7 @@ public class FilesOverviewController extends Controller {
         selectColumn.setGraphic(selectFilesCheckBox);
         selectFilesCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             synchronized (LOCK) {
-                tableView.getItems().forEach(fitsFile -> fitsFile.setSelected(newValue));
+                tableView.getItems().forEach(fileItem -> fileItem.setSelected(newValue));
             }
         });
 
@@ -104,7 +92,7 @@ public class FilesOverviewController extends Controller {
         filepathColumn.setCellValueFactory(cellData -> cellData.getValue().filepathProperty());
     }
 
-    public void setTableItemsCollection(ObservableList<FitsFile> observableList) {
+    public void setTableItemsCollection(ObservableList<FileItem> observableList) {
         if (observableList == null)
             throw new IllegalArgumentException("observableList is null");
 
@@ -112,7 +100,7 @@ public class FilesOverviewController extends Controller {
         tableView.setItems(observableList);
 
         // listener for number of items in table
-        tableView.getItems().addListener((ListChangeListener<FitsFile>) change ->
+        tableView.getItems().addListener((ListChangeListener<FileItem>) change ->
                 Platform.runLater(() -> {
                     if (change.getList().size() > 0) {
                         setSelectButtonsState(true, true, true);
@@ -122,23 +110,13 @@ public class FilesOverviewController extends Controller {
 
                         setSelectButtonsState(false, false, false);
                     }
-
-                    // set number of selected files label
-                    setNumberOfSelectedFilesLabel();
                 }));
-    }
-
-    private void setNumberOfSelectedFilesLabel() {
-        synchronized (LOCK) {
-            int count = tableView.getItems().stream().filter(FitsFile::isSelected).toArray().length;
-            _numberOfSelectedFiles.setValue(count);
-        }
     }
 
     //region Buttons methods
 
     public void onInvertSelection() {
-        tableView.getItems().forEach(fitsFile -> fitsFile.setSelected(!fitsFile.isSelected()));
+        tableView.getItems().forEach(fileItem -> fileItem.setSelected(!fileItem.isSelected()));
     }
 
     public void onFilterActivated() {
@@ -181,7 +159,7 @@ public class FilesOverviewController extends Controller {
         List<File> files = fileChooser.showOpenMultipleDialog(_mainApp.getPrimaryStage());
         if (files != null) {
             files.forEach(file -> {
-                FitsFile newFile = new FitsFile(file.getName(), file.getAbsolutePath());
+                FileItem newFile = new FileItem(file.getName(), file.getAbsolutePath());
                 // check for file uniqueness
                 if (!tableView.getItems().contains(newFile))
                     tableView.getItems().add(newFile);
@@ -200,7 +178,7 @@ public class FilesOverviewController extends Controller {
     //region Context Menu methods
 
     public void onContextMenuShowing() {
-        ObservableList<FitsFile> selectedItems = tableView.getSelectionModel().getSelectedItems();
+        ObservableList<FileItem> selectedItems = tableView.getSelectionModel().getSelectedItems();
         if (areAllItemsSelected(selectedItems)) {
             selectMenuItem.setDisable(true);
         }
@@ -215,23 +193,23 @@ public class FilesOverviewController extends Controller {
     }
 
     public void onDeleteContextMenu() {
-        ObservableList<FitsFile> selected = tableView.getSelectionModel().getSelectedItems();
+        ObservableList<FileItem> selected = tableView.getSelectionModel().getSelectedItems();
         if (selected.size() > 0) tableView.getItems().removeAll(selected);
     }
 
     public void onSelectContextMenu() {
-        ObservableList<FitsFile> selected = tableView.getSelectionModel().getSelectedItems();
-        selected.forEach(fitsFile -> fitsFile.setSelected(true));
+        ObservableList<FileItem> selected = tableView.getSelectionModel().getSelectedItems();
+        selected.forEach(fileItem -> fileItem.setSelected(true));
     }
 
     public void onDeselectContextMenu() {
-        ObservableList<FitsFile> selected = tableView.getSelectionModel().getSelectedItems();
-        selected.forEach(fitsFile -> fitsFile.setSelected(false));
+        ObservableList<FileItem> selected = tableView.getSelectionModel().getSelectedItems();
+        selected.forEach(fileItem -> fileItem.setSelected(false));
     }
 
     public void onInvertContextMenu() {
-        ObservableList<FitsFile> selected = tableView.getSelectionModel().getSelectedItems();
-        selected.forEach(fitsFile -> fitsFile.setSelected(!fitsFile.isSelected()));
+        ObservableList<FileItem> selected = tableView.getSelectionModel().getSelectedItems();
+        selected.forEach(fileItem -> fileItem.setSelected(!fileItem.isSelected()));
     }
 
     private void setContextMenuState(boolean deleteState, boolean selectState, boolean deselectState, boolean invertState) {
@@ -241,26 +219,26 @@ public class FilesOverviewController extends Controller {
         invertMenuItem.setDisable(!invertState);
     }
 
-    private boolean areAllItemsSelected(Collection<FitsFile> fitsFiles) {
-        if (fitsFiles == null)
+    private boolean areAllItemsSelected(Collection<FileItem> fileItems) {
+        if (fileItems == null)
             return false;
 
         // if at least one FitsFile is deselected > return false
-        for (FitsFile fitsFile : fitsFiles) {
-            if (!fitsFile.isSelected())
+        for (FileItem fileItem : fileItems) {
+            if (!fileItem.isSelected())
                 return false;
         }
 
         return true;
     }
 
-    private boolean areAllItemsDeselected(Collection<FitsFile> fitsFiles) {
-        if (fitsFiles == null)
+    private boolean areAllItemsDeselected(Collection<FileItem> fileItems) {
+        if (fileItems == null)
             return false;
 
         // if at least one FitsFile is selected > return false
-        for (FitsFile fitsFile : fitsFiles) {
-            if (fitsFile.isSelected())
+        for (FileItem fileItem : fileItems) {
+            if (fileItem.isSelected())
                 return false;
         }
 

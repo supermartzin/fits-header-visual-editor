@@ -1,8 +1,9 @@
 package cz.muni.fi.fits.gui.tasks;
 
+import cz.muni.fi.fits.gui.FITSFile;
 import cz.muni.fi.fits.gui.models.FilterType;
-import cz.muni.fi.fits.gui.models.FitsFile;
-import cz.muni.fi.fits.gui.NomTamFitsReader;
+import cz.muni.fi.fits.gui.models.FileItem;
+import cz.muni.fi.fits.gui.NomTamFitsFile;
 import javafx.concurrent.Task;
 import nom.tam.fits.FitsFactory;
 
@@ -17,38 +18,38 @@ import java.util.Set;
  * @author Martin Vrábel
  * @version 1.0
  */
-public class FilteringTask extends Task<Set<FitsFile>> {
+public class FilteringTask extends Task<Set<FileItem>> {
 
-    private final Collection<FitsFile> _fitsFiles;
+    private final Collection<FileItem> _files;
     private final FilterType _filterType;
     private final String _keyword;
     private final String _value;
 
-    public FilteringTask(Collection<FitsFile> fitsFiles, FilterType filterType,
+    public FilteringTask(Collection<FileItem> files, FilterType filterType,
                          String keyword, String value) {
-        if (fitsFiles == null)
-            throw new IllegalArgumentException("FitsFiles collection is null");
+        if (files == null)
+            throw new IllegalArgumentException("Files collection is null");
         if (filterType == null)
             throw new IllegalArgumentException("Filter type is null");
         if (keyword == null)
             throw new IllegalArgumentException("Keyword is null");
 
-        _fitsFiles = new HashSet<>(fitsFiles);
+        _files = new HashSet<>(files);
         _filterType = filterType;
         _keyword = keyword.toUpperCase();
         _value = value;
     }
 
     @Override
-    protected Set<FitsFile> call() throws Exception {
+    protected Set<FileItem> call() throws Exception {
         // allow longstrings
         FitsFactory.setLongStringsEnabled(true);
 
-        Set<FitsFile> filesToRemove = new HashSet<>();
+        Set<FileItem> filesToRemove = new HashSet<>();
 
-        _fitsFiles.forEach(
-                fitsFile -> {
-                    try (NomTamFitsReader fits = new NomTamFitsReader(fitsFile.getFilepath())) {
+        _files.forEach(
+                fileItem -> {
+                    try (FITSFile fits = new NomTamFitsFile(fileItem.getFilepath())) {
                         boolean matchesFilter = false;
 
                         // find out if matches filter
@@ -61,12 +62,12 @@ public class FilteringTask extends Task<Set<FitsFile>> {
                         switch (_filterType) {
                             case KEEP:
                                 if (!matchesFilter)
-                                    filesToRemove.add(fitsFile);
+                                    filesToRemove.add(fileItem);
                                 break;
 
                             case REMOVE:
                                 if (matchesFilter)
-                                    filesToRemove.add(fitsFile);
+                                    filesToRemove.add(fileItem);
                                 break;
                         }
                     } catch (IOException ignored) { }

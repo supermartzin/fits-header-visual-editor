@@ -20,7 +20,7 @@ import java.util.List;
  * @author Martin Vrábel
  * @version 1.0
  */
-public class FITSHeaderEditor implements ExternalEditor {
+public class FITSHeaderEditor implements ExternalProcess {
 
     private final Preferences _preferences;
 
@@ -113,7 +113,7 @@ public class FITSHeaderEditor implements ExternalEditor {
         if (engineDirectory == null)
             engineDirectory = ".";
 
-        Path fitsProperties = Paths.get(engineDirectory + Constants.PATH_SEPARATOR + Constants.ENGINE_PROPERTIES_FILENAME);
+        Path fitsProperties = Paths.get(engineDirectory + Constants.FILE_SEPARATOR + Constants.ENGINE_PROPERTIES_FILENAME);
 
         // create properties file if it does not exist
         if (!Files.exists(fitsProperties)) {

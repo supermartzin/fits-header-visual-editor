@@ -1,15 +1,15 @@
 package cz.muni.fi.fits.gui.view.controllers;
 
+import cz.muni.fi.fits.gui.models.FileItem;
 import cz.muni.fi.fits.gui.models.FilterType;
-import cz.muni.fi.fits.gui.models.FitsFile;
 import cz.muni.fi.fits.gui.tasks.FilteringTask;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Constrainer;
+import cz.muni.fi.fits.gui.utils.ThreadUtils;
 import cz.muni.fi.fits.gui.utils.combobox.ComboBoxItem;
 import cz.muni.fi.fits.gui.utils.dialogs.ExceptionDialog;
 import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import javafx.application.Platform;
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.scene.control.*;
@@ -55,7 +55,7 @@ public class FilterDialogController extends Controller {
         if (!checkFilterTypeField())
             return;
 
-        final Collection<FitsFile> fitsFiles = _mainApp.getAllFitsFiles();
+        final Collection<FileItem> files = _mainApp.getAllFiles();
         final FilterType filterType = filterTypeField.getValue().getType();
         final String keyword = keywordField.getText();
         final String value = valueSwitchField.isSelected()
@@ -64,24 +64,18 @@ public class FilterDialogController extends Controller {
 
 
         // create background service
-        Task<Set<FitsFile>> filteringTask = new FilteringTask(fitsFiles, filterType, keyword, value);
-        Service service = new Service() {
-            @Override
-            protected Task createTask() {
-                return filteringTask;
-            }
-        };
+        Task<Set<FileItem>> filteringTask = new FilteringTask(files, filterType, keyword, value);
 
         // set listeners
-        service.setOnSucceeded(event ->
+        filteringTask.setOnSucceeded(event ->
                 Platform.runLater(() -> {
                     // remove all affected files
-                    _mainApp.getAllFitsFiles().removeAll(filteringTask.getValue());
+                    _mainApp.getAllFiles().removeAll(filteringTask.getValue());
 
                     showProgressIndicator(false);
                     closeStage();
                 }));
-        service.setOnFailed(event ->
+        filteringTask.setOnFailed(event ->
                 Platform.runLater(() -> {
                     showProgressIndicator(false);
 
@@ -94,7 +88,7 @@ public class FilterDialogController extends Controller {
 
                     closeStage();
                 }));
-        service.setOnCancelled(event ->
+        filteringTask.setOnCancelled(event ->
                 Platform.runLater(() -> {
                     showProgressIndicator(false);
                     closeStage();
@@ -104,8 +98,8 @@ public class FilterDialogController extends Controller {
         disableButtons();
         disableFilterField();
 
-        // START the filtering
-        service.start();
+        // START filtering in background thread
+        ThreadUtils.executeInBackground(filteringTask);
     }
 
     public void onCancel() {

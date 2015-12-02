@@ -4,7 +4,6 @@ import nom.tam.fits.Fits;
 import nom.tam.fits.FitsException;
 import nom.tam.fits.Header;
 
-import java.io.Closeable;
 import java.io.IOException;
 
 /**
@@ -13,12 +12,12 @@ import java.io.IOException;
  * @author Martin Vrábel
  * @version 1.0
  */
-public class NomTamFitsReader implements FitsEngine, Closeable {
+public class NomTamFitsFile implements FITSFile {
 
     private final Fits _fitsFile;
     private final Header _fitsHeader;
 
-    public NomTamFitsReader(String fitsFilename)
+    public NomTamFitsFile(String fitsFilename)
             throws IOException {
         try {
             _fitsFile = new Fits(fitsFilename);
@@ -43,7 +42,7 @@ public class NomTamFitsReader implements FitsEngine, Closeable {
         return recordKey != null
                 && recordValue != null
                 && _fitsHeader.containsKey(recordKey)
-                && _fitsHeader.findCard(recordKey).getValue().equals(recordValue);
+                && _fitsHeader.findCard(recordKey).getValue().contains(recordValue);
     }
 
     @Override

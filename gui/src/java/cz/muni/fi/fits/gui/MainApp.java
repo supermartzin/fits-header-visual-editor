@@ -1,7 +1,7 @@
 package cz.muni.fi.fits.gui;
 
 import cz.muni.fi.fits.gui.listeners.MessageListener;
-import cz.muni.fi.fits.gui.models.FitsFile;
+import cz.muni.fi.fits.gui.models.FileItem;
 import cz.muni.fi.fits.gui.models.Preferences;
 import cz.muni.fi.fits.gui.services.ResourceBundleService;
 import cz.muni.fi.fits.gui.tasks.EditingTask;
@@ -45,12 +45,12 @@ public class MainApp extends Application {
 
     private OutputViewController _outputViewController;
 
-    private ObservableList<FitsFile> _fitsFiles;
+    private ObservableList<FileItem> _files;
     private Preferences _preferences;
     private ResourceBundle _resources;
 
     public MainApp() {
-        _fitsFiles = FXCollections.observableArrayList();
+        _files = FXCollections.observableArrayList();
         _preferences = new Preferences();
     }
 
@@ -93,19 +93,19 @@ public class MainApp extends Application {
         return _primaryStage;
     }
 
-    public Collection<FitsFile> getFitsFiles() {
-        Set<FitsFile> selectedFiles = new HashSet<>();
+    public Collection<FileItem> getSelectedFiles() {
+        Set<FileItem> selectedFiles = new LinkedHashSet<>();
 
         // filter only selected files
-        _fitsFiles.stream()
-                .filter(FitsFile::isSelected)
+        _files.stream()
+                .filter(FileItem::isSelected)
                 .forEach(selectedFiles::add);
 
         return selectedFiles;
     }
 
-    public ObservableList<FitsFile> getAllFitsFiles() {
-        return _fitsFiles;
+    public ObservableList<FileItem> getAllFiles() {
+        return _files;
     }
 
     public void setPreferences(Preferences preferences) {
@@ -179,7 +179,7 @@ public class MainApp extends Application {
 
         FilesOverviewController controller = filesOverviewFile.getController();
         controller.setMainApp(this);
-        controller.setTableItemsCollection(_fitsFiles);
+        controller.setTableItemsCollection(_files);
     }
 
     private void initOperationTabsView()

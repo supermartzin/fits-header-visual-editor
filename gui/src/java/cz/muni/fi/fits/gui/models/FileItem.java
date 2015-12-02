@@ -10,16 +10,16 @@ import java.util.Objects;
 /**
  * TODO insert description
  */
-public class FitsFile {
+public class FileItem implements Comparable<FileItem> {
 
     private final StringProperty _filename;
     private final StringProperty _filepath;
     private final BooleanProperty _selected;
 
-    public FitsFile(String filename, String filepath) {
-        this._filename = new SimpleStringProperty(filename);
-        this._filepath = new SimpleStringProperty(filepath);
-        this._selected = new SimpleBooleanProperty(false);
+    public FileItem(String filename, String filepath) {
+        _filename = new SimpleStringProperty(filename);
+        _filepath = new SimpleStringProperty(filepath);
+        _selected = new SimpleBooleanProperty(false);
     }
 
     public String getFilename() {
@@ -59,6 +59,11 @@ public class FitsFile {
     }
 
     @Override
+    public String toString() {
+        return _filename.get();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
@@ -67,13 +72,18 @@ public class FitsFile {
                 || getClass() != o.getClass())
             return false;
 
-        FitsFile fitsFile = (FitsFile) o;
-        return Objects.equals(_filename, fitsFile._filename) &&
-                Objects.equals(_filepath, fitsFile._filepath);
+        FileItem fileItem = (FileItem) o;
+        return Objects.equals(_filename.get(), fileItem._filename.get()) &&
+                Objects.equals(_filepath.get(), fileItem._filepath.get());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(_filename, _filepath);
+        return Objects.hash(_filename.get(), _filepath.get());
+    }
+
+    @Override
+    public int compareTo(FileItem fileItem) {
+        return _filename.get().compareTo(fileItem._filename.get());
     }
 }

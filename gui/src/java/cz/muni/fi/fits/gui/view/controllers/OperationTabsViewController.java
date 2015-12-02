@@ -1,19 +1,18 @@
 package cz.muni.fi.fits.gui.view.controllers;
 
-import cz.muni.fi.fits.gui.exceptions.InvalidEnginePathException;
-import cz.muni.fi.fits.gui.models.FitsFile;
-import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.FITSHeaderEditor;
+import cz.muni.fi.fits.gui.exceptions.InvalidEnginePathException;
+import cz.muni.fi.fits.gui.models.FileItem;
+import cz.muni.fi.fits.gui.models.inputdata.InputData;
 import cz.muni.fi.fits.gui.tasks.EditingTask;
 import cz.muni.fi.fits.gui.utils.Constants;
 import cz.muni.fi.fits.gui.utils.Parsers;
+import cz.muni.fi.fits.gui.utils.ThreadUtils;
 import cz.muni.fi.fits.gui.utils.dialogs.ErrorDialog;
 import cz.muni.fi.fits.gui.utils.dialogs.ExceptionDialog;
 import cz.muni.fi.fits.gui.utils.dialogs.InfoDialog;
 import cz.muni.fi.fits.gui.utils.dialogs.WarningDialog;
 import cz.muni.fi.fits.gui.view.operationtabs.controllers.TabController;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
@@ -22,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * TODO description
@@ -54,39 +54,32 @@ public class OperationTabsViewController extends Controller {
                 return;
 
             // check input FITS files
-            Collection<FitsFile> fitsFiles = _mainApp.getFitsFiles();
-            if (!checkFitsFiles(fitsFiles)) return;
+            Collection<FileItem> selectedFiles = _mainApp.getSelectedFiles();
+            if (!checkSelectedFiles(selectedFiles)) return;
 
             // input data
             InputData inputData = tab.getInputData();
             if (inputData != null) {
                     try {
                         // create input file with FITS filepaths
-                        Path filesInFile = createInputFile(_mainApp.getFitsFiles());
+                        Path filesInFile = createInputFile(selectedFiles);
 
                         // add input file to input data
                         inputData.setInputFilePath(filesInFile.toAbsolutePath().toString());
 
                         EditingTask task = new EditingTask(new FITSHeaderEditor(_mainApp.getPreferences()),
                                                             inputData.getInputDataArguments(),
-                                                            fitsFiles.size());
+                                                            selectedFiles.size());
 
-                        // send service to MainApp for adding listeners
+                        // send task to MainApp for adding listeners
                         _mainApp.setEditingTask(task);
 
                         progressBar.progressProperty().unbind();
                         progressBar.progressProperty().bind(task.progressProperty());
                         startButton.setDisable(true);
 
-                        Service service = new Service() {
-                            @Override
-                            protected Task createTask() {
-                                return task;
-                            }
-                        };
-
                         // on operation succeeded
-                        service.setOnSucceeded(event -> {
+                        task.setOnSucceeded(event -> {
                             // delete temp input file
                             deleteFileIfExists(filesInFile);
 
@@ -115,7 +108,7 @@ public class OperationTabsViewController extends Controller {
                         });
 
                         // on operation failed
-                        service.setOnFailed(event -> {
+                        task.setOnFailed(event -> {
                             // delete temp input file
                             deleteFileIfExists(filesInFile);
 
@@ -135,7 +128,7 @@ public class OperationTabsViewController extends Controller {
                         });
 
                         // on operation cancelled
-                        service.setOnCancelled(event -> {
+                        task.setOnCancelled(event -> {
                             // delete temp input file
                             deleteFileIfExists(filesInFile);
 
@@ -151,7 +144,8 @@ public class OperationTabsViewController extends Controller {
                             startButton.setDisable(false);
                         });
 
-                        service.start();
+                        // START editing in background thread
+                        ThreadUtils.executeInBackground(task);
                     } catch (InvalidEnginePathException iepEx) {
                         // invalid path to editor engine
                         ErrorDialog.show(
@@ -179,7 +173,6 @@ public class OperationTabsViewController extends Controller {
         }
     }
 
-
     private boolean checkJavaVersion() {
         String versionString = Runtime.class.getPackage().getSpecificationVersion();
         if (Parsers.Double.tryParse(versionString)) {
@@ -198,8 +191,8 @@ public class OperationTabsViewController extends Controller {
         return true;
     }
 
-    private boolean checkFitsFiles(Collection<FitsFile> fitsFiles) {
-        if (fitsFiles == null || fitsFiles.isEmpty()) {
+    private boolean checkSelectedFiles(Collection<FileItem> files) {
+        if (files == null || files.isEmpty()) {
             WarningDialog.show(
                     _resources.getString("oper.common.alert.title"),
                     _resources.getString("oper.common.alert.header"),
@@ -212,10 +205,11 @@ public class OperationTabsViewController extends Controller {
         }
     }
 
-    private Path createInputFile(Collection<FitsFile> fitsFiles)
+    private Path createInputFile(Collection<FileItem> files)
             throws IOException {
-        List<String> filepaths = new LinkedList<>();
-        fitsFiles.forEach(fitsFile -> filepaths.add(fitsFile.getFilepath()));
+        List<String> filepaths = files.stream()
+                                      .map(FileItem::getFilepath)
+                                      .collect(Collectors.toList());
 
         Path filesIn = Files.createTempFile("files", "in");
         Files.write(filesIn, filepaths);
