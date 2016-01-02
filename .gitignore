@@ -1,3 +1,5 @@
 manuals/
 fits-files/
 gui/target/
+.idea/
+FITS-HeaderVisualEditor.iml
