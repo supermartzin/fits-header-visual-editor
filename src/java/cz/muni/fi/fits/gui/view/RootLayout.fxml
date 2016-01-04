@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
 <BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="cz.muni.fi.fits.gui.view.controllers.RootLayoutController">
@@ -53,6 +52,14 @@
                 </RadioMenuItem>
             </Menu>
             <Menu mnemonicParsing="false" text="%help">
+                <MenuItem mnemonicParsing="false" onAction="#onReportIssue" text="%app.issue.report">
+                    <graphic>
+                        <ImageView>
+                            <Image url="@../../../../../../graphics/issue.png"/>
+                        </ImageView>
+                    </graphic>
+                </MenuItem>
+                <SeparatorMenuItem mnemonicParsing="false"/>
                 <MenuItem mnemonicParsing="false" onAction="#onAbout" text="%app.about">
                     <graphic>
                         <ImageView>

@@ -13,6 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * TODO insert description
@@ -113,6 +114,35 @@ public class RootLayoutController extends Controller {
                     _resources.getString("app.error.dialog.content.about"),
                     ioEx,
                     _mainApp);
+        }
+    }
+
+    public void onReportIssue() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(_resources.getString("app.issue.report.dialog.title"));
+        alert.setHeaderText(_resources.getString("app.issue.report.dialog.header"));
+        alert.setContentText(_resources.getString("app.issue.report.dialog.content"));
+
+        ButtonType engineButtonType = new ButtonType(_resources.getString("app.issue.report.dialog.button.engine"));
+        ButtonType guiButtonType = new ButtonType(_resources.getString("app.issue.report.dialog.button.gui"));
+        ButtonType cancelButtonType = new ButtonType(_resources.getString("action.cancel"), ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(engineButtonType, guiButtonType, cancelButtonType);
+
+        alert.initModality(Modality.APPLICATION_MODAL);
+        if (_mainApp != null) {
+            alert.initOwner(_mainApp.getPrimaryStage());
+
+            // set icon
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(_mainApp.getApplicationIcon());
+        }
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == engineButtonType) {
+            _mainApp.getHostServices().showDocument("https://github.com/supermartzin/fits-header-editor/issues");
+        } else if (result.get() == guiButtonType) {
+            _mainApp.getHostServices().showDocument("https://github.com/supermartzin/fits-header-visual-editor/issues");
         }
     }
 

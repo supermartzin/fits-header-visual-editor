@@ -13,8 +13,12 @@ public class AboutDialogController extends Controller {
 
     }
 
-    public void openBachelorThesisHomepage() {
-        // TODO add homepage
+    public void openEnginePartWebpages() {
+        openWebpage("https://github.com/supermartzin/fits-header-editor");
+    }
+
+    public void openGUIPartWebpages() {
+        openWebpage("https://github.com/supermartzin/fits-header-visual-editor");
     }
 
     public void openNomTamFitsHomepage() {
@@ -27,10 +31,6 @@ public class AboutDialogController extends Controller {
 
     public void openGuavaHomepage() {
         openWebpage("https://github.com/google/guava");
-    }
-
-    public void openApacheCommonsHomepage() {
-        openWebpage("https://commons.apache.org/");
     }
 
     public void openFreepikIconsHomepage() {
