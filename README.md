@@ -1,4 +1,11 @@
-# **FITS Header Editor**#
+# **FITS Header Visual Editor**#
+
+This is only graphical interface for [FITS Header Editor](https://github.com/supermartzin/fits-header-editor) executive engine. Engine part can be found in standalone [repository](https://github.com/supermartzin/fits-header-editor).
+
+-----
+
+_Following description is in slovak and czech language:_
+
 
 **Program na hromadnú úpravu hlavičiek FITS súborov.**
 
